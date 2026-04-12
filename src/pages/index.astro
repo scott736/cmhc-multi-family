@@ -1,0 +1,9 @@
+---
+import DefaultLayout from "@/layouts/DefaultLayout.astro";
+import Home from "@/components/sections/home";
+import { SITE_DESCRIPTION, SITE_TITLE } from "../consts";
+---
+
+<DefaultLayout title={SITE_TITLE} description={SITE_DESCRIPTION}>
+  <Home client:load />
+</DefaultLayout>

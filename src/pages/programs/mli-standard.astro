@@ -1,0 +1,359 @@
+---
+import DefaultLayout from "@/layouts/DefaultLayout.astro";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import {
+  MLI_STANDARD_PREMIUMS,
+  PREMIUM_SURCHARGES,
+  MIN_DCR_STANDARD,
+} from "@/data/cmhc";
+
+const title = "MLI Standard — Market Rental CMHC Insurance";
+const description =
+  "The foundational CMHC multi-unit insurance product for 5+ self-contained units. Purchase, refinance and new construction at up to 85% LTV with no affordability commitment required. Full premium grid and eligibility requirements.";
+
+const keyParameters = [
+  { label: "Minimum units", value: "5 self-contained" },
+  { label: "Non-residential cap", value: "≤30% of gross floor area / gross rental income" },
+  { label: "Max LTV", value: "85% (purchase / refi / construction)" },
+  { label: "Max amortization — new", value: "50 years" },
+  { label: "Max amortization — existing", value: "40 years" },
+  { label: "Borrower net worth", value: "≥25% of loan amount, minimum $100,000" },
+  { label: "Management experience", value: "5+ years multi-residential" },
+  { label: "Construction guarantee", value: "100% during build → 40% post-stabilization" },
+  { label: "Purchase / refi guarantee", value: "40% personal guarantee" },
+];
+
+const premiumCredits = [
+  { year: "Year 1", credit: "75%" },
+  { year: "Year 2", credit: "65%" },
+  { year: "Year 3", credit: "55%" },
+  { year: "Year 4", credit: "45%" },
+  { year: "Year 5", credit: "35%" },
+  { year: "Year 6", credit: "25%" },
+  { year: "Year 7+", credit: "20%" },
+];
+---
+
+<DefaultLayout title={title} description={description}>
+  <div class="bg-obsidian text-foreground">
+    {/* HERO */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <Badge
+          variant="outline"
+          className="mb-6 border-star/40 text-star"
+        >
+          MLI Standard
+        </Badge>
+        <h1 class="text-4xl font-semibold tracking-tight lg:text-6xl">
+          Market Rental — the foundational CMHC insurance product.
+        </h1>
+        <p class="mt-6 max-w-3xl text-lg text-muted-foreground">
+          MLI Standard is CMHC's baseline multi-unit insurance product for
+          properties with five or more self-contained rental units. It
+          covers purchase, refinance, and new construction at market rents
+          with no affordability commitment required — making it the default
+          starting point for for-profit rental investors who don't want to
+          take on MLI Select's scoring obligations.
+        </p>
+        <p class="mt-4 max-w-3xl text-lg text-muted-foreground">
+          Non-residential space is capped at 30% of gross floor area and
+          gross rental income. A 1.00% premium surcharge applies to the
+          non-residential portion. Maximum LTV is 85% across all transaction
+          types. Amortization reaches 50 years for new construction
+          (extended June 2024) and 40 years for existing rental refinance
+          or purchase.
+        </p>
+        <p class="mt-4 max-w-3xl text-lg text-muted-foreground">
+          Premiums were restructured on July 14, 2025 into an LTV-tiered
+          grid (replacing earlier flat rates). That grid is shown in full
+          below and is the same underlying schedule MLI Select now uses
+          before applying its tier-based discount.
+        </p>
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a href="/calculators/premium">
+            <Button size="lg">Calculate a premium</Button>
+          </a>
+          <a href="/programs/mli-select">
+            <Button variant="outline" size="lg">Compare to MLI Select</Button>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    {/* KEY PARAMETERS */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="max-w-3xl">
+          <Badge variant="secondary" className="mb-4">Key parameters</Badge>
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+            Underwriting at a glance.
+          </h2>
+          <p class="mt-4 text-muted-foreground">
+            The core MLI Standard underwriting parameters. Minimum DCR
+            varies by unit count, transaction type, and term length.
+          </p>
+        </div>
+
+        <div class="mt-10 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+          {
+            keyParameters.map((p) => (
+              <Card className="bg-jet border-dark-gray p-6">
+                <div class="text-xs uppercase tracking-wide text-muted-foreground">
+                  {p.label}
+                </div>
+                <div class="mt-2 text-lg font-semibold">{p.value}</div>
+              </Card>
+            ))
+          }
+        </div>
+
+        {/* DCR table */}
+        <div class="mt-10">
+          <h3 class="text-xl font-semibold">Minimum Debt Coverage Ratio</h3>
+          <p class="mt-2 text-muted-foreground">
+            CMHC sizes loans on the lower of LTV and DCR. Minimum DCR varies by
+            property segment and transaction type.
+          </p>
+          <div class="mt-6 overflow-x-auto rounded-lg border border-dark-gray">
+            <table class="w-full text-sm">
+              <thead class="bg-jet">
+                <tr>
+                  <th class="px-4 py-3 text-left font-medium">Segment</th>
+                  <th class="px-4 py-3 text-left font-medium">Minimum DCR</th>
+                </tr>
+              </thead>
+              <tbody>
+                {
+                  MIN_DCR_STANDARD.map((row) => (
+                    <tr class="border-t border-dark-gray">
+                      <td class="px-4 py-3">{row.segment}</td>
+                      <td class="px-4 py-3 font-medium">{row.dcr.toFixed(2)}</td>
+                    </tr>
+                  ))
+                }
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* PREMIUM GRIDS */}
+    <section class="border-b border-dark-gray bg-jet">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="max-w-3xl">
+          <Badge variant="outline" className="mb-4 border-star/40 text-star">
+            Effective July 14, 2025
+          </Badge>
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+            The LTV-tiered premium grid.
+          </h2>
+          <p class="mt-4 text-muted-foreground">
+            On July 14, 2025 CMHC replaced flat MLI Standard premiums with a
+            risk-based LTV-tiered grid. Purchase and refinance use one
+            schedule; new construction sits one tier higher to reflect
+            build-out risk. Premiums below assume EGI was met.
+          </p>
+        </div>
+
+        <div class="mt-10 grid gap-6 lg:grid-cols-2">
+          <Card className="bg-obsidian border-dark-gray p-6">
+            <div class="text-xs uppercase tracking-wide text-star">
+              Purchase / Refinance
+            </div>
+            <div class="mt-1 text-lg font-semibold">
+              MLI Standard — existing rental
+            </div>
+            <div class="mt-4 overflow-x-auto">
+              <table class="w-full text-sm">
+                <thead>
+                  <tr class="border-b border-dark-gray">
+                    <th class="px-2 py-2 text-left font-medium">LTV Band</th>
+                    <th class="px-2 py-2 text-right font-medium">Premium</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {
+                    MLI_STANDARD_PREMIUMS.map((row) => (
+                      <tr class="border-b border-dark-gray/50 last:border-0">
+                        <td class="px-2 py-2">{row.band}</td>
+                        <td class="px-2 py-2 text-right font-medium">
+                          {row.purchaseRefi.toFixed(2)}%
+                        </td>
+                      </tr>
+                    ))
+                  }
+                </tbody>
+              </table>
+            </div>
+          </Card>
+
+          <Card className="bg-obsidian border-dark-gray p-6">
+            <div class="text-xs uppercase tracking-wide text-star">
+              Construction
+            </div>
+            <div class="mt-1 text-lg font-semibold">
+              MLI Standard — new construction
+            </div>
+            <div class="mt-4 overflow-x-auto">
+              <table class="w-full text-sm">
+                <thead>
+                  <tr class="border-b border-dark-gray">
+                    <th class="px-2 py-2 text-left font-medium">LTV Band</th>
+                    <th class="px-2 py-2 text-right font-medium">Premium</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {
+                    MLI_STANDARD_PREMIUMS.map((row) => (
+                      <tr class="border-b border-dark-gray/50 last:border-0">
+                        <td class="px-2 py-2">{row.band}</td>
+                        <td class="px-2 py-2 text-right font-medium">
+                          {row.construction.toFixed(2)}%
+                        </td>
+                      </tr>
+                    ))
+                  }
+                </tbody>
+              </table>
+            </div>
+          </Card>
+        </div>
+
+        {/* Surcharges */}
+        <div class="mt-10">
+          <h3 class="text-xl font-semibold">Premium surcharges</h3>
+          <p class="mt-2 text-muted-foreground">
+            Surcharges stack on top of the LTV-band premium.
+          </p>
+          <div class="mt-6 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+            <Card className="bg-obsidian border-dark-gray p-6">
+              <div class="text-xs uppercase tracking-wide text-muted-foreground">
+                Extended amortization
+              </div>
+              <div class="mt-2 text-2xl font-semibold text-star">
+                +{PREMIUM_SURCHARGES.amortizationPer5Years.toFixed(2)}%
+              </div>
+              <p class="mt-2 text-sm text-muted-foreground">
+                Per 5 years beyond 25-year amortization.
+              </p>
+            </Card>
+            <Card className="bg-obsidian border-dark-gray p-6">
+              <div class="text-xs uppercase tracking-wide text-muted-foreground">
+                Non-residential portion
+              </div>
+              <div class="mt-2 text-2xl font-semibold text-star">
+                +{PREMIUM_SURCHARGES.nonResidential.toFixed(2)}%
+              </div>
+              <p class="mt-2 text-sm text-muted-foreground">
+                Applied pro-rata to the non-residential share of the loan.
+              </p>
+            </Card>
+            <Card className="bg-obsidian border-dark-gray p-6">
+              <div class="text-xs uppercase tracking-wide text-muted-foreground">
+                Second mortgage
+              </div>
+              <div class="mt-2 text-2xl font-semibold text-star">
+                +{PREMIUM_SURCHARGES.secondMortgage.toFixed(2)}%
+              </div>
+              <p class="mt-2 text-sm text-muted-foreground">
+                Applied where CMHC-insured second financing is in place.
+              </p>
+            </Card>
+            <Card className="bg-obsidian border-dark-gray p-6">
+              <div class="text-xs uppercase tracking-wide text-muted-foreground">
+                EGI not met
+              </div>
+              <div class="mt-2 text-2xl font-semibold text-star">
+                +{PREMIUM_SURCHARGES.egiNotMet.toFixed(2)}%
+              </div>
+              <p class="mt-2 text-sm text-muted-foreground">
+                Applied when effective gross income falls short of the
+                underwritten figure at stabilization.
+              </p>
+            </Card>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* REFINANCE PREMIUM CREDIT */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="grid gap-10 lg:grid-cols-[1fr_1.2fr]">
+          <div>
+            <Badge variant="secondary" className="mb-4">
+              Premium credit
+            </Badge>
+            <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+              Refinancing an already-insured loan.
+            </h2>
+            <p class="mt-4 text-muted-foreground">
+              When refinancing a loan that already carries CMHC insurance,
+              the borrower receives a premium credit against the new
+              premium. The credit is highest (75%) in year 1 after the
+              original insurance was put in place and declines each year
+              thereafter, leveling at 20% from year 7 onward.
+            </p>
+            <p class="mt-4 text-muted-foreground">
+              The credit is applied to the new premium owing — it does not
+              reduce the loan amount or refund the original premium.
+            </p>
+          </div>
+          <Card className="bg-jet border-dark-gray p-6">
+            <div class="overflow-x-auto">
+              <table class="w-full text-sm">
+                <thead>
+                  <tr class="border-b border-dark-gray">
+                    <th class="px-2 py-2 text-left font-medium">Years since insured</th>
+                    <th class="px-2 py-2 text-right font-medium">Premium credit</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {
+                    premiumCredits.map((row) => (
+                      <tr class="border-b border-dark-gray/50 last:border-0">
+                        <td class="px-2 py-2">{row.year}</td>
+                        <td class="px-2 py-2 text-right font-medium text-star">
+                          {row.credit}
+                        </td>
+                      </tr>
+                    ))
+                  }
+                </tbody>
+              </table>
+            </div>
+          </Card>
+        </div>
+      </div>
+    </section>
+
+    {/* CTA */}
+    <section class="border-b border-dark-gray bg-jet">
+      <div class="container border-l border-r border-dark-gray px-6 py-20 lg:px-12 lg:py-28">
+        <div class="mx-auto max-w-3xl text-center">
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-5xl">
+            Compute the full MLI Standard premium.
+          </h2>
+          <p class="mx-auto mt-5 max-w-2xl text-muted-foreground">
+            The premium calculator applies the July 2025 LTV-tiered grid,
+            all applicable surcharges, and (where relevant) the refinance
+            credit. Use the loan sizer to triple-constrain against DCR and
+            LTV.
+          </p>
+          <div class="mt-8 flex flex-wrap justify-center gap-3">
+            <a href="/calculators/premium">
+              <Button size="lg">Open the premium calculator</Button>
+            </a>
+            <a href="/calculators/loan-sizer">
+              <Button variant="outline" size="lg">Size the loan</Button>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</DefaultLayout>

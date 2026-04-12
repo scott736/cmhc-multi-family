@@ -1,0 +1,126 @@
+---
+import DefaultLayout from "@/layouts/DefaultLayout.astro";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import { LAST_UPDATED } from "@/data/cmhc";
+
+const title = "CMHC Multi-Family Calculators — Point Scorer, Loan Sizer, Premium, Cash Flow";
+const description =
+  "Interactive calculators for CMHC multi-unit financing: MLI Select point scorer, triple-constrained loan sizer, July 14 2025 premium calculator, cash-flow projection, scenario comparison, and premium credit.";
+
+const calculators = [
+  {
+    name: "MLI Select Point Scorer",
+    href: "/calculators/point-scorer",
+    tagline: "Score 50 / 70 / 100",
+    body: "Affordability, energy and accessibility scoring with the 20-year commitment bonus. See exactly which MLI Select tier you qualify for and the LTV, amortization, DCR and premium discount that come with it.",
+  },
+  {
+    name: "Loan Sizer",
+    href: "/calculators/loan-sizer",
+    tagline: "Triple-constrained",
+    body: "Tests LTV/LTC, minimum DCR and program cap simultaneously. Highlights the binding constraint so you can see whether underwriting is leverage-capped or coverage-capped.",
+  },
+  {
+    name: "Premium Calculator",
+    href: "/calculators/premium",
+    tagline: "July 14 2025 grid",
+    body: "LTV-tiered base premium with amortization, non-residential, second-mortgage and EGI surcharges — plus MLI Select 10% / 20% / 30% discount by tier.",
+  },
+  {
+    name: "Cash Flow Projection",
+    href: "/calculators/cash-flow",
+    tagline: "Year-by-year",
+    body: "Projects NOI, debt service, P+I split, cash flow, DCR and loan balance over the holding period. Downloadable CSV.",
+  },
+  {
+    name: "Scenario Comparison",
+    href: "/calculators/compare",
+    tagline: "Conventional vs. Select vs. Standard",
+    body: "Three structures side-by-side on one set of inputs: max loan, equity required, annual debt service, cash-on-cash and total insurance cost.",
+  },
+  {
+    name: "Premium Credit",
+    href: "/calculators/premium-credit",
+    tagline: "Refinance rebate",
+    body: "Estimate the CMHC premium credit available on a refinance based on time since the original insurance was placed.",
+  },
+];
+---
+
+<DefaultLayout title={title} description={description}>
+  <div class="bg-obsidian text-foreground">
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <Badge variant="outline" className="mb-6 border-star/40 text-star">
+          Calculators · Current to {LAST_UPDATED}
+        </Badge>
+        <h1 class="text-4xl font-semibold tracking-tight lg:text-6xl">
+          Model any CMHC multi-unit deal.
+        </h1>
+        <p class="mt-6 max-w-3xl text-lg text-muted-foreground">
+          Six integrated tools that replicate how an approved CMHC lender
+          actually underwrites. Score your MLI Select project, size the loan
+          against all three constraints, compute the post-July 2025 premium,
+          and project cash flow year by year — all with the current grid and
+          policy assumptions baked in.
+        </p>
+        <p class="mt-4 max-w-3xl text-muted-foreground">
+          Results are estimates for educational purposes. Confirm all program
+          terms with CMHC and an approved lender.
+        </p>
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a href="/calculators/point-scorer">
+            <Button size="lg">Start with the point scorer</Button>
+          </a>
+          <a href="/calculators/loan-sizer">
+            <Button variant="outline" size="lg">Jump to the loan sizer</Button>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-12 lg:px-12 lg:py-16">
+        <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+          {
+            calculators.map((c) => (
+              <a href={c.href} class="group">
+                <Card className="h-full bg-jet border-dark-gray p-6 transition-colors hover:border-star/50">
+                  <div class="text-xs uppercase tracking-wide text-muted-foreground">
+                    {c.tagline}
+                  </div>
+                  <div class="mt-1 text-xl font-semibold">{c.name}</div>
+                  <p class="mt-3 text-sm text-muted-foreground">{c.body}</p>
+                  <div class="mt-5 text-sm text-star">Open {c.name} →</div>
+                </Card>
+              </a>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <section class="border-b border-dark-gray bg-jet">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="max-w-3xl">
+          <Badge variant="secondary" className="mb-4">Methodology</Badge>
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+            What's under the hood.
+          </h2>
+          <p class="mt-4 text-muted-foreground">
+            Premium grid reflects the July 14, 2025 overhaul (LTV-tiered with
+            amortization surcharges now applied to MLI Select). Loan-sizer
+            uses monthly-compounded debt service as a simplification of
+            Canadian semi-annual compounding; impact on typical CMHC-insured
+            payments is under 5 basis points. Point scoring uses CMHC's
+            published thresholds with the 20-year commitment bonus of 30
+            points. Minimum DCR, max LTV and amortization for MLI Select come
+            from the published tier grid (50 / 70 / 100 points).
+          </p>
+        </div>
+      </div>
+    </section>
+  </div>
+</DefaultLayout>

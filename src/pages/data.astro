@@ -1,0 +1,315 @@
+---
+import DefaultLayout from "@/layouts/DefaultLayout.astro";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import {
+  DATA_SOURCES,
+  AFFORDABILITY_THRESHOLDS,
+  LAST_UPDATED,
+} from "@/data/cmhc";
+
+const title = "CMHC Data Sources & Tools — Rental Market Survey, HMIP, APIs";
+const description =
+  "Every CMHC-published dataset, programmatic access point, and third-party tool for multi-family underwriting. Rental Market Survey, HMIP portal, MLI Select median renter income XLSX, StatCan API, cmhc R package, and the GreenBirch affordable rent lookup.";
+
+const cmhcPublished = DATA_SOURCES.filter(
+  (d) =>
+    d.name === "CMHC Rental Market Survey" ||
+    d.name === "Housing Market Information Portal (HMIP)",
+);
+
+const programmaticAccess = DATA_SOURCES.filter(
+  (d) =>
+    d.name === "StatCan Table 34-10-0133-01" ||
+    d.name === "cmhc R package (unofficial HMIP API)" ||
+    d.name === "Canada Open Government Portal",
+);
+
+const thirdParty = DATA_SOURCES.filter(
+  (d) => d.name === "GreenBirch Affordable Rent Lookup",
+);
+
+const sortedThresholds = [...AFFORDABILITY_THRESHOLDS].sort(
+  (a, b) => b.monthly - a.monthly,
+);
+---
+
+<DefaultLayout title={title} description={description}>
+  <div class="bg-obsidian text-foreground">
+    {/* HERO */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <Badge variant="outline" className="mb-6 border-star/40 text-star">
+          Data · Current to {LAST_UPDATED}
+        </Badge>
+        <h1 class="text-4xl font-semibold tracking-tight lg:text-6xl">
+          Data sources & tools for multi-family underwriting.
+        </h1>
+        <p class="mt-6 max-w-3xl text-lg text-muted-foreground">
+          CMHC publishes more rental-market data than any other
+          Canadian organization — the Rental Market Survey alone
+          covers every urban area of 10,000+ population with
+          vacancy, rents, turnover, and universe counts by
+          structure type and geography down to census tract. The
+          challenge is finding the right access point for the
+          question you're asking.
+        </p>
+        <p class="mt-4 max-w-3xl text-lg text-muted-foreground">
+          This page indexes CMHC's own datasets (Rental Market
+          Survey, HMIP portal, MLI Select XLSX), programmatic
+          access (StatCan WDS API, cmhc R package, Open Government
+          Portal), and the most useful third-party tools. No
+          official CMHC REST API exists — the cmhc R package is
+          the closest approximation.
+        </p>
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a href="/underwriting">
+            <Button size="lg">Underwriting guide</Button>
+          </a>
+          <a href="/programs/mli-select">
+            <Button variant="outline" size="lg">
+              MLI Select program
+            </Button>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    {/* CMHC-PUBLISHED DATASETS */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="max-w-3xl">
+          <Badge variant="secondary" className="mb-4">
+            CMHC-published datasets
+          </Badge>
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+            Official CMHC data products.
+          </h2>
+          <p class="mt-4 text-muted-foreground">
+            These are the primary CMHC-owned data assets used in
+            multi-family underwriting.
+          </p>
+        </div>
+
+        <div class="mt-10 grid gap-4 md:grid-cols-2">
+          {
+            cmhcPublished.map((d) => (
+              <Card className="bg-jet border-dark-gray p-6">
+                <div class="text-xs uppercase tracking-wide text-star">
+                  Primary source
+                </div>
+                <div class="mt-1 text-lg font-semibold">{d.name}</div>
+                <p class="mt-3 text-sm text-muted-foreground">{d.description}</p>
+                <a
+                  href={d.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="mt-4 inline-flex text-sm text-star"
+                >
+                  Open source →
+                </a>
+              </Card>
+            ))
+          }
+
+          <Card className="bg-jet border-dark-gray p-6">
+            <div class="text-xs uppercase tracking-wide text-star">
+              Primary source
+            </div>
+            <div class="mt-1 text-lg font-semibold">
+              MLI Select median renter income XLSX
+            </div>
+            <p class="mt-3 text-sm text-muted-foreground">
+              Downloadable Excel spreadsheet attached to the MLI
+              Select program page — median renter household
+              income by CMA, plus the 30% monthly rent threshold
+              used for affordability scoring. Updated annually.
+            </p>
+          </Card>
+
+          <Card className="bg-jet border-dark-gray p-6">
+            <div class="text-xs uppercase tracking-wide text-star">
+              Primary source
+            </div>
+            <div class="mt-1 text-lg font-semibold">
+              Affordability criteria rent percentiles PDF
+            </div>
+            <p class="mt-3 text-sm text-muted-foreground">
+              CMHC publishes legacy rent-percentile-based
+              affordability criteria as a supplemental PDF — still
+              referenced by some CMHC direct-lending programs
+              (AHF, CHDP) in tandem with the MLI Select
+              income-based thresholds.
+            </p>
+          </Card>
+        </div>
+      </div>
+    </section>
+
+    {/* PROGRAMMATIC ACCESS */}
+    <section class="border-b border-dark-gray bg-jet">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="max-w-3xl">
+          <Badge variant="secondary" className="mb-4">
+            Programmatic access
+          </Badge>
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+            APIs, packages, bulk downloads.
+          </h2>
+          <p class="mt-4 text-muted-foreground">
+            CMHC does not publish an official REST API. The closest
+            substitutes: StatCan's Web Data Service mirroring CMHC
+            rent data, the community-maintained cmhc R package that
+            wraps HMIP, and bulk CSV dumps through the federal Open
+            Government Portal.
+          </p>
+        </div>
+
+        <div class="mt-10 grid gap-4 md:grid-cols-3">
+          {
+            programmaticAccess.map((d) => (
+              <Card className="bg-obsidian border-dark-gray p-6">
+                <div class="text-xs uppercase tracking-wide text-star">
+                  Programmatic
+                </div>
+                <div class="mt-1 text-lg font-semibold">{d.name}</div>
+                <p class="mt-3 text-sm text-muted-foreground">{d.description}</p>
+                <a
+                  href={d.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="mt-4 inline-flex text-sm text-star"
+                >
+                  Open source →
+                </a>
+              </Card>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    {/* THIRD-PARTY TOOLS */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="max-w-3xl">
+          <Badge variant="secondary" className="mb-4">Third-party tools</Badge>
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+            Lookup tools that complement CMHC data.
+          </h2>
+          <p class="mt-4 text-muted-foreground">
+            External tools that surface CMHC-published thresholds
+            in more ergonomic UIs than the raw XLSX or PDFs.
+          </p>
+        </div>
+
+        <div class="mt-10 grid gap-4 md:grid-cols-2">
+          {
+            thirdParty.map((d) => (
+              <Card className="bg-jet border-dark-gray p-6">
+                <div class="text-xs uppercase tracking-wide text-star">
+                  Third-party
+                </div>
+                <div class="mt-1 text-lg font-semibold">{d.name}</div>
+                <p class="mt-3 text-sm text-muted-foreground">{d.description}</p>
+                <a
+                  href={d.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="mt-4 inline-flex text-sm text-star"
+                >
+                  Open tool →
+                </a>
+              </Card>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    {/* AFFORDABILITY THRESHOLD TABLE */}
+    <section class="border-b border-dark-gray bg-jet">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="max-w-3xl">
+          <Badge variant="secondary" className="mb-4">
+            Affordability thresholds
+          </Badge>
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+            2025–2026 MLI Select thresholds by CMA.
+          </h2>
+          <p class="mt-4 text-muted-foreground">
+            30% of median renter household income (before tax) —
+            approximate values. For authoritative current-year
+            figures use the CMHC XLSX or the GreenBirch lookup
+            above.
+          </p>
+        </div>
+
+        <div class="mt-10 overflow-x-auto rounded-lg border border-dark-gray bg-obsidian">
+          <table class="w-full border-collapse text-sm">
+            <thead>
+              <tr class="border-b border-dark-gray text-muted-foreground text-xs uppercase tracking-wide">
+                <th class="px-4 py-3 text-left font-medium">CMA</th>
+                <th class="px-4 py-3 text-right font-medium">
+                  Monthly threshold
+                </th>
+                <th class="px-4 py-3 text-right font-medium">
+                  Implied annual HH income
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {
+                sortedThresholds.map((row) => (
+                  <tr class="border-b border-dark-gray last:border-0">
+                    <td class="px-4 py-3 font-medium">{row.cma}</td>
+                    <td class="px-4 py-3 text-right">
+                      ${row.monthly.toLocaleString()}/mo
+                    </td>
+                    <td class="px-4 py-3 text-right text-muted-foreground">
+                      ~${(row.monthly * 40).toLocaleString()}
+                    </td>
+                  </tr>
+                ))
+              }
+            </tbody>
+          </table>
+        </div>
+        <p class="mt-4 text-sm text-muted-foreground">
+          Implied household income = monthly threshold × 12 / 0.30.
+          See the <a href="/underwriting/affordability" class="text-star">
+            affordability page
+          </a>
+          for how these thresholds map into MLI Select points.
+        </p>
+      </div>
+    </section>
+
+    {/* CTA */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-20 lg:px-12 lg:py-28">
+        <div class="mx-auto max-w-3xl text-center">
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-5xl">
+            Put the data to work.
+          </h2>
+          <p class="mx-auto mt-5 max-w-2xl text-muted-foreground">
+            Pull comparable rents from the Rental Market Survey,
+            check affordability thresholds in the XLSX, then
+            plug into the loan sizer and point scorer.
+          </p>
+          <div class="mt-8 flex flex-wrap justify-center gap-3">
+            <a href="/calculators/loan-sizer">
+              <Button size="lg">Loan sizer</Button>
+            </a>
+            <a href="/calculators/point-scorer">
+              <Button variant="outline" size="lg">
+                Point scorer
+              </Button>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</DefaultLayout>

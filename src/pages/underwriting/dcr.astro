@@ -1,0 +1,352 @@
+---
+import DefaultLayout from "@/layouts/DefaultLayout.astro";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import { MIN_DCR_STANDARD, MLI_SELECT_DISCOUNTS } from "@/data/cmhc";
+
+const title = "DCR Underwriting — CMHC Multi-Unit Debt Coverage";
+const description =
+  "How CMHC computes Debt Coverage Ratio and why it often caps loan size before LTV does. NOI build, annual debt service on the insured loan amount, no residential stress test, segment-specific minimum DCRs.";
+
+const noiComponents = [
+  {
+    item: "Gross potential rent",
+    note:
+      "Achievable market rents per unit type, grossed up to 100% occupancy.",
+  },
+  {
+    item: "Less: vacancy + bad debt",
+    note:
+      "From Rental Market Survey at the local CMA level, floor applied even in tight markets.",
+  },
+  {
+    item: "= Effective Gross Income (EGI)",
+    note:
+      "Plus ancillary income (parking, laundry, storage, commercial NRI).",
+  },
+  {
+    item: "Less: property taxes",
+    note: "Post-reassessment where available; confirmed against municipal roll.",
+  },
+  {
+    item: "Less: insurance",
+    note: "Actual broker quote or current policy premium.",
+  },
+  {
+    item: "Less: utilities",
+    note: "Landlord-paid portion only; tenant-paid utilities excluded.",
+  },
+  {
+    item: "Less: repairs and maintenance",
+    note: "Actual 3-year average from statements.",
+  },
+  {
+    item: "Less: property management",
+    note: "3–5% of EGI minimum — applied even if self-managed.",
+  },
+  {
+    item: "Less: replacement reserves",
+    note:
+      "CMHC-dictated at submission; industry practice $250–500/unit/year or 2–4% of EGI.",
+  },
+  {
+    item: "= Net Operating Income (NOI)",
+    note: "The numerator in the DCR calculation.",
+  },
+];
+---
+
+<DefaultLayout title={title} description={description}>
+  <div class="bg-obsidian text-foreground">
+    {/* HERO */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <Badge variant="outline" className="mb-6 border-star/40 text-star">
+          Underwriting · DCR
+        </Badge>
+        <h1 class="text-4xl font-semibold tracking-tight lg:text-6xl">
+          DCR — the loan-size constraint that usually binds.
+        </h1>
+        <p class="mt-6 max-w-3xl text-lg text-muted-foreground">
+          Debt Coverage Ratio is the ratio of property NOI to annual debt
+          service. CMHC enforces a minimum DCR that depends on program,
+          segment, and term length — and if the property's NOI can't
+          support the ratio at the requested loan size, the loan is cut
+          back regardless of how much LTV room is available.
+        </p>
+        <p class="mt-4 max-w-3xl text-lg text-muted-foreground">
+          There is no residential-style stress test for multi-family.
+          Annual debt service is computed on the actual insured loan
+          amount (principal plus capitalized premium) at the contract
+          rate for fixed-rate loans, or a lender-specified ceiling rate
+          for floating-rate loans.
+        </p>
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a href="/calculators/loan-sizer">
+            <Button size="lg">Open the loan sizer</Button>
+          </a>
+          <a href="/underwriting">
+            <Button variant="outline" size="lg">Back to underwriting</Button>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    {/* FORMULA */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="grid gap-10 lg:grid-cols-[1fr_1.2fr]">
+          <div>
+            <Badge variant="secondary" className="mb-4">Formula</Badge>
+            <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+              DCR = NOI / Annual Debt Service
+            </h2>
+            <p class="mt-4 text-muted-foreground">
+              NOI is Effective Gross Income minus all operating expenses
+              (taxes, insurance, landlord-paid utilities, maintenance,
+              management, and replacement reserves). Annual debt service
+              is principal plus interest on the insured loan amount —
+              which includes the capitalized CMHC premium.
+            </p>
+            <p class="mt-4 text-muted-foreground">
+              For fixed-rate loans, DCR is computed at the contract
+              rate. For floating-rate loans, a lender-specified ceiling
+              rate is used. There is no universal stress-test uplift
+              (e.g. the residential 4.79% qualifying rate).
+            </p>
+          </div>
+          <Card className="bg-jet border-dark-gray p-8">
+            <div class="text-xs uppercase tracking-wide text-muted-foreground">
+              Worked example
+            </div>
+            <div class="mt-3 space-y-2 text-sm">
+              <div class="flex justify-between border-b border-dark-gray pb-2">
+                <span class="text-muted-foreground">NOI</span>
+                <span class="font-medium">$480,000</span>
+              </div>
+              <div class="flex justify-between border-b border-dark-gray pb-2">
+                <span class="text-muted-foreground">Required DCR (MLI Select)</span>
+                <span class="font-medium">1.10</span>
+              </div>
+              <div class="flex justify-between border-b border-dark-gray pb-2">
+                <span class="text-muted-foreground">Max annual debt service</span>
+                <span class="font-medium">$436,363</span>
+              </div>
+              <div class="flex justify-between border-b border-dark-gray pb-2">
+                <span class="text-muted-foreground">Interest rate (fixed)</span>
+                <span class="font-medium">4.75%</span>
+              </div>
+              <div class="flex justify-between border-b border-dark-gray pb-2">
+                <span class="text-muted-foreground">Amortization</span>
+                <span class="font-medium">50 years</span>
+              </div>
+              <div class="flex justify-between pt-2">
+                <span class="text-star font-medium">DCR-implied loan cap</span>
+                <span class="font-semibold text-star">~$8,420,000</span>
+              </div>
+            </div>
+            <p class="mt-5 text-xs text-muted-foreground">
+              If LTC at 95% would have allowed $9.5M, DCR binds and
+              reduces the loan to ~$8.4M — the borrower needs the
+              difference in additional equity.
+            </p>
+          </Card>
+        </div>
+      </div>
+    </section>
+
+    {/* NOI BUILD */}
+    <section class="border-b border-dark-gray bg-jet">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="max-w-3xl">
+          <Badge variant="secondary" className="mb-4">NOI build</Badge>
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+            What goes into NOI.
+          </h2>
+          <p class="mt-4 text-muted-foreground">
+            CMHC does not publish universal opex assumptions. Every
+            expense line is built from three years of actual property
+            statements (or market comparables for new construction).
+          </p>
+        </div>
+
+        <div class="mt-10 overflow-x-auto rounded-lg border border-dark-gray bg-obsidian">
+          <table class="w-full border-collapse text-sm">
+            <thead>
+              <tr class="border-b border-dark-gray text-muted-foreground text-xs uppercase tracking-wide">
+                <th class="px-4 py-3 text-left font-medium">Line item</th>
+                <th class="px-4 py-3 text-left font-medium">CMHC treatment</th>
+              </tr>
+            </thead>
+            <tbody>
+              {
+                noiComponents.map((row) => (
+                  <tr class="border-b border-dark-gray last:border-0">
+                    <td class="px-4 py-3 font-medium">{row.item}</td>
+                    <td class="px-4 py-3 text-muted-foreground">{row.note}</td>
+                  </tr>
+                ))
+              }
+            </tbody>
+          </table>
+        </div>
+        <p class="mt-4 text-sm text-muted-foreground">
+          See the <a href="/underwriting/opex" class="text-star">opex page</a>
+          for benchmark ranges, vacancy assumptions, and replacement reserve
+          practice.
+        </p>
+      </div>
+    </section>
+
+    {/* MIN DCR TABLE */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="max-w-3xl">
+          <Badge variant="secondary" className="mb-4">Minimum DCR</Badge>
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+            Segment-specific DCR floors.
+          </h2>
+          <p class="mt-4 text-muted-foreground">
+            MLI Standard minimum DCR varies by unit count, term length,
+            and transaction type. MLI Select applies a flat 1.10 across
+            all tiers.
+          </p>
+        </div>
+
+        <div class="mt-10 grid gap-6 lg:grid-cols-2">
+          <Card className="bg-jet border-dark-gray p-6">
+            <div class="text-xs uppercase tracking-wide text-star">MLI Standard</div>
+            <div class="mt-1 text-lg font-semibold">Minimum DCR by segment</div>
+            <div class="mt-6 overflow-x-auto">
+              <table class="w-full border-collapse text-sm">
+                <thead>
+                  <tr class="border-b border-dark-gray text-muted-foreground text-xs uppercase tracking-wide">
+                    <th class="px-2 py-2 text-left font-medium">Segment</th>
+                    <th class="px-2 py-2 text-right font-medium">Min DCR</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {
+                    MIN_DCR_STANDARD.map((row) => (
+                      <tr class="border-b border-dark-gray/50 last:border-0">
+                        <td class="px-2 py-2">{row.segment}</td>
+                        <td class="px-2 py-2 text-right font-medium">
+                          {row.dcr.toFixed(2)}
+                        </td>
+                      </tr>
+                    ))
+                  }
+                </tbody>
+              </table>
+            </div>
+          </Card>
+
+          <Card className="bg-jet border-dark-gray p-6">
+            <div class="text-xs uppercase tracking-wide text-star">MLI Select</div>
+            <div class="mt-1 text-lg font-semibold">Flat 1.10 across all tiers</div>
+            <p class="mt-3 text-sm text-muted-foreground">
+              MLI Select — regardless of whether the project scores 50,
+              70, or 100 points — uses a 1.10 minimum DCR. This is lower
+              than MLI Standard's 1.20–1.30 range and is one of the
+              reasons MLI Select supports higher LTC.
+            </p>
+            <div class="mt-4 space-y-2 text-sm">
+              <div class="flex justify-between border-b border-dark-gray pb-2">
+                <span class="text-muted-foreground">Tier 1 ({MLI_SELECT_DISCOUNTS.tier1.points} pts)</span>
+                <span class="font-medium">DCR {MLI_SELECT_DISCOUNTS.tier1.dcr.toFixed(2)}</span>
+              </div>
+              <div class="flex justify-between border-b border-dark-gray pb-2">
+                <span class="text-muted-foreground">Tier 2 ({MLI_SELECT_DISCOUNTS.tier2.points} pts)</span>
+                <span class="font-medium">DCR {MLI_SELECT_DISCOUNTS.tier2.dcr.toFixed(2)}</span>
+              </div>
+              <div class="flex justify-between pt-2">
+                <span class="text-muted-foreground">Tier 3 ({MLI_SELECT_DISCOUNTS.tier3.points} pts)</span>
+                <span class="font-medium">DCR {MLI_SELECT_DISCOUNTS.tier3.dcr.toFixed(2)}</span>
+              </div>
+            </div>
+          </Card>
+        </div>
+      </div>
+    </section>
+
+    {/* NO STRESS TEST */}
+    <section class="border-b border-dark-gray bg-jet">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="grid gap-10 lg:grid-cols-2">
+          <div>
+            <Badge variant="outline" className="mb-4 border-star/40 text-star">
+              Key distinction
+            </Badge>
+            <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+              No residential stress test.
+            </h2>
+            <p class="mt-4 text-muted-foreground">
+              The 4.79%/qualifying-rate stress test applied to
+              residential mortgages does not apply to multi-family.
+              For fixed-rate loans, DCR is computed at the contract
+              rate. For floating-rate loans, the lender specifies a
+              ceiling rate — typically the contract rate plus a buffer.
+            </p>
+            <p class="mt-4 text-muted-foreground">
+              This is one of several reasons multi-family lending sits
+              in a specialized ecosystem (monolines, life cos, credit
+              unions) rather than the residential-heavy Big 6.
+            </p>
+          </div>
+          <Card className="bg-obsidian border-dark-gray p-6">
+            <div class="text-xs uppercase tracking-wide text-muted-foreground">
+              DCR loan-cap math
+            </div>
+            <div class="mt-4 space-y-3 text-sm">
+              <p>
+                <span class="text-star font-medium">Step 1.</span> Compute
+                NOI from EGI less opex (see NOI build above).
+              </p>
+              <p>
+                <span class="text-star font-medium">Step 2.</span> Divide by
+                required min DCR to get maximum annual debt service.
+              </p>
+              <p>
+                <span class="text-star font-medium">Step 3.</span> Solve for
+                the loan amount where P+I at contract rate and chosen
+                amortization equals that max debt service.
+              </p>
+              <p>
+                <span class="text-star font-medium">Step 4.</span> Compare
+                against the LTV/LTC-implied cap. Fund the lesser of the
+                two.
+              </p>
+            </div>
+          </Card>
+        </div>
+      </div>
+    </section>
+
+    {/* CTA */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-20 lg:px-12 lg:py-28">
+        <div class="mx-auto max-w-3xl text-center">
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-5xl">
+            Size the loan against all three constraints.
+          </h2>
+          <p class="mx-auto mt-5 max-w-2xl text-muted-foreground">
+            The loan sizer applies DCR, LTV/LTC, and program cap
+            simultaneously and tells you which one binds — the
+            answer is usually DCR at high LTC.
+          </p>
+          <div class="mt-8 flex flex-wrap justify-center gap-3">
+            <a href="/calculators/loan-sizer">
+              <Button size="lg">Open the loan sizer</Button>
+            </a>
+            <a href="/underwriting/opex">
+              <Button variant="outline" size="lg">
+                Read the opex page
+              </Button>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</DefaultLayout>

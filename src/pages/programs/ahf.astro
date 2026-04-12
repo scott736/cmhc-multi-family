@@ -1,0 +1,214 @@
+---
+import DefaultLayout from "@/layouts/DefaultLayout.astro";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+
+const title = "Affordable Housing Fund (AHF) — $14.6B CMHC Program";
+const description =
+  "Formerly the National Housing Co-Investment Fund. $14.6B program offering low-interest / forgivable loans plus contributions. $10.34B committed creating 40,000+ units and repairing 166,000+. Up to 95% LTC, 50-year amortization, forgivable $25-75K per unit.";
+
+const loanTypes = [
+  {
+    label: "Repayable loan",
+    headline: "Up to 95% LTC",
+    body: "Low-interest financing amortized up to 50 years at below-market rates. Used as the primary debt component alongside other public contributions.",
+  },
+  {
+    label: "Forgivable loan",
+    headline: "$25 – $75K per unit",
+    body: "Deep-affordability top-up — up to 40% of total eligible project costs — forgiven over the term if affordability covenants are maintained.",
+  },
+  {
+    label: "Contributions",
+    headline: "Targeted top-ups",
+    body: "Additional CMHC contributions for priority populations (Indigenous, women-led, accessibility, climate resilience) stack with the loan components.",
+  },
+];
+
+const eligibleBorrowers = [
+  "Non-profit housing providers",
+  "Registered charities",
+  "Housing co-operatives",
+  "Municipalities",
+  "Provincial and territorial governments",
+  "Indigenous governments and organizations",
+];
+---
+
+<DefaultLayout title={title} description={description}>
+  <div class="bg-obsidian text-foreground">
+    {/* HERO */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <Badge variant="outline" className="mb-6 border-star/40 text-star">
+          AHF · $14.6B
+        </Badge>
+        <h1 class="text-4xl font-semibold tracking-tight lg:text-6xl">
+          Affordable Housing Fund.
+        </h1>
+        <p class="mt-6 max-w-3xl text-lg text-muted-foreground">
+          The Affordable Housing Fund — formerly the National Housing
+          Co-Investment Fund — is CMHC's flagship capital program for deep
+          affordability. It blends low-interest repayable loans,
+          forgivable loans, and targeted contributions to make projects
+          viable for non-profits, co-ops, municipalities, and Indigenous
+          governments.
+        </p>
+        <p class="mt-4 max-w-3xl text-lg text-muted-foreground">
+          The program is funded at
+          <span class="text-foreground font-semibold"> $14.6 billion</span>.
+          As of September 2024, CMHC had committed
+          <span class="text-foreground font-semibold"> $10.34 billion</span> —
+          creating 40,000+ new units and repairing 166,000+ existing
+          units. AHF is one of the few CMHC pathways that pairs below-
+          market debt with forgivable capital, materially lowering the
+          break-even rents a non-profit must charge.
+        </p>
+        <p class="mt-4 max-w-3xl text-lg text-muted-foreground">
+          Repayable loans can be sized up to 95% LTC, amortized up to 50
+          years, at below-market interest rates. The forgivable component
+          is $25,000 to $75,000 per unit, capped at 40% of total eligible
+          project costs.
+        </p>
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a href="/programs/compare">
+            <Button size="lg">Compare all programs</Button>
+          </a>
+          <a href="/programs/chdp">
+            <Button variant="outline" size="lg">See co-op-only CHDP</Button>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    {/* LOAN TYPES */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="max-w-3xl">
+          <Badge variant="secondary" className="mb-4">Capital stack</Badge>
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+            Three components that stack.
+          </h2>
+          <p class="mt-4 text-muted-foreground">
+            AHF delivers capital in three distinct forms. Most projects
+            combine a repayable loan with a forgivable loan plus, where
+            applicable, contributions for priority populations.
+          </p>
+        </div>
+
+        <div class="mt-10 grid gap-4 md:grid-cols-3">
+          {
+            loanTypes.map((t) => (
+              <Card className="bg-jet border-dark-gray p-6">
+                <div class="text-xs uppercase tracking-wide text-star">
+                  {t.label}
+                </div>
+                <div class="mt-1 text-2xl font-semibold">{t.headline}</div>
+                <p class="mt-3 text-sm text-muted-foreground">{t.body}</p>
+              </Card>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    {/* ELIGIBLE BORROWERS */}
+    <section class="border-b border-dark-gray bg-jet">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="grid gap-10 lg:grid-cols-[1.1fr_1fr]">
+          <div>
+            <Badge variant="secondary" className="mb-4">Eligibility</Badge>
+            <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+              Who qualifies.
+            </h2>
+            <p class="mt-4 text-muted-foreground">
+              AHF is restricted to mission-driven borrowers — for-profit
+              developers cannot access the forgivable components. Projects
+              must demonstrate deep affordability (typically measured
+              against Area Median Income or low-income thresholds) with
+              long-term covenants.
+            </p>
+            <p class="mt-4 text-muted-foreground">
+              Non-profits and co-ops also benefit from more readily
+              available limited-recourse lending, net worth flexibility at
+              100+ points on MLI Select, and access to CMHC's direct
+              lending programs with forgivable components.
+            </p>
+          </div>
+          <Card className="bg-obsidian border-dark-gray p-6">
+            <div class="text-xs uppercase tracking-wide text-muted-foreground">
+              Eligible applicants
+            </div>
+            <ul class="mt-5 space-y-3 text-sm">
+              {
+                eligibleBorrowers.map((b) => (
+                  <li class="flex items-start gap-3">
+                    <span class="mt-1.5 block size-1.5 shrink-0 rounded-full bg-star" />
+                    <span>{b}</span>
+                  </li>
+                ))
+              }
+            </ul>
+          </Card>
+        </div>
+      </div>
+    </section>
+
+    {/* DEPLOYMENT STATS */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="max-w-3xl">
+          <Badge variant="secondary" className="mb-4">Deployment</Badge>
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+            Where the money has gone.
+          </h2>
+        </div>
+
+        <div class="mt-10 grid gap-4 md:grid-cols-3">
+          <Card className="bg-jet border-dark-gray p-6">
+            <div class="text-3xl font-semibold text-star">$14.6B</div>
+            <p class="mt-2 text-sm text-muted-foreground">Program budget</p>
+          </Card>
+          <Card className="bg-jet border-dark-gray p-6">
+            <div class="text-3xl font-semibold text-star">$10.34B</div>
+            <p class="mt-2 text-sm text-muted-foreground">
+              Committed as of September 2024
+            </p>
+          </Card>
+          <Card className="bg-jet border-dark-gray p-6">
+            <div class="text-3xl font-semibold text-star">40,000+</div>
+            <p class="mt-2 text-sm text-muted-foreground">
+              New units created · plus 166,000+ repaired
+            </p>
+          </Card>
+        </div>
+      </div>
+    </section>
+
+    {/* CTA */}
+    <section class="border-b border-dark-gray bg-jet">
+      <div class="container border-l border-r border-dark-gray px-6 py-20 lg:px-12 lg:py-28">
+        <div class="mx-auto max-w-3xl text-center">
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-5xl">
+            Model the stack.
+          </h2>
+          <p class="mx-auto mt-5 max-w-2xl text-muted-foreground">
+            AHF is most often combined with provincial and municipal
+            grants (Vancouver CHIP, Edmonton AHIP, Toronto RHSP). The
+            loan sizer helps model the full capital stack including the
+            forgivable component.
+          </p>
+          <div class="mt-8 flex flex-wrap justify-center gap-3">
+            <a href="/calculators/loan-sizer">
+              <Button size="lg">Open the loan sizer</Button>
+            </a>
+            <a href="/programs/compare">
+              <Button variant="outline" size="lg">Compare programs</Button>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</DefaultLayout>

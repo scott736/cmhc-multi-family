@@ -1,0 +1,337 @@
+---
+import DefaultLayout from "@/layouts/DefaultLayout.astro";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+
+const title = "Opex, Vacancy & Reserves — CMHC Underwriting";
+const description =
+  "CMHC doesn't publish universal opex assumptions. Three years of actual property statements required. Property management 3–5% EGI minimum, total opex 35–50% EGI, vacancy from Rental Market Survey, replacement reserves $250–500/unit/year.";
+
+const opexBenchmarks = [
+  {
+    line: "Property management",
+    range: "3–5% of EGI",
+    note: "Minimum 3% even if self-managed. Larger or full-service buildings 4–5%.",
+  },
+  {
+    line: "Property taxes",
+    range: "Actual (5–15% of EGI typical)",
+    note: "Based on current municipal assessment roll; adjusted for pending reassessment.",
+  },
+  {
+    line: "Insurance",
+    range: "Actual (1.5–3% of EGI typical)",
+    note: "Current broker quote or in-force policy premium.",
+  },
+  {
+    line: "Utilities (landlord-paid)",
+    range: "Actual (5–15% of EGI if included)",
+    note: "Heat, hot water, common-area electricity, water/sewer where landlord-paid.",
+  },
+  {
+    line: "Repairs and maintenance",
+    range: "Actual (5–10% of EGI typical)",
+    note: "3-year trailing average with outliers investigated.",
+  },
+  {
+    line: "Replacement reserves",
+    range: "$250–500/unit/yr or 2–4% EGI",
+    note: "Discretionary under MLI Select; 2% EGI minimum under legacy AHF.",
+  },
+  {
+    line: "Total opex",
+    range: "35–50% of EGI",
+    note: "Lower for newer all-inclusive-tenant-paid buildings; higher for older landlord-pays-utilities stock.",
+  },
+];
+
+const vacancyRanges = [
+  {
+    market: "Tight market",
+    historical: "<2%",
+    underwritten: "2–3%",
+    note: "Applied floor — CMHC will not underwrite below the floor even if property has zero vacancy.",
+  },
+  {
+    market: "Average / balanced",
+    historical: "2–4%",
+    underwritten: "3–5%",
+    note: "Matches or slightly conservative of Rental Market Survey figures.",
+  },
+  {
+    market: "Softer market",
+    historical: ">4%",
+    underwritten: "5%+",
+    note: "Aligned with Rental Market Survey; occasionally adjusted up for property-specific concerns.",
+  },
+];
+---
+
+<DefaultLayout title={title} description={description}>
+  <div class="bg-obsidian text-foreground">
+    {/* HERO */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <Badge variant="outline" className="mb-6 border-star/40 text-star">
+          Underwriting · Opex & Reserves
+        </Badge>
+        <h1 class="text-4xl font-semibold tracking-tight lg:text-6xl">
+          Operating expenses, vacancy, and reserves.
+        </h1>
+        <p class="mt-6 max-w-3xl text-lg text-muted-foreground">
+          CMHC does not publish universal opex assumptions. Every
+          expense line is built from three years of actual,
+          detailed property statements (audited or reviewer-prepared
+          where available). For new construction, market comparables
+          and pro forma are used — stress-tested by CMHC against
+          comparable stabilized buildings.
+        </p>
+        <p class="mt-4 max-w-3xl text-lg text-muted-foreground">
+          This page collects the benchmark ranges that tend to show
+          up in CMHC-accepted submissions — alongside the vacancy
+          logic pulled from the Rental Market Survey and the
+          replacement-reserve conventions that apply across MLI
+          Standard, MLI Select, and legacy affordable programs.
+        </p>
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a href="/underwriting/dcr">
+            <Button size="lg">DCR page — where NOI lands</Button>
+          </a>
+          <a href="/data">
+            <Button variant="outline" size="lg">
+              Data sources
+            </Button>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    {/* OPEX BENCHMARKS */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="max-w-3xl">
+          <Badge variant="secondary" className="mb-4">Opex benchmarks</Badge>
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+            Typical ranges by line item.
+          </h2>
+          <p class="mt-4 text-muted-foreground">
+            These are industry-practice ranges that CMHC regularly
+            accepts — not published assumptions. Actuals always
+            govern.
+          </p>
+        </div>
+
+        <div class="mt-10 overflow-x-auto rounded-lg border border-dark-gray bg-jet">
+          <table class="w-full border-collapse text-sm">
+            <thead>
+              <tr class="border-b border-dark-gray text-muted-foreground text-xs uppercase tracking-wide">
+                <th class="px-4 py-3 text-left font-medium">Line item</th>
+                <th class="px-4 py-3 text-left font-medium">Typical range</th>
+                <th class="px-4 py-3 text-left font-medium">Notes</th>
+              </tr>
+            </thead>
+            <tbody>
+              {
+                opexBenchmarks.map((row) => (
+                  <tr class="border-b border-dark-gray last:border-0">
+                    <td class="px-4 py-3 font-medium">{row.line}</td>
+                    <td class="px-4 py-3">{row.range}</td>
+                    <td class="px-4 py-3 text-muted-foreground">{row.note}</td>
+                  </tr>
+                ))
+              }
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    {/* VACANCY */}
+    <section class="border-b border-dark-gray bg-jet">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="max-w-3xl">
+          <Badge variant="secondary" className="mb-4">Vacancy + bad debt</Badge>
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+            A floor applies even at full occupancy.
+          </h2>
+          <p class="mt-4 text-muted-foreground">
+            CMHC underwrites vacancy from its own Rental Market
+            Survey, by CMA. Even fully-occupied properties carry a
+            floor (vacancy + bad-debt allowance). Actuals matter,
+            but the RMS figure sets the minimum underwritten level.
+          </p>
+        </div>
+
+        <div class="mt-10 overflow-x-auto rounded-lg border border-dark-gray bg-obsidian">
+          <table class="w-full border-collapse text-sm">
+            <thead>
+              <tr class="border-b border-dark-gray text-muted-foreground text-xs uppercase tracking-wide">
+                <th class="px-4 py-3 text-left font-medium">Market</th>
+                <th class="px-4 py-3 text-left font-medium">Historical vacancy</th>
+                <th class="px-4 py-3 text-left font-medium">Underwritten assumption</th>
+                <th class="px-4 py-3 text-left font-medium">Notes</th>
+              </tr>
+            </thead>
+            <tbody>
+              {
+                vacancyRanges.map((row) => (
+                  <tr class="border-b border-dark-gray last:border-0">
+                    <td class="px-4 py-3 font-medium">{row.market}</td>
+                    <td class="px-4 py-3">{row.historical}</td>
+                    <td class="px-4 py-3">{row.underwritten}</td>
+                    <td class="px-4 py-3 text-muted-foreground">{row.note}</td>
+                  </tr>
+                ))
+              }
+            </tbody>
+          </table>
+        </div>
+        <p class="mt-4 text-sm text-muted-foreground">
+          Underwritten vacancy pulls from CMHC's Rental Market
+          Survey — see the <a href="/data" class="text-star">data page</a>
+          for details on how the survey is conducted and accessed.
+        </p>
+      </div>
+    </section>
+
+    {/* REPLACEMENT RESERVES */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="max-w-3xl">
+          <Badge variant="secondary" className="mb-4">Replacement reserves</Badge>
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+            Capital replacement assumptions.
+          </h2>
+          <p class="mt-4 text-muted-foreground">
+            Replacement reserves are the annual allowance for
+            capital items (roofs, windows, mechanical) that are
+            neither routine repairs nor operating expenses.
+            Treatment differs by program.
+          </p>
+        </div>
+
+        <div class="mt-10 grid gap-6 md:grid-cols-3">
+          <Card className="bg-jet border-dark-gray p-6">
+            <div class="text-xs uppercase tracking-wide text-star">MLI Select</div>
+            <div class="mt-1 text-lg font-semibold">Discretionary</div>
+            <p class="mt-3 text-sm text-muted-foreground">
+              Not explicitly required under MLI Select but commonly
+              included in NOI builds at industry-practice rates.
+              CMHC underwriters will flag deals that omit reserves
+              entirely.
+            </p>
+          </Card>
+          <Card className="bg-jet border-dark-gray p-6">
+            <div class="text-xs uppercase tracking-wide text-star">
+              Legacy AHF (affordable housing)
+            </div>
+            <div class="mt-1 text-lg font-semibold">
+              2% of EGI minimum
+            </div>
+            <p class="mt-3 text-sm text-muted-foreground">
+              Historic CMHC affordable-housing programs required a
+              replacement reserve floor of 2% of EGI — carried
+              forward informally into MLI Select underwriting for
+              affordable-unit-heavy projects.
+            </p>
+          </Card>
+          <Card className="bg-jet border-dark-gray p-6">
+            <div class="text-xs uppercase tracking-wide text-star">
+              Industry practice
+            </div>
+            <div class="mt-1 text-lg font-semibold">
+              $250–500/unit/yr or 2–4% EGI
+            </div>
+            <p class="mt-3 text-sm text-muted-foreground">
+              Typical range in accepted submissions. Newer
+              buildings sit at the low end; older stock (30+ years,
+              deferred maintenance) trends toward 4% EGI or more.
+            </p>
+          </Card>
+        </div>
+      </div>
+    </section>
+
+    {/* SELF-MANAGED CALLOUT */}
+    <section class="border-b border-dark-gray bg-jet">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="grid gap-10 lg:grid-cols-2">
+          <div>
+            <Badge variant="outline" className="mb-4 border-star/40 text-star">
+              Gotcha
+            </Badge>
+            <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+              Self-managed still pays a management fee.
+            </h2>
+            <p class="mt-4 text-muted-foreground">
+              Many first-time multi-unit borrowers plan to
+              self-manage and strip property management from their
+              pro forma. CMHC will add it back. Even self-managed
+              properties carry a minimum 3% EGI property management
+              deduction — 4–5% on larger or more management-intensive
+              buildings.
+            </p>
+            <p class="mt-4 text-muted-foreground">
+              The logic: the loan needs to remain serviceable if the
+              borrower ever contracts management out. NOI is
+              computed assuming an arm's-length manager is paid.
+            </p>
+          </div>
+          <Card className="bg-obsidian border-dark-gray p-6">
+            <div class="text-xs uppercase tracking-wide text-muted-foreground">
+              Pro forma discipline
+            </div>
+            <ul class="mt-4 space-y-3 text-sm">
+              <li class="border-b border-dark-gray/50 pb-2">
+                <span class="text-star">+</span> Use 3% EGI minimum
+                property management even if self-managed.
+              </li>
+              <li class="border-b border-dark-gray/50 pb-2">
+                <span class="text-star">+</span> Include replacement
+                reserves at $250–500/unit/year for newer buildings;
+                more for older.
+              </li>
+              <li class="border-b border-dark-gray/50 pb-2">
+                <span class="text-star">+</span> Vacancy at Rental
+                Market Survey rate, never below it — even in tight
+                markets.
+              </li>
+              <li>
+                <span class="text-star">+</span> Tenant-paid
+                utilities excluded from opex; landlord-paid
+                portion only.
+              </li>
+            </ul>
+          </Card>
+        </div>
+      </div>
+    </section>
+
+    {/* CTA */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-20 lg:px-12 lg:py-28">
+        <div class="mx-auto max-w-3xl text-center">
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-5xl">
+            Run the numbers on your property.
+          </h2>
+          <p class="mx-auto mt-5 max-w-2xl text-muted-foreground">
+            Plug your NOI into the loan sizer to see where DCR
+            binds — or pull live rent/vacancy comps from the
+            Rental Market Survey via the data page.
+          </p>
+          <div class="mt-8 flex flex-wrap justify-center gap-3">
+            <a href="/calculators/loan-sizer">
+              <Button size="lg">Open the loan sizer</Button>
+            </a>
+            <a href="/data">
+              <Button variant="outline" size="lg">
+                Data sources
+              </Button>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</DefaultLayout>

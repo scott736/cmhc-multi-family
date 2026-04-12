@@ -1,0 +1,340 @@
+---
+import DefaultLayout from "@/layouts/DefaultLayout.astro";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+
+const title = "CMHC Construction Financing — Two Paths";
+const description =
+  "The two paths to CMHC-insured construction financing. Path A: construction-to-term with a single approved lender, CMHC-insured from day one. Path B: conventional construction with CMHC takeout at stabilization. Bonding, drawdowns, and monitoring.";
+
+const drawSchedule = [
+  {
+    phase: "First draw",
+    pct: "Initial (site + excavation)",
+    reviewer: "CMHC direct review",
+    note: "Land position, initial soft costs, mobilization.",
+  },
+  {
+    phase: "Intermediate draws",
+    pct: "Monthly progress",
+    reviewer: "Approved lender + independent inspector",
+    note: "Monthly inspections tied to drawdown schedule; lender administers with inspector verification.",
+  },
+  {
+    phase: "Final draw",
+    pct: "Completion / occupancy",
+    reviewer: "CMHC direct review",
+    note: "Occupancy permits, final cost report, rental achievement verification.",
+  },
+];
+
+const bondingReqs = [
+  {
+    label: "Standard requirement",
+    value:
+      "50% labour & material + 50% performance bonding (surety)",
+  },
+  {
+    label: "Alternatives",
+    value:
+      "Letter of credit, collateral security, or loan reduction at ≥10% of hard costs",
+  },
+  {
+    label: "Small-project flexibility",
+    value:
+      "Projects of 24 units or fewer: more flexibility in bonding instrument",
+  },
+  {
+    label: "Change date",
+    value: "Updated November 2024 — now generally required on all construction loans",
+  },
+];
+---
+
+<DefaultLayout title={title} description={description}>
+  <div class="bg-obsidian text-foreground">
+    {/* HERO */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <Badge variant="outline" className="mb-6 border-star/40 text-star">
+          Developers · Construction
+        </Badge>
+        <h1 class="text-4xl font-semibold tracking-tight lg:text-6xl">
+          Two paths to CMHC-insured construction.
+        </h1>
+        <p class="mt-6 max-w-3xl text-lg text-muted-foreground">
+          There are two ways to bring CMHC insurance into a
+          ground-up multi-family project. Path A (construction-to-term)
+          wraps construction and permanent financing into a single
+          underwriting with an approved lender, with CMHC insurance
+          in place from day one. Path B (completion takeout) uses a
+          conventional construction loan during the build and
+          refinances into a CMHC-insured permanent mortgage at
+          stabilization.
+        </p>
+        <p class="mt-4 max-w-3xl text-lg text-muted-foreground">
+          Both paths are valid. The choice depends on lender
+          relationship, project size, construction risk appetite,
+          and the developer's timeline. Since June 2024, CMHC
+          explicitly allows non-approved construction lenders to
+          write loans underwritten to a CMHC takeout — making
+          Path B more practical than it used to be.
+        </p>
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a href="/programs/mli-select">
+            <Button size="lg">MLI Select program</Button>
+          </a>
+          <a href="/developers/economics">
+            <Button variant="outline" size="lg">Construction economics</Button>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    {/* TWO PATHS */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="max-w-3xl">
+          <Badge variant="secondary" className="mb-4">Two paths</Badge>
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+            Construction-to-term vs. completion takeout.
+          </h2>
+          <p class="mt-4 text-muted-foreground">
+            Path A is simpler and cheaper in transaction cost; Path
+            B gives developers more flexibility in construction-lender
+            selection.
+          </p>
+        </div>
+
+        <div class="mt-10 grid gap-6 lg:grid-cols-2">
+          <Card className="bg-jet border-dark-gray p-6">
+            <div class="text-xs uppercase tracking-wide text-star">
+              Path A
+            </div>
+            <div class="mt-1 text-xl font-semibold">
+              Construction-to-term (single lender)
+            </div>
+            <p class="mt-3 text-sm text-muted-foreground">
+              One CMHC-approved lender handles both construction
+              advances and the permanent mortgage in a single
+              underwriting. Construction advances are
+              CMHC-insured from day one. At stabilization, the
+              loan converts to permanent without re-underwriting.
+              CMHC commitment must be in place before breaking
+              ground.
+            </p>
+            <ul class="mt-5 space-y-2 text-sm">
+              <li class="border-b border-dark-gray/50 pb-2">
+                <span class="text-star">+</span> Single
+                underwriting — no refinance risk at completion.
+              </li>
+              <li class="border-b border-dark-gray/50 pb-2">
+                <span class="text-star">+</span> Rate locked at
+                commitment — interest-rate risk shifted to the
+                lender.
+              </li>
+              <li class="border-b border-dark-gray/50 pb-2">
+                <span class="text-star">+</span> Capitalized
+                interest during construction.
+              </li>
+              <li>
+                <span class="text-muted-foreground">–</span>
+                Locked to a single lender through the term.
+              </li>
+            </ul>
+          </Card>
+
+          <Card className="bg-jet border-dark-gray p-6">
+            <div class="text-xs uppercase tracking-wide text-star">
+              Path B
+            </div>
+            <div class="mt-1 text-xl font-semibold">
+              Completion takeout
+            </div>
+            <p class="mt-3 text-sm text-muted-foreground">
+              Developer uses a conventional (non-CMHC) construction
+              loan during the build — from a bank, credit union, or
+              non-bank private lender — and then refinances into a
+              CMHC-insured permanent mortgage at completion. Since
+              June 2024, CMHC explicitly allows non-approved
+              construction lenders to write loans underwritten to
+              a CMHC takeout. The refinance application is
+              classified as "new construction" and constrained to
+              a maximum 95% of construction cost.
+            </p>
+            <ul class="mt-5 space-y-2 text-sm">
+              <li class="border-b border-dark-gray/50 pb-2">
+                <span class="text-star">+</span> Flexibility in
+                choosing the construction lender.
+              </li>
+              <li class="border-b border-dark-gray/50 pb-2">
+                <span class="text-star">+</span> Use CMHC takeout
+                as exit story to win construction financing.
+              </li>
+              <li class="border-b border-dark-gray/50 pb-2">
+                <span class="text-muted-foreground">–</span>
+                Construction-phase rate risk sits with developer.
+              </li>
+              <li>
+                <span class="text-muted-foreground">–</span>
+                Refinance subject to CMHC approval at completion.
+              </li>
+            </ul>
+          </Card>
+        </div>
+      </div>
+    </section>
+
+    {/* DRAWDOWN */}
+    <section class="border-b border-dark-gray bg-jet">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="max-w-3xl">
+          <Badge variant="secondary" className="mb-4">Drawdown process</Badge>
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+            How funds release during construction.
+          </h2>
+          <p class="mt-4 text-muted-foreground">
+            Monthly advances tied to on-site inspections per the
+            drawdown schedule. CMHC reviews the first and last
+            draw requests directly; intermediate draws are
+            administered by the approved lender with independent
+            inspector verification.
+          </p>
+        </div>
+
+        <div class="mt-10 overflow-x-auto rounded-lg border border-dark-gray bg-obsidian">
+          <table class="w-full border-collapse text-sm">
+            <thead>
+              <tr class="border-b border-dark-gray text-muted-foreground text-xs uppercase tracking-wide">
+                <th class="px-4 py-3 text-left font-medium">Phase</th>
+                <th class="px-4 py-3 text-left font-medium">Stage</th>
+                <th class="px-4 py-3 text-left font-medium">Reviewer</th>
+                <th class="px-4 py-3 text-left font-medium">Notes</th>
+              </tr>
+            </thead>
+            <tbody>
+              {
+                drawSchedule.map((d) => (
+                  <tr class="border-b border-dark-gray last:border-0">
+                    <td class="px-4 py-3 font-medium">{d.phase}</td>
+                    <td class="px-4 py-3">{d.pct}</td>
+                    <td class="px-4 py-3">{d.reviewer}</td>
+                    <td class="px-4 py-3 text-muted-foreground">{d.note}</td>
+                  </tr>
+                ))
+              }
+            </tbody>
+          </table>
+        </div>
+
+        <div class="mt-10 grid gap-6 md:grid-cols-2">
+          <Card className="bg-obsidian border-dark-gray p-6">
+            <div class="text-xs uppercase tracking-wide text-star">
+              Pre-start requirements
+            </div>
+            <div class="mt-1 text-lg font-semibold">
+              Cost consultant report
+            </div>
+            <p class="mt-3 text-sm text-muted-foreground">
+              Required before funding. Confirms project budget,
+              cash-flow schedule, sources and uses, fixed-price
+              contracts, zoning compliance, and the detailed
+              construction schedule. Updated periodically through
+              the build.
+            </p>
+          </Card>
+          <Card className="bg-obsidian border-dark-gray p-6">
+            <div class="text-xs uppercase tracking-wide text-star">
+              Capitalized interest
+            </div>
+            <div class="mt-1 text-lg font-semibold">
+              Interest during construction
+            </div>
+            <p class="mt-3 text-sm text-muted-foreground">
+              Interest during construction can be capitalized into
+              the loan amount — a material benefit under MLI
+              Select's 95% LTC, since the capitalized portion
+              doesn't require fresh equity.
+            </p>
+          </Card>
+        </div>
+      </div>
+    </section>
+
+    {/* BONDING */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="grid gap-10 lg:grid-cols-[1fr_1fr]">
+          <div>
+            <Badge variant="outline" className="mb-4 border-star/40 text-star">
+              November 2024 update
+            </Badge>
+            <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+              Bonding is now generally required.
+            </h2>
+            <p class="mt-4 text-muted-foreground">
+              Previously, bonding requirements varied by project
+              size and lender discretion. As of November 2024,
+              CMHC now generally requires bonding on all
+              construction loans — 50% labour & material plus 50%
+              performance, typically via surety.
+            </p>
+            <p class="mt-4 text-muted-foreground">
+              Alternatives are accepted at ≥10% of hard costs:
+              letter of credit, collateral security, or a loan
+              reduction. Projects of 24 units or fewer receive
+              more flexibility in the bonding instrument.
+            </p>
+            <a href="/policy" class="mt-4 inline-flex text-sm text-star">
+              Full policy timeline →
+            </a>
+          </div>
+          <Card className="bg-jet border-dark-gray p-6">
+            <div class="text-xs uppercase tracking-wide text-muted-foreground">
+              Bonding at a glance
+            </div>
+            <dl class="mt-4 space-y-3">
+              {
+                bondingReqs.map((r) => (
+                  <div class="flex flex-col border-b border-dark-gray/50 pb-2 last:border-0 last:pb-0">
+                    <dt class="text-xs uppercase tracking-wide text-muted-foreground">
+                      {r.label}
+                    </dt>
+                    <dd class="mt-0.5 text-sm font-medium">{r.value}</dd>
+                  </div>
+                ))
+              }
+            </dl>
+          </Card>
+        </div>
+      </div>
+    </section>
+
+    {/* CTA */}
+    <section class="border-b border-dark-gray bg-jet">
+      <div class="container border-l border-r border-dark-gray px-6 py-20 lg:px-12 lg:py-28">
+        <div class="mx-auto max-w-3xl text-center">
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-5xl">
+            See the construction economics.
+          </h2>
+          <p class="mx-auto mt-5 max-w-2xl text-muted-foreground">
+            MLI Select's 95% LTC + 50-year amortization + capital
+            recycling at takeout fundamentally changes developer
+            returns vs. conventional financing.
+          </p>
+          <div class="mt-8 flex flex-wrap justify-center gap-3">
+            <a href="/developers/economics">
+              <Button size="lg">Read the economics page</Button>
+            </a>
+            <a href="/calculators/compare">
+              <Button variant="outline" size="lg">
+                Compare scenarios
+              </Button>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</DefaultLayout>

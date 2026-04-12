@@ -1,0 +1,259 @@
+---
+import DefaultLayout from "@/layouts/DefaultLayout.astro";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+
+const title = "LTV & Lending Value — CMHC Multi-Unit Underwriting";
+const description =
+  "How CMHC determines value. New construction uses loan-to-cost; existing property uses the lesser of purchase price or CMHC lending value (income + comparable sales + cost approach). Mandatory appraisals for all applications since November 2024.";
+
+const approaches = [
+  {
+    name: "Income approach",
+    body:
+      "Capitalizes stabilized NOI at a market-derived cap rate. Typically the most-weighted approach for stabilized apartment buildings. Cap rate is triangulated from recent comparable sales, broker surveys, and published indices.",
+  },
+  {
+    name: "Comparable sales",
+    body:
+      "Recent arm's-length transactions of similar properties adjusted for unit count, age, quality, location, and in-place rents. Useful as a sanity check against the income approach.",
+  },
+  {
+    name: "Cost approach",
+    body:
+      "Replacement cost of improvements plus land value, less depreciation. Typically the lowest-weighted approach for multi-family but serves as a floor and is required for the three-method reconciliation.",
+  },
+];
+
+const appraisalReqs = [
+  {
+    label: "Applicability",
+    value: "All multi-unit applications (≥5 units) — no size exemption",
+  },
+  { label: "Methods", value: "All three (income, comparable sales, cost)" },
+  { label: "Effective date", value: "Within 12 months of application" },
+  { label: "Appraiser", value: "AIC-designated (AACI or P.App) independent" },
+  {
+    label: "Commissioned by",
+    value: "Approved lender — not the borrower",
+  },
+  { label: "Typical cost", value: "$8,000–$25,000+ depending on property size" },
+];
+---
+
+<DefaultLayout title={title} description={description}>
+  <div class="bg-obsidian text-foreground">
+    {/* HERO */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <Badge variant="outline" className="mb-6 border-star/40 text-star">
+          Underwriting · LTV
+        </Badge>
+        <h1 class="text-4xl font-semibold tracking-tight lg:text-6xl">
+          LTV and lending value — how CMHC values the property.
+        </h1>
+        <p class="mt-6 max-w-3xl text-lg text-muted-foreground">
+          For new construction, CMHC sizes loans against loan-to-cost
+          (LTC) — total project cost, including land, hard, soft, and
+          financing. For existing property, CMHC sizes against the
+          lesser of purchase price or CMHC lending value, determined
+          by an independent appraiser using three market valuation
+          methods.
+        </p>
+        <p class="mt-4 max-w-3xl text-lg text-muted-foreground">
+          As of November 2024, appraisals are mandatory for all
+          multi-unit applications regardless of size. The appraisal
+          must be commissioned by the approved lender (not the
+          borrower), use all three methods (income, comparable sales,
+          cost), and have an effective date within 12 months.
+        </p>
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a href="/calculators/loan-sizer">
+            <Button size="lg">Open the loan sizer</Button>
+          </a>
+          <a href="/underwriting">
+            <Button variant="outline" size="lg">Back to underwriting</Button>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    {/* NEW CONSTRUCTION VS EXISTING */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="max-w-3xl">
+          <Badge variant="secondary" className="mb-4">Two paths</Badge>
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+            New construction vs. existing property.
+          </h2>
+          <p class="mt-4 text-muted-foreground">
+            CMHC uses different value concepts depending on whether the
+            project is being built or is already stabilized.
+          </p>
+        </div>
+
+        <div class="mt-10 grid gap-6 lg:grid-cols-2">
+          <Card className="bg-jet border-dark-gray p-6">
+            <div class="text-xs uppercase tracking-wide text-star">New construction</div>
+            <div class="mt-1 text-lg font-semibold">Loan-to-Cost (LTC)</div>
+            <p class="mt-3 text-sm text-muted-foreground">
+              Loan sized against total project cost — land acquisition,
+              hard costs (construction), soft costs (design, permits,
+              consultants), financing costs (interest during
+              construction), and a CMHC-reviewed contingency. Land is
+              typically valued at lesser of acquisition cost or
+              independent land appraisal.
+            </p>
+            <div class="mt-5 space-y-2 text-sm">
+              <div class="flex justify-between border-b border-dark-gray pb-2">
+                <span class="text-muted-foreground">MLI Standard max LTC</span>
+                <span class="font-medium">85%</span>
+              </div>
+              <div class="flex justify-between border-b border-dark-gray pb-2">
+                <span class="text-muted-foreground">MLI Select max LTC</span>
+                <span class="font-medium">95%</span>
+              </div>
+              <div class="flex justify-between pt-2">
+                <span class="text-muted-foreground">ACLP max LTC (residential cost)</span>
+                <span class="font-medium">100%</span>
+              </div>
+            </div>
+          </Card>
+
+          <Card className="bg-jet border-dark-gray p-6">
+            <div class="text-xs uppercase tracking-wide text-star">Existing property</div>
+            <div class="mt-1 text-lg font-semibold">Lesser of purchase price or CMHC lending value</div>
+            <p class="mt-3 text-sm text-muted-foreground">
+              For a purchase, CMHC takes the lesser of the agreed
+              purchase price or the appraised CMHC lending value. For
+              refinance, it's the appraised lending value. Value is
+              determined using all three methods (income, sales
+              comparable, cost) and reconciled into a single figure.
+            </p>
+            <div class="mt-5 space-y-2 text-sm">
+              <div class="flex justify-between border-b border-dark-gray pb-2">
+                <span class="text-muted-foreground">MLI Standard max LTV</span>
+                <span class="font-medium">85%</span>
+              </div>
+              <div class="flex justify-between border-b border-dark-gray pb-2">
+                <span class="text-muted-foreground">MLI Select tier 1 — existing</span>
+                <span class="font-medium">85%</span>
+              </div>
+              <div class="flex justify-between pt-2">
+                <span class="text-muted-foreground">MLI Select tiers 2–3 — existing</span>
+                <span class="font-medium">95%</span>
+              </div>
+            </div>
+          </Card>
+        </div>
+      </div>
+    </section>
+
+    {/* THREE METHODS */}
+    <section class="border-b border-dark-gray bg-jet">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="max-w-3xl">
+          <Badge variant="secondary" className="mb-4">Three valuation methods</Badge>
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+            How CMHC lending value is built.
+          </h2>
+          <p class="mt-4 text-muted-foreground">
+            Every CMHC appraisal reconciles across three market
+            valuation methods. Weight varies by property type and
+            stage — income approach dominates for stabilized
+            apartment buildings, cost approach dominates for new
+            construction.
+          </p>
+        </div>
+
+        <div class="mt-10 grid gap-4 md:grid-cols-3">
+          {
+            approaches.map((a) => (
+              <Card className="bg-obsidian border-dark-gray p-6">
+                <div class="text-lg font-semibold">{a.name}</div>
+                <p class="mt-3 text-sm text-muted-foreground">{a.body}</p>
+              </Card>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    {/* MANDATORY APPRAISALS */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="grid gap-10 lg:grid-cols-[1fr_1fr]">
+          <div>
+            <Badge variant="outline" className="mb-4 border-star/40 text-star">
+              November 2024 change
+            </Badge>
+            <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+              Mandatory appraisals on every application.
+            </h2>
+            <p class="mt-4 text-muted-foreground">
+              Before November 2024, smaller loans could proceed on a
+              desktop valuation. That exemption was eliminated —
+              every multi-unit application now requires a full
+              appraisal regardless of size. The appraisal must be
+              commissioned by the approved lender (not the borrower)
+              from an AIC-designated independent appraiser.
+            </p>
+            <p class="mt-4 text-muted-foreground">
+              The change added roughly $15–30K to application costs
+              and 1–2 weeks to timelines at the low end of the market,
+              and is the single biggest structural change to small
+              multi-unit underwriting in the last decade.
+            </p>
+            <a href="/policy" class="mt-4 inline-flex text-sm text-star">
+              See full policy timeline →
+            </a>
+          </div>
+          <Card className="bg-jet border-dark-gray p-6">
+            <div class="text-xs uppercase tracking-wide text-muted-foreground">
+              Appraisal requirements
+            </div>
+            <dl class="mt-4 space-y-3">
+              {
+                appraisalReqs.map((r) => (
+                  <div class="flex flex-col border-b border-dark-gray/50 pb-2 last:border-0 last:pb-0">
+                    <dt class="text-xs uppercase tracking-wide text-muted-foreground">
+                      {r.label}
+                    </dt>
+                    <dd class="mt-0.5 text-sm font-medium">{r.value}</dd>
+                  </div>
+                ))
+              }
+            </dl>
+          </Card>
+        </div>
+      </div>
+    </section>
+
+    {/* CTA */}
+    <section class="border-b border-dark-gray bg-jet">
+      <div class="container border-l border-r border-dark-gray px-6 py-20 lg:px-12 lg:py-28">
+        <div class="mx-auto max-w-3xl text-center">
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-5xl">
+            See where LTV binds vs. DCR.
+          </h2>
+          <p class="mx-auto mt-5 max-w-2xl text-muted-foreground">
+            The loan sizer models both constraints side by side and
+            shows you exactly which one caps your deal — and how much
+            extra equity you'll need either way.
+          </p>
+          <div class="mt-8 flex flex-wrap justify-center gap-3">
+            <a href="/calculators/loan-sizer">
+              <Button size="lg">Open the loan sizer</Button>
+            </a>
+            <a href="/underwriting/affordability">
+              <Button variant="outline" size="lg">
+                Read the affordability page
+              </Button>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</DefaultLayout>

@@ -1,0 +1,175 @@
+---
+import DefaultLayout from "@/layouts/DefaultLayout.astro";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+
+const title = "Specialized CMHC Products — Retirement, Student, Supportive, SRO + Ancillary Programs";
+const description =
+  "CMHC standard insurance for retirement housing (50+ units/beds), student housing, supportive housing, and single-room occupancy. Plus ancillary programs: Canada Rental Protection Fund, Canada Greener Affordable Housing, and Seed Funding.";
+
+const specialProducts = [
+  {
+    name: "Retirement housing",
+    threshold: "50+ units or beds",
+    body: "Independent-living and assisted-living facilities. Higher premium schedule than standard rental reflects service-intensive business model and operating complexity.",
+  },
+  {
+    name: "Student housing",
+    threshold: "Purpose-built",
+    body: "Purpose-built student accommodation tied to educational institutions. Typically lease-up seasonality and single-demographic concentration are priced into the premium.",
+  },
+  {
+    name: "Supportive housing",
+    threshold: "Service-integrated",
+    body: "Housing with integrated support services (mental health, addictions, transitional). Often paired with non-profit operator and AHF / CHDP capital.",
+  },
+  {
+    name: "Single-Room Occupancy (SRO)",
+    threshold: "Shared-facility rental",
+    body: "Rooms with shared kitchen and/or bath facilities. The oldest form of affordable urban rental — still insured by CMHC on a specialized schedule.",
+  },
+];
+
+const ancillaryPrograms = [
+  {
+    name: "Canada Rental Protection Fund",
+    budget: "$1.5B",
+    body: "Launched to preserve existing affordable rental stock by enabling non-profit acquisitions before market-rate investors bid up the asset. Helps keep naturally-occurring affordable housing (NOAH) in mission-driven ownership.",
+  },
+  {
+    name: "Canada Greener Affordable Housing",
+    budget: "Grants + loans",
+    body: "Energy retrofit capital for existing affordable housing. Stacks with provincial utility incentives and municipal retrofit programs to deepen the envelope / mechanical / renewable upgrades that MLI Select also rewards.",
+  },
+  {
+    name: "Seed Funding",
+    budget: "Interest-free",
+    body: "Pre-development loans that cover feasibility, design, and pre-construction soft costs for affordable housing projects. Interest-free and typically repaid from the construction takeout or forgiven where projects fail to proceed for approved reasons.",
+  },
+];
+---
+
+<DefaultLayout title={title} description={description}>
+  <div class="bg-obsidian text-foreground">
+    {/* HERO */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <Badge variant="outline" className="mb-6 border-star/40 text-star">
+          Specialized · Ancillary
+        </Badge>
+        <h1 class="text-4xl font-semibold tracking-tight lg:text-6xl">
+          The rest of the CMHC multi-unit catalogue.
+        </h1>
+        <p class="mt-6 max-w-3xl text-lg text-muted-foreground">
+          Beyond the main five programs (MLI Standard, MLI Select, ACLP,
+          AHF, CHDP), CMHC insures several specialized property types on
+          their own premium schedules and operates a handful of ancillary
+          programs that complement the core pathways.
+        </p>
+        <p class="mt-4 max-w-3xl text-lg text-muted-foreground">
+          Specialized insurance products cover retirement housing
+          (minimum 50 units or beds), student housing, supportive
+          housing, and single-room occupancy (SRO). All four carry higher
+          premium schedules than standard rental to reflect operating
+          complexity and concentration risk.
+        </p>
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a href="/programs">
+            <Button size="lg">All programs</Button>
+          </a>
+          <a href="/programs/compare">
+            <Button variant="outline" size="lg">Compare matrix</Button>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    {/* SPECIALIZED INSURANCE */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="max-w-3xl">
+          <Badge variant="secondary" className="mb-4">Specialized insurance</Badge>
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+            Four property types with their own premium schedule.
+          </h2>
+          <p class="mt-4 text-muted-foreground">
+            These products use the same underwriting framework as MLI
+            Standard (LTV, DCR, guarantee structure) but price premiums
+            above the market-rental grid to reflect sector-specific risk.
+          </p>
+        </div>
+
+        <div class="mt-10 grid gap-4 md:grid-cols-2">
+          {
+            specialProducts.map((p) => (
+              <Card className="bg-jet border-dark-gray p-6">
+                <div class="text-xs uppercase tracking-wide text-star">
+                  {p.threshold}
+                </div>
+                <div class="mt-1 text-xl font-semibold">{p.name}</div>
+                <p class="mt-3 text-sm text-muted-foreground">{p.body}</p>
+              </Card>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    {/* ANCILLARY PROGRAMS */}
+    <section class="border-b border-dark-gray bg-jet">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="max-w-3xl">
+          <Badge variant="secondary" className="mb-4">Ancillary programs</Badge>
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+            Programs that complement the core pathways.
+          </h2>
+          <p class="mt-4 text-muted-foreground">
+            Each of these can stack with one or more of the main
+            programs, supporting preservation of existing affordable
+            stock, energy retrofits, or pre-development costs.
+          </p>
+        </div>
+
+        <div class="mt-10 grid gap-4 md:grid-cols-3">
+          {
+            ancillaryPrograms.map((p) => (
+              <Card className="bg-obsidian border-dark-gray p-6">
+                <div class="text-xs uppercase tracking-wide text-star">
+                  {p.budget}
+                </div>
+                <div class="mt-1 text-lg font-semibold">{p.name}</div>
+                <p class="mt-3 text-sm text-muted-foreground">{p.body}</p>
+              </Card>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    {/* CTA */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-20 lg:px-12 lg:py-28">
+        <div class="mx-auto max-w-3xl text-center">
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-5xl">
+            Know which pathway you need?
+          </h2>
+          <p class="mx-auto mt-5 max-w-2xl text-muted-foreground">
+            Specialized products sit alongside the main five CMHC
+            programs. The comparison matrix lets you see all of them
+            side-by-side on LTV, amortization, affordability, and
+            eligibility.
+          </p>
+          <div class="mt-8 flex flex-wrap justify-center gap-3">
+            <a href="/programs/compare">
+              <Button size="lg">Compare all programs</Button>
+            </a>
+            <a href="/calculators/loan-sizer">
+              <Button variant="outline" size="lg">Size a loan</Button>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</DefaultLayout>

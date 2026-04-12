@@ -1,0 +1,232 @@
+---
+import DefaultLayout from "@/layouts/DefaultLayout.astro";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+
+const title = "Apartment Construction Loan Program (ACLP) — CMHC Direct Lending";
+const description =
+  "Formerly RCFI. $55B CMHC direct lending program targeting 131,000+ new homes by 2031-32. Below-market fixed rates, integrated insurance, up to 100% of residential construction cost, and 50-year amortization. November 2024 enhancements documented.";
+
+const keyFeatures = [
+  { label: "LTV / LTC — residential", value: "Up to 100%" },
+  { label: "LTV / LTC — non-residential", value: "Up to 75%" },
+  { label: "Max amortization", value: "Up to 50 years" },
+  { label: "Interest rate", value: "Below-market fixed" },
+  { label: "Insurance", value: "Integrated — no premium paid by borrower" },
+  { label: "During construction", value: "Interest-only, capitalized" },
+  { label: "From stabilization", value: "P+I payments begin" },
+  { label: "Minimum affordability", value: "≥20% of units at ≤30% MFI" },
+  { label: "Takeout", value: "With a CMHC-approved lender" },
+];
+
+const enhancements = [
+  {
+    date: "July 2024",
+    title: "Frequent Builder framework",
+    body: "Streamlined underwriting pathway for experienced repeat builders, reducing approval cycle times on subsequent projects.",
+  },
+  {
+    date: "November 2024",
+    title: "Minimum energy / accessibility requirements removed",
+    body: "These are no longer prerequisites — they shifted from mandatory thresholds to incentive-based considerations, broadening access for more projects.",
+  },
+  {
+    date: "November 2024",
+    title: "$500M for prefabricated / modular construction",
+    body: "Dedicated allocation to accelerate industrialized construction methods.",
+  },
+  {
+    date: "November 2024",
+    title: "$100M for building above existing shops",
+    body: "Targeted capital for mixed-use infill above existing retail — a low-displacement densification pathway.",
+  },
+];
+---
+
+<DefaultLayout title={title} description={description}>
+  <div class="bg-obsidian text-foreground">
+    {/* HERO */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <Badge variant="outline" className="mb-6 border-star/40 text-star">
+          ACLP · CMHC direct
+        </Badge>
+        <h1 class="text-4xl font-semibold tracking-tight lg:text-6xl">
+          Apartment Construction Loan Program.
+        </h1>
+        <p class="mt-6 max-w-3xl text-lg text-muted-foreground">
+          ACLP is CMHC's direct-lending construction program — formerly
+          known as the Rental Construction Financing Initiative (RCFI) and
+          renamed in November 2023. Unlike MLI Standard and MLI Select
+          (where approved lenders originate and CMHC insures), ACLP
+          provides the loan itself, with insurance integrated at no
+          additional premium cost to the borrower.
+        </p>
+        <p class="mt-4 max-w-3xl text-lg text-muted-foreground">
+          The program is backstopped by a
+          <span class="text-foreground font-semibold"> $55 billion</span>
+          budget targeting more than 131,000 new homes by 2031-32. As of
+          June 2025, CMHC had committed
+          <span class="text-foreground font-semibold"> $24.9 billion</span>
+          supporting 63,500+ homes — roughly halfway through deployment.
+        </p>
+        <p class="mt-4 max-w-3xl text-lg text-muted-foreground">
+          Headline benefits include below-market fixed rates, up to 100%
+          of residential construction cost (75% of non-residential),
+          50-year amortization, and interest-only payments during the
+          build that are capitalized into the loan. Principal and interest
+          begin at stabilization, with the permanent takeout placed
+          through a CMHC-approved lender.
+        </p>
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a href="/calculators/loan-sizer">
+            <Button size="lg">Size an ACLP loan</Button>
+          </a>
+          <a href="/programs/compare">
+            <Button variant="outline" size="lg">Compare programs</Button>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    {/* KEY FEATURES */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="max-w-3xl">
+          <Badge variant="secondary" className="mb-4">Key features</Badge>
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+            ACLP at a glance.
+          </h2>
+          <p class="mt-4 text-muted-foreground">
+            The core construction-phase terms. Permanent takeout terms
+            depend on the lender placing the post-stabilization mortgage.
+          </p>
+        </div>
+        <div class="mt-10 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+          {
+            keyFeatures.map((f) => (
+              <Card className="bg-jet border-dark-gray p-6">
+                <div class="text-xs uppercase tracking-wide text-muted-foreground">
+                  {f.label}
+                </div>
+                <div class="mt-2 text-lg font-semibold">{f.value}</div>
+              </Card>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    {/* ENHANCEMENTS */}
+    <section class="border-b border-dark-gray bg-jet">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="max-w-3xl">
+          <Badge variant="outline" className="mb-4 border-star/40 text-star">
+            2024 enhancements
+          </Badge>
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+            The program broadened substantially in 2024.
+          </h2>
+          <p class="mt-4 text-muted-foreground">
+            Two waves of changes — a mid-year Frequent Builder framework
+            and a November package removing prerequisites plus adding
+            dedicated allocations — materially expanded who and what ACLP
+            will finance.
+          </p>
+        </div>
+
+        <div class="mt-10 grid gap-4 md:grid-cols-2">
+          {
+            enhancements.map((e) => (
+              <Card className="bg-obsidian border-dark-gray p-6">
+                <div class="text-xs uppercase tracking-wide text-star">
+                  {e.date}
+                </div>
+                <div class="mt-1 text-lg font-semibold">{e.title}</div>
+                <p class="mt-3 text-sm text-muted-foreground">{e.body}</p>
+              </Card>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    {/* ELIGIBILITY NOTE */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="grid gap-10 lg:grid-cols-[1.2fr_1fr]">
+          <div>
+            <Badge variant="secondary" className="mb-4">Eligibility</Badge>
+            <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+              Open to all borrower types.
+            </h2>
+            <p class="mt-4 text-muted-foreground">
+              ACLP is available to for-profit developers, non-profits,
+              co-operatives, Indigenous governments, municipalities, and
+              provincial/territorial housing bodies. The minimum
+              affordability requirement — 20% of units at rents no higher
+              than 30% of median family income — applies across the board
+              and is shallower than AHF's deep-affordability thresholds.
+            </p>
+            <p class="mt-4 text-muted-foreground">
+              Non-residential space is permitted but financed at up to
+              only 75% LTC, versus 100% for the residential portion —
+              meaning more equity is required for mixed-use components.
+            </p>
+          </div>
+          <Card className="bg-jet border-dark-gray p-6">
+            <div class="text-xs uppercase tracking-wide text-muted-foreground">
+              Program deployment (as of June 2025)
+            </div>
+            <div class="mt-6 space-y-5">
+              <div>
+                <div class="text-3xl font-semibold text-star">$55B</div>
+                <p class="mt-1 text-sm text-muted-foreground">
+                  Total program budget
+                </p>
+              </div>
+              <div>
+                <div class="text-3xl font-semibold text-star">$24.9B</div>
+                <p class="mt-1 text-sm text-muted-foreground">
+                  Committed — supporting 63,500+ homes
+                </p>
+              </div>
+              <div>
+                <div class="text-3xl font-semibold text-star">131,000+</div>
+                <p class="mt-1 text-sm text-muted-foreground">
+                  Target homes by 2031-32
+                </p>
+              </div>
+            </div>
+          </Card>
+        </div>
+      </div>
+    </section>
+
+    {/* CTA */}
+    <section class="border-b border-dark-gray bg-jet">
+      <div class="container border-l border-r border-dark-gray px-6 py-20 lg:px-12 lg:py-28">
+        <div class="mx-auto max-w-3xl text-center">
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-5xl">
+            Considering MLI Select instead?
+          </h2>
+          <p class="mx-auto mt-5 max-w-2xl text-muted-foreground">
+            ACLP delivers below-market rates but moves through CMHC
+            directly. MLI Select uses market-rate insured financing and
+            typically closes faster. The comparison matrix shows both
+            side-by-side.
+          </p>
+          <div class="mt-8 flex flex-wrap justify-center gap-3">
+            <a href="/programs/compare">
+              <Button size="lg">Compare all programs</Button>
+            </a>
+            <a href="/programs/mli-select">
+              <Button variant="outline" size="lg">See MLI Select</Button>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</DefaultLayout>

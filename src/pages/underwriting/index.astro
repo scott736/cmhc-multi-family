@@ -1,0 +1,192 @@
+---
+import DefaultLayout from "@/layouts/DefaultLayout.astro";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import { LAST_UPDATED } from "@/data/cmhc";
+
+const title = "CMHC Underwriting — DCR, LTV, Affordability & Opex";
+const description =
+  "How CMHC actually underwrites a multi-unit loan. Property-income DCR (no residential stress test), loan-to-cost for new construction vs. CMHC lending value for existing, CMA-level affordability thresholds, and actual-history operating expenses.";
+
+const pillars = [
+  {
+    slug: "dcr",
+    title: "Debt Coverage Ratio",
+    body:
+      "CMHC sizes loans on the lower of LTV and DCR. Minimum DCR (1.10–1.30) is set by segment, term length, and unit count. No residential-style stress test — contract rate (fixed) or ceiling rate (floating) is used directly.",
+    meta: "NOI / Annual Debt Service",
+  },
+  {
+    slug: "ltv",
+    title: "LTV & Lending Value",
+    body:
+      "New construction uses loan-to-cost. Existing property uses the lesser of purchase price or CMHC lending value (income + comparable sales + cost approach). Appraisals are mandatory on every application since November 2024.",
+    meta: "Three-method valuation",
+  },
+  {
+    slug: "affordability",
+    title: "Affordability thresholds",
+    body:
+      "Under MLI Select, qualifying rents are capped at 30% of median renter household income for the subject CMA — an income-based threshold, not a market-rent-based one. Published annually by CMHC in an XLSX attached to the MLI Select page.",
+    meta: "30% median renter income",
+  },
+  {
+    slug: "opex",
+    title: "Opex, vacancy & reserves",
+    body:
+      "CMHC does not publish universal opex assumptions. Underwriting uses three years of actual statements. Management fees 3–5% of EGI minimum, total opex 35–50% of EGI, vacancy from the Rental Market Survey, replacement reserves typically $250–500/unit/year.",
+    meta: "3 years of actual statements",
+  },
+];
+
+const principles = [
+  {
+    title: "Property-level cash flow, not borrower income",
+    body:
+      "Unlike residential mortgage underwriting, CMHC multi-unit approvals rest on the property's own NOI. Personal income, TDS and GDS ratios are not applied. Net worth (≥25% of loan amount, min. $100K) and management experience are confirmed, but the sizing math is property-income based.",
+  },
+  {
+    title: "No residential stress test",
+    body:
+      "The 4.79%/qualifying rate stress test that applies to residential mortgages does NOT apply to multi-unit. Fixed-rate loans use the contract rate; floating-rate loans use a lender-specified ceiling rate.",
+  },
+  {
+    title: "Lesser of LTV-implied and DCR-implied loan wins",
+    body:
+      "CMHC computes the loan that maxes out at the LTV/LTC cap and the loan that keeps DCR at the program minimum, and funds the lesser of the two. The DCR constraint most often binds in higher-cap-rate markets or on aggressive-amort MLI Select tier 3 deals.",
+  },
+  {
+    title: "Actual history, not rules of thumb",
+    body:
+      "Opex, vacancy, turnover, and management fees come from three years of audited or reviewed statements — no universal assumption is applied. New construction uses market comparables plus pro forma, adjusted by CMHC for plausibility.",
+  },
+];
+---
+
+<DefaultLayout title={title} description={description}>
+  <div class="bg-obsidian text-foreground">
+    {/* HERO */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <Badge variant="outline" className="mb-6 border-star/40 text-star">
+          Underwriting · Current to {LAST_UPDATED}
+        </Badge>
+        <h1 class="text-4xl font-semibold tracking-tight lg:text-6xl">
+          How CMHC actually underwrites a multi-unit loan.
+        </h1>
+        <p class="mt-6 max-w-3xl text-lg text-muted-foreground">
+          CMHC's multi-unit underwriting is fundamentally different from
+          residential. Sizing is driven by property-level NOI against a
+          minimum DCR — not by borrower income against a stress-tested
+          rate. Loan-to-cost governs new construction, CMHC lending value
+          governs existing property, and affordability thresholds (for MLI
+          Select) are defined by 30% of median renter household income at
+          the CMA level.
+        </p>
+        <p class="mt-4 max-w-3xl text-lg text-muted-foreground">
+          This section breaks down the four pillars of CMHC underwriting —
+          DCR, LTV/lending value, affordability, and opex/reserves — into
+          standalone pages with the math, thresholds, and gotchas that
+          actually show up in deal submissions.
+        </p>
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a href="/calculators/loan-sizer">
+            <Button size="lg">Open the loan sizer</Button>
+          </a>
+          <a href="/programs">
+            <Button variant="outline" size="lg">Back to programs</Button>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    {/* FOUR PILLARS */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="max-w-3xl">
+          <Badge variant="secondary" className="mb-4">Four pillars</Badge>
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+            The underwriting stack — at a glance.
+          </h2>
+          <p class="mt-4 text-muted-foreground">
+            Each page below is a standalone deep-dive. Together they
+            cover the full stack CMHC uses to size and price a
+            multi-unit loan.
+          </p>
+        </div>
+
+        <div class="mt-10 grid gap-4 md:grid-cols-2">
+          {
+            pillars.map((p) => (
+              <a href={`/underwriting/${p.slug}`} class="group">
+                <Card className="h-full bg-jet border-dark-gray p-6 transition-colors hover:border-star/50">
+                  <div class="text-xs uppercase tracking-wide text-star">
+                    {p.meta}
+                  </div>
+                  <div class="mt-1 text-xl font-semibold">{p.title}</div>
+                  <p class="mt-3 text-sm text-muted-foreground">{p.body}</p>
+                  <div class="mt-5 text-sm text-star">
+                    Read the {p.title} page →
+                  </div>
+                </Card>
+              </a>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    {/* PRINCIPLES */}
+    <section class="border-b border-dark-gray bg-jet">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="max-w-3xl">
+          <Badge variant="secondary" className="mb-4">Guiding principles</Badge>
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+            Four principles behind the math.
+          </h2>
+          <p class="mt-4 text-muted-foreground">
+            If you take nothing else away from the pages below, take these.
+          </p>
+        </div>
+
+        <div class="mt-10 grid gap-4 lg:grid-cols-2">
+          {
+            principles.map((p) => (
+              <Card className="bg-obsidian border-dark-gray p-6">
+                <div class="text-lg font-semibold">{p.title}</div>
+                <p class="mt-3 text-sm text-muted-foreground">{p.body}</p>
+              </Card>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    {/* CTA */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-20 lg:px-12 lg:py-28">
+        <div class="mx-auto max-w-3xl text-center">
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-5xl">
+            Model your loan in minutes.
+          </h2>
+          <p class="mx-auto mt-5 max-w-2xl text-muted-foreground">
+            The loan sizer applies all three constraints (LTV/LTC, minimum
+            DCR, and program cap) simultaneously and tells you exactly
+            which one binds.
+          </p>
+          <div class="mt-8 flex flex-wrap justify-center gap-3">
+            <a href="/calculators/loan-sizer">
+              <Button size="lg">Open the loan sizer</Button>
+            </a>
+            <a href="/underwriting/dcr">
+              <Button variant="outline" size="lg">
+                Start with the DCR page
+              </Button>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</DefaultLayout>

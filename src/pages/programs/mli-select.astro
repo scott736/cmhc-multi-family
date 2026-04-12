@@ -1,0 +1,507 @@
+---
+import DefaultLayout from "@/layouts/DefaultLayout.astro";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import {
+  MLI_SELECT_DISCOUNTS,
+  AFFORDABILITY_SCORING_NEW,
+  AFFORDABILITY_SCORING_EXISTING,
+  AFFORDABILITY_BONUS_20YR,
+  ENERGY_SCORING_NEW,
+  ENERGY_SCORING_EXISTING,
+  ACCESSIBILITY_SCORING,
+} from "@/data/cmhc";
+
+const title = "MLI Select — The Points-Based CMHC Flagship";
+const description =
+  "The definitive MLI Select reference: affordability, energy and accessibility scoring, 50/70/100 point tiers with up to 95% LTC and 50-year amortization, and the full July 2025 LTV-tiered premium grid. Plus common scoring paths for developers.";
+
+const tiers = [
+  { key: "tier1", label: "Tier 1", ...MLI_SELECT_DISCOUNTS.tier1 },
+  { key: "tier2", label: "Tier 2", ...MLI_SELECT_DISCOUNTS.tier2 },
+  { key: "tier3", label: "Tier 3", ...MLI_SELECT_DISCOUNTS.tier3 },
+];
+
+const scoringPaths = [
+  {
+    name: "Energy L1 + Affordability L1",
+    points: "70 pts",
+    desc: "The most common tier 2 path. 10% of units at deep affordability plus a modest energy envelope upgrade.",
+  },
+  {
+    name: "Affordability L1 + 20-year bonus",
+    points: "80 pts",
+    desc: "50 + 30 = 80. Use when municipal incentives are conditional on a 20-year affordability covenant.",
+  },
+  {
+    name: "Affordability L3 alone",
+    points: "100 pts",
+    desc: "25% of units at ≤30% median renter income clears tier 3 on its own.",
+  },
+  {
+    name: "Energy L3 + Accessibility L2",
+    points: "80 pts",
+    desc: "Maximum reachable without any affordability commitment. Caps at tier 2.",
+  },
+];
+---
+
+<DefaultLayout title={title} description={description}>
+  <div class="bg-obsidian text-foreground">
+    {/* HERO */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <Badge
+          variant="outline"
+          className="mb-6 border-star/40 text-star"
+        >
+          MLI Select · Flagship
+        </Badge>
+        <h1 class="text-4xl font-semibold tracking-tight lg:text-6xl">
+          MLI Select — the product reshaping Canadian multifamily.
+        </h1>
+        <p class="mt-6 max-w-3xl text-lg text-muted-foreground">
+          Launched March 2022 as a replacement for MLI Flex, MLI Select is
+          now the dominant CMHC multi-unit insurance product. It awards
+          points for commitments across three pillars — affordability,
+          energy efficiency, and accessibility — and scales financing
+          benefits with total points earned. A minimum of 50 points is
+          required to qualify.
+        </p>
+        <p class="mt-4 max-w-3xl text-lg text-muted-foreground">
+          At the top tier (100 points) the benefits are extraordinary: up
+          to 95% loan-to-cost, 50-year amortization, 1.10 minimum DCR,
+          limited recourse, and a 30% premium discount. A single $1.19M
+          four-plex using tier 3 financing typically requires 80% less
+          permanent equity than conventional insured financing and
+          delivers roughly 4–5x the cash-on-cash return.
+        </p>
+        <p class="mt-4 max-w-3xl text-lg text-muted-foreground">
+          On July 14, 2025, CMHC fundamentally restructured MLI Select
+          premiums. Flat rates (previously 2.55%, 4.15% etc.) were
+          eliminated in favour of percentage discounts on the MLI Standard
+          LTV-tiered grid, and amortization surcharges now apply for the
+          first time. The same 100-point, 95% LTV, 50-year project that
+          cost 2.55% in premium pre-July 2025 now costs approximately
+          <span class="text-foreground font-semibold"> 5.18%</span>.
+        </p>
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a href="/calculators/point-scorer">
+            <Button size="lg">Score your project</Button>
+          </a>
+          <a href="/calculators/premium">
+            <Button variant="outline" size="lg">Calculate the premium</Button>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    {/* TIERS */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="max-w-3xl">
+          <Badge variant="secondary" className="mb-4">Tiers</Badge>
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+            Three tiers — 50, 70, 100 points.
+          </h2>
+          <p class="mt-4 text-muted-foreground">
+            Every benefit scales with tier. Max LTC, amortization,
+            recourse, and premium discount all increase in lock-step with
+            points earned.
+          </p>
+        </div>
+
+        <div class="mt-10 grid gap-4 md:grid-cols-3">
+          {
+            tiers.map((t) => (
+              <Card className="bg-jet border-dark-gray p-6">
+                <div class="text-xs uppercase tracking-wide text-star">
+                  {t.label} · {t.points} points
+                </div>
+                <div class="mt-1 text-2xl font-semibold">
+                  {(t.discount * 100).toFixed(0)}% premium discount
+                </div>
+                <dl class="mt-5 space-y-2 text-sm">
+                  <div class="flex justify-between">
+                    <dt class="text-muted-foreground">Max LTC (new)</dt>
+                    <dd class="font-medium">{t.maxLtvNew}%</dd>
+                  </div>
+                  <div class="flex justify-between">
+                    <dt class="text-muted-foreground">Max LTV (existing)</dt>
+                    <dd class="font-medium">{t.maxLtvExisting}%</dd>
+                  </div>
+                  <div class="flex justify-between">
+                    <dt class="text-muted-foreground">Max amortization</dt>
+                    <dd class="font-medium">{t.maxAmort} years</dd>
+                  </div>
+                  <div class="flex justify-between">
+                    <dt class="text-muted-foreground">Minimum DCR</dt>
+                    <dd class="font-medium">{t.dcr.toFixed(2)}</dd>
+                  </div>
+                  <div class="flex justify-between">
+                    <dt class="text-muted-foreground">Recourse</dt>
+                    <dd class="font-medium">{t.recourse}</dd>
+                  </div>
+                </dl>
+              </Card>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    {/* AFFORDABILITY */}
+    <section class="border-b border-dark-gray bg-jet">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="max-w-3xl">
+          <Badge variant="secondary" className="mb-4">Pillar 1</Badge>
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+            Affordability — the largest single point source.
+          </h2>
+          <p class="mt-4 text-muted-foreground">
+            Commit a share of units at rents no higher than 30% of the
+            median renter household income (before tax) in the CMA. New
+            construction thresholds are lower than existing-property
+            thresholds because on-site rents in existing buildings are
+            typically already below market. Lock-in period is 10 years
+            minimum, with a 20+ year commitment earning a flat
+            <span class="text-foreground font-semibold"> {AFFORDABILITY_BONUS_20YR}-point bonus</span>.
+          </p>
+          <p class="mt-4 text-muted-foreground">
+            Rent increases on affordable units are limited to applicable
+            provincial rent-control legislation, or where none exists, the
+            lowest provincial CPI. Operators cannot rely on vacancy
+            decontrol to reset rents on affordable units.
+          </p>
+        </div>
+
+        <div class="mt-10 grid gap-6 lg:grid-cols-2">
+          <Card className="bg-obsidian border-dark-gray p-6">
+            <div class="text-xs uppercase tracking-wide text-star">
+              New construction
+            </div>
+            <div class="mt-1 text-lg font-semibold">
+              % of units at ≤30% median renter income
+            </div>
+            <div class="mt-4 overflow-x-auto">
+              <table class="w-full text-sm">
+                <thead>
+                  <tr class="border-b border-dark-gray">
+                    <th class="px-2 py-2 text-left font-medium">Level</th>
+                    <th class="px-2 py-2 text-right font-medium">Unit %</th>
+                    <th class="px-2 py-2 text-right font-medium">Points</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {
+                    AFFORDABILITY_SCORING_NEW.map((row) => (
+                      <tr class="border-b border-dark-gray/50 last:border-0">
+                        <td class="px-2 py-2">Level {row.level}</td>
+                        <td class="px-2 py-2 text-right font-medium">
+                          {row.unitPct}%
+                        </td>
+                        <td class="px-2 py-2 text-right font-medium text-star">
+                          {row.points}
+                        </td>
+                      </tr>
+                    ))
+                  }
+                </tbody>
+              </table>
+            </div>
+          </Card>
+
+          <Card className="bg-obsidian border-dark-gray p-6">
+            <div class="text-xs uppercase tracking-wide text-star">
+              Existing properties
+            </div>
+            <div class="mt-1 text-lg font-semibold">
+              Higher unit share required
+            </div>
+            <div class="mt-4 overflow-x-auto">
+              <table class="w-full text-sm">
+                <thead>
+                  <tr class="border-b border-dark-gray">
+                    <th class="px-2 py-2 text-left font-medium">Level</th>
+                    <th class="px-2 py-2 text-right font-medium">Unit %</th>
+                    <th class="px-2 py-2 text-right font-medium">Points</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {
+                    AFFORDABILITY_SCORING_EXISTING.map((row) => (
+                      <tr class="border-b border-dark-gray/50 last:border-0">
+                        <td class="px-2 py-2">Level {row.level}</td>
+                        <td class="px-2 py-2 text-right font-medium">
+                          {row.unitPct}%
+                        </td>
+                        <td class="px-2 py-2 text-right font-medium text-star">
+                          {row.points}
+                        </td>
+                      </tr>
+                    ))
+                  }
+                </tbody>
+              </table>
+            </div>
+          </Card>
+        </div>
+      </div>
+    </section>
+
+    {/* ENERGY */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="max-w-3xl">
+          <Badge variant="secondary" className="mb-4">Pillar 2</Badge>
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+            Energy efficiency — measurable reductions.
+          </h2>
+          <p class="mt-4 text-muted-foreground">
+            New construction is scored against the 2020 NECB (commercial)
+            or NBC (residential) Tier 1 baseline. Existing properties are
+            scored against pre-retrofit performance. All modelling must be
+            completed by a qualified energy professional.
+          </p>
+          <p class="mt-4 text-muted-foreground">
+            Photovoltaic solar can contribute to the energy reduction but
+            is <span class="text-foreground font-semibold">capped at 15%</span>
+            of total reductions claimed — envelope and mechanical upgrades
+            must do the bulk of the work. The transition to 2020 NECB/NBC
+            Tier 1 has a grace period running through
+            <span class="text-foreground font-semibold"> September 30, 2026</span>.
+          </p>
+        </div>
+
+        <div class="mt-10 grid gap-6 lg:grid-cols-2">
+          <Card className="bg-jet border-dark-gray p-6">
+            <div class="text-xs uppercase tracking-wide text-star">
+              New construction
+            </div>
+            <div class="mt-1 text-lg font-semibold">
+              % better than 2020 NECB / NBC
+            </div>
+            <div class="mt-4 overflow-x-auto">
+              <table class="w-full text-sm">
+                <thead>
+                  <tr class="border-b border-dark-gray">
+                    <th class="px-2 py-2 text-left font-medium">Level</th>
+                    <th class="px-2 py-2 text-right font-medium">NECB</th>
+                    <th class="px-2 py-2 text-right font-medium">NBC</th>
+                    <th class="px-2 py-2 text-right font-medium">Points</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {
+                    ENERGY_SCORING_NEW.map((row) => (
+                      <tr class="border-b border-dark-gray/50 last:border-0">
+                        <td class="px-2 py-2">Level {row.level}</td>
+                        <td class="px-2 py-2 text-right font-medium">
+                          {row.necb}%
+                        </td>
+                        <td class="px-2 py-2 text-right font-medium">
+                          {row.nbc}%
+                        </td>
+                        <td class="px-2 py-2 text-right font-medium text-star">
+                          {row.points}
+                        </td>
+                      </tr>
+                    ))
+                  }
+                </tbody>
+              </table>
+            </div>
+          </Card>
+
+          <Card className="bg-jet border-dark-gray p-6">
+            <div class="text-xs uppercase tracking-wide text-star">
+              Existing properties
+            </div>
+            <div class="mt-1 text-lg font-semibold">
+              Energy use reduction vs. pre-retrofit
+            </div>
+            <div class="mt-4 overflow-x-auto">
+              <table class="w-full text-sm">
+                <thead>
+                  <tr class="border-b border-dark-gray">
+                    <th class="px-2 py-2 text-left font-medium">Level</th>
+                    <th class="px-2 py-2 text-right font-medium">Reduction</th>
+                    <th class="px-2 py-2 text-right font-medium">Points</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {
+                    ENERGY_SCORING_EXISTING.map((row) => (
+                      <tr class="border-b border-dark-gray/50 last:border-0">
+                        <td class="px-2 py-2">Level {row.level}</td>
+                        <td class="px-2 py-2 text-right font-medium">
+                          {row.reductionPct}%
+                        </td>
+                        <td class="px-2 py-2 text-right font-medium text-star">
+                          {row.points}
+                        </td>
+                      </tr>
+                    ))
+                  }
+                </tbody>
+              </table>
+            </div>
+          </Card>
+        </div>
+      </div>
+    </section>
+
+    {/* ACCESSIBILITY */}
+    <section class="border-b border-dark-gray bg-jet">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="max-w-3xl">
+          <Badge variant="secondary" className="mb-4">Pillar 3</Badge>
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+            Accessibility — a prerequisite, then a scoring path.
+          </h2>
+          <p class="mt-4 text-muted-foreground">
+            Every MLI Select project must already meet baseline universal
+            design: 100% of units must be visitable per CSA B651:23 and all
+            common areas must be barrier-free. Only projects that exceed
+            these baselines earn accessibility points.
+          </p>
+        </div>
+
+        <div class="mt-10 grid gap-4 md:grid-cols-2">
+          {
+            ACCESSIBILITY_SCORING.map((row) => (
+              <Card className="bg-obsidian border-dark-gray p-6">
+                <div class="text-xs uppercase tracking-wide text-star">
+                  Level {row.level}
+                </div>
+                <div class="mt-1 text-2xl font-semibold">
+                  {row.points} points
+                </div>
+                <p class="mt-3 text-sm text-muted-foreground">
+                  {row.requirement}
+                </p>
+              </Card>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    {/* SCORING PATHS */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="max-w-3xl">
+          <Badge variant="secondary" className="mb-4">Common paths</Badge>
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+            How experienced developers actually hit 100 points.
+          </h2>
+          <p class="mt-4 text-muted-foreground">
+            A handful of combinations dominate real MLI Select applications.
+            Without some affordability commitment, a project cannot exceed
+            tier 2 — energy and accessibility together max out at 80 points.
+          </p>
+        </div>
+
+        <div class="mt-10 grid gap-4 md:grid-cols-2">
+          {
+            scoringPaths.map((p) => (
+              <Card className="bg-jet border-dark-gray p-6">
+                <div class="text-xs uppercase tracking-wide text-star">
+                  {p.points}
+                </div>
+                <div class="mt-1 text-lg font-semibold">{p.name}</div>
+                <p class="mt-3 text-sm text-muted-foreground">{p.desc}</p>
+              </Card>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    {/* PREMIUM CHANGE */}
+    <section class="border-b border-dark-gray bg-jet">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="grid gap-10 lg:grid-cols-[1fr_1fr]">
+          <div>
+            <Badge variant="outline" className="mb-4 border-star/40 text-star">
+              Critical — July 14, 2025
+            </Badge>
+            <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+              Premiums are no longer flat.
+            </h2>
+            <p class="mt-4 text-muted-foreground">
+              MLI Select now uses the same LTV-tiered grid as MLI Standard.
+              Each tier applies a percentage discount: 10% (tier 1), 20%
+              (tier 2), 30% (tier 3). Amortization surcharges (+0.25% per 5
+              years beyond 25) apply to MLI Select for the first time.
+            </p>
+            <p class="mt-4 text-muted-foreground">
+              Previously flat-rate pricing made 50-year amortization
+              effectively free from a premium standpoint. Under the new
+              grid, a 100-point project at 95% LTV with 50-year
+              amortization pays approximately
+              <span class="text-foreground font-semibold"> 5.18%</span>
+              versus the previous flat
+              <span class="text-foreground font-semibold"> 2.55%</span>.
+              Every pro forma written before July 2025 needs to be rerun.
+            </p>
+          </div>
+          <Card className="bg-obsidian border-dark-gray p-6">
+            <div class="text-xs uppercase tracking-wide text-muted-foreground">
+              Illustrative — 100 pts · 95% LTV · 50yr new construction
+            </div>
+            <div class="mt-6 space-y-4 text-sm">
+              <div class="flex items-baseline justify-between">
+                <span class="text-muted-foreground">Old flat-rate premium</span>
+                <span class="text-lg font-semibold">2.55%</span>
+              </div>
+              <div class="h-px bg-dark-gray"></div>
+              <div class="flex items-baseline justify-between">
+                <span class="text-muted-foreground">New grid — 85% LTV band construction</span>
+                <span class="font-medium">6.00%</span>
+              </div>
+              <div class="flex items-baseline justify-between">
+                <span class="text-muted-foreground">+ 25yr amort surcharge (5 × 0.25%)</span>
+                <span class="font-medium">+1.25%</span>
+              </div>
+              <div class="flex items-baseline justify-between">
+                <span class="text-muted-foreground">Tier 3 discount (30%)</span>
+                <span class="font-medium text-star">−30%</span>
+              </div>
+              <div class="h-px bg-dark-gray"></div>
+              <div class="flex items-baseline justify-between">
+                <span class="font-semibold">Effective premium</span>
+                <span class="text-2xl font-semibold text-star">~5.18%</span>
+              </div>
+            </div>
+          </Card>
+        </div>
+      </div>
+    </section>
+
+    {/* CTA */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-20 lg:px-12 lg:py-28">
+        <div class="mx-auto max-w-3xl text-center">
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-5xl">
+            Score your project in 60 seconds.
+          </h2>
+          <p class="mx-auto mt-5 max-w-2xl text-muted-foreground">
+            The point scorer walks through every pillar and tells you
+            exactly which tier you qualify for. Pair it with the premium
+            calculator and loan sizer to model the full capital stack.
+          </p>
+          <div class="mt-8 flex flex-wrap justify-center gap-3">
+            <a href="/calculators/point-scorer">
+              <Button size="lg">Open the point scorer</Button>
+            </a>
+            <a href="/programs/mli-standard">
+              <Button variant="outline" size="lg">See MLI Standard</Button>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</DefaultLayout>

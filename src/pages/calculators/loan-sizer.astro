@@ -1,0 +1,12 @@
+---
+import DefaultLayout from "@/layouts/DefaultLayout.astro";
+import LoanSizer from "@/components/calculators/loan-sizer";
+
+const title = "CMHC Loan Sizer — Triple-Constrained (LTV, DCR, Program) | CMHC Multi-Family";
+const description =
+  "Interactive CMHC loan sizer. Tests your deal against LTV/LTC, minimum DCR, and program cap simultaneously. Handles MLI Standard and MLI Select with tier-specific LTV, amortization and DCR limits.";
+---
+
+<DefaultLayout title={title} description={description}>
+  <LoanSizer client:load />
+</DefaultLayout>

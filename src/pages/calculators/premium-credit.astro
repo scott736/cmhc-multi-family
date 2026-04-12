@@ -1,0 +1,12 @@
+---
+import DefaultLayout from "@/layouts/DefaultLayout.astro";
+import PremiumCredit from "@/components/calculators/premium-credit";
+
+const title = "CMHC Premium Credit Calculator — Refinance | CMHC Multi-Family";
+const description =
+  "Estimate the CMHC premium credit on a multi-unit refinance based on time since the original insurance was placed. Stepped schedule from 75% in year 1 down to 20% by year 7.";
+---
+
+<DefaultLayout title={title} description={description}>
+  <PremiumCredit client:load />
+</DefaultLayout>

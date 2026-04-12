@@ -1,0 +1,275 @@
+---
+import DefaultLayout from "@/layouts/DefaultLayout.astro";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import { POLICY_TIMELINE, LAST_UPDATED } from "@/data/cmhc";
+
+const title = "CMHC Policy Change Tracker — 2024–2026";
+const description =
+  "Policy changes that reshape CMHC multi-unit financing: July 2025 premium overhaul, November 2024 mandatory appraisals and bonding, September 2024 lender-first rule, November 2025 NECB/NBC transition. Timeline with analysis of biggest-impact items.";
+
+const highImpact = [
+  {
+    date: "July 14, 2025",
+    headline: "Premium overhaul",
+    body:
+      "Risk-based LTV-tiered pricing replaced flat MLI Select premiums. Amortization surcharges (+0.25% per 5 years beyond 25) now apply to MLI Select for the first time. A 100-point project at 95% LTV / 50-year amort now pays ~5.18% vs. the previous flat ~2.55%. Every pro forma written before July 2025 needs re-running.",
+  },
+  {
+    date: "November 2024",
+    headline: "Mandatory appraisals + bonding",
+    body:
+      "Appraisals now required on all applications regardless of size. Bonding now generally required on construction loans (50% labour & material + 50% performance, alternatives at ≥10% of hard costs). Rental achievement holdbacks introduced for MLI Select. Added roughly $15–30K in application cost and 1–2 weeks to timelines.",
+  },
+  {
+    date: "September 2024",
+    headline: "Lender-first rule",
+    body:
+      "Only approved lenders can submit applications to CMHC directly. Lenders must fund at least 80% of approved loans — preventing speculative use. Borrowers must now select a lender BEFORE obtaining CMHC approval. Ended the era of 'shopping a CoI' across multiple lenders for the best rate.",
+  },
+  {
+    date: "November 2025",
+    headline: "2020 NECB/NBC transition",
+    body:
+      "Energy-efficiency scoring transitions to the 2020 National Energy Code for Buildings and National Building Code baselines. Grace period to September 30, 2026 — projects commenced before that date can continue to score against the older baseline.",
+  },
+];
+---
+
+<DefaultLayout title={title} description={description}>
+  <div class="bg-obsidian text-foreground">
+    {/* HERO */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <Badge variant="outline" className="mb-6 border-star/40 text-star">
+          Policy · Current to {LAST_UPDATED}
+        </Badge>
+        <h1 class="text-4xl font-semibold tracking-tight lg:text-6xl">
+          CMHC policy change tracker.
+        </h1>
+        <p class="mt-6 max-w-3xl text-lg text-muted-foreground">
+          CMHC policy moves fast — and most changes arrive via
+          internal "Advice" notices that aren't indexed or
+          announced through conventional press channels. The
+          industry struggles to track them. This page maintains a
+          timeline of the changes that have reshaped multi-unit
+          financing from mid-2024 through 2026, with analysis of
+          the biggest-impact items.
+        </p>
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a href="/calculators/premium">
+            <Button size="lg">
+              Compute post-July 2025 premium
+            </Button>
+          </a>
+          <a href="/programs/mli-select">
+            <Button variant="outline" size="lg">
+              MLI Select program
+            </Button>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    {/* CALLOUT */}
+    <section class="border-b border-dark-gray bg-jet">
+      <div class="container border-l border-r border-dark-gray px-6 py-10 lg:px-12 lg:py-14">
+        <Card className="bg-obsidian border-dark-gray p-6 lg:p-8">
+          <div class="text-xs uppercase tracking-wide text-star">
+            Why this page exists
+          </div>
+          <p class="mt-3 text-muted-foreground">
+            The industry struggles to track CMHC policy changes
+            because they're issued through hard-to-find "Advice"
+            notices — not press releases, not parliamentary
+            announcements, not mortgage-industry bulletins. We
+            maintain this page as policy evolves so the
+            consolidated view is always one click away.
+          </p>
+        </Card>
+      </div>
+    </section>
+
+    {/* HIGH IMPACT ANALYSIS */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="max-w-3xl">
+          <Badge variant="secondary" className="mb-4">High impact</Badge>
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+            The four changes that actually rewired deals.
+          </h2>
+          <p class="mt-4 text-muted-foreground">
+            Each of these reshaped either the economics, the
+            timeline, or the lender-selection process for
+            multi-unit financing.
+          </p>
+        </div>
+
+        <div class="mt-10 grid gap-6 lg:grid-cols-2">
+          {
+            highImpact.map((h) => (
+              <Card className="bg-jet border-dark-gray p-6">
+                <div class="text-xs uppercase tracking-wide text-star">
+                  {h.date}
+                </div>
+                <div class="mt-1 text-lg font-semibold">{h.headline}</div>
+                <p class="mt-3 text-sm text-muted-foreground">{h.body}</p>
+              </Card>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    {/* FULL TIMELINE */}
+    <section class="border-b border-dark-gray bg-jet">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="max-w-3xl">
+          <Badge variant="secondary" className="mb-4">Full timeline</Badge>
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+            Every material change, chronological.
+          </h2>
+          <p class="mt-4 text-muted-foreground">
+            From June 2024 onward — the period of greatest
+            churn in CMHC multi-unit policy.
+          </p>
+        </div>
+
+        <div class="mt-10">
+          <ol class="relative space-y-6 border-l border-dark-gray pl-6">
+            {
+              POLICY_TIMELINE.map((p) => (
+                <li class="relative">
+                  <span class="absolute -left-[33px] top-1 size-3 rounded-full bg-star border-4 border-obsidian" />
+                  <Card className="bg-obsidian border-dark-gray p-6">
+                    <div class="text-xs uppercase tracking-wide text-star">
+                      {p.date}
+                    </div>
+                    <p class="mt-2 text-sm text-muted-foreground">
+                      {p.change}
+                    </p>
+                  </Card>
+                </li>
+              ))
+            }
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    {/* RELATED PAGES */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="max-w-3xl">
+          <Badge variant="secondary" className="mb-4">Drill down</Badge>
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+            Where each change actually lives.
+          </h2>
+        </div>
+
+        <div class="mt-10 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+          <a href="/programs/mli-standard" class="group">
+            <Card className="h-full bg-jet border-dark-gray p-6 transition-colors hover:border-star/50">
+              <div class="text-lg font-semibold">
+                July 2025 premium grid
+              </div>
+              <p class="mt-3 text-sm text-muted-foreground">
+                Full LTV-tiered premium grid (MLI Standard) with
+                surcharges on the MLI Standard program page.
+              </p>
+              <div class="mt-4 text-sm text-star">View page →</div>
+            </Card>
+          </a>
+          <a href="/underwriting/ltv" class="group">
+            <Card className="h-full bg-jet border-dark-gray p-6 transition-colors hover:border-star/50">
+              <div class="text-lg font-semibold">
+                November 2024 mandatory appraisals
+              </div>
+              <p class="mt-3 text-sm text-muted-foreground">
+                Requirements, methods, and cost impact on the LTV
+                page.
+              </p>
+              <div class="mt-4 text-sm text-star">View page →</div>
+            </Card>
+          </a>
+          <a href="/developers/construction" class="group">
+            <Card className="h-full bg-jet border-dark-gray p-6 transition-colors hover:border-star/50">
+              <div class="text-lg font-semibold">
+                November 2024 bonding
+              </div>
+              <p class="mt-3 text-sm text-muted-foreground">
+                Bonding standards and alternatives covered in
+                the construction financing page.
+              </p>
+              <div class="mt-4 text-sm text-star">View page →</div>
+            </Card>
+          </a>
+          <a href="/lenders" class="group">
+            <Card className="h-full bg-jet border-dark-gray p-6 transition-colors hover:border-star/50">
+              <div class="text-lg font-semibold">
+                September 2024 lender-first
+              </div>
+              <p class="mt-3 text-sm text-muted-foreground">
+                Downstream impact on broker roles and timelines
+                on the lenders page.
+              </p>
+              <div class="mt-4 text-sm text-star">View page →</div>
+            </Card>
+          </a>
+          <a href="/programs/mli-select" class="group">
+            <Card className="h-full bg-jet border-dark-gray p-6 transition-colors hover:border-star/50">
+              <div class="text-lg font-semibold">
+                MLI Select scoring
+              </div>
+              <p class="mt-3 text-sm text-muted-foreground">
+                Affordability / energy / accessibility points
+                and tier thresholds on the MLI Select page.
+              </p>
+              <div class="mt-4 text-sm text-star">View page →</div>
+            </Card>
+          </a>
+          <a href="/calculators/premium" class="group">
+            <Card className="h-full bg-jet border-dark-gray p-6 transition-colors hover:border-star/50">
+              <div class="text-lg font-semibold">
+                Premium calculator
+              </div>
+              <p class="mt-3 text-sm text-muted-foreground">
+                Apply the July 2025 LTV-tiered grid, surcharges,
+                and MLI Select discount.
+              </p>
+              <div class="mt-4 text-sm text-star">Open tool →</div>
+            </Card>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    {/* CTA */}
+    <section class="border-b border-dark-gray bg-jet">
+      <div class="container border-l border-r border-dark-gray px-6 py-20 lg:px-12 lg:py-28">
+        <div class="mx-auto max-w-3xl text-center">
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-5xl">
+            Re-run every pre-July 2025 pro forma.
+          </h2>
+          <p class="mx-auto mt-5 max-w-2xl text-muted-foreground">
+            The new LTV-tiered premium grid — plus amortization
+            surcharges now applying to MLI Select — changes
+            break-even pricing on virtually every structured
+            pre-July 2025 deal.
+          </p>
+          <div class="mt-8 flex flex-wrap justify-center gap-3">
+            <a href="/calculators/premium">
+              <Button size="lg">Open the premium calculator</Button>
+            </a>
+            <a href="/calculators/loan-sizer">
+              <Button variant="outline" size="lg">
+                Size the loan
+              </Button>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</DefaultLayout>

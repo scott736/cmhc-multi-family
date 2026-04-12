@@ -1,0 +1,12 @@
+---
+import DefaultLayout from "@/layouts/DefaultLayout.astro";
+import Compare from "@/components/calculators/compare";
+
+const title = "CMHC Scenario Comparison — Conventional vs. MLI Standard vs. MLI Select | CMHC Multi-Family";
+const description =
+  "Side-by-side CMHC financing comparison. Conventional, MLI Standard and MLI Select 100-point — with max loan, equity required, annual debt service, cash-on-cash return and total insurance cost.";
+---
+
+<DefaultLayout title={title} description={description}>
+  <Compare client:load />
+</DefaultLayout>

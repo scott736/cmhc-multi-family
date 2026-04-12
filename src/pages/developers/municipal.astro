@@ -1,0 +1,232 @@
+---
+import DefaultLayout from "@/layouts/DefaultLayout.astro";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import { MUNICIPAL_INCENTIVES } from "@/data/cmhc";
+
+const title = "Municipal Stacking — Toronto, Vancouver, Calgary & More";
+const description =
+  "Municipal incentives that stack on top of CMHC financing. Toronto's ~$97K/unit package, Vancouver's DCL waivers + CHIP, Calgary's non-market tax exemption, Edmonton's AHIP, Ottawa's TIEGs, Montreal's SHQ match. Stacking guidance by city.";
+
+const stackingGuide = [
+  {
+    cmhc: "MLI Select",
+    municipal:
+      "Pairs cleanly with Toronto RHSP DC/CBC/parkland exemptions, Vancouver DCL waivers (Classes A/B), Calgary non-market tax exemption, Ottawa TIEGs. These are cost-side reductions that compound with MLI Select's 95% LTC.",
+  },
+  {
+    cmhc: "ACLP (CMHC direct)",
+    municipal:
+      "Stacks well with municipal grants — Edmonton AHIP, Vancouver CHIP, Montreal SHQ match — because ACLP's below-market rate reduces debt service while grants reduce project cost.",
+  },
+  {
+    cmhc: "AHF",
+    municipal:
+      "Designed to stack with provincial and municipal affordable-housing programs. AHF's forgivable loan covers 25–75K/unit; municipalities often add another 20–50K/unit through CIP grants.",
+  },
+  {
+    cmhc: "CHDP",
+    municipal:
+      "Co-op-specific. Stacks with provincial co-op programs and municipal land grants (Montreal Loger+, Vancouver City-owned land contributions).",
+  },
+];
+---
+
+<DefaultLayout title={title} description={description}>
+  <div class="bg-obsidian text-foreground">
+    {/* HERO */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <Badge variant="outline" className="mb-6 border-star/40 text-star">
+          Developers · Municipal stacking
+        </Badge>
+        <h1 class="text-4xl font-semibold tracking-tight lg:text-6xl">
+          Municipal incentives that stack with CMHC.
+        </h1>
+        <p class="mt-6 max-w-3xl text-lg text-muted-foreground">
+          Canada's major cities operate rental-housing incentive
+          programs that compound with CMHC financing. Toronto's
+          Rental Housing Supply Program alone is worth roughly
+          $97,264 per affordable unit. Vancouver stacks DCL
+          waivers with CHIP capital grants. Calgary and Edmonton
+          have added substantial programs post-2023 funded in
+          part through the federal Housing Accelerator Fund.
+        </p>
+        <p class="mt-4 max-w-3xl text-lg text-muted-foreground">
+          The stack matters. A project scoring MLI Select Tier 3
+          (30% premium discount, 95% LTC, 50-year amortization)
+          that also captures Toronto RHSP exemptions and a CHIP
+          grant operates on a fundamentally different unit
+          economics than one running MLI Select alone.
+        </p>
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a href="/calculators/compare">
+            <Button size="lg">Compare scenarios</Button>
+          </a>
+          <a href="/programs">
+            <Button variant="outline" size="lg">All CMHC programs</Button>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    {/* CITY DEEP-DIVES */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="max-w-3xl">
+          <Badge variant="secondary" className="mb-4">City by city</Badge>
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+            Program details for six major cities.
+          </h2>
+          <p class="mt-4 text-muted-foreground">
+            Each card covers the primary program, headline benefit
+            value, and notable stacking characteristics.
+          </p>
+        </div>
+
+        <div class="mt-10 grid gap-4 md:grid-cols-2">
+          {
+            MUNICIPAL_INCENTIVES.map((m) => (
+              <Card className="bg-jet border-dark-gray p-6">
+                <div class="text-xs uppercase tracking-wide text-star">
+                  {m.city}
+                </div>
+                <div class="mt-1 text-lg font-semibold">{m.program}</div>
+                <p class="mt-3 text-sm text-muted-foreground">{m.benefit}</p>
+              </Card>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    {/* STACKING GUIDE */}
+    <section class="border-b border-dark-gray bg-jet">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="max-w-3xl">
+          <Badge variant="secondary" className="mb-4">Stacking guide</Badge>
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+            Which CMHC program pairs with which municipal incentive.
+          </h2>
+          <p class="mt-4 text-muted-foreground">
+            The general rule: CMHC financing programs reduce
+            debt-service cost; municipal incentives reduce
+            project cost. They stack additively — though program
+            eligibility and affordability commitments need to
+            align.
+          </p>
+        </div>
+
+        <div class="mt-10 overflow-x-auto rounded-lg border border-dark-gray bg-obsidian">
+          <table class="w-full border-collapse text-sm">
+            <thead>
+              <tr class="border-b border-dark-gray text-muted-foreground text-xs uppercase tracking-wide">
+                <th class="px-4 py-3 text-left font-medium">CMHC program</th>
+                <th class="px-4 py-3 text-left font-medium">Municipal stacking</th>
+              </tr>
+            </thead>
+            <tbody>
+              {
+                stackingGuide.map((s) => (
+                  <tr class="border-b border-dark-gray last:border-0">
+                    <td class="px-4 py-3 font-medium align-top">{s.cmhc}</td>
+                    <td class="px-4 py-3 text-muted-foreground">{s.municipal}</td>
+                  </tr>
+                ))
+              }
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    {/* TORONTO CALLOUT */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="grid gap-10 lg:grid-cols-[1fr_1fr]">
+          <div>
+            <Badge variant="outline" className="mb-4 border-star/40 text-star">
+              Headline example
+            </Badge>
+            <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+              Toronto RHSP — ~$97K per affordable unit.
+            </h2>
+            <p class="mt-4 text-muted-foreground">
+              Toronto's Rental Housing Supply Program is the
+              largest municipal stack available in Canada. For
+              projects committing affordable units for 40 years,
+              the program delivers:
+            </p>
+            <ul class="mt-4 space-y-2 text-sm">
+              <li class="border-b border-dark-gray/50 pb-2">
+                <span class="text-star">•</span> Full exemption
+                from development charges (DCs)
+              </li>
+              <li class="border-b border-dark-gray/50 pb-2">
+                <span class="text-star">•</span> Full exemption
+                from community benefit charges (CBCs)
+              </li>
+              <li class="border-b border-dark-gray/50 pb-2">
+                <span class="text-star">•</span> Full exemption
+                from parkland dedication fees
+              </li>
+              <li class="border-b border-dark-gray/50 pb-2">
+                <span class="text-star">•</span> Full exemption
+                from building permit fees
+              </li>
+              <li>
+                <span class="text-star">•</span> 15% property
+                tax reduction for 35 years (New Multi-Residential
+                Tax Subclass)
+              </li>
+            </ul>
+          </div>
+          <Card className="bg-jet border-dark-gray p-8">
+            <div class="text-xs uppercase tracking-wide text-muted-foreground">
+              Headline number
+            </div>
+            <div class="mt-3 text-4xl font-semibold text-star">
+              ~$97,264
+            </div>
+            <p class="mt-2 text-sm text-muted-foreground">
+              Estimated total incentive value per affordable unit
+              over the 40-year commitment period. When stacked
+              with MLI Select Tier 3 (95% LTC, 30% premium
+              discount), the combined structure pushes developer
+              cash-on-cash well above the ~32% MLI-Select-alone
+              baseline.
+            </p>
+          </Card>
+        </div>
+      </div>
+    </section>
+
+    {/* CTA */}
+    <section class="border-b border-dark-gray bg-jet">
+      <div class="container border-l border-r border-dark-gray px-6 py-20 lg:px-12 lg:py-28">
+        <div class="mx-auto max-w-3xl text-center">
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-5xl">
+            Now layer in provincial rules.
+          </h2>
+          <p class="mx-auto mt-5 max-w-2xl text-muted-foreground">
+            Rent control, new-construction exemptions, and
+            landlord-tenant frameworks vary by province — and
+            directly affect the pro forma alongside municipal
+            incentives.
+          </p>
+          <div class="mt-8 flex flex-wrap justify-center gap-3">
+            <a href="/developers/provincial">
+              <Button size="lg">Provincial rules</Button>
+            </a>
+            <a href="/calculators/compare">
+              <Button variant="outline" size="lg">
+                Compare scenarios
+              </Button>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</DefaultLayout>

@@ -1,0 +1,168 @@
+---
+import DefaultLayout from "@/layouts/DefaultLayout.astro";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+
+const title = "Co-operative Housing Development Program (CHDP) — $1.5B";
+const description =
+  "The largest federal co-op housing investment in 30+ years. $1.5B dedicated CMHC program for housing co-operatives offering repayable and forgivable loans up to 100% of eligible costs. Target: ~3,200 new co-op units by 2031.";
+
+const features = [
+  { label: "Eligible borrowers", value: "Housing co-operatives only" },
+  { label: "Total capital stack", value: "Up to 100% of eligible costs" },
+  { label: "Repayable loan", value: "Amortized up to 50 years, below-market" },
+  { label: "Forgivable component", value: "Up to one-third of project costs" },
+  { label: "Target units", value: "~3,200 new co-op homes by 2031" },
+  { label: "Program size", value: "$1.5 billion" },
+];
+---
+
+<DefaultLayout title={title} description={description}>
+  <div class="bg-obsidian text-foreground">
+    {/* HERO */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <Badge variant="outline" className="mb-6 border-star/40 text-star">
+          CHDP · $1.5B
+        </Badge>
+        <h1 class="text-4xl font-semibold tracking-tight lg:text-6xl">
+          Co-operative Housing Development Program.
+        </h1>
+        <p class="mt-6 max-w-3xl text-lg text-muted-foreground">
+          CHDP is a dedicated $1.5 billion CMHC program for new housing
+          co-operatives — the largest federal investment in co-op housing
+          in more than 30 years. Unlike AHF, which serves a broad set of
+          non-profit and government applicants, CHDP is restricted to
+          housing co-ops only.
+        </p>
+        <p class="mt-4 max-w-3xl text-lg text-muted-foreground">
+          Capital is delivered as a combination of repayable and
+          forgivable loans totalling up to 100% of eligible project
+          costs. The repayable component amortizes up to 50 years at
+          below-market rates; the forgivable portion covers up to one-
+          third of total costs. The program targets approximately
+          <span class="text-foreground font-semibold"> 3,200 new co-op units by 2031</span>.
+        </p>
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a href="/programs/compare">
+            <Button size="lg">Compare all programs</Button>
+          </a>
+          <a href="/programs/ahf">
+            <Button variant="outline" size="lg">See AHF</Button>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    {/* FEATURES */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="max-w-3xl">
+          <Badge variant="secondary" className="mb-4">Key features</Badge>
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+            The CHDP capital stack.
+          </h2>
+          <p class="mt-4 text-muted-foreground">
+            Combined repayable + forgivable loans can cover up to 100% of
+            eligible costs. Most co-ops will also stack municipal grants
+            and land contributions on top.
+          </p>
+        </div>
+
+        <div class="mt-10 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+          {
+            features.map((f) => (
+              <Card className="bg-jet border-dark-gray p-6">
+                <div class="text-xs uppercase tracking-wide text-muted-foreground">
+                  {f.label}
+                </div>
+                <div class="mt-2 text-lg font-semibold">{f.value}</div>
+              </Card>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    {/* CONTEXT */}
+    <section class="border-b border-dark-gray bg-jet">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="grid gap-10 lg:grid-cols-[1.2fr_1fr]">
+          <div>
+            <Badge variant="secondary" className="mb-4">Context</Badge>
+            <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+              Why CHDP matters.
+            </h2>
+            <p class="mt-4 text-muted-foreground">
+              Canada has not seen federal capital of this scale dedicated
+              to co-op housing since the early 1990s, when the previous
+              co-op programs were wound down. CHDP revives a development
+              pathway that had nearly disappeared from new-construction
+              activity. The 100% cost coverage — combined with a
+              forgivable layer up to one-third — makes new co-op
+              development financially viable in a way it has not been for
+              a generation.
+            </p>
+            <p class="mt-4 text-muted-foreground">
+              Co-ops that qualify for CHDP may also benefit from
+              additional flexibilities in CMHC's other programs: more
+              readily available limited-recourse lending, net worth
+              flexibility at 100+ points on MLI Select, and access to
+              AHF's parallel forgivable components where eligibility
+              overlaps.
+            </p>
+          </div>
+          <Card className="bg-obsidian border-dark-gray p-6">
+            <div class="text-xs uppercase tracking-wide text-muted-foreground">
+              Headline numbers
+            </div>
+            <div class="mt-6 space-y-5">
+              <div>
+                <div class="text-3xl font-semibold text-star">$1.5B</div>
+                <p class="mt-1 text-sm text-muted-foreground">Total program budget</p>
+              </div>
+              <div>
+                <div class="text-3xl font-semibold text-star">~3,200</div>
+                <p class="mt-1 text-sm text-muted-foreground">New co-op units targeted by 2031</p>
+              </div>
+              <div>
+                <div class="text-3xl font-semibold text-star">100%</div>
+                <p class="mt-1 text-sm text-muted-foreground">Max coverage (repayable + forgivable combined)</p>
+              </div>
+              <div>
+                <div class="text-3xl font-semibold text-star">1/3</div>
+                <p class="mt-1 text-sm text-muted-foreground">Max forgivable share of project costs</p>
+              </div>
+            </div>
+          </Card>
+        </div>
+      </div>
+    </section>
+
+    {/* CTA */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-20 lg:px-12 lg:py-28">
+        <div class="mx-auto max-w-3xl text-center">
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-5xl">
+            Building a new co-op?
+          </h2>
+          <p class="mx-auto mt-5 max-w-2xl text-muted-foreground">
+            CHDP is the single most generous CMHC pathway for co-op
+            developers. Compare it against AHF and ACLP to choose the
+            best fit, and use the loan sizer to model the combined
+            repayable + forgivable stack.
+          </p>
+          <div class="mt-8 flex flex-wrap justify-center gap-3">
+            <a href="/programs/compare">
+              <Button size="lg">Compare all programs</Button>
+            </a>
+            <a href="/calculators/loan-sizer">
+              <Button variant="outline" size="lg">Open the loan sizer</Button>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</DefaultLayout>

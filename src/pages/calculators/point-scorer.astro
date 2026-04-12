@@ -1,0 +1,12 @@
+---
+import DefaultLayout from "@/layouts/DefaultLayout.astro";
+import PointScorer from "@/components/calculators/point-scorer";
+
+const title = "MLI Select Point Scorer — Score 50 / 70 / 100 | CMHC Multi-Family";
+const description =
+  "Interactive MLI Select point scorer. Score affordability, energy efficiency and accessibility to find which CMHC tier (50 / 70 / 100) your project qualifies for, with max LTV, amortization, DCR and premium discount.";
+---
+
+<DefaultLayout title={title} description={description}>
+  <PointScorer client:load />
+</DefaultLayout>

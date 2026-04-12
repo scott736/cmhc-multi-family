@@ -1,0 +1,322 @@
+---
+import DefaultLayout from "@/layouts/DefaultLayout.astro";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import {
+  TOP_LENDERS,
+  OTHER_LENDERS,
+  KEY_BROKERS,
+  LAST_UPDATED,
+} from "@/data/cmhc";
+
+const title = "CMHC Lender Landscape — Who Actually Funds Multi-Unit";
+const description =
+  "The CMHC-insured multi-family market is dominated by monolines and specialty lenders, not the Big 6. Government securitization (NHA MBS, CMB) flattened rate differences to 5–15 bps, so lenders compete on speed, term, and execution. Full lender map and broker list.";
+
+const competeOn = [
+  {
+    title: "Speed of execution",
+    body:
+      "Monolines and specialty lenders routinely close in 4–8 weeks from CMHC approval; Big 6 banks can take 8–14 weeks because insured multi-unit isn't their priority workflow. For developers under construction-financing pressure, speed is often the deciding factor.",
+  },
+  {
+    title: "CMHC underwriting depth",
+    body:
+      "First National, MCAP, Peakhill, and Peoples Trust have CMHC-dedicated teams averaging 20–30 years of specific CMHC multi-unit experience. Banks rotate staff through commercial mortgage teams; specialty lenders don't.",
+  },
+  {
+    title: "Bridge and complementary products",
+    body:
+      "Many approved lenders pair CMHC takeouts with non-CMHC bridge, mezz, or construction loans — so the borrower gets the whole capital stack from one relationship rather than sequencing through multiple counterparties.",
+  },
+  {
+    title: "Term flexibility",
+    body:
+      "5-year and 10-year terms are most common. Life insurance companies (Sun Life, Canada Life, Manulife) differentiate by offering 15-, 20-, and occasionally 25-year fixed-rate terms — matched against their own long-duration liabilities.",
+  },
+  {
+    title: "Prepayment structures",
+    body:
+      "Monolines offer yield-maintenance and IRD-based prepayment on insured loans; some specialty products include soft prepayment windows or open features at renewal. CMHC Certificate of Insurance is portable at renewal — the borrower isn't locked in with the original lender.",
+  },
+];
+---
+
+<DefaultLayout title={title} description={description}>
+  <div class="bg-obsidian text-foreground">
+    {/* HERO */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <Badge variant="outline" className="mb-6 border-star/40 text-star">
+          Lenders · Current to {LAST_UPDATED}
+        </Badge>
+        <h1 class="text-4xl font-semibold tracking-tight lg:text-6xl">
+          Who actually lends CMHC-insured multi-unit.
+        </h1>
+        <p class="mt-6 max-w-3xl text-lg text-muted-foreground">
+          CMHC-insured multi-family is dominated by monolines
+          (First National, MCAP, Peakhill) and specialty lenders
+          (Equitable Bank, Peoples Trust), not the Big 6. The reason
+          is structural: government-guaranteed securitization via
+          NHA MBS and the Canada Mortgage Bond program means every
+          approved lender funds at essentially the same cost of
+          capital, levelling the playing field.
+        </p>
+        <p class="mt-4 max-w-3xl text-lg text-muted-foreground">
+          Insured multi-family rates price as a 100–150 bps spread
+          over Canada Mortgage Bond yields, and because all lenders
+          securitize through the same federal programs,
+          differentiation is narrow — typically 5–15 bps between
+          lenders. First National's CEO has described insured
+          multi-family as "close to commodities."
+        </p>
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a href="/calculators/loan-sizer">
+            <Button size="lg">Open the loan sizer</Button>
+          </a>
+          <a href="/programs">
+            <Button variant="outline" size="lg">All programs</Button>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    {/* TOP 5 TABLE */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="max-w-3xl">
+          <Badge variant="secondary" className="mb-4">
+            Top 5 by insured MU MUA
+          </Badge>
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+            The five largest CMHC multi-unit lenders.
+          </h2>
+          <p class="mt-4 text-muted-foreground">
+            By mortgages under administration (MUA) on insured
+            multi-unit. Equitable Bank leads with $27.5B and +175%
+            growth since 2021 — eclipsing every Big 6 bank.
+          </p>
+        </div>
+
+        <div class="mt-10 overflow-x-auto rounded-lg border border-dark-gray bg-jet">
+          <table class="w-full border-collapse text-sm">
+            <thead>
+              <tr class="border-b border-dark-gray text-muted-foreground text-xs uppercase tracking-wide">
+                <th class="px-4 py-3 text-left font-medium">Lender</th>
+                <th class="px-4 py-3 text-left font-medium">MUA</th>
+                <th class="px-4 py-3 text-left font-medium">Growth / scale</th>
+                <th class="px-4 py-3 text-left font-medium">Type</th>
+                <th class="px-4 py-3 text-left font-medium">Notes</th>
+              </tr>
+            </thead>
+            <tbody>
+              {
+                TOP_LENDERS.map((l) => (
+                  <tr class="border-b border-dark-gray last:border-0">
+                    <td class="px-4 py-3 font-medium">{l.name}</td>
+                    <td class="px-4 py-3">{l.mua}</td>
+                    <td class="px-4 py-3 text-muted-foreground">{l.growth || "—"}</td>
+                    <td class="px-4 py-3">
+                      <Badge variant="secondary">{l.type}</Badge>
+                    </td>
+                    <td class="px-4 py-3 text-muted-foreground">{l.notes || "—"}</td>
+                  </tr>
+                ))
+              }
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    {/* OTHER LENDERS */}
+    <section class="border-b border-dark-gray bg-jet">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="max-w-3xl">
+          <Badge variant="secondary" className="mb-4">Other major lenders</Badge>
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+            Beyond the top 5 — the depth of the market.
+          </h2>
+          <p class="mt-4 text-muted-foreground">
+            These lenders account for significant portions of
+            insured multi-unit volume and compete heavily on
+            execution, term, and product depth. Life insurance
+            companies uniquely offer 20+ year fixed-rate terms;
+            credit unions go through regional centrals.
+          </p>
+        </div>
+
+        <div class="mt-10 grid gap-4 md:grid-cols-2">
+          {
+            OTHER_LENDERS.map((l) => {
+              const [name, ...rest] = l.split("—");
+              return (
+                <Card className="bg-obsidian border-dark-gray p-6">
+                  <div class="text-lg font-semibold">{name.trim()}</div>
+                  {rest.length > 0 && (
+                    <p class="mt-2 text-sm text-muted-foreground">
+                      {rest.join("—").trim()}
+                    </p>
+                  )}
+                </Card>
+              );
+            })
+          }
+        </div>
+      </div>
+    </section>
+
+    {/* HOW LENDERS COMPETE */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="max-w-3xl">
+          <Badge variant="secondary" className="mb-4">How they compete</Badge>
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+            Differentiation is narrow — but real.
+          </h2>
+          <p class="mt-4 text-muted-foreground">
+            Rates cluster within a 5–15 bps band. The differences
+            that matter to borrowers are execution speed, underwriting
+            depth, term flexibility, complementary products, and
+            prepayment structure.
+          </p>
+        </div>
+
+        <div class="mt-10 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+          {
+            competeOn.map((c) => (
+              <Card className="bg-jet border-dark-gray p-6">
+                <div class="text-lg font-semibold">{c.title}</div>
+                <p class="mt-3 text-sm text-muted-foreground">{c.body}</p>
+              </Card>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    {/* SEPT 2024 CHANGE */}
+    <section class="border-b border-dark-gray bg-jet">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="grid gap-10 lg:grid-cols-[1fr_1fr]">
+          <div>
+            <Badge variant="outline" className="mb-4 border-star/40 text-star">
+              Critical — September 2024
+            </Badge>
+            <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+              The end of "shopping a CoI".
+            </h2>
+            <p class="mt-4 text-muted-foreground">
+              Before September 2024, borrowers could obtain a
+              Certificate of Insurance from CMHC and then shop it
+              among multiple approved lenders for the best rate —
+              a practice that squeezed lender spreads hard. That
+              ended.
+            </p>
+            <p class="mt-4 text-muted-foreground">
+              Now, only approved lenders can submit applications
+              to CMHC directly. And lenders must fund at least 80%
+              of approved loans — so they cannot be used
+              speculatively. Borrowers must select a lender BEFORE
+              obtaining CMHC approval.
+            </p>
+            <p class="mt-4 text-muted-foreground">
+              The practical impact: the lender selection decision
+              has moved upstream, broker relationships have become
+              more valuable (since brokers pre-select the best-fit
+              lender), and typical timelines now run 4–12+ weeks
+              of CMHC underwriting plus 1–4 weeks of lender
+              funding.
+            </p>
+            <a href="/policy" class="mt-4 inline-flex text-sm text-star">
+              Full policy timeline →
+            </a>
+          </div>
+          <Card className="bg-obsidian border-dark-gray p-6">
+            <div class="text-xs uppercase tracking-wide text-muted-foreground">
+              Implications for borrowers
+            </div>
+            <ul class="mt-4 space-y-3 text-sm">
+              <li class="border-b border-dark-gray/50 pb-2">
+                <span class="text-star">1.</span> Choose a lender
+                (or a broker who will) before CMHC submission.
+              </li>
+              <li class="border-b border-dark-gray/50 pb-2">
+                <span class="text-star">2.</span> Use brokers to
+                run parallel lender conversations before
+                commitment.
+              </li>
+              <li class="border-b border-dark-gray/50 pb-2">
+                <span class="text-star">3.</span> Remember the CoI
+                is still portable at renewal — lock-in is
+                contract-term, not lifetime.
+              </li>
+              <li>
+                <span class="text-star">4.</span> Build CMHC
+                underwriting time (4–12+ weeks) into construction
+                schedules.
+              </li>
+            </ul>
+          </Card>
+        </div>
+      </div>
+    </section>
+
+    {/* BROKERS */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="max-w-3xl">
+          <Badge variant="secondary" className="mb-4">Key brokers</Badge>
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+            Who runs the lender-selection conversation.
+          </h2>
+          <p class="mt-4 text-muted-foreground">
+            Since September 2024 the broker's role has grown: they
+            pre-qualify the deal, match it to the right approved
+            lender, and shepherd the application through CMHC.
+            Canada ICI is unique in operating as both an approved
+            lender and an advisor. CBRE Capital holds both approved
+            lender and brokerage designations.
+          </p>
+        </div>
+
+        <div class="mt-10 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+          {
+            KEY_BROKERS.map((b) => (
+              <Card className="bg-jet border-dark-gray p-6">
+                <div class="text-lg font-semibold">{b}</div>
+              </Card>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    {/* CTA */}
+    <section class="border-b border-dark-gray bg-jet">
+      <div class="container border-l border-r border-dark-gray px-6 py-20 lg:px-12 lg:py-28">
+        <div class="mx-auto max-w-3xl text-center">
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-5xl">
+            Model your deal before picking a lender.
+          </h2>
+          <p class="mx-auto mt-5 max-w-2xl text-muted-foreground">
+            Pre-size the loan against LTV, DCR and program caps —
+            then approach lenders with a tight story and a known
+            target size.
+          </p>
+          <div class="mt-8 flex flex-wrap justify-center gap-3">
+            <a href="/calculators/loan-sizer">
+              <Button size="lg">Open the loan sizer</Button>
+            </a>
+            <a href="/underwriting">
+              <Button variant="outline" size="lg">
+                Underwriting guide
+              </Button>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</DefaultLayout>

@@ -1,0 +1,206 @@
+---
+import DefaultLayout from "@/layouts/DefaultLayout.astro";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import { PROGRAMS, LAST_UPDATED } from "@/data/cmhc";
+
+const title = "CMHC Multi-Unit Programs — Full Pathway Guide";
+const description =
+  "Every CMHC multi-family financing pathway in one place: MLI Standard, MLI Select, ACLP, AHF, CHDP, and specialized products. Compare eligibility, LTV, amortization, and affordability requirements.";
+---
+
+<DefaultLayout title={title} description={description}>
+  <div class="bg-obsidian text-foreground">
+    {/* HERO */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <Badge
+          variant="outline"
+          className="mb-6 border-star/40 text-star"
+        >
+          Programs · Current to {LAST_UPDATED}
+        </Badge>
+        <h1 class="text-4xl font-semibold tracking-tight lg:text-6xl">
+          Every CMHC multi-family pathway — documented.
+        </h1>
+        <p class="mt-6 max-w-3xl text-lg text-muted-foreground">
+          CMHC operates six distinct multi-unit pathways. Two are insurance
+          products (MLI Standard and MLI Select) where approved lenders
+          originate the loan and CMHC insures it. Three are direct-lending
+          programs (ACLP, AHF, CHDP) where CMHC itself is the lender, often
+          at below-market rates with integrated insurance. A sixth covers
+          specialized property types (retirement, student, supportive, SRO)
+          on their own premium schedules.
+        </p>
+        <p class="mt-4 max-w-3xl text-lg text-muted-foreground">
+          Picking the right pathway is the single highest-leverage decision
+          in a CMHC-financed project — it determines LTV/LTC, amortization,
+          recourse, rate type, and whether forgivable capital is on the
+          table. The cards below summarize each program; the comparison
+          matrix and decision framework help you narrow down.
+        </p>
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a href="/programs/compare">
+            <Button size="lg">Compare all programs</Button>
+          </a>
+          <a href="/calculators/point-scorer">
+            <Button variant="outline" size="lg">
+              MLI Select point scorer
+            </Button>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    {/* PROGRAM CARDS */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+          {
+            PROGRAMS.map((p) => (
+              <a href={`/programs/${p.slug}`} class="group">
+                <Card className="h-full bg-jet border-dark-gray p-6 transition-colors hover:border-star/50">
+                  <div class="text-xs uppercase tracking-wide text-muted-foreground">
+                    {p.tagline}
+                  </div>
+                  <div class="mt-1 text-xl font-semibold">{p.name}</div>
+                  <p class="mt-3 text-sm text-muted-foreground">{p.short}</p>
+                  <dl class="mt-5 grid grid-cols-2 gap-3 text-xs">
+                    <div>
+                      <dt class="text-muted-foreground">Max LTV</dt>
+                      <dd class="mt-0.5 font-medium">{p.maxLTV}</dd>
+                    </div>
+                    <div>
+                      <dt class="text-muted-foreground">Amortization</dt>
+                      <dd class="mt-0.5 font-medium">{p.maxAmortization}</dd>
+                    </div>
+                    <div>
+                      <dt class="text-muted-foreground">Affordability</dt>
+                      <dd class="mt-0.5 font-medium">{p.affordability}</dd>
+                    </div>
+                    <div>
+                      <dt class="text-muted-foreground">Borrowers</dt>
+                      <dd class="mt-0.5 font-medium">{p.eligibleBorrowers}</dd>
+                    </div>
+                  </dl>
+                  <div class="mt-5 text-sm text-star">Explore {p.name} →</div>
+                </Card>
+              </a>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    {/* DECISION FRAMEWORK */}
+    <section class="border-b border-dark-gray bg-jet">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="max-w-3xl">
+          <Badge variant="secondary" className="mb-4">
+            Decision framework
+          </Badge>
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+            Which pathway fits your project?
+          </h2>
+          <p class="mt-4 text-muted-foreground">
+            The right CMHC program depends on borrower type, affordability
+            appetite, rate sensitivity, and whether the project is new
+            construction or existing. Work through these filters in order.
+          </p>
+        </div>
+
+        <div class="mt-10 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+          <Card className="bg-obsidian border-dark-gray p-6">
+            <div class="text-xs uppercase tracking-wide text-star">Step 1</div>
+            <div class="mt-1 text-lg font-semibold">Borrower type</div>
+            <p class="mt-3 text-sm text-muted-foreground">
+              Co-ops only: <span class="text-foreground">CHDP</span>.
+              Non-profits, municipalities, Indigenous governments:
+              <span class="text-foreground"> AHF or ACLP</span>. For-profits:
+              <span class="text-foreground"> MLI Standard, MLI Select, or ACLP</span>.
+            </p>
+          </Card>
+
+          <Card className="bg-obsidian border-dark-gray p-6">
+            <div class="text-xs uppercase tracking-wide text-star">Step 2</div>
+            <div class="mt-1 text-lg font-semibold">Affordability appetite</div>
+            <p class="mt-3 text-sm text-muted-foreground">
+              No commitment: <span class="text-foreground">MLI Standard</span>.
+              Moderate (10–25% of units): <span class="text-foreground">MLI Select</span>.
+              Deep and long-term: <span class="text-foreground">ACLP, AHF, CHDP</span>.
+            </p>
+          </Card>
+
+          <Card className="bg-obsidian border-dark-gray p-6">
+            <div class="text-xs uppercase tracking-wide text-star">Step 3</div>
+            <div class="mt-1 text-lg font-semibold">Rate vs. leverage</div>
+            <p class="mt-3 text-sm text-muted-foreground">
+              Need below-market rate: <span class="text-foreground">ACLP / AHF / CHDP</span>
+              (CMHC direct). Need speed and lender flexibility:
+              <span class="text-foreground"> MLI Select or Standard</span> via an
+              approved lender.
+            </p>
+          </Card>
+
+          <Card className="bg-obsidian border-dark-gray p-6">
+            <div class="text-xs uppercase tracking-wide text-star">Step 4</div>
+            <div class="mt-1 text-lg font-semibold">Project stage</div>
+            <p class="mt-3 text-sm text-muted-foreground">
+              New construction: all six programs available. Existing rental
+              (purchase/refi): <span class="text-foreground">MLI Standard or MLI Select</span>
+              (existing-property scoring thresholds are higher).
+            </p>
+          </Card>
+
+          <Card className="bg-obsidian border-dark-gray p-6">
+            <div class="text-xs uppercase tracking-wide text-star">Step 5</div>
+            <div class="mt-1 text-lg font-semibold">Forgivable capital</div>
+            <p class="mt-3 text-sm text-muted-foreground">
+              Only <span class="text-foreground">AHF</span> ($25–75K/unit, up
+              to 40% of costs) and <span class="text-foreground">CHDP</span>
+              (up to one-third of project costs) include forgivable
+              components.
+            </p>
+          </Card>
+
+          <Card className="bg-obsidian border-dark-gray p-6">
+            <div class="text-xs uppercase tracking-wide text-star">Step 6</div>
+            <div class="mt-1 text-lg font-semibold">Stacking</div>
+            <p class="mt-3 text-sm text-muted-foreground">
+              CMHC direct programs can stack with provincial and municipal
+              grants (Toronto RHSP, Vancouver CHIP, Edmonton AHIP). MLI
+              Select stacks cleanly with municipal DCL waivers and property
+              tax incentives.
+            </p>
+          </Card>
+        </div>
+      </div>
+    </section>
+
+    {/* CTA */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-20 lg:px-12 lg:py-28">
+        <div class="mx-auto max-w-3xl text-center">
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-5xl">
+            Still unsure? Model the numbers.
+          </h2>
+          <p class="mx-auto mt-5 max-w-2xl text-muted-foreground">
+            The point scorer will tell you which MLI Select tier you
+            qualify for. The loan sizer models all three programs
+            side-by-side against your LTV, DCR and program-cap
+            constraints.
+          </p>
+          <div class="mt-8 flex flex-wrap justify-center gap-3">
+            <a href="/calculators/point-scorer">
+              <Button size="lg">Start with the point scorer</Button>
+            </a>
+            <a href="/calculators/loan-sizer">
+              <Button variant="outline" size="lg">Jump to the loan sizer</Button>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</DefaultLayout>

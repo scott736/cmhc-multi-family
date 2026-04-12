@@ -1,0 +1,304 @@
+---
+import DefaultLayout from "@/layouts/DefaultLayout.astro";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import { AFFORDABILITY_THRESHOLDS } from "@/data/cmhc";
+
+const title = "Affordability Thresholds — MLI Select Underwriting";
+const description =
+  "How CMHC defines affordable rent under MLI Select: 30% of median renter household income (before tax) for the subject CMA. Published annually in a downloadable Excel spreadsheet. Threshold is income-based, not rent-based.";
+
+const sortedThresholds = [...AFFORDABILITY_THRESHOLDS].sort(
+  (a, b) => b.monthly - a.monthly,
+);
+---
+
+<DefaultLayout title={title} description={description}>
+  <div class="bg-obsidian text-foreground">
+    {/* HERO */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <Badge variant="outline" className="mb-6 border-star/40 text-star">
+          Underwriting · Affordability
+        </Badge>
+        <h1 class="text-4xl font-semibold tracking-tight lg:text-6xl">
+          Affordability under MLI Select — the income-based threshold.
+        </h1>
+        <p class="mt-6 max-w-3xl text-lg text-muted-foreground">
+          Under MLI Select, a unit "counts" as affordable if its rent
+          is at or below 30% of the median renter household income
+          (before tax) for the subject Census Metropolitan Area. This
+          is an income-based threshold — not a percentage of local
+          market rents. CMHC publishes the threshold data annually in
+          a downloadable Excel spreadsheet attached to the MLI Select
+          program page.
+        </p>
+        <p class="mt-4 max-w-3xl text-lg text-muted-foreground">
+          The distinction matters. In CMAs where rents have outrun
+          incomes (Vancouver, Toronto), the threshold often sits
+          below market rent and requires a real discount. In markets
+          where incomes have kept pace with rents (parts of the
+          Prairies), units can sometimes score affordability near
+          market — a material edge when structuring a points-path.
+        </p>
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a href="/calculators/point-scorer">
+            <Button size="lg">Score your MLI Select project</Button>
+          </a>
+          <a href="/programs/mli-select">
+            <Button variant="outline" size="lg">MLI Select program</Button>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    {/* THRESHOLD TABLE */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="max-w-3xl">
+          <Badge variant="secondary" className="mb-4">2025–2026 thresholds</Badge>
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+            Monthly rent thresholds by CMA.
+          </h2>
+          <p class="mt-4 text-muted-foreground">
+            Approximate 2025–2026 values (30% of median renter
+            household income, before tax). For authoritative
+            current-year figures use CMHC's MLI Select XLSX or
+            GreenBirch Capital's public lookup tool — both linked
+            below.
+          </p>
+        </div>
+
+        <div class="mt-10 overflow-x-auto rounded-lg border border-dark-gray bg-jet">
+          <table class="w-full border-collapse text-sm">
+            <thead>
+              <tr class="border-b border-dark-gray text-muted-foreground text-xs uppercase tracking-wide">
+                <th class="px-4 py-3 text-left font-medium">CMA</th>
+                <th class="px-4 py-3 text-right font-medium">Monthly threshold</th>
+                <th class="px-4 py-3 text-right font-medium">Annual (implied HH income)</th>
+              </tr>
+            </thead>
+            <tbody>
+              {
+                sortedThresholds.map((row) => (
+                  <tr class="border-b border-dark-gray last:border-0">
+                    <td class="px-4 py-3 font-medium">{row.cma}</td>
+                    <td class="px-4 py-3 text-right">
+                      ${row.monthly.toLocaleString()}/mo
+                    </td>
+                    <td class="px-4 py-3 text-right text-muted-foreground">
+                      ~${(row.monthly * 40).toLocaleString()}
+                    </td>
+                  </tr>
+                ))
+              }
+            </tbody>
+          </table>
+        </div>
+        <p class="mt-4 text-sm text-muted-foreground">
+          Implied household income = monthly threshold × 12 / 0.30
+          (rent at 30% of gross income). Values rounded.
+        </p>
+      </div>
+    </section>
+
+    {/* INCOME VS RENT */}
+    <section class="border-b border-dark-gray bg-jet">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="grid gap-10 lg:grid-cols-2">
+          <Card className="bg-obsidian border-dark-gray p-6">
+            <div class="text-xs uppercase tracking-wide text-star">
+              Income-based
+            </div>
+            <div class="mt-1 text-lg font-semibold">
+              MLI Select (since March 2022)
+            </div>
+            <p class="mt-3 text-sm text-muted-foreground">
+              Threshold = 30% of median renter household income for
+              the subject CMA. Published in the MLI Select median
+              renter income XLSX attached to CMHC's MLI Select page.
+              Updated annually — effective rent thresholds shift
+              with wage data, not rent data.
+            </p>
+            <p class="mt-3 text-sm text-muted-foreground">
+              Advantage: markets with naturally lower rents relative
+              to median incomes (e.g. parts of the Prairies) can
+              sometimes hit Level 1 affordability at near-market
+              rents — very valuable for MLI Select tier 1 (50
+              points).
+            </p>
+          </Card>
+
+          <Card className="bg-obsidian border-dark-gray p-6">
+            <div class="text-xs uppercase tracking-wide text-star">
+              Rent-percentile based
+            </div>
+            <div class="mt-1 text-lg font-semibold">
+              Older CMHC criteria (comparison)
+            </div>
+            <p class="mt-3 text-sm text-muted-foreground">
+              Some legacy CMHC programs used a percentile of local
+              market rent as the affordability threshold (for
+              example, 20–30% below median market rent). This is
+              rent-based, not income-based — and moves with the rent
+              market, not the labour market.
+            </p>
+            <p class="mt-3 text-sm text-muted-foreground">
+              Under MLI Select this approach has been replaced by
+              the income-based rule, which is structurally more
+              protective for tenants in high-rent-growth markets.
+            </p>
+          </Card>
+        </div>
+      </div>
+    </section>
+
+    {/* UNIT COMMITMENTS */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="max-w-3xl">
+          <Badge variant="secondary" className="mb-4">Unit commitments</Badge>
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+            How many units need to be affordable to score.
+          </h2>
+          <p class="mt-4 text-muted-foreground">
+            MLI Select affordability points scale with the percentage
+            of units held at or below the CMA threshold — and the
+            thresholds differ for new construction vs. existing.
+          </p>
+        </div>
+
+        <div class="mt-10 grid gap-6 lg:grid-cols-2">
+          <Card className="bg-jet border-dark-gray p-6">
+            <div class="text-xs uppercase tracking-wide text-star">
+              New construction
+            </div>
+            <div class="mt-1 text-lg font-semibold">
+              Point levels by % of units below threshold
+            </div>
+            <div class="mt-4 space-y-2 text-sm">
+              <div class="flex justify-between border-b border-dark-gray pb-2">
+                <span>Level 1 — 10% of units</span>
+                <span class="font-medium">50 points</span>
+              </div>
+              <div class="flex justify-between border-b border-dark-gray pb-2">
+                <span>Level 2 — 15% of units</span>
+                <span class="font-medium">70 points</span>
+              </div>
+              <div class="flex justify-between pt-2">
+                <span>Level 3 — 25% of units</span>
+                <span class="font-medium">100 points</span>
+              </div>
+            </div>
+          </Card>
+          <Card className="bg-jet border-dark-gray p-6">
+            <div class="text-xs uppercase tracking-wide text-star">
+              Existing property
+            </div>
+            <div class="mt-1 text-lg font-semibold">
+              Point levels by % of units below threshold
+            </div>
+            <div class="mt-4 space-y-2 text-sm">
+              <div class="flex justify-between border-b border-dark-gray pb-2">
+                <span>Level 1 — 40% of units</span>
+                <span class="font-medium">50 points</span>
+              </div>
+              <div class="flex justify-between border-b border-dark-gray pb-2">
+                <span>Level 2 — 60% of units</span>
+                <span class="font-medium">70 points</span>
+              </div>
+              <div class="flex justify-between pt-2">
+                <span>Level 3 — 80% of units</span>
+                <span class="font-medium">100 points</span>
+              </div>
+            </div>
+          </Card>
+        </div>
+        <p class="mt-4 text-sm text-muted-foreground">
+          Plus a 30-point bonus for a 20-year affordability
+          commitment (vs. the default 10 years). See the
+          <a href="/calculators/point-scorer" class="text-star">
+            point scorer
+          </a>
+          to model your project.
+        </p>
+      </div>
+    </section>
+
+    {/* LOOKUP TOOLS */}
+    <section class="border-b border-dark-gray bg-jet">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="max-w-3xl">
+          <Badge variant="secondary" className="mb-4">Lookup tools</Badge>
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+            Where to find current-year thresholds.
+          </h2>
+        </div>
+
+        <div class="mt-10 grid gap-4 md:grid-cols-2">
+          <Card className="bg-obsidian border-dark-gray p-6">
+            <div class="text-xs uppercase tracking-wide text-star">Authoritative</div>
+            <div class="mt-1 text-lg font-semibold">
+              CMHC MLI Select XLSX
+            </div>
+            <p class="mt-3 text-sm text-muted-foreground">
+              Downloadable Excel spreadsheet attached to the MLI
+              Select program page at cmhc-schl.gc.ca. Contains median
+              renter household income by CMA and the corresponding
+              30% monthly rent threshold. Updated annually.
+            </p>
+          </Card>
+          <Card className="bg-obsidian border-dark-gray p-6">
+            <div class="text-xs uppercase tracking-wide text-star">Third-party</div>
+            <div class="mt-1 text-lg font-semibold">
+              GreenBirch Capital affordable rent lookup
+            </div>
+            <p class="mt-3 text-sm text-muted-foreground">
+              Public browser-based lookup at
+              greenbirchcapital.com/affordable-unit-monthly-rents/ —
+              searchable by CMA with immediate threshold output. The
+              most convenient way to sanity-check an MLI Select
+              pro forma without opening the XLSX.
+            </p>
+            <a
+              href="https://greenbirchcapital.com/affordable-unit-monthly-rents/"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="mt-3 inline-flex text-sm text-star"
+            >
+              Open the lookup →
+            </a>
+          </Card>
+        </div>
+      </div>
+    </section>
+
+    {/* CTA */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-20 lg:px-12 lg:py-28">
+        <div class="mx-auto max-w-3xl text-center">
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-5xl">
+            Score your project.
+          </h2>
+          <p class="mx-auto mt-5 max-w-2xl text-muted-foreground">
+            The point scorer combines affordability, energy, and
+            accessibility commitments to tell you exactly which MLI
+            Select tier you qualify for and what tradeoffs get you
+            to the next tier.
+          </p>
+          <div class="mt-8 flex flex-wrap justify-center gap-3">
+            <a href="/calculators/point-scorer">
+              <Button size="lg">Open the point scorer</Button>
+            </a>
+            <a href="/programs/mli-select">
+              <Button variant="outline" size="lg">
+                MLI Select program page
+              </Button>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</DefaultLayout>

@@ -1,0 +1,324 @@
+---
+import DefaultLayout from "@/layouts/DefaultLayout.astro";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import { CONSTRUCTION_COMPARISON } from "@/data/cmhc";
+
+const title = "MLI Select Developer Economics — 95% LTC, 50-yr Amortization";
+const description =
+  "How MLI Select transforms developer returns: 4× cash-on-cash vs. conventional, near-full equity recaptured at takeout, and capital recycling into more simultaneous projects. Worked numbers from a $1.19M project comparison.";
+
+const federalInitiatives = [
+  {
+    title: "Build Canada Homes",
+    date: "September 2025 onward",
+    body:
+      "$13B initial deployment. 88 federal properties / 463 hectares earmarked for housing. Six Direct Build projects targeting 7,500+ homes. Build Canada Homes Act (February 2026) establishes Crown corporation to hold and deploy federal housing assets.",
+  },
+  {
+    title: "Canada Builds partnership",
+    date: "March 2026",
+    body:
+      "Federal ACLP loans + provincial investments. $2.55B commitment for 4,831 new rental homes in Toronto under the partnership framework.",
+  },
+  {
+    title: "Federal GST removal",
+    date: "2023",
+    body:
+      "Full GST removal on new purpose-built rental construction. 5% direct reduction in hard cost — particularly impactful when combined with MLI Select's 95% LTC.",
+  },
+  {
+    title: "Housing Accelerator Fund",
+    date: "2023–2026",
+    body:
+      "$4.4B to municipalities targeting 112,000 new homes through zoning reform — upzoning, inclusionary zoning, permitting reforms. Creates the policy backdrop municipal incentives stack against.",
+  },
+];
+---
+
+<DefaultLayout title={title} description={description}>
+  <div class="bg-obsidian text-foreground">
+    {/* HERO */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <Badge variant="outline" className="mb-6 border-star/40 text-star">
+          Developers · Economics
+        </Badge>
+        <h1 class="text-4xl font-semibold tracking-tight lg:text-6xl">
+          MLI Select fundamentally changes the math.
+        </h1>
+        <p class="mt-6 max-w-3xl text-lg text-muted-foreground">
+          MLI Select's 95% loan-to-cost and 50-year amortization
+          don't just juice the IRR on any given deal — they
+          rewire the capital model. At takeout, the permanent
+          mortgage returns most of the equity that went into
+          construction. Developers can operate substantially more
+          simultaneous projects with the same working capital.
+        </p>
+        <p class="mt-4 max-w-3xl text-lg text-muted-foreground">
+          The comparison below uses a $1,190,000 project from the
+          Helio Urban Development case study: conventional
+          (75% LTC, 25-year amortization) vs. MLI Select
+          (100 points, 95% LTC, 50-year amortization).
+        </p>
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a href="/calculators/compare">
+            <Button size="lg">Run the comparison</Button>
+          </a>
+          <a href="/programs/mli-select">
+            <Button variant="outline" size="lg">
+              MLI Select program
+            </Button>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    {/* COMPARISON TABLE */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="max-w-3xl">
+          <Badge variant="secondary" className="mb-4">
+            Worked comparison
+          </Badge>
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+            Conventional 75% / 25yr vs. MLI Select 95% / 50yr.
+          </h2>
+          <p class="mt-4 text-muted-foreground">
+            Same project cost, same market rents. Only the
+            financing structure changes. Sourced from Helio Urban
+            Development's $1.19M case study.
+          </p>
+        </div>
+
+        <div class="mt-10 overflow-x-auto rounded-lg border border-dark-gray bg-jet">
+          <table class="w-full border-collapse text-sm">
+            <thead>
+              <tr class="border-b border-dark-gray text-muted-foreground text-xs uppercase tracking-wide">
+                <th class="px-4 py-3 text-left font-medium">Metric</th>
+                <th class="px-4 py-3 text-right font-medium">
+                  Conventional 75% / 25yr
+                </th>
+                <th class="px-4 py-3 text-right font-medium">
+                  MLI Select 100 pts / 95% / 50yr
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {
+                CONSTRUCTION_COMPARISON.map((row) => (
+                  <tr class="border-b border-dark-gray last:border-0">
+                    <td class="px-4 py-3 font-medium">{row.metric}</td>
+                    <td class="px-4 py-3 text-right">{row.conventional}</td>
+                    <td class="px-4 py-3 text-right font-semibold text-star">
+                      {row.mliSelect}
+                    </td>
+                  </tr>
+                ))
+              }
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    {/* MECHANICS */}
+    <section class="border-b border-dark-gray bg-jet">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="max-w-3xl">
+          <Badge variant="secondary" className="mb-4">Mechanics</Badge>
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+            Where the outsized return comes from.
+          </h2>
+          <p class="mt-4 text-muted-foreground">
+            The ~32% cash-on-cash number is not a yield on the
+            stabilized property alone — it's the return on the
+            residual equity after takeout. The mechanics:
+          </p>
+        </div>
+
+        <div class="mt-10 grid gap-6 md:grid-cols-3">
+          <Card className="bg-obsidian border-dark-gray p-6">
+            <div class="text-xs uppercase tracking-wide text-star">Step 1</div>
+            <div class="mt-1 text-lg font-semibold">
+              Construct at 95% LTC
+            </div>
+            <p class="mt-3 text-sm text-muted-foreground">
+              Developer contributes 5% of project cost as equity
+              (vs. 25% under conventional). Construction loan
+              covers the rest, with interest capitalized.
+            </p>
+          </Card>
+          <Card className="bg-obsidian border-dark-gray p-6">
+            <div class="text-xs uppercase tracking-wide text-star">Step 2</div>
+            <div class="mt-1 text-lg font-semibold">
+              Stabilize to market rents
+            </div>
+            <p class="mt-3 text-sm text-muted-foreground">
+              Building reaches stabilized occupancy. NOI built up
+              to support a permanent mortgage — typically 12–18
+              months from completion.
+            </p>
+          </Card>
+          <Card className="bg-obsidian border-dark-gray p-6">
+            <div class="text-xs uppercase tracking-wide text-star">Step 3</div>
+            <div class="mt-1 text-lg font-semibold">
+              Refi — equity recaptured
+            </div>
+            <p class="mt-3 text-sm text-muted-foreground">
+              Permanent mortgage at 95% of LTC (or stabilized
+              value) pays off the construction loan and
+              returns most construction-phase equity to the
+              developer — who recycles it into the next project.
+            </p>
+          </Card>
+        </div>
+
+        <Card className="mt-10 bg-obsidian border-dark-gray p-8">
+          <div class="text-xs uppercase tracking-wide text-star">Why it matters</div>
+          <div class="mt-1 text-lg font-semibold">
+            Capital recycling, not just a better return
+          </div>
+          <p class="mt-3 text-sm text-muted-foreground">
+            A conventional 25% equity contribution is locked in the
+            project through the hold. MLI Select's near-full equity
+            recapture at takeout means that same $1M of working
+            capital can cycle through 4–5 simultaneous projects
+            instead of funding one — a compounding effect that
+            changes how aggressive a developer can be with
+            pipeline.
+          </p>
+        </Card>
+      </div>
+    </section>
+
+    {/* EASIEST SCORING PATH */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="grid gap-10 lg:grid-cols-[1fr_1fr]">
+          <div>
+            <Badge variant="outline" className="mb-4 border-star/40 text-star">
+              Points-path playbook
+            </Badge>
+            <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+              The easiest 70 points for new construction.
+            </h2>
+            <p class="mt-4 text-muted-foreground">
+              For new construction, the simplest path to MLI Select
+              qualification is:
+            </p>
+            <ul class="mt-4 space-y-3 text-sm">
+              <li class="border-b border-dark-gray/50 pb-3">
+                <span class="text-star font-semibold">Energy L1 (20 pts)</span>
+                — achievable through modern building standards:
+                triple-pane windows, heat pumps, HRV ventilation,
+                improved insulation. Often already in spec.
+              </li>
+              <li class="border-b border-dark-gray/50 pb-3">
+                <span class="text-star font-semibold">Affordability L1 (50 pts)</span>
+                — commit 10% of units at the CMA threshold
+                (30% of median renter income).
+              </li>
+              <li>
+                <span class="text-star font-semibold">
+                  = 70 points (Tier 2)
+                </span>{" "}
+                → 95% LTC on existing, 45-year amortization,
+                20% premium discount.
+              </li>
+            </ul>
+            <p class="mt-4 text-muted-foreground">
+              Add a 15% affordability commitment instead of 10%
+              and you're at 70+20 = 90 points. Push to 25% of
+              units and you hit 100 points / Tier 3 / 50-year
+              amortization.
+            </p>
+            <a href="/calculators/point-scorer" class="mt-4 inline-flex text-sm text-star">
+              Open the point scorer →
+            </a>
+          </div>
+          <Card className="bg-jet border-dark-gray p-6">
+            <div class="text-xs uppercase tracking-wide text-muted-foreground">
+              Triple-pane windows, heat pumps, HRV
+            </div>
+            <p class="mt-3 text-sm text-muted-foreground">
+              These three elements alone typically get a new
+              build over the 20% NBC-2020 threshold for Level 1
+              energy points — and are increasingly table-stakes
+              for lease-up in competitive markets anyway.
+            </p>
+            <div class="mt-6 text-xs uppercase tracking-wide text-muted-foreground">
+              10–15% of units at affordable rent
+            </div>
+            <p class="mt-3 text-sm text-muted-foreground">
+              In markets where the affordability threshold sits
+              close to market rent (parts of the Prairies), the
+              revenue hit is minimal. In Toronto and Vancouver
+              the threshold sits well below market — real
+              discount, but still an acceptable tradeoff for
+              +20pts of discount and the LTC uplift.
+            </p>
+          </Card>
+        </div>
+      </div>
+    </section>
+
+    {/* FEDERAL CONTEXT */}
+    <section class="border-b border-dark-gray bg-jet">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="max-w-3xl">
+          <Badge variant="secondary" className="mb-4">Federal backdrop</Badge>
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+            Federal announcements reshaping the landscape.
+          </h2>
+          <p class="mt-4 text-muted-foreground">
+            MLI Select economics don't exist in isolation —
+            federal housing policy has moved aggressively in
+            2023–2026 to amplify the supply response.
+          </p>
+        </div>
+
+        <div class="mt-10 grid gap-4 md:grid-cols-2">
+          {
+            federalInitiatives.map((f) => (
+              <Card className="bg-obsidian border-dark-gray p-6">
+                <div class="text-xs uppercase tracking-wide text-star">
+                  {f.date}
+                </div>
+                <div class="mt-1 text-lg font-semibold">{f.title}</div>
+                <p class="mt-3 text-sm text-muted-foreground">{f.body}</p>
+              </Card>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    {/* CTA */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-20 lg:px-12 lg:py-28">
+        <div class="mx-auto max-w-3xl text-center">
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-5xl">
+            Model your own project.
+          </h2>
+          <p class="mx-auto mt-5 max-w-2xl text-muted-foreground">
+            The scenario comparison puts MLI Select, MLI Standard,
+            and conventional side-by-side so you can see the
+            equity-recapture math on your own numbers.
+          </p>
+          <div class="mt-8 flex flex-wrap justify-center gap-3">
+            <a href="/calculators/compare">
+              <Button size="lg">Run the comparison</Button>
+            </a>
+            <a href="/developers/municipal">
+              <Button variant="outline" size="lg">
+                Municipal stacking
+              </Button>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</DefaultLayout>

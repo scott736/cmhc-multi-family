@@ -1,0 +1,138 @@
+---
+import DefaultLayout from "@/layouts/DefaultLayout.astro";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import { LAST_UPDATED } from "@/data/cmhc";
+
+const title = "CMHC for Developers — Construction, Economics, Stacking";
+const description =
+  "How multi-family developers use CMHC to unlock 95% LTC, 50-year amortization, and full capital recycling at takeout. Two construction paths, municipal and provincial stacking, and MLI Select economics that fundamentally outperform conventional.";
+
+const sections = [
+  {
+    slug: "construction",
+    title: "Construction financing",
+    body:
+      "The two paths to CMHC-insured construction: construction-to-term (single lender, CMHC insurance from day one) vs. completion takeout (conventional construction loan, CMHC refinance at stabilization). Bonding, drawdowns, and monitoring.",
+    meta: "Two financing paths",
+  },
+  {
+    slug: "economics",
+    title: "MLI Select economics",
+    body:
+      "Why MLI Select transforms developer returns: 95% LTC at construction, 50-year amortization at takeout, equity recaptured at stabilization. 4× the cash-on-cash vs. conventional and capital recycling into more simultaneous projects.",
+    meta: "Capital recycling math",
+  },
+  {
+    slug: "municipal",
+    title: "Municipal stacking",
+    body:
+      "Toronto's ~$97K/unit incentive package, Vancouver's DCL waivers and CHIP grants, Calgary's non-market tax exemption, Edmonton's AHIP, Ottawa's TIEGs, Montreal's SHQ match. Program-by-program stacking guidance with CMHC AHF/CHDP/Select.",
+    meta: "Six cities, stacking guidance",
+  },
+  {
+    slug: "provincial",
+    title: "Provincial rules",
+    body:
+      "Rent control and tenancy frameworks affecting CMHC projects. Ontario's 2018 new-construction exemption, BC's no-exemption regime, Alberta's no rent control, and Quebec's TAL 5-year new-construction window.",
+    meta: "Rent control by province",
+  },
+];
+---
+
+<DefaultLayout title={title} description={description}>
+  <div class="bg-obsidian text-foreground">
+    {/* HERO */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <Badge variant="outline" className="mb-6 border-star/40 text-star">
+          Developers · Current to {LAST_UPDATED}
+        </Badge>
+        <h1 class="text-4xl font-semibold tracking-tight lg:text-6xl">
+          CMHC for multi-family developers.
+        </h1>
+        <p class="mt-6 max-w-3xl text-lg text-muted-foreground">
+          CMHC programs — especially MLI Select — fundamentally
+          changed developer economics in 2022–2025. 95% loan-to-cost
+          at construction, 50-year amortization at takeout, and
+          recaptured equity at stabilization enable a capital
+          recycling model that lets developers operate far more
+          simultaneous projects with the same equity base.
+        </p>
+        <p class="mt-4 max-w-3xl text-lg text-muted-foreground">
+          This section covers the four questions every multi-family
+          developer has to answer: which construction path to take,
+          how the economics compare to conventional, what municipal
+          incentives stack on top, and how provincial rent control
+          affects the pro forma.
+        </p>
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a href="/calculators/compare">
+            <Button size="lg">Scenario comparison</Button>
+          </a>
+          <a href="/programs/mli-select">
+            <Button variant="outline" size="lg">MLI Select program</Button>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    {/* SUB-SECTIONS */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="max-w-3xl">
+          <Badge variant="secondary" className="mb-4">Four deep-dives</Badge>
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+            What every CMHC-financed project needs to get right.
+          </h2>
+        </div>
+
+        <div class="mt-10 grid gap-4 md:grid-cols-2">
+          {
+            sections.map((s) => (
+              <a href={`/developers/${s.slug}`} class="group">
+                <Card className="h-full bg-jet border-dark-gray p-6 transition-colors hover:border-star/50">
+                  <div class="text-xs uppercase tracking-wide text-star">
+                    {s.meta}
+                  </div>
+                  <div class="mt-1 text-xl font-semibold">{s.title}</div>
+                  <p class="mt-3 text-sm text-muted-foreground">{s.body}</p>
+                  <div class="mt-5 text-sm text-star">
+                    Read →
+                  </div>
+                </Card>
+              </a>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    {/* CTA */}
+    <section class="border-b border-dark-gray bg-jet">
+      <div class="container border-l border-r border-dark-gray px-6 py-20 lg:px-12 lg:py-28">
+        <div class="mx-auto max-w-3xl text-center">
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-5xl">
+            Compare MLI Select against conventional.
+          </h2>
+          <p class="mx-auto mt-5 max-w-2xl text-muted-foreground">
+            The comparison calculator puts MLI Select, MLI Standard,
+            and conventional financing side-by-side — equity,
+            debt service, cash flow, and total financing cost.
+          </p>
+          <div class="mt-8 flex flex-wrap justify-center gap-3">
+            <a href="/calculators/compare">
+              <Button size="lg">Run the comparison</Button>
+            </a>
+            <a href="/developers/economics">
+              <Button variant="outline" size="lg">
+                Read the economics page
+              </Button>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</DefaultLayout>

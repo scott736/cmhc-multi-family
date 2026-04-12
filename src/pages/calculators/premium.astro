@@ -1,0 +1,12 @@
+---
+import DefaultLayout from "@/layouts/DefaultLayout.astro";
+import PremiumCalculator from "@/components/calculators/premium";
+
+const title = "CMHC Premium Calculator — July 14 2025 Grid | CMHC Multi-Family";
+const description =
+  "CMHC insurance premium calculator on the July 14 2025 LTV-tiered grid. Handles amortization, non-residential, second-mortgage, and EGI surcharges plus MLI Select tier-based discounts.";
+---
+
+<DefaultLayout title={title} description={description}>
+  <PremiumCalculator client:load />
+</DefaultLayout>

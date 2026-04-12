@@ -1,0 +1,12 @@
+---
+import DefaultLayout from "@/layouts/DefaultLayout.astro";
+import CashFlow from "@/components/calculators/cash-flow";
+
+const title = "Cash Flow Projection — Year-by-year | CMHC Multi-Family";
+const description =
+  "Year-by-year cash flow projection for CMHC-insured multifamily projects. NOI, principal and interest split, cash flow, cash-on-cash, DCR and loan balance — with CSV export.";
+---
+
+<DefaultLayout title={title} description={description}>
+  <CashFlow client:load />
+</DefaultLayout>
