@@ -1,4 +1,5 @@
-import { Building2, Linkedin, Twitter } from "lucide-react";
+import { Building2 } from "lucide-react";
+import { FaLinkedin as Linkedin, FaTwitter as Twitter } from "react-icons/fa";
 
 const navigation = [
   {

@@ -1,8 +1,8 @@
 // CMHC premium calculation logic — July 14, 2025 LTV-tiered grid.
 import {
+  MLI_SELECT_DISCOUNTS,
   MLI_STANDARD_PREMIUMS,
   PREMIUM_SURCHARGES,
-  MLI_SELECT_DISCOUNTS,
 } from "@/data/cmhc";
 
 export type TxType = "purchaseRefi" | "construction";

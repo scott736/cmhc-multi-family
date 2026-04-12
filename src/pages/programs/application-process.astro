@@ -1,0 +1,434 @@
+---
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import DefaultLayout from "@/layouts/DefaultLayout.astro";
+
+const title = "CMHC Application Process — MULTI-GO, Fees, COI Workflow";
+const description =
+  "How a CMHC multi-unit file actually moves from engagement to Certificate of Insurance. The MULTI-GO submission channel, fee schedule, documentation package, COI workflow, and realistic processing timelines by lender type.";
+
+const feeSchedule = [
+  {
+    item: "Application fee",
+    detail:
+      "Per-unit, payable at submission. Can be rolled into the insured loan amount.",
+  },
+  {
+    item: "Site inspection fee",
+    detail:
+      "$150–$200 per door for the first 100 doors; $100/door thereafter; capped at $55,000.",
+  },
+  {
+    item: "Fee retention on withdrawal",
+    detail:
+      "10% retained if the file is withdrawn before COI; 100% retained once the COI has been issued.",
+  },
+  {
+    item: "MLI Select energy / accessibility modelling",
+    detail:
+      "Lender- or borrower-paid consultant cost, typically $8K–$25K+ depending on project complexity.",
+  },
+  {
+    item: "Appraisal",
+    detail:
+      "Lender-commissioned (mandatory on all sizes post-November 15, 2024). $8K–$25K+, 12-month validity.",
+  },
+];
+
+const documentationPackage = [
+  {
+    item: "Application form + corporate/borrower profile",
+    detail:
+      "Submitted by the approved lender through MULTI-GO with the full ownership structure.",
+  },
+  {
+    item: "Phase I Environmental Site Assessment",
+    detail:
+      "Required on all applications. Must meet CSA Z768-01. Phase II only if RECs are identified.",
+  },
+  {
+    item: "Geotechnical + structural reports",
+    detail:
+      "New construction only — bearing capacity, frost depth, seismic category, and structural review.",
+  },
+  {
+    item: "Cost consultant / QS report",
+    detail:
+      "Required on construction files. Pre-construction hard cost reasonableness; monthly draw reports.",
+  },
+  {
+    item: "Appraisal",
+    detail:
+      "AIC-designated appraiser, three valuation approaches reconciled to final value.",
+  },
+  {
+    item: "Financial statements (3-year)",
+    detail:
+      "For borrower entity and all guarantors. Covenant test: net worth ≥25% of loan, min $100,000.",
+  },
+  {
+    item: "Energy modelling",
+    detail:
+      "MLI Select only. Modelled against 2020 NECB / NBC Tier 1 baseline by a qualified energy advisor.",
+  },
+  {
+    item: "Accessibility certification",
+    detail:
+      "MLI Select only. CSA B651:23 or RHFAC; minimum visitability on all units is baseline.",
+  },
+  {
+    item: "Surety bonding commitment",
+    detail:
+      "Construction post-November 15, 2024. 50% L&M + 50% Performance from an admitted Canadian surety.",
+  },
+];
+
+const coiWorkflow = [
+  {
+    step: "1",
+    title: "Initial underwriting review",
+    detail:
+      "CMHC's Underwriting Centre assesses the file through MULTI-GO. Typical review window 2–6 weeks once the package is complete.",
+  },
+  {
+    step: "2",
+    title: "COI issued to the approved lender",
+    detail:
+      "CMHC issues the Certificate of Insurance directly to the approved lender — not to the borrower. The borrower must have selected a lender before approval.",
+  },
+  {
+    step: "3",
+    title: "Lender funding obligations",
+    detail:
+      "Post-September 2024 policy: approved lenders must fund at least 80% of the loans they hold approvals for. COI transferability between lenders has been restricted since September 3, 2025.",
+  },
+  {
+    step: "4",
+    title: "Construction draw administration",
+    detail:
+      "CMHC reviews the first and last draws directly. Intermediate monthly draws are handled by the approved lender with an independent cost consultant / inspector.",
+  },
+];
+
+const timelineRows = [
+  {
+    lender: "Monoline lenders (First National, MCAP, Peakhill)",
+    timeline: "4–8 weeks post-submission",
+    note: "Dedicated multi-unit teams, strongest CMHC volume.",
+  },
+  {
+    lender: "Big 6 banks (TD, National Bank, Scotia)",
+    timeline: "8–14 weeks post-submission",
+    note: "Smaller dedicated teams, longer internal credit cycles.",
+  },
+  {
+    lender: "CMHC direct programs (ACLP / AHF / CHDP)",
+    timeline: "6–12 months to commitment",
+    note: "Full affordability program underwriting and contribution agreements.",
+  },
+  {
+    lender: "CMHC Frequent Builder framework (July 2024)",
+    timeline: "Accelerated ACLP path",
+    note: "For repeat developers with a demonstrated CMHC track record.",
+  },
+];
+---
+
+<DefaultLayout title={title} description={description}>
+  <div class="bg-obsidian text-foreground">
+    {/* HERO */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <Badge
+          variant="outline"
+          className="mb-6 border-star/40 text-star"
+        >
+          Application process
+        </Badge>
+        <h1 class="text-4xl font-semibold tracking-tight lg:text-6xl">
+          How to apply: CMHC multi-unit from engagement to COI.
+        </h1>
+        <p class="mt-6 max-w-3xl text-lg text-muted-foreground">
+          Most CMHC resources document the programs and ignore the
+          operational layer — which is where files actually stall. This
+          page walks through the MULTI-GO submission channel, the fee
+          schedule, the full documentation package, the Certificate of
+          Insurance workflow, and realistic processing timelines by
+          lender type.
+        </p>
+        <p class="mt-4 max-w-3xl text-lg text-muted-foreground">
+          Every CMHC multi-unit file routes through an approved lender —
+          not directly to CMHC from the borrower. The September 2024
+          policy changes narrowed submission rights and tightened COI
+          funding obligations; the November 2024 changes added mandatory
+          appraisal and surety bonding across all sizes.
+        </p>
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a href="/underwriting/documentation">
+            <Button size="lg">See the documentation package</Button>
+          </a>
+          <a href="/lenders">
+            <Button variant="outline" size="lg">Find an approved lender</Button>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    {/* MULTI-GO SUBMISSION CHANNEL */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="grid gap-10 lg:grid-cols-[1fr_1.2fr]">
+          <div>
+            <Badge variant="secondary" className="mb-4">MULTI-GO</Badge>
+            <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+              The submission channel for 5+ unit files.
+            </h2>
+            <p class="mt-4 text-muted-foreground">
+              Multi-unit files (5+ self-contained units) flow through
+              CMHC's MULTI-GO channel, handled by the Underwriting
+              Centre. This is a dedicated pipeline — separate from the
+              retail emili system used for single-family insured
+              mortgages.
+            </p>
+            <p class="mt-4 text-muted-foreground">
+              Post-September 2024, only approved CMHC lenders are
+              permitted to submit files through MULTI-GO. The borrower
+              must select a lender before CMHC approval — CMHC does not
+              issue insurance to an unattached file.
+            </p>
+          </div>
+          <Card className="bg-jet border-dark-gray p-8">
+            <div class="text-xs uppercase tracking-wide text-muted-foreground">
+              Direct line
+            </div>
+            <div class="mt-3 text-3xl font-semibold text-star">
+              1-877-685-8446
+            </div>
+            <p class="mt-4 text-sm text-muted-foreground">
+              CMHC Underwriting Centre — multi-unit file enquiries.
+              Lender-facing; borrowers should route through their
+              approved lender contact.
+            </p>
+            <div class="mt-6 space-y-2 text-sm">
+              <div class="flex justify-between border-b border-dark-gray pb-2">
+                <span class="text-muted-foreground">Channel</span>
+                <span class="font-medium">MULTI-GO</span>
+              </div>
+              <div class="flex justify-between border-b border-dark-gray pb-2">
+                <span class="text-muted-foreground">Scope</span>
+                <span class="font-medium">5+ self-contained units</span>
+              </div>
+              <div class="flex justify-between border-b border-dark-gray pb-2">
+                <span class="text-muted-foreground">Handled by</span>
+                <span class="font-medium">Underwriting Centre</span>
+              </div>
+              <div class="flex justify-between pt-2">
+                <span class="text-muted-foreground">Submitter</span>
+                <span class="font-medium">Approved lender only</span>
+              </div>
+            </div>
+          </Card>
+        </div>
+      </div>
+    </section>
+
+    {/* FEE SCHEDULE */}
+    <section class="border-b border-dark-gray bg-jet">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="max-w-3xl">
+          <Badge variant="secondary" className="mb-4">Fee schedule</Badge>
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+            What CMHC and third parties charge.
+          </h2>
+          <p class="mt-4 text-muted-foreground">
+            CMHC charges an application fee and a site inspection fee
+            directly. The rest of the cost stack — appraisal, energy
+            modelling, accessibility certification, legal, QS — flows
+            through third parties commissioned by the lender or borrower.
+          </p>
+        </div>
+
+        <div class="mt-10 overflow-x-auto rounded-lg border border-dark-gray bg-obsidian">
+          <table class="w-full border-collapse text-sm">
+            <thead>
+              <tr class="border-b border-dark-gray text-muted-foreground text-xs uppercase tracking-wide">
+                <th class="px-4 py-3 text-left font-medium">Fee</th>
+                <th class="px-4 py-3 text-left font-medium">Detail</th>
+              </tr>
+            </thead>
+            <tbody>
+              {
+                feeSchedule.map((row) => (
+                  <tr class="border-b border-dark-gray last:border-0">
+                    <td class="px-4 py-3 font-medium">{row.item}</td>
+                    <td class="px-4 py-3 text-muted-foreground">{row.detail}</td>
+                  </tr>
+                ))
+              }
+            </tbody>
+          </table>
+        </div>
+        <p class="mt-4 text-sm text-muted-foreground">
+          The per-unit application fee can be capitalized into the
+          insured loan amount, which is standard practice; the site
+          inspection fee is typically paid at submission.
+        </p>
+      </div>
+    </section>
+
+    {/* DOCUMENTATION PACKAGE */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="max-w-3xl">
+          <Badge variant="secondary" className="mb-4">Documentation</Badge>
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+            The submission package.
+          </h2>
+          <p class="mt-4 text-muted-foreground">
+            The full documentation stack for an MLI Select or MLI Standard
+            construction file. Existing-property files omit the
+            geotechnical, structural, and surety bonding components; MLI
+            Standard files omit the energy and accessibility
+            certifications.
+          </p>
+        </div>
+
+        <div class="mt-10 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+          {
+            documentationPackage.map((row) => (
+              <Card className="bg-jet border-dark-gray p-6">
+                <div class="text-xs uppercase tracking-wide text-muted-foreground">
+                  {row.item}
+                </div>
+                <p class="mt-3 text-sm text-muted-foreground">{row.detail}</p>
+              </Card>
+            ))
+          }
+        </div>
+
+        <div class="mt-10">
+          <a href="/underwriting/documentation">
+            <Button variant="outline" size="lg">
+              Read the full documentation requirements
+            </Button>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    {/* COI WORKFLOW */}
+    <section class="border-b border-dark-gray bg-jet">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="max-w-3xl">
+          <Badge variant="outline" className="mb-4 border-star/40 text-star">
+            Certificate of Insurance
+          </Badge>
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+            How the COI actually flows.
+          </h2>
+          <p class="mt-4 text-muted-foreground">
+            The Certificate of Insurance is CMHC's binding commitment to
+            the lender. It's issued to the approved lender — not the
+            borrower — and it carries lender-side funding obligations
+            introduced in the September 2024 framework.
+          </p>
+        </div>
+
+        <div class="mt-10 grid gap-6 md:grid-cols-2">
+          {
+            coiWorkflow.map((row) => (
+              <Card className="bg-obsidian border-dark-gray p-6">
+                <div class="flex items-start gap-4">
+                  <div class="text-3xl font-semibold text-star">{row.step}</div>
+                  <div>
+                    <div class="text-lg font-semibold">{row.title}</div>
+                    <p class="mt-2 text-sm text-muted-foreground">
+                      {row.detail}
+                    </p>
+                  </div>
+                </div>
+              </Card>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    {/* PROCESSING TIMELINE */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="max-w-3xl">
+          <Badge variant="secondary" className="mb-4">Processing timeline</Badge>
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+            Realistic timing by lender type.
+          </h2>
+          <p class="mt-4 text-muted-foreground">
+            Published CMHC service standards are one thing — what
+            borrowers actually experience depends heavily on lender
+            type. Monolines with dedicated multi-unit desks are fastest;
+            Big 6 banks carry longer internal credit cycles; CMHC direct
+            programs run on their own clock entirely.
+          </p>
+        </div>
+
+        <div class="mt-10 overflow-x-auto rounded-lg border border-dark-gray">
+          <table class="w-full text-sm">
+            <thead class="bg-jet">
+              <tr>
+                <th class="px-4 py-3 text-left font-medium">Lender type</th>
+                <th class="px-4 py-3 text-left font-medium">Typical timing</th>
+                <th class="px-4 py-3 text-left font-medium">Note</th>
+              </tr>
+            </thead>
+            <tbody>
+              {
+                timelineRows.map((row) => (
+                  <tr class="border-t border-dark-gray">
+                    <td class="px-4 py-3 font-medium">{row.lender}</td>
+                    <td class="px-4 py-3 text-star">{row.timeline}</td>
+                    <td class="px-4 py-3 text-muted-foreground">{row.note}</td>
+                  </tr>
+                ))
+              }
+            </tbody>
+          </table>
+        </div>
+        <p class="mt-4 text-sm text-muted-foreground">
+          The Frequent Builder framework introduced in July 2024
+          accelerates the ACLP path for repeat developers with a CMHC
+          track record — materially compressing the 6–12 month direct
+          timeline for qualifying sponsors.
+        </p>
+      </div>
+    </section>
+
+    {/* CTA */}
+    <section class="border-b border-dark-gray bg-jet">
+      <div class="container border-l border-r border-dark-gray px-6 py-20 lg:px-12 lg:py-28">
+        <div class="mx-auto max-w-3xl text-center">
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-5xl">
+            From engagement to commitment.
+          </h2>
+          <p class="mx-auto mt-5 max-w-2xl text-muted-foreground">
+            The documentation page details every file requirement. The
+            lenders page ranks approved submitters by multi-unit volume.
+            The programs comparison shows which product fits the
+            project.
+          </p>
+          <div class="mt-8 flex flex-wrap justify-center gap-3">
+            <a href="/underwriting/documentation">
+              <Button size="lg">Documentation package</Button>
+            </a>
+            <a href="/lenders">
+              <Button variant="outline" size="lg">Approved lenders</Button>
+            </a>
+            <a href="/programs/compare">
+              <Button variant="outline" size="lg">Compare programs</Button>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</DefaultLayout>

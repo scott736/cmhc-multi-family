@@ -1,4 +1,4 @@
-import { Facebook, Linkedin, Twitter } from "lucide-react";
+import { FaFacebook as Facebook, FaLinkedin as Linkedin, FaTwitter as Twitter } from "react-icons/fa";
 
 const contactInfo = [
   {

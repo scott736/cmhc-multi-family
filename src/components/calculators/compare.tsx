@@ -1,15 +1,17 @@
 import { useMemo, useState } from "react";
-import { Badge } from "@/components/ui/badge";
-import { Card } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { Badge } from "@/components/ui/badge";
+import { Card } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { currency, percent } from "@/lib/format";
 import {
   amortizationSchedule,
   annualDebtService,
@@ -17,7 +19,6 @@ import {
   monthlyPayment,
 } from "@/lib/loan";
 import { calculatePremium } from "@/lib/premium";
-import { currency, percent } from "@/lib/format";
 
 type PropertyType = "new" | "existing";
 

@@ -1,8 +1,9 @@
 ---
-import DefaultLayout from "@/layouts/DefaultLayout.astro";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { PREMIUM_SURCHARGES, SPECIALIZED_PREMIUMS } from "@/data/cmhc";
+import DefaultLayout from "@/layouts/DefaultLayout.astro";
 
 const title = "Specialized CMHC Products — Retirement, Student, Supportive, SRO + Ancillary Programs";
 const description =
@@ -116,8 +117,157 @@ const ancillaryPrograms = [
       </div>
     </section>
 
-    {/* ANCILLARY PROGRAMS */}
+    {/* OTHER SHELTER MODELS PREMIUM GRID */}
     <section class="border-b border-dark-gray bg-jet">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="max-w-3xl">
+          <Badge variant="outline" className="mb-4 border-star/40 text-star">
+            Effective July 14, 2025
+          </Badge>
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+            Other Shelter Models premium grid.
+          </h2>
+          <p class="mt-4 text-muted-foreground">
+            Since July 14, 2025, retirement, student, SRO, and supportive
+            housing have been consolidated onto a single "Other Shelter
+            Models" premium schedule — materially higher than standard
+            market rental to reflect operating complexity and
+            concentration risk. Retirement housing requires a minimum of
+            50 units or beds. Student housing is eligible for MLI Select
+            only via the energy-efficiency and accessibility pathways —
+            the affordability pathway is not available.
+          </p>
+          <p class="mt-4 text-muted-foreground">
+            Premiums below assume EGI was met. Construction sits roughly
+            0.65% above purchase/refinance across bands, with MLI Select
+            on Other Shelter Models capping near 8.75% at the
+            highest-LTV construction tier.
+          </p>
+        </div>
+
+        <div class="mt-10 grid gap-6 lg:grid-cols-2">
+          <Card className="bg-obsidian border-dark-gray p-6">
+            <div class="text-xs uppercase tracking-wide text-star">
+              Purchase / Refinance
+            </div>
+            <div class="mt-1 text-lg font-semibold">
+              Other Shelter Models — existing
+            </div>
+            <div class="mt-4 overflow-x-auto">
+              <table class="w-full text-sm">
+                <thead>
+                  <tr class="border-b border-dark-gray">
+                    <th class="px-2 py-2 text-left font-medium">LTV Band</th>
+                    <th class="px-2 py-2 text-right font-medium">Premium</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {
+                    SPECIALIZED_PREMIUMS.map((row) => (
+                      <tr class="border-b border-dark-gray/50 last:border-0">
+                        <td class="px-2 py-2">{row.band}</td>
+                        <td class="px-2 py-2 text-right font-medium">
+                          {row.purchaseRefi.toFixed(2)}%
+                        </td>
+                      </tr>
+                    ))
+                  }
+                </tbody>
+              </table>
+            </div>
+          </Card>
+
+          <Card className="bg-obsidian border-dark-gray p-6">
+            <div class="text-xs uppercase tracking-wide text-star">
+              Construction
+            </div>
+            <div class="mt-1 text-lg font-semibold">
+              Other Shelter Models — new construction
+            </div>
+            <div class="mt-4 overflow-x-auto">
+              <table class="w-full text-sm">
+                <thead>
+                  <tr class="border-b border-dark-gray">
+                    <th class="px-2 py-2 text-left font-medium">LTV Band</th>
+                    <th class="px-2 py-2 text-right font-medium">Premium</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {
+                    SPECIALIZED_PREMIUMS.map((row) => (
+                      <tr class="border-b border-dark-gray/50 last:border-0">
+                        <td class="px-2 py-2">{row.band}</td>
+                        <td class="px-2 py-2 text-right font-medium">
+                          {row.construction.toFixed(2)}%
+                        </td>
+                      </tr>
+                    ))
+                  }
+                </tbody>
+              </table>
+            </div>
+          </Card>
+        </div>
+
+        <div class="mt-10">
+          <h3 class="text-xl font-semibold">Same surcharges apply</h3>
+          <p class="mt-2 text-muted-foreground">
+            The standard MLI surcharge stack sits on top of the Other
+            Shelter Models band premium.
+          </p>
+          <div class="mt-6 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+            <Card className="bg-obsidian border-dark-gray p-6">
+              <div class="text-xs uppercase tracking-wide text-muted-foreground">
+                Extended amortization
+              </div>
+              <div class="mt-2 text-2xl font-semibold text-star">
+                +{PREMIUM_SURCHARGES.amortizationPer5Years.toFixed(2)}%
+              </div>
+              <p class="mt-2 text-sm text-muted-foreground">
+                Per 5 years beyond 25-year amortization.
+              </p>
+            </Card>
+            <Card className="bg-obsidian border-dark-gray p-6">
+              <div class="text-xs uppercase tracking-wide text-muted-foreground">
+                Non-residential portion
+              </div>
+              <div class="mt-2 text-2xl font-semibold text-star">
+                +{PREMIUM_SURCHARGES.nonResidential.toFixed(2)}%
+              </div>
+              <p class="mt-2 text-sm text-muted-foreground">
+                Applied pro-rata to the non-residential share of the loan.
+              </p>
+            </Card>
+            <Card className="bg-obsidian border-dark-gray p-6">
+              <div class="text-xs uppercase tracking-wide text-muted-foreground">
+                Second mortgage
+              </div>
+              <div class="mt-2 text-2xl font-semibold text-star">
+                +{PREMIUM_SURCHARGES.secondMortgage.toFixed(2)}%
+              </div>
+              <p class="mt-2 text-sm text-muted-foreground">
+                Applied where CMHC-insured second financing is in place.
+              </p>
+            </Card>
+            <Card className="bg-obsidian border-dark-gray p-6">
+              <div class="text-xs uppercase tracking-wide text-muted-foreground">
+                EGI not met
+              </div>
+              <div class="mt-2 text-2xl font-semibold text-star">
+                +{PREMIUM_SURCHARGES.egiNotMet.toFixed(2)}%
+              </div>
+              <p class="mt-2 text-sm text-muted-foreground">
+                Applied when effective gross income falls short of the
+                underwritten figure at stabilization.
+              </p>
+            </Card>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* ANCILLARY PROGRAMS */}
+    <section class="border-b border-dark-gray">
       <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
         <div class="max-w-3xl">
           <Badge variant="secondary" className="mb-4">Ancillary programs</Badge>
@@ -134,7 +284,7 @@ const ancillaryPrograms = [
         <div class="mt-10 grid gap-4 md:grid-cols-3">
           {
             ancillaryPrograms.map((p) => (
-              <Card className="bg-obsidian border-dark-gray p-6">
+              <Card className="bg-jet border-dark-gray p-6">
                 <div class="text-xs uppercase tracking-wide text-star">
                   {p.budget}
                 </div>
@@ -148,7 +298,7 @@ const ancillaryPrograms = [
     </section>
 
     {/* CTA */}
-    <section class="border-b border-dark-gray">
+    <section class="border-b border-dark-gray bg-jet">
       <div class="container border-l border-r border-dark-gray px-6 py-20 lg:px-12 lg:py-28">
         <div class="mx-auto max-w-3xl text-center">
           <h2 class="text-3xl font-semibold tracking-tight lg:text-5xl">

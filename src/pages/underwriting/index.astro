@@ -1,9 +1,9 @@
 ---
-import DefaultLayout from "@/layouts/DefaultLayout.astro";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { LAST_UPDATED } from "@/data/cmhc";
+import DefaultLayout from "@/layouts/DefaultLayout.astro";
 
 const title = "CMHC Underwriting — DCR, LTV, Affordability & Opex";
 const description =
@@ -159,6 +159,212 @@ const principles = [
               </Card>
             ))
           }
+        </div>
+      </div>
+    </section>
+
+    {/* BORROWER COVENANT RULES */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="max-w-3xl">
+          <Badge variant="secondary" className="mb-4">Borrower covenant</Badge>
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+            Borrower covenant rules.
+          </h2>
+          <p class="mt-4 text-muted-foreground">
+            Beyond property-level cash flow, CMHC looks at the borrower:
+            net worth, liquidity, experience, guarantee structure, and
+            the legal entity holding title. These rules are applied
+            consistently across MLI Standard and MLI Select, with a
+            handful of Select-specific relaxations at higher tiers.
+          </p>
+        </div>
+
+        <div class="mt-10 grid gap-4 lg:grid-cols-3">
+          <Card className="bg-jet border-dark-gray p-6">
+            <div class="text-xs uppercase tracking-wide text-star">
+              Financial strength
+            </div>
+            <div class="mt-1 text-lg font-semibold">
+              Net worth, liquidity, experience
+            </div>
+            <ul class="mt-4 space-y-3 text-sm text-muted-foreground">
+              <li class="flex gap-2">
+                <span class="text-star">·</span>
+                <span>
+                  Net worth ≥25% of loan amount, minimum $100,000.
+                </span>
+              </li>
+              <li class="flex gap-2">
+                <span class="text-star">·</span>
+                <span>
+                  Liquidity: 10% of loan amount for construction; less
+                  strict for take-out financing on existing property.
+                </span>
+              </li>
+              <li class="flex gap-2">
+                <span class="text-star">·</span>
+                <span>
+                  Management experience: 5+ years multi-residential
+                  development or operations on a similar-scale project.
+                  Relaxed for non-profits and co-ops on MLI Select deals
+                  at 100+ points.
+                </span>
+              </li>
+            </ul>
+          </Card>
+
+          <Card className="bg-jet border-dark-gray p-6">
+            <div class="text-xs uppercase tracking-wide text-star">
+              Guarantee structure
+            </div>
+            <div class="mt-1 text-lg font-semibold">
+              Recourse & release
+            </div>
+            <ul class="mt-4 space-y-3 text-sm text-muted-foreground">
+              <li class="flex gap-2">
+                <span class="text-star">·</span>
+                <span>
+                  Purchase / refinance: 40% personal guarantee for the
+                  life of the loan.
+                </span>
+              </li>
+              <li class="flex gap-2">
+                <span class="text-star">·</span>
+                <span>
+                  Construction: 100% personal guarantee, stepping down
+                  to 40% at 12 months stable rents.
+                </span>
+              </li>
+              <li class="flex gap-2">
+                <span class="text-star">·</span>
+                <span>
+                  Limited recourse available at MLI Select Tier 3 (100
+                  points) or at LTV under 65%.
+                </span>
+              </li>
+              <li class="flex gap-2">
+                <span class="text-star">·</span>
+                <span>
+                  Non-profit, co-op, Indigenous, and provincial
+                  borrowers may qualify for limited recourse earlier.
+                </span>
+              </li>
+            </ul>
+          </Card>
+
+          <Card className="bg-jet border-dark-gray p-6">
+            <div class="text-xs uppercase tracking-wide text-star">
+              Eligible legal structures
+            </div>
+            <div class="mt-1 text-lg font-semibold">
+              How title is held
+            </div>
+            <ul class="mt-4 space-y-3 text-sm text-muted-foreground">
+              <li class="flex gap-2">
+                <span class="text-star">·</span>
+                <span>
+                  Limited partnership (LP) with corporate GP — most
+                  common for private investors.
+                </span>
+              </li>
+              <li class="flex gap-2">
+                <span class="text-star">·</span>
+                <span>Single-purpose corporation (SPV).</span>
+              </li>
+              <li class="flex gap-2">
+                <span class="text-star">·</span>
+                <span>Bare trust / nominee structure.</span>
+              </li>
+              <li class="flex gap-2">
+                <span class="text-star">·</span>
+                <span>Non-profit corporation, co-operative.</span>
+              </li>
+              <li class="flex gap-2">
+                <span class="text-star">·</span>
+                <span>
+                  TIC and general partnership structures are
+                  disfavoured — full recourse to all partners.
+                </span>
+              </li>
+            </ul>
+          </Card>
+        </div>
+
+        <div class="mt-10">
+          <div class="max-w-3xl">
+            <Badge variant="secondary" className="mb-4">Program-wide rules</Badge>
+            <h3 class="text-2xl font-semibold tracking-tight lg:text-3xl">
+              Other covenants that apply to every MLI loan.
+            </h3>
+            <p class="mt-4 text-muted-foreground">
+              A handful of program-wide rules that sit outside the
+              four-pillar sizing math but routinely bind real deals.
+            </p>
+          </div>
+
+          <div class="mt-8 grid gap-4 md:grid-cols-2">
+            <Card className="bg-jet border-dark-gray p-6">
+              <div class="text-xs uppercase tracking-wide text-star">
+                Commercial-space cap
+              </div>
+              <div class="mt-1 text-base font-semibold">
+                Mixed-use projects
+              </div>
+              <p class="mt-3 text-sm text-muted-foreground">
+                Commercial component must be ≤30% of gross floor area
+                <span class="text-foreground font-semibold"> and </span>
+                ≤30% of lending value. Buildings exceeding both caps are
+                ineligible for MLI programs.
+              </p>
+            </Card>
+
+            <Card className="bg-jet border-dark-gray p-6">
+              <div class="text-xs uppercase tracking-wide text-star">
+                Cash-out · use of funds
+              </div>
+              <div class="mt-1 text-base font-semibold">
+                Refinance proceeds — June 4, 2024
+              </div>
+              <p class="mt-3 text-sm text-muted-foreground">
+                The 2020 interim restrictions on insured-refinance
+                proceeds were removed. Cash-out is once again
+                unrestricted for qualified borrowers — reversing roughly
+                four years of outdated guidance still circulating in
+                market commentary.
+              </p>
+            </Card>
+
+            <Card className="bg-jet border-dark-gray p-6">
+              <div class="text-xs uppercase tracking-wide text-star">
+                Non-Canadian buyer prohibition
+              </div>
+              <div class="mt-1 text-base font-semibold">
+                Extended through Jan 1, 2027
+              </div>
+              <p class="mt-3 text-sm text-muted-foreground">
+                The federal Prohibition on the Purchase of Residential
+                Property by Non-Canadians Act applies. CMHC will not
+                insure where the purchaser fails the eligibility test
+                under the Act.
+              </p>
+            </Card>
+
+            <Card className="bg-jet border-dark-gray p-6">
+              <div class="text-xs uppercase tracking-wide text-star">
+                Stratification prohibition
+              </div>
+              <div class="mt-1 text-base font-semibold">
+                No condo conversion during insurance term
+              </div>
+              <p class="mt-3 text-sm text-muted-foreground">
+                Any property under CMHC insurance cannot be stratified
+                or converted to condominium ownership for the insurance
+                term without CMHC consent and, typically, full premium
+                repayment.
+              </p>
+            </Card>
+          </div>
         </div>
       </div>
     </section>

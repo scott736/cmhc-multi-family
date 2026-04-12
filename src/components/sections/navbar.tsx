@@ -85,6 +85,20 @@ export default function Navbar({ currentPath }: NavbarProps) {
           icon: Layers,
         },
         {
+          title: "Specialized",
+          href: "/programs/specialized",
+          description:
+            "Retirement, student, SRO, supportive — Other Shelter Models premium grid.",
+          icon: Building2,
+        },
+        {
+          title: "Application process",
+          href: "/programs/application-process",
+          description:
+            "MULTI-GO submission, fees, COI workflow, processing timelines.",
+          icon: FileText,
+        },
+        {
           title: "Compare all programs",
           href: "/programs/compare",
           description: "Side-by-side across all CMHC multi-unit pathways.",
@@ -170,6 +184,13 @@ export default function Navbar({ currentPath }: NavbarProps) {
           href: "/underwriting/opex",
           description: "Key underwriting benchmarks used in practice.",
           icon: Database,
+        },
+        {
+          title: "Required documentation",
+          href: "/underwriting/documentation",
+          description:
+            "Phase I ESA, geotech, appraisal, QS, surety bonding, covenant.",
+          icon: FileText,
         },
       ],
     },

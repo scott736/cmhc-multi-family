@@ -1,11 +1,10 @@
-import {
-  ArrowLeft,
-  ArrowRight,
-  Facebook,
-  Linkedin,
-  Twitter,
-} from "lucide-react";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 import { useEffect, useState } from "react";
+import { FaFacebook, FaLinkedin, FaTwitter } from "react-icons/fa";
+
+const Facebook = FaFacebook;
+const Linkedin = FaLinkedin;
+const Twitter = FaTwitter;
 
 import {
   Carousel,

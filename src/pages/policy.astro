@@ -1,9 +1,9 @@
 ---
-import DefaultLayout from "@/layouts/DefaultLayout.astro";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { POLICY_TIMELINE, LAST_UPDATED } from "@/data/cmhc";
+import { LAST_UPDATED,POLICY_TIMELINE } from "@/data/cmhc";
+import DefaultLayout from "@/layouts/DefaultLayout.astro";
 
 const title = "CMHC Policy Change Tracker — 2024–2026";
 const description =
@@ -33,6 +33,30 @@ const highImpact = [
     headline: "2020 NECB/NBC transition",
     body:
       "Energy-efficiency scoring transitions to the 2020 National Energy Code for Buildings and National Building Code baselines. Grace period to September 30, 2026 — projects commenced before that date can continue to score against the older baseline.",
+  },
+  {
+    date: "September 3, 2025",
+    headline: "CoI transfer restrictions tightened",
+    body:
+      "Reinforces and extends the September 2024 lender-first rule. Lenders must fund ≥80% of approved loans, and Certificate of Insurance transfers between lenders are now restricted mid-approval. Effectively closes the remaining loopholes in 'CoI shopping' — borrowers must commit to a lender early and stay committed through funding.",
+  },
+  {
+    date: "November 28, 2025",
+    headline: "MLI Select policy refresh",
+    body:
+      "CMHC issued a refresh of the MLI Select program criteria with a transition period running to September 30, 2026 for projects qualified under prior criteria. Pipeline projects already in underwriting should confirm with their lender whether they're locked to the prior or refreshed criteria — the difference affects points thresholds and amortization eligibility.",
+  },
+  {
+    date: "January 2026",
+    headline: "OSFI MICAT capital rules in force",
+    body:
+      "The direct rationale for CMHC's July 14, 2025 premium overhaul. OSFI's Mortgage Insurer Capital Adequacy Test (MICAT) increases capital requirements against higher-LTV, longer-amortization insured loans — which is exactly why the premium grid is now LTV-tiered and amortization-surcharged. Future premium tweaks will continue to track MICAT capital charges.",
+  },
+  {
+    date: "March 12, 2026",
+    headline: "Bill C-4 — Royal Assent",
+    body:
+      "First-time buyer GST relief on new homes ≤$1M and a 14% lowest federal tax bracket. Not directly a multi-unit measure, but signals continuing federal housing policy momentum through 2026 and a willingness to deploy GST as a housing-supply lever — relevant context for anyone modeling further rental-side GST moves in the next budget cycle.",
   },
 ];
 ---
@@ -97,12 +121,14 @@ const highImpact = [
         <div class="max-w-3xl">
           <Badge variant="secondary" className="mb-4">High impact</Badge>
           <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
-            The four changes that actually rewired deals.
+            The changes that actually rewired deals.
           </h2>
           <p class="mt-4 text-muted-foreground">
             Each of these reshaped either the economics, the
             timeline, or the lender-selection process for
-            multi-unit financing.
+            multi-unit financing — from the 2024 lender-first rule
+            through the 2025 premium overhaul and into the 2026
+            OSFI MICAT regime.
           </p>
         </div>
 
@@ -118,6 +144,76 @@ const highImpact = [
               </Card>
             ))
           }
+        </div>
+      </div>
+    </section>
+
+    {/* RAH CALLOUT */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="grid gap-10 lg:grid-cols-[1fr_1fr]">
+          <div>
+            <Badge variant="outline" className="mb-4 border-star/40 text-star">
+              Nuance — often misread
+            </Badge>
+            <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+              Rental Achievement Holdback (RAH) — removed for
+              Standard, still alive for Select.
+            </h2>
+            <p class="mt-4 text-muted-foreground">
+              The July 3, 2025 holdback change is widely misread as
+              "CMHC removed rental achievement holdbacks." It
+              didn't — it removed them for
+              <span class="text-foreground"> MLI Standard only</span>.
+              Under MLI Standard, lenders can now advance to 85%
+              without holdback during construction, which was a
+              significant working-capital win for developers taking
+              the Standard route.
+            </p>
+            <p class="mt-4 text-muted-foreground">
+              For <span class="text-foreground">MLI Select</span>,
+              the November 2024 rental achievement holdback regime
+              is still in effect and applied on a risk-based basis.
+              CMHC can hold back up to 20% of loan proceeds until
+              stabilized rents are demonstrated — dropping the
+              effective leverage from 95% to 75% during lease-up.
+              Plan construction financing and working capital around
+              the holdback, not around the headline 95% LTC.
+            </p>
+          </div>
+          <Card className="bg-jet border-dark-gray p-6">
+            <div class="text-xs uppercase tracking-wide text-muted-foreground">
+              MLI Standard (post-July 3, 2025)
+            </div>
+            <ul class="mt-4 space-y-3 text-sm">
+              <li class="border-b border-dark-gray/50 pb-3">
+                <span class="text-star">•</span> Advance to 85% LTC
+                without RAH during construction.
+              </li>
+              <li>
+                <span class="text-star">•</span> Lease-up risk
+                absorbed through standard underwriting and DCR
+                covenants, not a holdback.
+              </li>
+            </ul>
+            <div class="mt-6 text-xs uppercase tracking-wide text-muted-foreground">
+              MLI Select (still RAH)
+            </div>
+            <ul class="mt-4 space-y-3 text-sm">
+              <li class="border-b border-dark-gray/50 pb-3">
+                <span class="text-star">•</span> Up to 20% of loan
+                proceeds held until stabilized rents demonstrated.
+              </li>
+              <li class="border-b border-dark-gray/50 pb-3">
+                <span class="text-star">•</span> Effective
+                construction-phase leverage drops 95% → 75%.
+              </li>
+              <li>
+                <span class="text-star">•</span> Applied on a
+                risk-based basis — project-specific.
+              </li>
+            </ul>
+          </Card>
         </div>
       </div>
     </section>

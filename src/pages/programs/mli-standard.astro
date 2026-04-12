@@ -1,13 +1,13 @@
 ---
-import DefaultLayout from "@/layouts/DefaultLayout.astro";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import {
+  MIN_DCR_STANDARD,
   MLI_STANDARD_PREMIUMS,
   PREMIUM_SURCHARGES,
-  MIN_DCR_STANDARD,
 } from "@/data/cmhc";
+import DefaultLayout from "@/layouts/DefaultLayout.astro";
 
 const title = "MLI Standard — Market Rental CMHC Insurance";
 const description =
@@ -27,9 +27,9 @@ const keyParameters = [
 
 const premiumCredits = [
   { year: "Year 1", credit: "75%" },
-  { year: "Year 2", credit: "65%" },
-  { year: "Year 3", credit: "55%" },
-  { year: "Year 4", credit: "45%" },
+  { year: "Year 2", credit: "60%" },
+  { year: "Year 3", credit: "50%" },
+  { year: "Year 4", credit: "40%" },
   { year: "Year 5", credit: "35%" },
   { year: "Year 6", credit: "25%" },
   { year: "Year 7+", credit: "20%" },

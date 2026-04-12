@@ -96,6 +96,18 @@ export const MLI_STANDARD_PREMIUMS = [
   { band: "≤85%", maxLtv: 85, purchaseRefi: 5.35, construction: 6.0 },
 ];
 
+// Other Shelter Models premium grid — effective July 14, 2025 (EGI met).
+// Consolidates retirement, student, SRO, and supportive housing onto a
+// single schedule materially higher than standard market rental.
+// Construction adds ~0.65% across all bands.
+export const SPECIALIZED_PREMIUMS = [
+  { band: "≤65%", maxLtv: 65, purchaseRefi: 6.3, construction: 6.95 },
+  { band: "≤70%", maxLtv: 70, purchaseRefi: 6.55, construction: 7.2 },
+  { band: "≤75%", maxLtv: 75, purchaseRefi: 6.8, construction: 7.45 },
+  { band: "≤80%", maxLtv: 80, purchaseRefi: 7.3, construction: 7.95 },
+  { band: "≤85%", maxLtv: 85, purchaseRefi: 7.75, construction: 8.75 },
+];
+
 export const PREMIUM_SURCHARGES = {
   amortizationPer5Years: 0.25,
   nonResidential: 1.0,
@@ -199,9 +211,29 @@ export const POLICY_TIMELINE = [
       "Risk-based premium overhaul. Amortization surcharges (+0.25% per 5yr beyond 25) now apply to MLI Select. LTV-tiered pricing replaces flat rates.",
   },
   {
+    date: "September 3, 2025",
+    change:
+      "Certificate of Insurance (CoI) transfer restrictions tightened: lenders must fund ≥80% of approved loans, and CoI transfer between lenders now restricted. Effectively ended 'shopping a CoI' practice.",
+  },
+  {
     date: "November 2025",
     change:
       "Energy-efficiency transition to 2020 NECB/NBC (grace period to Sept 30, 2026).",
+  },
+  {
+    date: "November 28, 2025",
+    change:
+      "MLI Select policy refresh with transition period running to September 30, 2026 for projects qualified under prior criteria.",
+  },
+  {
+    date: "January 2026",
+    change:
+      "OSFI MICAT capital rules took effect — the direct rationale for CMHC's July 14, 2025 premium overhaul.",
+  },
+  {
+    date: "March 12, 2026",
+    change:
+      "Bill C-4 received Royal Assent — first-time buyer GST relief on new homes ≤$1M and 14% lowest federal tax bracket.",
   },
 ];
 

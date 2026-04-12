@@ -1,14 +1,15 @@
 import { useMemo, useState } from "react";
-import { Badge } from "@/components/ui/badge";
-import { Card } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { Badge } from "@/components/ui/badge";
+import { Card } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { currency, percent } from "@/lib/format";
 
 // Stepped credit schedule. CMHC publishes a premium credit table for

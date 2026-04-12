@@ -1,19 +1,20 @@
 import { useMemo, useState } from "react";
-import { Badge } from "@/components/ui/badge";
-import { Card } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Switch } from "@/components/ui/switch";
+
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { Badge } from "@/components/ui/badge";
+import { Card } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Switch } from "@/components/ui/switch";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { MLI_SELECT_DISCOUNTS } from "@/data/cmhc";
-import { annualDebtService, loanFromDCR, monthlyPayment } from "@/lib/loan";
 import { currency, percent } from "@/lib/format";
+import { annualDebtService, loanFromDCR, monthlyPayment } from "@/lib/loan";
 
 type ProgramKind = "mli-standard" | "mli-select";
 type PropertyType = "new" | "existing";

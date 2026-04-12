@@ -1,17 +1,17 @@
 ---
-import DefaultLayout from "@/layouts/DefaultLayout.astro";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import {
-  MLI_SELECT_DISCOUNTS,
-  AFFORDABILITY_SCORING_NEW,
-  AFFORDABILITY_SCORING_EXISTING,
-  AFFORDABILITY_BONUS_20YR,
-  ENERGY_SCORING_NEW,
-  ENERGY_SCORING_EXISTING,
   ACCESSIBILITY_SCORING,
+  AFFORDABILITY_BONUS_20YR,
+  AFFORDABILITY_SCORING_EXISTING,
+  AFFORDABILITY_SCORING_NEW,
+  ENERGY_SCORING_EXISTING,
+  ENERGY_SCORING_NEW,
+  MLI_SELECT_DISCOUNTS,
 } from "@/data/cmhc";
+import DefaultLayout from "@/layouts/DefaultLayout.astro";
 
 const title = "MLI Select — The Points-Based CMHC Flagship";
 const description =
@@ -475,6 +475,171 @@ const scoringPaths = [
                 <span class="text-2xl font-semibold text-star">~5.18%</span>
               </div>
             </div>
+          </Card>
+        </div>
+      </div>
+    </section>
+
+    {/* ACCESSIBILITY SCORING DETAIL */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="max-w-3xl">
+          <Badge variant="secondary" className="mb-4">Accessibility detail</Badge>
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+            What Levels 1 and 2 actually require.
+          </h2>
+          <p class="mt-4 text-muted-foreground">
+            Accessibility scoring is often summarized in a single line. In
+            practice there is a hard baseline that gates eligibility for
+            every MLI Select project, plus two distinct pathways —
+            physical design or third-party certification — at each
+            scoring level. Accessibility always requires third-party
+            certification or attestation in the submission package;
+            modelling is not self-declared.
+          </p>
+        </div>
+
+        <div class="mt-10 grid gap-6 lg:grid-cols-3">
+          <Card className="bg-jet border-dark-gray p-6">
+            <div class="text-xs uppercase tracking-wide text-muted-foreground">
+              Baseline · 0 points
+            </div>
+            <div class="mt-1 text-lg font-semibold">
+              Prerequisite — not a point source
+            </div>
+            <ul class="mt-4 space-y-3 text-sm text-muted-foreground">
+              <li class="flex gap-2">
+                <span class="text-star">·</span>
+                <span>
+                  100% of units meet visitability per CSA B651:23
+                  Accessible Design for the Built Environment.
+                </span>
+              </li>
+              <li class="flex gap-2">
+                <span class="text-star">·</span>
+                <span>All common areas barrier-free.</span>
+              </li>
+              <li class="flex gap-2">
+                <span class="text-star">·</span>
+                <span>
+                  Adaptable bathroom layouts — reinforced walls for
+                  future grab-bar installation.
+                </span>
+              </li>
+            </ul>
+          </Card>
+
+          <Card className="bg-jet border-dark-gray p-6">
+            <div class="text-xs uppercase tracking-wide text-star">
+              Level 1 · 20 points
+            </div>
+            <div class="mt-1 text-lg font-semibold">
+              Two pathways
+            </div>
+            <dl class="mt-4 space-y-4 text-sm">
+              <div>
+                <dt class="font-medium">Physical pathway</dt>
+                <dd class="mt-1 text-muted-foreground">
+                  ≥15% of units fully accessible per CSA B651:23 — full
+                  barrier-free including 32" doorways, roll-in shower,
+                  and turning radius in kitchen and bath.
+                </dd>
+              </div>
+              <div>
+                <dt class="font-medium">Certification pathway</dt>
+                <dd class="mt-1 text-muted-foreground">
+                  Rick Hansen Foundation Accessibility Certification
+                  (RHFAC) v4.0 rating of 60–79%.
+                </dd>
+              </div>
+            </dl>
+          </Card>
+
+          <Card className="bg-jet border-dark-gray p-6">
+            <div class="text-xs uppercase tracking-wide text-star">
+              Level 2 · 30 points
+            </div>
+            <div class="mt-1 text-lg font-semibold">
+              Two pathways
+            </div>
+            <dl class="mt-4 space-y-4 text-sm">
+              <div>
+                <dt class="font-medium">Physical pathway</dt>
+                <dd class="mt-1 text-muted-foreground">
+                  100% of units accessible, OR the entire building meets
+                  universal design per CSA B651:23.
+                </dd>
+              </div>
+              <div>
+                <dt class="font-medium">Certification pathway</dt>
+                <dd class="mt-1 text-muted-foreground">
+                  RHFAC Gold rating — score of 80% or higher.
+                </dd>
+              </div>
+            </dl>
+          </Card>
+        </div>
+      </div>
+    </section>
+
+    {/* RENTAL ACHIEVEMENT HOLDBACK */}
+    <section class="border-b border-dark-gray bg-jet">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="grid gap-10 lg:grid-cols-[1fr_1fr]">
+          <div>
+            <Badge variant="outline" className="mb-4 border-star/40 text-star">
+              Critical — policy change November 2024
+            </Badge>
+            <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+              Rental Achievement Holdback still applies here.
+            </h2>
+            <p class="mt-4 text-muted-foreground">
+              The July 3, 2025 policy change that removed the Rental
+              Achievement Holdback (RAH) only applies to
+              <span class="text-foreground font-semibold"> MLI Standard</span>.
+              MLI Select retained — and in fact formalized — RAH in
+              November 2024. Previously MLI Select had no holdback
+              requirement at all.
+            </p>
+            <p class="mt-4 text-muted-foreground">
+              Developers running pro formas at 95% LTC commonly miss this.
+              On a risk-based basis at underwriting, effective leverage
+              during lease-up can drop from 95% to 75% — a material
+              equity swing on a 100-point deal.
+            </p>
+          </div>
+          <Card className="bg-obsidian border-dark-gray p-6">
+            <div class="text-xs uppercase tracking-wide text-star">
+              How the holdback works
+            </div>
+            <dl class="mt-5 space-y-4 text-sm">
+              <div class="flex justify-between gap-4">
+                <dt class="text-muted-foreground">Maximum holdback</dt>
+                <dd class="font-medium">Up to 20% of loan amount</dd>
+              </div>
+              <div class="h-px bg-dark-gray"></div>
+              <div class="flex justify-between gap-4">
+                <dt class="text-muted-foreground">Effective LTC at advance</dt>
+                <dd class="font-medium">95% → 75%</dd>
+              </div>
+              <div class="h-px bg-dark-gray"></div>
+              <div>
+                <dt class="text-muted-foreground">Release conditions</dt>
+                <dd class="mt-2 text-sm">
+                  Typically a specified EGI hit for 3 consecutive
+                  months, or 90–95% occupancy at underwritten rents.
+                </dd>
+              </div>
+              <div class="h-px bg-dark-gray"></div>
+              <div>
+                <dt class="text-muted-foreground">Applied</dt>
+                <dd class="mt-2 text-sm">
+                  On a risk-based basis at underwriting — not every MLI
+                  Select deal is subject, but every pro forma should
+                  model the downside.
+                </dd>
+              </div>
+            </dl>
           </Card>
         </div>
       </div>

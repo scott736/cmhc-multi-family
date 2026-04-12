@@ -1,0 +1,518 @@
+---
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import DefaultLayout from "@/layouts/DefaultLayout.astro";
+
+const title = "Required Documentation — CMHC Multi-Unit File Package";
+const description =
+  "The full documentation package CMHC actually wants in a multi-unit file. Phase I ESA, geotech, appraisal, QS reports, surety bonding, borrower financials, energy modelling, accessibility certification — with current policy versions and validity windows.";
+
+const borrowerCovenant = [
+  {
+    item: "3-year financial statements",
+    detail:
+      "For the borrower entity and every guarantor. Audited or review-engagement preferred on larger files.",
+  },
+  {
+    item: "Borrower net worth",
+    detail:
+      "≥25% of the loan amount, with a floor of $100,000. Tested against the combined guarantor stack.",
+  },
+  {
+    item: "Liquidity",
+    detail:
+      "Minimum 10% of the loan amount for construction files — cash and cash-equivalents readily available.",
+  },
+  {
+    item: "Management experience",
+    detail:
+      "5+ years of multi-residential experience at the principal or management-company level.",
+  },
+  {
+    item: "Personal guarantee",
+    detail:
+      "Full recourse during construction, stepping down after 12 months of stable rents — 40% post-stabilization on MLI Standard, limited recourse at MLI Select Tier 3 or <65% LTV.",
+  },
+];
+---
+
+<DefaultLayout title={title} description={description}>
+  <div class="bg-obsidian text-foreground">
+    {/* HERO */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <Badge
+          variant="outline"
+          className="mb-6 border-star/40 text-star"
+        >
+          Underwriting · Documentation
+        </Badge>
+        <h1 class="text-4xl font-semibold tracking-tight lg:text-6xl">
+          Required documentation: what CMHC actually wants in your file.
+        </h1>
+        <p class="mt-6 max-w-3xl text-lg text-muted-foreground">
+          Every CMHC multi-unit file runs on a standard documentation
+          package. The specific pieces vary by program (MLI Select vs.
+          MLI Standard) and by transaction type (construction vs.
+          existing), but the skeleton is the same — and missing or
+          stale documents are the single most common reason files stall
+          at the Underwriting Centre.
+        </p>
+        <p class="mt-4 max-w-3xl text-lg text-muted-foreground">
+          Post-November 15, 2024 changes added two items to nearly every
+          file: a lender-commissioned appraisal on all sizes, and
+          mandatory surety bonding on MLI Select construction. The
+          June 2024 environmental policy update relaxed the automatic
+          disqualification rule where remediation plans are accepted.
+        </p>
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a href="/programs/application-process">
+            <Button size="lg">See the application workflow</Button>
+          </a>
+          <a href="/programs/mli-select">
+            <Button variant="outline" size="lg">MLI Select details</Button>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    {/* ENVIRONMENTAL */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="grid gap-10 lg:grid-cols-[1fr_1.2fr]">
+          <div>
+            <Badge variant="secondary" className="mb-4">Environmental</Badge>
+            <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+              Phase I ESA on every application.
+            </h2>
+            <p class="mt-4 text-muted-foreground">
+              Required on all applications, regardless of program or
+              transaction type. The report must be prepared to CSA
+              Z768-01 standard, with an 18-month validity window from
+              the report date to submission.
+            </p>
+            <p class="mt-4 text-muted-foreground">
+              A Phase II is required only if the Phase I identifies
+              recognized environmental conditions (RECs). Remediation
+              plans must be peer-reviewed before CMHC will accept them.
+            </p>
+          </div>
+          <Card className="bg-jet border-dark-gray p-8">
+            <div class="text-xs uppercase tracking-wide text-star">
+              Policy update · June 2024
+            </div>
+            <div class="mt-2 text-lg font-semibold">
+              Contamination no longer an automatic disqualifier
+            </div>
+            <p class="mt-4 text-sm text-muted-foreground">
+              Prior to June 2024, non-residential contamination on the
+              site was an automatic disqualifier. The updated policy
+              allows approval where an accepted remediation plan is in
+              place — materially expanding the universe of developable
+              urban infill sites.
+            </p>
+            <div class="mt-6 space-y-2 text-sm">
+              <div class="flex justify-between border-b border-dark-gray pb-2">
+                <span class="text-muted-foreground">Standard</span>
+                <span class="font-medium">CSA Z768-01</span>
+              </div>
+              <div class="flex justify-between border-b border-dark-gray pb-2">
+                <span class="text-muted-foreground">Validity</span>
+                <span class="font-medium">18 months</span>
+              </div>
+              <div class="flex justify-between pt-2">
+                <span class="text-muted-foreground">Phase II trigger</span>
+                <span class="font-medium">Identified RECs</span>
+              </div>
+            </div>
+          </Card>
+        </div>
+      </div>
+    </section>
+
+    {/* GEOTECHNICAL & STRUCTURAL */}
+    <section class="border-b border-dark-gray bg-jet">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="max-w-3xl">
+          <Badge variant="secondary" className="mb-4">Geotechnical + structural</Badge>
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+            Construction-only reports.
+          </h2>
+          <p class="mt-4 text-muted-foreground">
+            New construction files require a geotechnical investigation
+            from a qualified P.Eng, covering bearing capacity, soil
+            conditions, frost depth, and seismic category. A structural
+            review is required for existing-building conversions or
+            substantial renovations.
+          </p>
+        </div>
+
+        <div class="mt-10 grid gap-6 lg:grid-cols-2">
+          <Card className="bg-obsidian border-dark-gray p-6">
+            <div class="text-xs uppercase tracking-wide text-star">
+              Geotechnical investigation
+            </div>
+            <div class="mt-1 text-lg font-semibold">
+              Required: new construction
+            </div>
+            <ul class="mt-4 space-y-2 text-sm text-muted-foreground">
+              <li>Prepared by a qualified professional engineer.</li>
+              <li>Bearing capacity and foundation design recommendations.</li>
+              <li>Soil conditions, groundwater, and frost depth.</li>
+              <li>Seismic category per applicable NBC section.</li>
+            </ul>
+          </Card>
+          <Card className="bg-obsidian border-dark-gray p-6">
+            <div class="text-xs uppercase tracking-wide text-star">
+              Structural review
+            </div>
+            <div class="mt-1 text-lg font-semibold">
+              Required: conversions + renovations
+            </div>
+            <ul class="mt-4 space-y-2 text-sm text-muted-foreground">
+              <li>P.Eng assessment of existing structural capacity.</li>
+              <li>Review of proposed modifications and added loads.</li>
+              <li>Identification of repair scope feeding the cost plan.</li>
+              <li>Referenced by the cost consultant / QS pre-construction report.</li>
+            </ul>
+          </Card>
+        </div>
+      </div>
+    </section>
+
+    {/* APPRAISAL */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="grid gap-10 lg:grid-cols-[1fr_1.2fr]">
+          <div>
+            <Badge variant="outline" className="mb-4 border-star/40 text-star">
+              Mandatory since Nov 15, 2024
+            </Badge>
+            <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+              Appraisal on every file, every size.
+            </h2>
+            <p class="mt-4 text-muted-foreground">
+              Prior to November 15, 2024, CMHC allowed desktop
+              valuations or appraisal waivers on smaller files. That
+              exception is gone — every file, regardless of size, now
+              requires a full appraisal commissioned by the approved
+              lender (not the borrower).
+            </p>
+            <p class="mt-4 text-muted-foreground">
+              The change added 1–2 weeks to smaller multi-unit
+              timelines and meaningfully raised the soft-cost stack for
+              files in the $1–5M range.
+            </p>
+          </div>
+          <Card className="bg-jet border-dark-gray p-8">
+            <div class="text-xs uppercase tracking-wide text-muted-foreground">
+              Appraisal requirements
+            </div>
+            <div class="mt-4 space-y-2 text-sm">
+              <div class="flex justify-between border-b border-dark-gray pb-2">
+                <span class="text-muted-foreground">Commissioned by</span>
+                <span class="font-medium">Approved lender</span>
+              </div>
+              <div class="flex justify-between border-b border-dark-gray pb-2">
+                <span class="text-muted-foreground">Appraiser</span>
+                <span class="font-medium">AACI or P.App (AIC)</span>
+              </div>
+              <div class="flex justify-between border-b border-dark-gray pb-2">
+                <span class="text-muted-foreground">Approaches</span>
+                <span class="font-medium">Income, direct comparison, cost</span>
+              </div>
+              <div class="flex justify-between border-b border-dark-gray pb-2">
+                <span class="text-muted-foreground">Effective date</span>
+                <span class="font-medium">12-month validity</span>
+              </div>
+              <div class="flex justify-between pt-2">
+                <span class="text-star font-medium">Typical cost</span>
+                <span class="font-semibold text-star">$8K–$25K+</span>
+              </div>
+            </div>
+          </Card>
+        </div>
+      </div>
+    </section>
+
+    {/* COST CONSULTANT / QS */}
+    <section class="border-b border-dark-gray bg-jet">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="max-w-3xl">
+          <Badge variant="secondary" className="mb-4">Cost consultant / QS</Badge>
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+            The construction cost oversight stack.
+          </h2>
+          <p class="mt-4 text-muted-foreground">
+            Required on all construction files. The quantity surveyor
+            sits between the approved lender and the project,
+            validating hard costs at approval and monitoring them
+            through the draw schedule.
+          </p>
+        </div>
+
+        <div class="mt-10 grid gap-6 md:grid-cols-3">
+          <Card className="bg-obsidian border-dark-gray p-6">
+            <div class="text-xs uppercase tracking-wide text-star">
+              Pre-construction
+            </div>
+            <div class="mt-1 text-lg font-semibold">Hard cost reasonableness</div>
+            <p class="mt-3 text-sm text-muted-foreground">
+              Independent review of the construction budget before
+              commitment — benchmarked against regional $/sf and $/door
+              comparables.
+            </p>
+          </Card>
+          <Card className="bg-obsidian border-dark-gray p-6">
+            <div class="text-xs uppercase tracking-wide text-star">
+              During construction
+            </div>
+            <div class="mt-1 text-lg font-semibold">Monthly progress reports</div>
+            <p class="mt-3 text-sm text-muted-foreground">
+              Supports the approved lender's draw administration, with
+              CMHC reviewing the first and last draws directly and
+              intermediate draws handled lender-side with the QS.
+            </p>
+          </Card>
+          <Card className="bg-obsidian border-dark-gray p-6">
+            <div class="text-xs uppercase tracking-wide text-star">
+              Substantial performance
+            </div>
+            <div class="mt-1 text-lg font-semibold">Final completion report</div>
+            <p class="mt-3 text-sm text-muted-foreground">
+              Confirms substantial performance under the applicable
+              provincial lien statute — unlocking the final draw and the
+              transition to stabilization.
+            </p>
+          </Card>
+        </div>
+      </div>
+    </section>
+
+    {/* SURETY BONDING */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="grid gap-10 lg:grid-cols-[1fr_1.2fr]">
+          <div>
+            <Badge variant="outline" className="mb-4 border-star/40 text-star">
+              Mandatory since Nov 15, 2024
+            </Badge>
+            <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+              Surety bonding on MLI Select construction.
+            </h2>
+            <p class="mt-4 text-muted-foreground">
+              CMHC now requires a 50% Labour & Material payment bond
+              plus a 50% Performance bond from an admitted Canadian
+              surety on MLI Select construction files. Self-performing
+              developers are not exempt.
+            </p>
+            <p class="mt-4 text-muted-foreground">
+              Alternative security is accepted at minimum 10% of hard
+              costs: letter of credit, collateral deposit, or a
+              loan-to-cost reduction. Projects of 24 units or fewer have
+              additional flexibility in how the bonding requirement is
+              structured.
+            </p>
+          </div>
+          <Card className="bg-jet border-dark-gray p-8">
+            <div class="text-xs uppercase tracking-wide text-muted-foreground">
+              Bonding structure
+            </div>
+            <div class="mt-4 space-y-3 text-sm">
+              <div class="flex justify-between border-b border-dark-gray pb-2">
+                <span class="text-muted-foreground">Labour & Material bond</span>
+                <span class="font-medium">50% of contract</span>
+              </div>
+              <div class="flex justify-between border-b border-dark-gray pb-2">
+                <span class="text-muted-foreground">Performance bond</span>
+                <span class="font-medium">50% of contract</span>
+              </div>
+              <div class="flex justify-between border-b border-dark-gray pb-2">
+                <span class="text-muted-foreground">Surety</span>
+                <span class="font-medium">Admitted Canadian</span>
+              </div>
+              <div class="flex justify-between border-b border-dark-gray pb-2">
+                <span class="text-muted-foreground">Alternative security</span>
+                <span class="font-medium">≥10% of hard costs</span>
+              </div>
+              <div class="flex justify-between pt-2">
+                <span class="text-star font-medium">24-unit-or-fewer</span>
+                <span class="font-semibold text-star">Added flexibility</span>
+              </div>
+            </div>
+          </Card>
+        </div>
+      </div>
+    </section>
+
+    {/* BORROWER FINANCIALS & COVENANT */}
+    <section class="border-b border-dark-gray bg-jet">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="max-w-3xl">
+          <Badge variant="secondary" className="mb-4">Borrower covenant</Badge>
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+            Financial statements and sponsor tests.
+          </h2>
+          <p class="mt-4 text-muted-foreground">
+            CMHC underwrites the sponsor in parallel with the property.
+            Three-year financial statements are required for the
+            borrower entity and every guarantor; the covenant tests
+            below apply across both MLI Standard and MLI Select.
+          </p>
+        </div>
+
+        <div class="mt-10 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+          {
+            borrowerCovenant.map((row) => (
+              <Card className="bg-obsidian border-dark-gray p-6">
+                <div class="text-xs uppercase tracking-wide text-muted-foreground">
+                  {row.item}
+                </div>
+                <p class="mt-3 text-sm text-muted-foreground">{row.detail}</p>
+              </Card>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    {/* ENERGY MODELLING */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="grid gap-10 lg:grid-cols-[1fr_1.2fr]">
+          <div>
+            <Badge variant="secondary" className="mb-4">MLI Select · Energy</Badge>
+            <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+              Energy modelling against the Tier 1 baseline.
+            </h2>
+            <p class="mt-4 text-muted-foreground">
+              MLI Select energy points require a full energy model
+              prepared by a qualified energy advisor. The model is run
+              against the 2020 NECB baseline for commercial/multi-unit
+              residential, or the 2020 NBC Tier 1 baseline for
+              lower-rise residential.
+            </p>
+            <p class="mt-4 text-muted-foreground">
+              A transition grace period runs through September 30, 2026
+              for files that started under the earlier baseline
+              methodology. PV solar contributions are capped at 15% of
+              the total reductions that can be claimed — preventing
+              files from scoring through rooftop solar alone.
+            </p>
+          </div>
+          <Card className="bg-jet border-dark-gray p-8">
+            <div class="text-xs uppercase tracking-wide text-muted-foreground">
+              Energy modelling at a glance
+            </div>
+            <div class="mt-4 space-y-2 text-sm">
+              <div class="flex justify-between border-b border-dark-gray pb-2">
+                <span class="text-muted-foreground">Prepared by</span>
+                <span class="font-medium">Qualified energy advisor</span>
+              </div>
+              <div class="flex justify-between border-b border-dark-gray pb-2">
+                <span class="text-muted-foreground">Commercial baseline</span>
+                <span class="font-medium">2020 NECB</span>
+              </div>
+              <div class="flex justify-between border-b border-dark-gray pb-2">
+                <span class="text-muted-foreground">Residential baseline</span>
+                <span class="font-medium">2020 NBC Tier 1</span>
+              </div>
+              <div class="flex justify-between border-b border-dark-gray pb-2">
+                <span class="text-muted-foreground">Transition grace</span>
+                <span class="font-medium">to Sept 30, 2026</span>
+              </div>
+              <div class="flex justify-between pt-2">
+                <span class="text-star font-medium">PV solar cap</span>
+                <span class="font-semibold text-star">15% of reductions</span>
+              </div>
+            </div>
+          </Card>
+        </div>
+      </div>
+    </section>
+
+    {/* ACCESSIBILITY CERTIFICATION */}
+    <section class="border-b border-dark-gray bg-jet">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="max-w-3xl">
+          <Badge variant="secondary" className="mb-4">MLI Select · Accessibility</Badge>
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+            Accessibility certification tiers.
+          </h2>
+          <p class="mt-4 text-muted-foreground">
+            The MLI Select accessibility baseline requires every unit to
+            meet visitability per CSA B651:23. Scoring points require
+            certification at Level 1 or Level 2 — both of which are
+            assessed against CSA B651:23 or the Rick Hansen Foundation
+            Accessibility Certification (RHFAC).
+          </p>
+        </div>
+
+        <div class="mt-10 grid gap-6 lg:grid-cols-3">
+          <Card className="bg-obsidian border-dark-gray p-6">
+            <div class="text-xs uppercase tracking-wide text-muted-foreground">
+              Baseline
+            </div>
+            <div class="mt-1 text-lg font-semibold">100% visitable units</div>
+            <p class="mt-3 text-sm text-muted-foreground">
+              Every unit in the project must meet visitability
+              requirements per CSA B651:23 — the entry-level threshold
+              for MLI Select eligibility.
+            </p>
+          </Card>
+          <Card className="bg-obsidian border-dark-gray p-6">
+            <div class="text-xs uppercase tracking-wide text-star">
+              Level 1
+            </div>
+            <div class="mt-1 text-lg font-semibold">
+              ≥15% accessible units
+            </div>
+            <p class="mt-3 text-sm text-muted-foreground">
+              Either 15%+ of units fully accessible per CSA B651:23, or
+              an RHFAC rating of 60–79% (Accessibility Certified).
+            </p>
+          </Card>
+          <Card className="bg-obsidian border-dark-gray p-6">
+            <div class="text-xs uppercase tracking-wide text-star">
+              Level 2
+            </div>
+            <div class="mt-1 text-lg font-semibold">
+              100% universal design
+            </div>
+            <p class="mt-3 text-sm text-muted-foreground">
+              Either 100% of units accessible / universal design, or an
+              RHFAC Gold rating of 80%+.
+            </p>
+          </Card>
+        </div>
+      </div>
+    </section>
+
+    {/* CTA */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-20 lg:px-12 lg:py-28">
+        <div class="mx-auto max-w-3xl text-center">
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-5xl">
+            Build the file, run the workflow.
+          </h2>
+          <p class="mx-auto mt-5 max-w-2xl text-muted-foreground">
+            Once the documentation stack is assembled, the application
+            process page walks through MULTI-GO submission, fee
+            retention, the COI workflow, and realistic timing by lender
+            type. The MLI Select page details the tier-based scoring
+            these documents feed into.
+          </p>
+          <div class="mt-8 flex flex-wrap justify-center gap-3">
+            <a href="/programs/application-process">
+              <Button size="lg">Application process</Button>
+            </a>
+            <a href="/programs/mli-select">
+              <Button variant="outline" size="lg">MLI Select</Button>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</DefaultLayout>

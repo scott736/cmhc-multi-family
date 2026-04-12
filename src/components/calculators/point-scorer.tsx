@@ -1,30 +1,31 @@
 import { useMemo, useState } from "react";
-import { Badge } from "@/components/ui/badge";
-import { Card } from "@/components/ui/card";
-import { Label } from "@/components/ui/label";
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Switch } from "@/components/ui/switch";
+
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { Badge } from "@/components/ui/badge";
+import { Card } from "@/components/ui/card";
+import { Label } from "@/components/ui/label";
+import { Switch } from "@/components/ui/switch";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
-  AFFORDABILITY_SCORING_NEW,
-  AFFORDABILITY_SCORING_EXISTING,
-  ENERGY_SCORING_NEW,
-  ENERGY_SCORING_EXISTING,
   ACCESSIBILITY_SCORING,
   AFFORDABILITY_BONUS_20YR,
+  AFFORDABILITY_SCORING_EXISTING,
+  AFFORDABILITY_SCORING_NEW,
+  ENERGY_SCORING_EXISTING,
+  ENERGY_SCORING_NEW,
 } from "@/data/cmhc";
-import {
-  scoreProject,
-  type ProjectType,
-  type EnergyStandard,
-  type AccessibilityLevel,
-} from "@/lib/points";
 import { percent } from "@/lib/format";
+import {
+  type AccessibilityLevel,
+  type EnergyStandard,
+  type ProjectType,
+  scoreProject,
+} from "@/lib/points";
 
 export default function PointScorer() {
   const [projectType, setProjectType] = useState<ProjectType>("new");

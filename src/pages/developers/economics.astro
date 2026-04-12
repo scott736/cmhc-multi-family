@@ -1,9 +1,9 @@
 ---
-import DefaultLayout from "@/layouts/DefaultLayout.astro";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { CONSTRUCTION_COMPARISON } from "@/data/cmhc";
+import DefaultLayout from "@/layouts/DefaultLayout.astro";
 
 const title = "MLI Select Developer Economics — 95% LTC, 50-yr Amortization";
 const description =
@@ -29,10 +29,22 @@ const federalInitiatives = [
       "Full GST removal on new purpose-built rental construction. 5% direct reduction in hard cost — particularly impactful when combined with MLI Select's 95% LTC.",
   },
   {
-    title: "Housing Accelerator Fund",
-    date: "2023–2026",
+    title: "Housing Accelerator Fund (HAF)",
+    date: "2023–2026 (topped up Budget 2024)",
     body:
-      "$4.4B to municipalities targeting 112,000 new homes through zoning reform — upzoning, inclusionary zoning, permitting reforms. Creates the policy backdrop municipal incentives stack against.",
+      "$4.4B to municipalities — now 179 municipal agreements and 750,000+ fast-tracked homes. Funds municipal zoning/permitting reform (upzoning, inclusionary zoning, as-of-right fourplexes) — NOT buildings. Distinct from the Affordable Housing Fund (AHF, $14.6B, CMHC-administered) which funds specific affordable buildings.",
+  },
+  {
+    title: "CMB and NHA MBS limits",
+    date: "2026",
+    body:
+      "Canada Mortgage Bond annual limit raised from $60B to $80B for 2026. NHA MBS guarantee cap sits at $190B. MLI Select pools are now handled separately from the $9B tier threshold. Expanded securitization capacity is how CMHC insurance translates into market liquidity for lenders.",
+  },
+  {
+    title: "Bill C-4 (Royal Assent)",
+    date: "March 12, 2026",
+    body:
+      "Primarily first-time buyer GST relief — not directly multi-unit, but signals continuing federal housing focus through 2026 and a willingness to deploy GST policy levers that may extend to rental in future cycles.",
   },
 ];
 ---
@@ -295,8 +307,93 @@ const federalInitiatives = [
       </div>
     </section>
 
-    {/* CTA */}
+    {/* PBR GST REBATE */}
     <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="max-w-3xl">
+          <Badge variant="outline" className="mb-4 border-star/40 text-star">
+            Major pro forma input
+          </Badge>
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+            Purpose-Built Rental (PBR) GST rebate — 100% federal.
+          </h2>
+          <p class="mt-4 text-muted-foreground">
+            The federal enhanced GST rebate for new purpose-built
+            rental raises the rebate from 36% to 100% of the federal
+            GST component on qualifying projects. On a $1.19M
+            four-plex, the federal rebate alone is typically worth
+            $40K–$80K at 13% HST on soft costs and portions of hard
+            costs — enough to meaningfully shift equity-recapture
+            math after takeout.
+          </p>
+        </div>
+
+        <div class="mt-10 grid gap-6 md:grid-cols-2">
+          <Card className="bg-jet border-dark-gray p-6">
+            <div class="text-xs uppercase tracking-wide text-star">
+              Eligibility window
+            </div>
+            <ul class="mt-4 space-y-3 text-sm text-muted-foreground">
+              <li class="border-b border-dark-gray/50 pb-3">
+                Construction must start between
+                <span class="text-foreground"> September 14, 2023
+                  and December 31, 2030</span>.
+              </li>
+              <li class="border-b border-dark-gray/50 pb-3">
+                Substantial completion before
+                <span class="text-foreground"> December 31, 2036</span>.
+              </li>
+              <li>
+                10%/year taper applies to projects that start in
+                2028 or later — by 2030 the rebate is tapered
+                meaningfully. Start early.
+              </li>
+            </ul>
+          </Card>
+          <Card className="bg-jet border-dark-gray p-6">
+            <div class="text-xs uppercase tracking-wide text-star">
+              Building qualification
+            </div>
+            <ul class="mt-4 space-y-3 text-sm text-muted-foreground">
+              <li class="border-b border-dark-gray/50 pb-3">
+                4+ private residential units, OR 10+ private rooms.
+              </li>
+              <li class="border-b border-dark-gray/50 pb-3">
+                90%+ of units designated for long-term rental
+                (12-month+ leases). Rules out most short-term rental
+                use.
+              </li>
+              <li>
+                Max <span class="text-foreground">$35,000 federal
+                rebate per residential unit</span>.
+              </li>
+            </ul>
+          </Card>
+        </div>
+
+        <Card className="mt-10 bg-jet border-dark-gray p-8">
+          <div class="text-xs uppercase tracking-wide text-star">
+            Provincial HST rebates — stackable
+          </div>
+          <div class="mt-1 text-lg font-semibold">
+            Ontario, Nova Scotia, Newfoundland/Labrador, and New Brunswick
+          </div>
+          <p class="mt-3 text-sm text-muted-foreground">
+            These provinces rebate the provincial HST portion in
+            addition to the federal rebate — roughly doubling the
+            effective rebate on qualifying hard and soft costs. New
+            Brunswick joined the program effective
+            <span class="text-foreground"> November 14, 2024</span>.
+            Alberta, BC, Manitoba, Saskatchewan, and Quebec remain
+            federal-only. Confirm current provincial stacking before
+            underwriting the figure into a pro forma.
+          </p>
+        </Card>
+      </div>
+    </section>
+
+    {/* CTA */}
+    <section class="border-b border-dark-gray bg-jet">
       <div class="container border-l border-r border-dark-gray px-6 py-20 lg:px-12 lg:py-28">
         <div class="mx-auto max-w-3xl text-center">
           <h2 class="text-3xl font-semibold tracking-tight lg:text-5xl">
