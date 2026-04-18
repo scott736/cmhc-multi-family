@@ -1,4 +1,5 @@
 import {
+  ArrowRight,
   BookOpen,
   Building2,
   Calculator,
@@ -7,6 +8,7 @@ import {
   Clock,
   Database,
   FileText,
+  Gauge,
   HelpCircle,
   Landmark,
   Layers,
@@ -15,6 +17,8 @@ import {
   Scale,
   Scroll,
   Shuffle,
+  Sparkles,
+  Target,
   TrendingUp,
 } from "lucide-react";
 import React, { useEffect, useState } from "react";
@@ -36,6 +40,35 @@ interface NavbarProps {
   currentPath?: string;
 }
 
+type MegaItem = {
+  title: string;
+  href: string;
+  description: string;
+  icon: React.ComponentType<{ className?: string }>;
+};
+
+type MegaSection = {
+  heading: string;
+  items: MegaItem[];
+};
+
+type MegaFeature = {
+  eyebrow: string;
+  title: string;
+  description: string;
+  href: string;
+  cta: string;
+  icon: React.ComponentType<{ className?: string }>;
+};
+
+type TopItem = {
+  label: string;
+  href: string;
+  sections?: MegaSection[];
+  feature?: MegaFeature;
+  width?: string;
+};
+
 export default function Navbar({ currentPath }: NavbarProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
@@ -50,461 +83,473 @@ export default function Navbar({ currentPath }: NavbarProps) {
     return () => document.body.classList.remove("overflow-hidden");
   }, [isMenuOpen]);
 
-  const ITEMS = [
+  const ITEMS: TopItem[] = [
     {
       label: "Programs",
       href: "/programs",
-      dropdownItems: [
+      width: "w-[920px]",
+      sections: [
         {
-          title: "MLI Select",
-          href: "/programs/mli-select",
-          description:
-            "Points-based flagship — 95% LTC, 50yr amort, up to 30% premium discount.",
-          icon: TrendingUp,
+          heading: "Insurance products",
+          items: [
+            {
+              title: "MLI Select",
+              href: "/programs/mli-select",
+              description:
+                "Points-based flagship — 95% LTC, 50yr amort, up to 30% premium discount.",
+              icon: TrendingUp,
+            },
+            {
+              title: "MLI Standard",
+              href: "/programs/mli-standard",
+              description: "Foundational 5+ unit product for market rental — 85% LTV.",
+              icon: Building2,
+            },
+            {
+              title: "Specialized",
+              href: "/programs/specialized",
+              description:
+                "Retirement, student, SRO, supportive — Other Shelter Models grid.",
+              icon: Layers,
+            },
+            {
+              title: "MULTI-GO platform",
+              href: "/programs/multi-go",
+              description: "CMHC's digital portal — submission, underwriting, CoI.",
+              icon: FileText,
+            },
+          ],
         },
         {
-          title: "MLI Standard",
-          href: "/programs/mli-standard",
-          description:
-            "Foundational 5+ unit product for market rental — 85% LTV.",
-          icon: Building2,
+          heading: "MLI Select deep dive",
+          items: [
+            {
+              title: "Affordability scoring",
+              href: "/programs/mli-select/affordability",
+              description:
+                "10/15/25% new or 40/60/80% existing — points + 20yr bonus.",
+              icon: Scale,
+            },
+            {
+              title: "Energy scoring",
+              href: "/programs/mli-select/energy",
+              description: "NECB / NBC 2020 paths, L1/L2/L3 pathways.",
+              icon: Gauge,
+            },
+            {
+              title: "Accessibility scoring",
+              href: "/programs/mli-select/accessibility",
+              description: "CSA B651:23 vs RHFAC v4.0 — Level 1/2 mechanics.",
+              icon: CheckSquare,
+            },
+            {
+              title: "Commitment mechanics",
+              href: "/programs/mli-select/commitment",
+              description:
+                "Legal instruments, monitoring, enforcement, transitions.",
+              icon: FileText,
+            },
+            {
+              title: "Rental achievement",
+              href: "/programs/rental-achievement",
+              description:
+                "Holdback mechanics, July 3, 2025 changes, worked scenarios.",
+              icon: Target,
+            },
+          ],
         },
         {
-          title: "ACLP",
-          href: "/programs/aclp",
-          description:
-            "Apartment Construction Loan Program — CMHC direct lending, below-market.",
-          icon: Landmark,
-        },
-        {
-          title: "AHF",
-          href: "/programs/ahf",
-          description:
-            "Affordable Housing Fund — forgivable + low-interest $14.6B program.",
-          icon: Scale,
-        },
-        {
-          title: "CHDP",
-          href: "/programs/chdp",
-          description:
-            "Co-operative Housing Development Program — $1.5B for co-ops.",
-          icon: Layers,
-        },
-        {
-          title: "Specialized",
-          href: "/programs/specialized",
-          description:
-            "Retirement, student, SRO, supportive — Other Shelter Models premium grid.",
-          icon: Building2,
-        },
-        {
-          title: "Select · Affordability scoring",
-          href: "/programs/mli-select/affordability",
-          description:
-            "How 10/15/25% new or 40/60/80% existing maps to points + 20yr bonus.",
-          icon: Scale,
-        },
-        {
-          title: "Select · Energy scoring",
-          href: "/programs/mli-select/energy",
-          description:
-            "NECB / NBC 2020 paths, construction premiums, L1/L2/L3 pathways.",
-          icon: TrendingUp,
-        },
-        {
-          title: "Select · Accessibility scoring",
-          href: "/programs/mli-select/accessibility",
-          description:
-            "CSA B651:23 vs RHFAC v4.0 — Level 1/2 scoring mechanics.",
-          icon: CheckSquare,
-        },
-        {
-          title: "Select · Commitment mechanics",
-          href: "/programs/mli-select/commitment",
-          description:
-            "Legal instruments, monitoring, enforcement, transition periods.",
-          icon: FileText,
-        },
-        {
-          title: "Amortization options",
-          href: "/programs/amortization-options",
-          description:
-            "25/30/40/45/50yr trade-offs and surcharge grid since July 2025.",
-          icon: Clock,
-        },
-        {
-          title: "Construction paths",
-          href: "/programs/construction-paths",
-          description:
-            "ACLP direct vs MLI Select + construction insurance decision framework.",
-          icon: Building2,
-        },
-        {
-          title: "Rental achievement",
-          href: "/programs/rental-achievement",
-          description:
-            "Holdback mechanics, July 3 2025 Market Rental removal, worked scenarios.",
-          icon: CheckSquare,
-        },
-        {
-          title: "MULTI-GO platform",
-          href: "/programs/multi-go",
-          description:
-            "CMHC's digital portal — submission, underwriting, CoI issuance.",
-          icon: FileText,
-        },
-        {
-          title: "Application process",
-          href: "/programs/application-process",
-          description:
-            "Submission, fees, COI workflow, processing timelines.",
-          icon: FileText,
-        },
-        {
-          title: "Compare all programs",
-          href: "/programs/compare",
-          description: "Side-by-side across all CMHC multi-unit pathways.",
-          icon: FileText,
+          heading: "Direct lending + process",
+          items: [
+            {
+              title: "ACLP",
+              href: "/programs/aclp",
+              description: "Apartment Construction Loan Program — CMHC direct.",
+              icon: Landmark,
+            },
+            {
+              title: "AHF",
+              href: "/programs/ahf",
+              description: "Affordable Housing Fund — forgivable + low-interest.",
+              icon: Scale,
+            },
+            {
+              title: "CHDP",
+              href: "/programs/chdp",
+              description: "Co-operative Housing Development — $1.5B for co-ops.",
+              icon: Layers,
+            },
+            {
+              title: "Amortization options",
+              href: "/programs/amortization-options",
+              description: "25/30/40/45/50yr trade-offs, July 2025 surcharge grid.",
+              icon: Clock,
+            },
+            {
+              title: "Construction paths",
+              href: "/programs/construction-paths",
+              description: "ACLP direct vs MLI Select + construction insurance.",
+              icon: Building2,
+            },
+            {
+              title: "Application process",
+              href: "/programs/application-process",
+              description: "Submission, fees, CoI workflow, timelines.",
+              icon: FileText,
+            },
+            {
+              title: "Compare all programs",
+              href: "/programs/compare",
+              description: "Side-by-side across every CMHC multi-unit pathway.",
+              icon: Shuffle,
+            },
+          ],
         },
       ],
     },
     {
       label: "Calculators",
       href: "/calculators",
-      dropdownItems: [
+      width: "w-[1120px]",
+      feature: {
+        eyebrow: "Most used",
+        title: "MLI Select Point Scorer",
+        description:
+          "Score affordability, energy, and accessibility. See your tier instantly.",
+        href: "/calculators/point-scorer",
+        cta: "Start scoring",
+        icon: Sparkles,
+      },
+      sections: [
         {
-          title: "MLI Select Point Scorer",
-          href: "/calculators/point-scorer",
-          description:
-            "Score affordability, energy and accessibility — see your tier instantly.",
-          icon: Calculator,
+          heading: "Loan sizing",
+          items: [
+            {
+              title: "Loan Sizer",
+              href: "/calculators/loan-sizer",
+              description: "Triple-constrained (LTV, DCR, program cap) max-loan.",
+              icon: LineChart,
+            },
+            {
+              title: "DSCR Inverse",
+              href: "/calculators/dscr-inverse",
+              description: "Required NOI at DCR 1.10 / 1.20 / 1.30.",
+              icon: Calculator,
+            },
+            {
+              title: "NOI / Cap Rate",
+              href: "/calculators/noi-cap-rate",
+              description: "Build NOI, compute cap rate, or solve implied value.",
+              icon: LineChart,
+            },
+            {
+              title: "Amort Schedule",
+              href: "/calculators/amortization-schedule",
+              description: "Yearly/monthly P vs I split, CSV export.",
+              icon: Calculator,
+            },
+            {
+              title: "Break-Even Occupancy",
+              href: "/calculators/break-even-occupancy",
+              description: "Occupancy % to cover debt service and opex.",
+              icon: Target,
+            },
+            {
+              title: "Cash-on-Cash",
+              href: "/calculators/cash-on-cash",
+              description: "Leveraged yield + equity multiple at 5/10/20yr.",
+              icon: TrendingUp,
+            },
+          ],
         },
         {
-          title: "Loan Sizer",
-          href: "/calculators/loan-sizer",
-          description:
-            "Triple-constrained (LTV, DCR, program cap) max-loan calculator.",
-          icon: LineChart,
+          heading: "Premium",
+          items: [
+            {
+              title: "Premium Calculator",
+              href: "/calculators/premium",
+              description: "July 14, 2025 LTV-tiered grid with surcharges.",
+              icon: Calculator,
+            },
+            {
+              title: "Premium Credit",
+              href: "/calculators/premium-credit",
+              description: "Refinance credit — 75% declining to 20% by yr 7.",
+              icon: Calculator,
+            },
+            {
+              title: "Equity Take-Out",
+              href: "/calculators/equity-takeout",
+              description: "Max new loan, premium credit, net cash after payoff.",
+              icon: Calculator,
+            },
+            {
+              title: "PST on Premium",
+              href: "/calculators/pst-premium",
+              description: "Provincial PST on CMHC premium, by province.",
+              icon: MapPin,
+            },
+          ],
         },
         {
-          title: "DSCR Inverse (required NOI)",
-          href: "/calculators/dscr-inverse",
-          description:
-            "Given a target loan, what NOI is needed at DCR 1.10/1.20/1.30?",
-          icon: Calculator,
-        },
-        {
-          title: "NOI / Cap Rate",
-          href: "/calculators/noi-cap-rate",
-          description:
-            "Build NOI, compute cap rate, or solve for implied value.",
-          icon: LineChart,
-        },
-        {
-          title: "Amortization Schedule",
-          href: "/calculators/amortization-schedule",
-          description:
-            "Yearly/monthly P vs I split with CSV download.",
-          icon: Calculator,
-        },
-        {
-          title: "Stress Test",
-          href: "/calculators/stress-test",
-          description:
-            "Rate-shock scenarios — DCR and cash flow impact at renewal.",
-          icon: TrendingUp,
-        },
-        {
-          title: "Break-Even Occupancy",
-          href: "/calculators/break-even-occupancy",
-          description:
-            "What occupancy % covers debt service and opex?",
-          icon: Calculator,
-        },
-        {
-          title: "Cash Flow Projection",
-          href: "/calculators/cash-flow",
-          description:
-            "Year-by-year NOI, debt service, DCR, cash-on-cash.",
-          icon: LineChart,
-        },
-        {
-          title: "Premium Calculator",
-          href: "/calculators/premium",
-          description:
-            "July 14, 2025 LTV-tiered premiums with every surcharge.",
-          icon: Calculator,
-        },
-        {
-          title: "Premium Credit (refinance)",
-          href: "/calculators/premium-credit",
-          description:
-            "Refinance credit — 75% declining to 20% by year 7.",
-          icon: Calculator,
-        },
-        {
-          title: "Equity Take-Out",
-          href: "/calculators/equity-takeout",
-          description:
-            "Refinance cash-out — max new loan, premium credit, net cash.",
-          icon: Calculator,
-        },
-        {
-          title: "PST on Premium",
-          href: "/calculators/pst-premium",
-          description:
-            "Upfront provincial sales tax on CMHC premium by province.",
-          icon: Calculator,
-        },
-        {
-          title: "Renewal Analyzer",
-          href: "/calculators/renewal-analyzer",
-          description:
-            "Balance at maturity + debt service under rate scenarios.",
-          icon: Clock,
-        },
-        {
-          title: "Construction Draws",
-          href: "/calculators/construction-draws",
-          description:
-            "Advance schedule, interest reserve, takeout loan sizing.",
-          icon: Building2,
-        },
-        {
-          title: "Conventional vs CMHC",
-          href: "/calculators/conventional-vs-cmhc",
-          description:
-            "Side-by-side: insured vs uninsured on leverage and yield.",
-          icon: Shuffle,
-        },
-        {
-          title: "Purchase vs Refinance",
-          href: "/calculators/purchase-vs-refi",
-          description:
-            "Max loan, premium, cash-out vs equity-in for each path.",
-          icon: Shuffle,
-        },
-        {
-          title: "Point Optimizer (MLI Select)",
-          href: "/calculators/point-optimizer",
-          description:
-            "All scoring combinations ranked by ease and cost.",
-          icon: Calculator,
-        },
-        {
-          title: "Affordability Unit Sizer",
-          href: "/calculators/affordability-sizer",
-          description:
-            "Required units, rent concession, NOI impact to hit a tier.",
-          icon: MapPin,
-        },
-        {
-          title: "Rent vs Market Gap",
-          href: "/calculators/rent-gap",
-          description:
-            "Unit-mix current vs market rents with MLI Select qualification test.",
-          icon: LineChart,
-        },
-        {
-          title: "Grant / Program Stacking",
-          href: "/calculators/grant-stacking",
-          description:
-            "ACLP + AHF + municipal incentive residual-equity math.",
-          icon: Layers,
-        },
-        {
-          title: "Cash-on-Cash Return",
-          href: "/calculators/cash-on-cash",
-          description:
-            "Leveraged yield and equity multiple at 5/10/20yr hold.",
-          icon: LineChart,
-        },
-        {
-          title: "Scenario Comparison",
-          href: "/calculators/compare",
-          description:
-            "MLI Select vs MLI Standard vs conventional on one deal.",
-          icon: FileText,
+          heading: "MLI Select & scenarios",
+          items: [
+            {
+              title: "Point Scorer",
+              href: "/calculators/point-scorer",
+              description: "Affordability + energy + accessibility scoring.",
+              icon: Sparkles,
+            },
+            {
+              title: "Point Optimizer",
+              href: "/calculators/point-optimizer",
+              description: "All scoring combinations ranked by ease and cost.",
+              icon: Target,
+            },
+            {
+              title: "Affordability Sizer",
+              href: "/calculators/affordability-sizer",
+              description: "Required units + rent concession to hit a tier.",
+              icon: MapPin,
+            },
+            {
+              title: "Rent vs Market Gap",
+              href: "/calculators/rent-gap",
+              description: "Unit-mix current vs market with qualification test.",
+              icon: LineChart,
+            },
+            {
+              title: "Stress Test",
+              href: "/calculators/stress-test",
+              description: "Rate-shock scenarios — DCR and cash-flow impact.",
+              icon: TrendingUp,
+            },
+            {
+              title: "Cash Flow",
+              href: "/calculators/cash-flow",
+              description: "Year-by-year NOI, debt service, DCR, CoC.",
+              icon: LineChart,
+            },
+            {
+              title: "Renewal Analyzer",
+              href: "/calculators/renewal-analyzer",
+              description: "Balance at maturity + debt service under scenarios.",
+              icon: Clock,
+            },
+            {
+              title: "Construction Draws",
+              href: "/calculators/construction-draws",
+              description: "Advance schedule, interest reserve, takeout sizing.",
+              icon: Building2,
+            },
+            {
+              title: "Conventional vs CMHC",
+              href: "/calculators/conventional-vs-cmhc",
+              description: "Insured vs uninsured leverage and yield.",
+              icon: Shuffle,
+            },
+            {
+              title: "Purchase vs Refi",
+              href: "/calculators/purchase-vs-refi",
+              description: "Max loan, premium, cash-out vs equity-in.",
+              icon: Shuffle,
+            },
+            {
+              title: "Grant Stacking",
+              href: "/calculators/grant-stacking",
+              description: "ACLP + AHF + municipal residual-equity math.",
+              icon: Layers,
+            },
+            {
+              title: "Compare Scenarios",
+              href: "/calculators/compare",
+              description: "MLI Select vs Standard vs conventional, one deal.",
+              icon: FileText,
+            },
+          ],
         },
       ],
     },
     {
       label: "Underwriting",
       href: "/underwriting",
-      dropdownItems: [
+      width: "w-[920px]",
+      sections: [
         {
-          title: "DCR & loan sizing",
-          href: "/underwriting/dcr",
-          description:
-            "Property-income based; no residential stress test.",
-          icon: LineChart,
+          heading: "Sizing & income",
+          items: [
+            {
+              title: "DCR & loan sizing",
+              href: "/underwriting/dcr",
+              description: "Property-income based; no residential stress test.",
+              icon: LineChart,
+            },
+            {
+              title: "LTV & value",
+              href: "/underwriting/ltv",
+              description: "LTC for new construction; lending value for existing.",
+              icon: Scale,
+            },
+            {
+              title: "NOI methodology",
+              href: "/underwriting/noi-methodology",
+              description: "GPR → EGI → opex → NOI, line-by-line treatment.",
+              icon: LineChart,
+            },
+            {
+              title: "Vacancy standards",
+              href: "/underwriting/vacancy",
+              description: "RMS source, 3% structural floor, bad-debt.",
+              icon: Database,
+            },
+            {
+              title: "Rental Market Survey",
+              href: "/underwriting/rental-market-survey",
+              description: "CMHC RMS for pre-app market and underwriting.",
+              icon: Database,
+            },
+          ],
         },
         {
-          title: "LTV & value",
-          href: "/underwriting/ltv",
-          description:
-            "Loan-to-cost for new construction; lending value for existing.",
-          icon: Scale,
+          heading: "Opex & reserves",
+          items: [
+            {
+              title: "Opex benchmarks",
+              href: "/underwriting/opex",
+              description: "Key benchmarks used in practice.",
+              icon: Database,
+            },
+            {
+              title: "Opex categories",
+              href: "/underwriting/opex-categories",
+              description: "$/unit and % EGI ranges for every opex line.",
+              icon: Database,
+            },
+            {
+              title: "Cash reserves",
+              href: "/underwriting/cash-reserves",
+              description: "Liquidity, replacement, operating, holdback.",
+              icon: Database,
+            },
+            {
+              title: "Seasoning & lease-up",
+              href: "/underwriting/seasoning",
+              description: "Pro forma vs T-12, rental achievement, takeout.",
+              icon: Clock,
+            },
+          ],
         },
         {
-          title: "Appraisal standards",
-          href: "/underwriting/appraisal",
-          description:
-            "Income vs comparison approach; lending value; Nov 2024 mandatory.",
-          icon: FileText,
-        },
-        {
-          title: "NOI methodology",
-          href: "/underwriting/noi-methodology",
-          description:
-            "GPR → EGI → opex → NOI, line-by-line CMHC treatment.",
-          icon: LineChart,
-        },
-        {
-          title: "Vacancy standards",
-          href: "/underwriting/vacancy",
-          description:
-            "RMS source, 3% structural floor, bad-debt allowance.",
-          icon: Database,
-        },
-        {
-          title: "Opex benchmarks",
-          href: "/underwriting/opex",
-          description:
-            "Vacancy, reserves, management — key benchmarks used in practice.",
-          icon: Database,
-        },
-        {
-          title: "Opex categories",
-          href: "/underwriting/opex-categories",
-          description:
-            "$/unit and % EGI ranges for every opex line.",
-          icon: Database,
-        },
-        {
-          title: "Affordability thresholds",
-          href: "/underwriting/affordability",
-          description:
-            "30% of median renter income — by CMA.",
-          icon: MapPin,
-        },
-        {
-          title: "Affordability methodology",
-          href: "/underwriting/affordability-methodology",
-          description:
-            "How CMHC derives and verifies the MFI-based rent ceilings.",
-          icon: MapPin,
-        },
-        {
-          title: "Cash reserves",
-          href: "/underwriting/cash-reserves",
-          description:
-            "Liquidity, replacement, operating, interest, holdback reserves.",
-          icon: Database,
-        },
-        {
-          title: "Environmental standards",
-          href: "/underwriting/environmental",
-          description:
-            "Phase I/II ESA, building codes, seismic, accessibility overlay.",
-          icon: Scale,
-        },
-        {
-          title: "Seasoning & lease-up",
-          href: "/underwriting/seasoning",
-          description:
-            "Pro forma vs trailing 12, rental achievement, takeout sizing.",
-          icon: Clock,
-        },
-        {
-          title: "Rental Market Survey",
-          href: "/underwriting/rental-market-survey",
-          description:
-            "CMHC RMS for pre-app market analysis and underwriting.",
-          icon: Database,
-        },
-        {
-          title: "Common conditions",
-          href: "/underwriting/common-conditions",
-          description:
-            "What CMHC typically asks for in conditional approval.",
-          icon: CheckSquare,
-        },
-        {
-          title: "Required documentation",
-          href: "/underwriting/documentation",
-          description:
-            "Phase I ESA, geotech, appraisal, QS, surety bonding, covenant.",
-          icon: FileText,
+          heading: "Standards & docs",
+          items: [
+            {
+              title: "Appraisal",
+              href: "/underwriting/appraisal",
+              description: "Income vs comparison, lending value, Nov 2024.",
+              icon: FileText,
+            },
+            {
+              title: "Environmental",
+              href: "/underwriting/environmental",
+              description: "Phase I/II ESA, building codes, seismic.",
+              icon: Scale,
+            },
+            {
+              title: "Affordability thresholds",
+              href: "/underwriting/affordability",
+              description: "30% of median renter income, by CMA.",
+              icon: MapPin,
+            },
+            {
+              title: "Affordability methodology",
+              href: "/underwriting/affordability-methodology",
+              description: "How CMHC derives + verifies MFI-based ceilings.",
+              icon: MapPin,
+            },
+            {
+              title: "Common conditions",
+              href: "/underwriting/common-conditions",
+              description: "What CMHC asks for at conditional approval.",
+              icon: CheckSquare,
+            },
+            {
+              title: "Required documentation",
+              href: "/underwriting/documentation",
+              description: "ESA, geotech, appraisal, QS, surety, covenant.",
+              icon: FileText,
+            },
+          ],
         },
       ],
     },
     {
       label: "Tools",
       href: "/tools",
-      dropdownItems: [
+      width: "w-[720px]",
+      sections: [
         {
-          title: "Eligibility pre-qualifier",
-          href: "/tools/eligibility-tree",
-          description:
-            "8-step decision wizard with ranked program recommendations.",
-          icon: CheckSquare,
+          heading: "Plan the deal",
+          items: [
+            {
+              title: "Eligibility pre-qualifier",
+              href: "/tools/eligibility-tree",
+              description: "8-step wizard with ranked program recommendations.",
+              icon: CheckSquare,
+            },
+            {
+              title: "Program matcher",
+              href: "/tools/program-matcher",
+              description: "Priority sliders → weighted fit across programs.",
+              icon: Shuffle,
+            },
+            {
+              title: "Timeline tracker",
+              href: "/tools/timeline-tracker",
+              description: "Forecast funding date or back-schedule from target.",
+              icon: Clock,
+            },
+            {
+              title: "Document checklist",
+              href: "/tools/doc-checklist",
+              description: "Filter by project × program; track progress.",
+              icon: CheckSquare,
+            },
+            {
+              title: "Fee schedule",
+              href: "/tools/fee-schedule",
+              description: "Appraisal, legal, lender, CMHC fees with ranges.",
+              icon: FileText,
+            },
+          ],
         },
         {
-          title: "Program suitability matcher",
-          href: "/tools/program-matcher",
-          description:
-            "Priority sliders → weighted fit across all five programs.",
-          icon: Shuffle,
-        },
-        {
-          title: "Application timeline tracker",
-          href: "/tools/timeline-tracker",
-          description:
-            "Forecast funding date or back-schedule from a target.",
-          icon: Clock,
-        },
-        {
-          title: "Document checklist",
-          href: "/tools/doc-checklist",
-          description:
-            "Filter by project type × program; track progress.",
-          icon: CheckSquare,
-        },
-        {
-          title: "CoI / rate-lock expiry",
-          href: "/tools/coi-expiry",
-          description:
-            "Countdown with Sep 3 2025 CoI transfer callout.",
-          icon: Clock,
-        },
-        {
-          title: "Rental achievement tracker",
-          href: "/tools/rental-achievement",
-          description:
-            "Lease-up projection and holdback-release timing.",
-          icon: TrendingUp,
-        },
-        {
-          title: "Lender comparison matrix",
-          href: "/tools/lender-matrix",
-          description:
-            "Filter + sort approved CMHC multi-unit lenders.",
-          icon: Landmark,
-        },
-        {
-          title: "MLI Select vs Standard",
-          href: "/tools/mli-comparison",
-          description:
-            "16-row feature matrix + when-to-choose panels.",
-          icon: Shuffle,
-        },
-        {
-          title: "Fee schedule reference",
-          href: "/tools/fee-schedule",
-          description:
-            "Appraisal, legal, lender, CMHC fees with typical ranges.",
-          icon: FileText,
+          heading: "Execute & track",
+          items: [
+            {
+              title: "Lender comparison matrix",
+              href: "/tools/lender-matrix",
+              description: "Filter + sort approved CMHC multi-unit lenders.",
+              icon: Landmark,
+            },
+            {
+              title: "MLI Select vs Standard",
+              href: "/tools/mli-comparison",
+              description: "16-row feature matrix + when-to-choose panels.",
+              icon: Shuffle,
+            },
+            {
+              title: "CoI / rate-lock expiry",
+              href: "/tools/coi-expiry",
+              description: "Countdown with Sep 3, 2025 CoI transfer callout.",
+              icon: Clock,
+            },
+            {
+              title: "Rental achievement tracker",
+              href: "/tools/rental-achievement",
+              description: "Lease-up projection + holdback release timing.",
+              icon: TrendingUp,
+            },
+          ],
         },
       ],
     },
@@ -515,93 +560,106 @@ export default function Navbar({ currentPath }: NavbarProps) {
     {
       label: "Developers",
       href: "/developers",
-      dropdownItems: [
+      width: "w-[560px]",
+      sections: [
         {
-          title: "Construction pathways",
-          href: "/developers/construction",
-          description: "Construction-to-term vs. completion takeout.",
-          icon: Building2,
+          heading: "Build economics",
+          items: [
+            {
+              title: "Construction pathways",
+              href: "/developers/construction",
+              description: "Construction-to-term vs. completion takeout.",
+              icon: Building2,
+            },
+            {
+              title: "Developer economics",
+              href: "/developers/economics",
+              description: "How 95% LTC + 50yr amort transforms returns.",
+              icon: TrendingUp,
+            },
+          ],
         },
         {
-          title: "Developer economics",
-          href: "/developers/economics",
-          description: "How 95% LTC + 50yr amort transforms returns.",
-          icon: TrendingUp,
-        },
-        {
-          title: "Municipal stacking",
-          href: "/developers/municipal",
-          description:
-            "Toronto, Vancouver, Calgary, Edmonton, Ottawa, Montreal.",
-          icon: MapPin,
-        },
-        {
-          title: "Provincial rent rules",
-          href: "/developers/provincial",
-          description: "ON, BC, AB, QC — new-construction exemptions.",
-          icon: Scale,
+          heading: "Jurisdiction",
+          items: [
+            {
+              title: "Municipal stacking",
+              href: "/developers/municipal",
+              description: "Toronto, Vancouver, Calgary, Edmonton, Ottawa, Montreal.",
+              icon: MapPin,
+            },
+            {
+              title: "Provincial rules",
+              href: "/developers/provincial",
+              description: "ON, BC, AB, QC — new-construction exemptions.",
+              icon: Scale,
+            },
+          ],
         },
       ],
     },
     {
       label: "Resources",
       href: "/glossary",
-      dropdownItems: [
+      width: "w-[820px]",
+      sections: [
         {
-          title: "FAQ",
-          href: "/faq",
-          description:
-            "43 common questions across programs, underwriting, and process.",
-          icon: HelpCircle,
+          heading: "Reference",
+          items: [
+            {
+              title: "FAQ",
+              href: "/faq",
+              description: "43 questions across programs, underwriting, process.",
+              icon: HelpCircle,
+            },
+            {
+              title: "Glossary",
+              href: "/glossary",
+              description: "70 CMHC multi-unit terms, searchable.",
+              icon: BookOpen,
+            },
+            {
+              title: "Application timeline",
+              href: "/timeline",
+              description: "Pre-app through funding — week-by-week.",
+              icon: Clock,
+            },
+            {
+              title: "Policy timeline",
+              href: "/policy",
+              description: "2024–2026 major CMHC multi-unit policy changes.",
+              icon: Scroll,
+            },
+          ],
         },
         {
-          title: "Glossary",
-          href: "/glossary",
-          description:
-            "70 CMHC multi-unit terms — searchable and categorized.",
-          icon: BookOpen,
-        },
-        {
-          title: "Application timeline",
-          href: "/timeline",
-          description:
-            "Pre-app through funding — week-by-week process map.",
-          icon: Clock,
-        },
-        {
-          title: "Provinces",
-          href: "/provinces",
-          description:
-            "ON, BC, AB, QC — rent control, exemptions, provincial overlays.",
-          icon: MapPin,
-        },
-        {
-          title: "Lifecycle",
-          href: "/lifecycle",
-          description:
-            "Renewal, assumption, prepayment, porting.",
-          icon: Shuffle,
-        },
-        {
-          title: "Eligibility",
-          href: "/eligibility",
-          description:
-            "Borrower, property, and lender eligibility rules.",
-          icon: CheckSquare,
-        },
-        {
-          title: "Policy timeline",
-          href: "/policy",
-          description:
-            "2024-2026 major CMHC multi-unit policy changes.",
-          icon: Scroll,
-        },
-        {
-          title: "Data sources",
-          href: "/data",
-          description:
-            "RMS, HMIP, StatCan, cmhc R package, open data.",
-          icon: Database,
+          heading: "Coverage",
+          items: [
+            {
+              title: "Provinces",
+              href: "/provinces",
+              description: "ON, BC, AB, QC — rent control, exemptions.",
+              icon: MapPin,
+            },
+            {
+              title: "Lifecycle",
+              href: "/lifecycle",
+              description: "Renewal, assumption, prepayment, porting.",
+              icon: Shuffle,
+            },
+            {
+              title: "Eligibility",
+              href: "/eligibility",
+              description: "Borrower, property, and lender eligibility rules.",
+              icon: CheckSquare,
+            },
+            {
+              title: "Data sources",
+              href: "/data",
+              description: "RMS, HMIP, StatCan, cmhc R package, open data.",
+              icon: Database,
+            },
+          ],
         },
       ],
     },
@@ -633,7 +691,7 @@ export default function Navbar({ currentPath }: NavbarProps) {
             <NavigationMenu className="mr-4 hidden items-center gap-8 lg:flex">
               <NavigationMenuList>
                 {ITEMS.map((link) =>
-                  link.dropdownItems ? (
+                  link.sections ? (
                     <NavigationMenuItem key={link.label} className="text-sm">
                       <NavigationMenuTrigger
                         className={cn(
@@ -646,30 +704,14 @@ export default function Navbar({ currentPath }: NavbarProps) {
                       >
                         {link.label}
                       </NavigationMenuTrigger>
-                      <NavigationMenuContent className="rounded-md bg-obsidian">
-                        <ul className="w-[460px] bg-obsidian p-3">
-                          {link.dropdownItems.map((item) => (
-                            <li key={item.title}>
-                              <NavigationMenuLink asChild>
-                                <a
-                                  href={item.href}
-                                  className="outline-hidden flex items-start rounded-md p-3 leading-none no-underline transition-colors hover:bg-dark-gray hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
-                                >
-                                  <item.icon className="text-mid-gray size-4" />
-
-                                  <div className="ml-2 space-y-1.5">
-                                    <div className="text-foreground text-sm font-medium leading-none">
-                                      {item.title}
-                                    </div>
-                                    <p className="text-mid-gray line-clamp-2 text-sm leading-tight">
-                                      {item.description}
-                                    </p>
-                                  </div>
-                                </a>
-                              </NavigationMenuLink>
-                            </li>
-                          ))}
-                        </ul>
+                      <NavigationMenuContent className="bg-obsidian rounded-md">
+                        <MegaPanel
+                          label={link.label}
+                          href={link.href}
+                          sections={link.sections}
+                          feature={link.feature}
+                          width={link.width ?? "w-[720px]"}
+                        />
                       </NavigationMenuContent>
                     </NavigationMenuItem>
                   ) : (
@@ -728,6 +770,7 @@ export default function Navbar({ currentPath }: NavbarProps) {
         </div>
       </div>
 
+      {/* Mobile drawer */}
       <div
         className={cn(
           "container absolute inset-x-0 top-full flex h-[calc(100vh-80px)] flex-col border-t border-t-dark-gray px-2.5 lg:px-0",
@@ -741,7 +784,7 @@ export default function Navbar({ currentPath }: NavbarProps) {
         <div className="h-[calc(100vh-80px)] overflow-y-auto border-x border-dark-gray px-5">
           <nav className="mt-6 flex flex-1 flex-col gap-6 pb-10">
             {ITEMS.map((link) =>
-              link.dropdownItems ? (
+              link.sections ? (
                 <div key={link.label}>
                   <button
                     onClick={() =>
@@ -764,32 +807,41 @@ export default function Navbar({ currentPath }: NavbarProps) {
                   </button>
                   <div
                     className={cn(
-                      "ml-1 space-y-3 overflow-hidden border-b border-b-dark-gray transition-all",
+                      "ml-1 space-y-5 overflow-hidden border-b border-b-dark-gray transition-all",
                       openDropdown === link.label
-                        ? "mt-3 max-h-[1000px] pb-6 opacity-100"
+                        ? "mt-3 max-h-[3000px] pb-6 opacity-100"
                         : "max-h-0 opacity-0",
                     )}
                   >
-                    {link.dropdownItems.map((item) => (
-                      <a
-                        key={item.title}
-                        href={item.href}
-                        onClick={() => {
-                          setIsMenuOpen(false);
-                          setOpenDropdown(null);
-                        }}
-                        className="flex items-start gap-3 rounded-md p-2 hover:bg-accent"
-                      >
-                        <item.icon className="text-mid-gray size-6 shrink-0" />
-                        <div>
-                          <div className="text-foreground font-medium">
-                            {item.title}
-                          </div>
-                          <p className="text-sm text-muted-foreground">
-                            {item.description}
-                          </p>
+                    {link.sections.map((section) => (
+                      <div key={section.heading}>
+                        <div className="mt-2 text-[10px] font-semibold uppercase tracking-[0.18em] text-star/80">
+                          {section.heading}
                         </div>
-                      </a>
+                        <div className="mt-2 space-y-1">
+                          {section.items.map((item) => (
+                            <a
+                              key={item.title}
+                              href={item.href}
+                              onClick={() => {
+                                setIsMenuOpen(false);
+                                setOpenDropdown(null);
+                              }}
+                              className="flex items-start gap-3 rounded-md p-2 hover:bg-accent"
+                            >
+                              <item.icon className="text-mid-gray mt-0.5 size-5 shrink-0" />
+                              <div>
+                                <div className="text-foreground font-medium leading-tight">
+                                  {item.title}
+                                </div>
+                                <p className="text-sm text-muted-foreground leading-snug">
+                                  {item.description}
+                                </p>
+                              </div>
+                            </a>
+                          ))}
+                        </div>
+                      </div>
                     ))}
                   </div>
                 </div>
@@ -811,6 +863,125 @@ export default function Navbar({ currentPath }: NavbarProps) {
         </div>
       </div>
     </header>
+  );
+}
+
+function MegaPanel({
+  label,
+  href,
+  sections,
+  feature,
+  width,
+}: {
+  label: string;
+  href: string;
+  sections: MegaSection[];
+  feature?: MegaFeature;
+  width: string;
+}) {
+  const cols = sections.length;
+  const gridCols =
+    cols === 2
+      ? "md:grid-cols-2"
+      : cols === 3
+        ? "md:grid-cols-3"
+        : cols === 4
+          ? "md:grid-cols-4"
+          : "md:grid-cols-2";
+
+  return (
+    <div className={cn("flex", width)}>
+      <div
+        className={cn(
+          "flex-1 bg-obsidian px-6 py-6",
+          feature ? "rounded-l-md" : "rounded-md",
+        )}
+      >
+        <div className={cn("grid gap-6", gridCols)}>
+          {sections.map((section) => (
+            <div key={section.heading}>
+              <div className="mb-3 text-[10px] font-semibold uppercase tracking-[0.18em] text-star/80">
+                {section.heading}
+              </div>
+              <ul className="space-y-0.5">
+                {section.items.map((item) => (
+                  <li key={item.title}>
+                    <NavigationMenuLink asChild>
+                      <a
+                        href={item.href}
+                        className="group relative block rounded-md p-2.5 pl-3 transition-colors hover:bg-dark-gray/60"
+                      >
+                        <span
+                          aria-hidden="true"
+                          className="absolute left-0 top-2.5 bottom-2.5 w-px bg-dark-gray transition-colors group-hover:bg-star"
+                        />
+                        <div className="flex items-start gap-2.5">
+                          <item.icon className="mt-0.5 size-4 shrink-0 text-mid-gray transition-colors group-hover:text-star" />
+                          <div className="min-w-0">
+                            <div className="truncate text-sm font-medium text-foreground">
+                              {item.title}
+                            </div>
+                            <p className="mt-0.5 line-clamp-2 text-xs leading-snug text-mid-gray">
+                              {item.description}
+                            </p>
+                          </div>
+                        </div>
+                      </a>
+                    </NavigationMenuLink>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+        <div className="mt-6 flex items-center justify-between border-t border-dark-gray pt-4">
+          <span className="text-xs text-mid-gray">
+            Every {label.toLowerCase()} page —
+          </span>
+          <NavigationMenuLink asChild>
+            <a
+              href={href}
+              className="inline-flex items-center gap-1.5 text-xs font-medium text-star transition-opacity hover:opacity-80"
+            >
+              View {label} hub
+              <ArrowRight className="size-3.5" />
+            </a>
+          </NavigationMenuLink>
+        </div>
+      </div>
+
+      {feature && (
+        <div className="relative w-[280px] shrink-0 overflow-hidden rounded-r-md border-l border-dark-gray bg-gradient-to-br from-jet via-obsidian to-obsidian p-6">
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute -right-10 -top-10 size-40 rounded-full bg-star/15 blur-3xl"
+          />
+          <div className="relative">
+            <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-star">
+              {feature.eyebrow}
+            </div>
+            <div className="mt-3 flex size-10 items-center justify-center rounded-md bg-star/15 text-star">
+              <feature.icon className="size-5" />
+            </div>
+            <h3 className="mt-4 text-base font-semibold leading-tight text-foreground">
+              {feature.title}
+            </h3>
+            <p className="mt-2 text-sm leading-snug text-muted-foreground">
+              {feature.description}
+            </p>
+            <NavigationMenuLink asChild>
+              <a
+                href={feature.href}
+                className="mt-5 inline-flex items-center gap-1.5 text-sm font-medium text-foreground transition-colors hover:text-star"
+              >
+                {feature.cta}
+                <ArrowRight className="size-4" />
+              </a>
+            </NavigationMenuLink>
+          </div>
+        </div>
+      )}
+    </div>
   );
 }
 
