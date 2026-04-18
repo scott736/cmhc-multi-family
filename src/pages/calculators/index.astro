@@ -155,9 +155,39 @@ const developerTools = [
     body: "Federal loan + forgivable + municipal incentive = residual equity required.",
   },
 ];
+
+const siteURL = Astro.site?.toString().replace(/\/$/, "") ?? "";
+const allCalcs = [
+  ...sizing,
+  ...scenarios,
+  ...premium,
+  ...selectTools,
+  ...developerTools,
+];
+const calculatorsSchema = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  name: "CMHC Multi-Family Calculators",
+  description,
+  numberOfItems: allCalcs.length,
+  itemListElement: allCalcs.map((c, i) => ({
+    "@type": "ListItem",
+    position: i + 1,
+    url: `${siteURL}${c.href}`,
+    name: c.name,
+    description: c.body,
+  })),
+};
+const breadcrumbs = [{ name: "Calculators", url: "/calculators" }];
 ---
 
-<DefaultLayout title={title} description={description}>
+<DefaultLayout
+  title={title}
+  description={description}
+  schema={calculatorsSchema}
+  breadcrumbs={breadcrumbs}
+  pageType="CollectionPage"
+>
   <div class="bg-obsidian text-foreground">
     <section class="border-b border-dark-gray">
       <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">

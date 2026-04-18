@@ -1,0 +1,117 @@
+# CMHC Multi-Family — The Definitive Guide to Canadian Multifamily Financing
+
+> The complete, current-to-April-2026 resource for CMHC multi-unit (5+ unit) residential financing in Canada. Covers MLI Standard, MLI Select, the Apartment Construction Loan Program (ACLP), the Affordable Housing Fund (AHF), the Co-operative Housing Development Program (CHDP), and specialized segments (retirement, student, supportive, SRO). Includes underwriting logic (DCR, LTV/LTC, NOI build, opex benchmarks), full calculator suite, provincial overlays, and the lender landscape.
+
+All content is independent editorial reference material, maintained current to April 2026 and incorporating the July 14 2025 premium overhaul and the November 2025 MLI Select refresh.
+
+## Programs
+- [MLI Standard](https://cmhc-multi-family.pages.dev/programs/mli-standard.astro): Foundational CMHC multi-unit product. Up to 85% LTV, no affordability commitment.
+- [MLI Select](https://cmhc-multi-family.pages.dev/programs/mli-select): Points-based flagship. 50+ pts required, up to 95% LTC, 50-year amortization, up to 30% premium discount.
+- [ACLP — Apartment Construction Loan Program](https://cmhc-multi-family.pages.dev/programs/aclp): $55B direct-lending program at below-market fixed rates, 100% of residential cost.
+- [AHF — Affordable Housing Fund](https://cmhc-multi-family.pages.dev/programs/ahf): $14.6B low-interest/forgivable loans for non-profit, government, and Indigenous borrowers.
+- [CHDP — Co-operative Housing Development Program](https://cmhc-multi-family.pages.dev/programs/chdp): $1.5B. Co-op only. Repayable + forgivable to 100% of eligible costs.
+- [Specialized](https://cmhc-multi-family.pages.dev/programs/specialized): Retirement, student, supportive, SRO.
+- [Multi-Go](https://cmhc-multi-family.pages.dev/programs/multi-go): Simplified product for 5–19 unit acquisitions.
+- [Program comparison](https://cmhc-multi-family.pages.dev/programs/compare): Side-by-side of all five programs.
+- [Application process](https://cmhc-multi-family.pages.dev/programs/application-process): Step-by-step from inquiry through funding.
+- [Construction paths](https://cmhc-multi-family.pages.dev/programs/construction-paths): Construction → takeout financing options.
+- [Amortization options](https://cmhc-multi-family.pages.dev/programs/amortization-options): 25/30/40/50-year options by program.
+- [Rental achievement](https://cmhc-multi-family.pages.dev/programs/rental-achievement): Hold-back and release mechanics.
+
+## MLI Select deep dive
+- [MLI Select overview](https://cmhc-multi-family.pages.dev/programs/mli-select): Points structure, tiers, benefits scaling.
+
+## Underwriting
+- [Underwriting hub](https://cmhc-multi-family.pages.dev/underwriting): Index of underwriting topics.
+- [DCR — Debt coverage ratio](https://cmhc-multi-family.pages.dev/underwriting/dcr): Minimum DCR tables by segment, stress-test logic.
+- [LTV and LTC](https://cmhc-multi-family.pages.dev/underwriting/ltv): Loan-to-value vs loan-to-cost, which binds and when.
+- [Affordability definitions](https://cmhc-multi-family.pages.dev/underwriting/affordability): MFI, LEM, MRM, and how commitments are measured.
+- [Affordability methodology](https://cmhc-multi-family.pages.dev/underwriting/affordability-methodology): How CMHC calculates affordability thresholds.
+- [NOI methodology](https://cmhc-multi-family.pages.dev/underwriting/noi-methodology): How CMHC builds NOI for sizing.
+- [Opex benchmarks](https://cmhc-multi-family.pages.dev/underwriting/opex): Per-unit and percentage-of-EGI benchmarks.
+- [Opex categories](https://cmhc-multi-family.pages.dev/underwriting/opex-categories): Line-by-line opex definitions.
+- [Vacancy assumptions](https://cmhc-multi-family.pages.dev/underwriting/vacancy): Underwriting vacancy vs market vacancy.
+- [Rental market survey](https://cmhc-multi-family.pages.dev/underwriting/rental-market-survey): CMHC RMS mechanics and use in underwriting.
+- [Appraisal requirements](https://cmhc-multi-family.pages.dev/underwriting/appraisal): Appraisal scope, AACI requirements.
+- [Environmental requirements](https://cmhc-multi-family.pages.dev/underwriting/environmental): Phase I/II ESA expectations.
+- [Cash reserves](https://cmhc-multi-family.pages.dev/underwriting/cash-reserves): Replacement and interest reserves.
+- [Seasoning](https://cmhc-multi-family.pages.dev/underwriting/seasoning): Ownership seasoning and rent-roll seasoning.
+- [Documentation](https://cmhc-multi-family.pages.dev/underwriting/documentation): Full package requirements by program.
+- [Common conditions](https://cmhc-multi-family.pages.dev/underwriting/common-conditions): Typical approval conditions.
+
+## Eligibility
+- [Eligibility hub](https://cmhc-multi-family.pages.dev/eligibility): Index.
+- [Borrower eligibility](https://cmhc-multi-family.pages.dev/eligibility/borrower): Net-worth, liquidity, credit, experience.
+- [Property eligibility](https://cmhc-multi-family.pages.dev/eligibility/property): Asset class, unit count, condition.
+- [Lender eligibility](https://cmhc-multi-family.pages.dev/eligibility/lender): Which lenders originate CMHC multi-unit and who specializes.
+
+## Lifecycle
+- [Lifecycle hub](https://cmhc-multi-family.pages.dev/lifecycle): Index.
+- [Renewal](https://cmhc-multi-family.pages.dev/lifecycle/renewal): Renewal mechanics, premium treatment, term options.
+- [Assumption](https://cmhc-multi-family.pages.dev/lifecycle/assumption): Assumption rules and affordability-commitment transfer.
+- [Porting](https://cmhc-multi-family.pages.dev/lifecycle/porting): Porting insurance to a new property.
+- [Prepayment](https://cmhc-multi-family.pages.dev/lifecycle/prepayment): Prepayment privileges, penalties, IRD.
+
+## Calculators
+- [All calculators](https://cmhc-multi-family.pages.dev/calculators): Index of 20+ calculators.
+- [Loan sizer](https://cmhc-multi-family.pages.dev/calculators/loan-sizer): DCR, LTV/LTC, program cap — flags binding constraint.
+- [MLI Select point scorer](https://cmhc-multi-family.pages.dev/calculators/point-scorer): Score affordability + energy + accessibility.
+- [Point optimizer](https://cmhc-multi-family.pages.dev/calculators/point-optimizer): Lowest-cost path to 50/70/100 points.
+- [Premium calculator](https://cmhc-multi-family.pages.dev/calculators/premium): Base + surcharges + MLI Select discount.
+- [Premium credit](https://cmhc-multi-family.pages.dev/calculators/premium-credit): Credit mechanics on renewal and top-up.
+- [PST on premium](https://cmhc-multi-family.pages.dev/calculators/pst-premium): Province-by-province PST on insurance premium.
+- [DSCR inverse](https://cmhc-multi-family.pages.dev/calculators/dscr-inverse): Back-solve max loan from NOI.
+- [Cash flow](https://cmhc-multi-family.pages.dev/calculators/cash-flow): Unlevered + levered cash flow.
+- [Cash-on-cash](https://cmhc-multi-family.pages.dev/calculators/cash-on-cash): Year-1 yield on equity.
+- [NOI + cap rate](https://cmhc-multi-family.pages.dev/calculators/noi-cap-rate): Value by cap rate.
+- [Break-even occupancy](https://cmhc-multi-family.pages.dev/calculators/break-even-occupancy): Occupancy floor to service debt.
+- [Stress test](https://cmhc-multi-family.pages.dev/calculators/stress-test): Rate + vacancy shock.
+- [Rent gap](https://cmhc-multi-family.pages.dev/calculators/rent-gap): Market vs in-place rent.
+- [Amortization schedule](https://cmhc-multi-family.pages.dev/calculators/amortization-schedule): Full schedule with interest/principal split.
+- [Equity takeout](https://cmhc-multi-family.pages.dev/calculators/equity-takeout): Refi proceeds after premium + fees.
+- [Purchase vs refi](https://cmhc-multi-family.pages.dev/calculators/purchase-vs-refi): Structure comparison.
+- [Conventional vs CMHC](https://cmhc-multi-family.pages.dev/calculators/conventional-vs-cmhc): Insured vs conventional all-in cost.
+- [Construction draws](https://cmhc-multi-family.pages.dev/calculators/construction-draws): Draw schedule + interest reserve.
+- [Grant stacking](https://cmhc-multi-family.pages.dev/calculators/grant-stacking): Federal + provincial + municipal stacking.
+- [Renewal analyzer](https://cmhc-multi-family.pages.dev/calculators/renewal-analyzer): Payment shock at renewal.
+- [Affordability sizer](https://cmhc-multi-family.pages.dev/calculators/affordability-sizer): Max rent at a given affordability commitment.
+- [Compare scenarios](https://cmhc-multi-family.pages.dev/calculators/compare): Side-by-side deal scenarios.
+
+## Tools
+- [Tools hub](https://cmhc-multi-family.pages.dev/tools): Index.
+- [Program matcher](https://cmhc-multi-family.pages.dev/tools/program-matcher): Short questionnaire → best-fit program.
+- [Eligibility tree](https://cmhc-multi-family.pages.dev/tools/eligibility-tree): Decision tree for program eligibility.
+- [Lender matrix](https://cmhc-multi-family.pages.dev/tools/lender-matrix): Active CMHC multi-unit lenders by program and region.
+- [MLI comparison](https://cmhc-multi-family.pages.dev/tools/mli-comparison): Standard vs Select side-by-side.
+- [Timeline tracker](https://cmhc-multi-family.pages.dev/tools/timeline-tracker): Typical days-to-funding by program.
+- [Document checklist](https://cmhc-multi-family.pages.dev/tools/doc-checklist): Full submission checklist by program.
+- [Fee schedule](https://cmhc-multi-family.pages.dev/tools/fee-schedule): CMHC fees and third-party cost benchmarks.
+- [Rental achievement tool](https://cmhc-multi-family.pages.dev/tools/rental-achievement): Hold-back release modelling.
+- [Certificate of Insurance expiry](https://cmhc-multi-family.pages.dev/tools/coi-expiry): COI validity and extension rules.
+
+## Provinces
+- [Provinces hub](https://cmhc-multi-family.pages.dev/provinces): Rent control, new-build exemptions, municipal stacking by province.
+- [Ontario](https://cmhc-multi-family.pages.dev/provinces/ontario)
+- [British Columbia](https://cmhc-multi-family.pages.dev/provinces/british-columbia)
+- [Alberta](https://cmhc-multi-family.pages.dev/provinces/alberta)
+- [Quebec](https://cmhc-multi-family.pages.dev/provinces/quebec)
+
+## Developer resources
+- [Developer hub](https://cmhc-multi-family.pages.dev/developers)
+- [Construction pathway](https://cmhc-multi-family.pages.dev/developers/construction)
+- [Economics](https://cmhc-multi-family.pages.dev/developers/economics)
+- [Provincial incentives](https://cmhc-multi-family.pages.dev/developers/provincial)
+- [Municipal incentives](https://cmhc-multi-family.pages.dev/developers/municipal)
+
+## Reference
+- [FAQ](https://cmhc-multi-family.pages.dev/faq): Program selection, underwriting, premium, process, policy, lifecycle.
+- [Glossary](https://cmhc-multi-family.pages.dev/glossary): CMHC terminology A–Z.
+- [Data hub](https://cmhc-multi-family.pages.dev/data): Premium tables, opex benchmarks, DCR minimums.
+- [Timeline](https://cmhc-multi-family.pages.dev/timeline): Typical days-to-funding.
+- [Policy timeline](https://cmhc-multi-family.pages.dev/policy): Material CMHC policy changes June 2024 – March 2026.
+- [Lenders](https://cmhc-multi-family.pages.dev/lenders): Active lender roster.
+
+## Optional
+- [Privacy](https://cmhc-multi-family.pages.dev/privacy)
+- [Terms](https://cmhc-multi-family.pages.dev/terms)
+- [Cookie policy](https://cmhc-multi-family.pages.dev/cookie-policy)

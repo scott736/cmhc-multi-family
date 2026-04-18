@@ -4,11 +4,16 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { LAST_UPDATED } from "@/data/cmhc";
+import { buildFaqPageSchema } from "@/data/faq-schema";
 import DefaultLayout from "@/layouts/DefaultLayout.astro";
 
 const title = "FAQ — CMHC Multi-Unit Financing";
 const description =
   "Frequently asked questions about CMHC multi-unit (5+ unit) financing — program selection, underwriting, premium and costs, process and timing, recent policy changes, and lifecycle mechanics. Current to April 2026.";
+
+const pageUrl = new URL("/faq", Astro.site).toString();
+const faqSchema = buildFaqPageSchema(pageUrl);
+const breadcrumbs = [{ name: "FAQ", url: "/faq" }];
 
 const jumpLinks = [
   { id: "program-selection", label: "Program selection" },
@@ -20,7 +25,13 @@ const jumpLinks = [
 ];
 ---
 
-<DefaultLayout title={title} description={description}>
+<DefaultLayout
+  title={title}
+  description={description}
+  schema={faqSchema}
+  breadcrumbs={breadcrumbs}
+  pageType="FAQPage"
+>
   <div class="bg-obsidian text-foreground">
     {/* HERO */}
     <section class="border-b border-dark-gray">

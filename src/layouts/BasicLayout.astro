@@ -3,12 +3,51 @@ import BaseHead from "@/components/BaseHead.astro";
 import { Footer } from "@/components/sections/footer";
 import Navbar from "@/components/sections/navbar";
 
-const { title, description } = Astro.props;
+interface Props {
+  title: string;
+  description: string;
+  image?: string;
+  schema?: Record<string, unknown> | Record<string, unknown>[];
+  breadcrumbs?: { name: string; url: string }[];
+  datePublished?: string;
+  dateModified?: string;
+  pageType?:
+    | "WebPage"
+    | "Article"
+    | "CollectionPage"
+    | "FAQPage"
+    | "HowTo"
+    | "AboutPage"
+    | "ContactPage";
+  keywords?: string;
+}
+
+const {
+  title,
+  description,
+  image,
+  schema,
+  breadcrumbs,
+  datePublished,
+  dateModified,
+  pageType,
+  keywords,
+} = Astro.props;
 ---
 
-<html lang="en" class="dark">
+<html lang="en-CA" class="dark">
   <head>
-    <BaseHead title={title} description={description} />
+    <BaseHead
+      title={title}
+      description={description}
+      image={image}
+      schema={schema}
+      breadcrumbs={breadcrumbs}
+      datePublished={datePublished}
+      dateModified={dateModified}
+      pageType={pageType}
+      keywords={keywords}
+    />
     <script is:inline>
       (() => {
         try {

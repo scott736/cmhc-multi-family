@@ -8,9 +8,33 @@ import DefaultLayout from "@/layouts/DefaultLayout.astro";
 const title = "CMHC Multi-Unit Programs — Full Pathway Guide";
 const description =
   "Every CMHC multi-family financing pathway in one place: MLI Standard, MLI Select, ACLP, AHF, CHDP, and specialized products. Compare eligibility, LTV, amortization, and affordability requirements.";
+
+const siteURL = Astro.site?.toString().replace(/\/$/, "") ?? "";
+const programsSchema = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  name: "CMHC Multi-Unit Programs",
+  description,
+  itemListOrder: "https://schema.org/ItemListUnordered",
+  numberOfItems: PROGRAMS.length,
+  itemListElement: PROGRAMS.map((p, i) => ({
+    "@type": "ListItem",
+    position: i + 1,
+    url: `${siteURL}/programs/${p.slug}`,
+    name: p.name,
+    description: p.short,
+  })),
+};
+const breadcrumbs = [{ name: "Programs", url: "/programs" }];
 ---
 
-<DefaultLayout title={title} description={description}>
+<DefaultLayout
+  title={title}
+  description={description}
+  schema={programsSchema}
+  breadcrumbs={breadcrumbs}
+  pageType="CollectionPage"
+>
   <div class="bg-obsidian text-foreground">
     {/* HERO */}
     <section class="border-b border-dark-gray">

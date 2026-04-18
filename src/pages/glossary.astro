@@ -1,12 +1,41 @@
 ---
 import GlossaryBrowser from "@/components/tools/glossary-browser";
+import { GLOSSARY } from "@/data/glossary";
 import DefaultLayout from "@/layouts/DefaultLayout.astro";
 
 const title = "CMHC Multi-Family Glossary — Terms, Acronyms, and Definitions";
 const description =
   "Searchable glossary of CMHC multi-unit terms. MLI Select, MLI Standard, ACLP, AHF, CHDP, MULTI-GO, CoI, EGI, NOI, DCR, LTV, LTC, MFI, NECB, NBC, CSA B651, RHFAC, Phase I ESA, QS, surety bonds, rental achievement, holdbacks and more.";
+
+const siteURL = Astro.site?.toString().replace(/\/$/, "") ?? "";
+const pageUrl = `${siteURL}/glossary`;
+
+const glossarySchema = {
+  "@context": "https://schema.org",
+  "@type": "DefinedTermSet",
+  "@id": `${pageUrl}#terms`,
+  name: "CMHC Multi-Family Glossary",
+  url: pageUrl,
+  description,
+  inDefinedTermSet: pageUrl,
+  hasDefinedTerm: GLOSSARY.map((g) => ({
+    "@type": "DefinedTerm",
+    name: g.term,
+    description: g.definition,
+    termCode: g.term,
+    inDefinedTermSet: pageUrl,
+  })),
+};
+
+const breadcrumbs = [{ name: "Glossary", url: "/glossary" }];
 ---
 
-<DefaultLayout title={title} description={description}>
+<DefaultLayout
+  title={title}
+  description={description}
+  schema={glossarySchema}
+  breadcrumbs={breadcrumbs}
+  pageType="CollectionPage"
+>
   <GlossaryBrowser client:load />
 </DefaultLayout>

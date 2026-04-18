@@ -11,15 +11,187 @@ interface Props {
   title: string;
   description: string;
   image?: string;
+  /** Optional additional JSON-LD objects rendered as <script type="application/ld+json"> tags. */
+  schema?: Record<string, unknown> | Record<string, unknown>[];
+  /** Breadcrumb trail: [{ name, url }]. The site root is prepended automatically. */
+  breadcrumbs?: { name: string; url: string }[];
+  /** ISO date when this page was last substantively updated. Defaults to the site's LAST_UPDATED. */
+  datePublished?: string;
+  dateModified?: string;
+  /** One of Article, WebPage, CollectionPage, FAQPage, HowTo. Defaults to WebPage. */
+  pageType?:
+    | "WebPage"
+    | "Article"
+    | "CollectionPage"
+    | "FAQPage"
+    | "HowTo"
+    | "AboutPage"
+    | "ContactPage";
+  /** Optional keyword string for per-page override. */
+  keywords?: string;
 }
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
-const { title, description, image } = Astro.props;
+const {
+  title,
+  description,
+  image,
+  schema,
+  breadcrumbs: propBreadcrumbs,
+  datePublished = "2026-04-01",
+  dateModified = "2026-04-17",
+  pageType: propPageType,
+  keywords,
+} = Astro.props;
+
+// Auto-derive breadcrumbs from the URL path when not provided.
+const pathname = Astro.url.pathname.replace(/\/$/, "");
+const segments = pathname.split("/").filter(Boolean);
+
+const HUB_LABELS: Record<string, string> = {
+  programs: "Programs",
+  calculators: "Calculators",
+  tools: "Tools",
+  underwriting: "Underwriting",
+  eligibility: "Eligibility",
+  lifecycle: "Lifecycle",
+  provinces: "Provinces",
+  developers: "Developers",
+};
+
+const prettify = (slug: string) =>
+  slug
+    .split("-")
+    .map((w) => (w.length <= 3 ? w.toUpperCase() : w[0].toUpperCase() + w.slice(1)))
+    .join(" ");
+
+const derivedBreadcrumbs: { name: string; url: string }[] = [];
+if (segments.length > 0) {
+  let acc = "";
+  for (let i = 0; i < segments.length; i++) {
+    acc += `/${segments[i]}`;
+    const key = segments[i];
+    const isLast = i === segments.length - 1;
+    const name = HUB_LABELS[key] ?? prettify(key);
+    // The very first crumb is the current page's hub; subsequent are children.
+    derivedBreadcrumbs.push({
+      name: isLast && i > 0 ? prettify(key) : name,
+      url: acc,
+    });
+  }
+}
+
+const breadcrumbs = propBreadcrumbs ?? (derivedBreadcrumbs.length ? derivedBreadcrumbs : undefined);
+
+// Auto-detect Article pageType for content detail pages (2+ path segments,
+// excluding index pages that already hit the hub route).
+const isDetailPage = segments.length >= 2;
+const pageType = propPageType ?? (isDetailPage ? "Article" : "WebPage");
+
 const finalTitle = title || SITE_METADATA.title.default;
 const finalDescription = description || SITE_METADATA.description;
 const finalImage = image || SITE_METADATA.openGraph.images[0].url;
 const imageURL = new URL(finalImage, Astro.url);
+const finalKeywords = keywords || SITE_METADATA.keywords.join(", ");
+
+const siteURL = Astro.site?.toString().replace(/\/$/, "") ?? "";
+
+// Build Organization JSON-LD (publisher of all pages)
+const organizationSchema = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "@id": `${siteURL}/#organization`,
+  name: SITE_METADATA.openGraph.siteName,
+  url: `${siteURL}/`,
+  logo: {
+    "@type": "ImageObject",
+    url: `${siteURL}/favicon/web-app-manifest-512x512.png`,
+    width: 512,
+    height: 512,
+  },
+  sameAs: [
+    "https://twitter.com/cmhcmultifamily",
+  ],
+  description: SITE_METADATA.description,
+};
+
+// WebSite JSON-LD with SearchAction (sitelinks search box, when supported)
+const websiteSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "@id": `${siteURL}/#website`,
+  url: `${siteURL}/`,
+  name: SITE_METADATA.openGraph.siteName,
+  description: SITE_METADATA.description,
+  publisher: { "@id": `${siteURL}/#organization` },
+  inLanguage: "en-CA",
+};
+
+// Per-page WebPage/Article JSON-LD
+const pageSchema: Record<string, unknown> = {
+  "@context": "https://schema.org",
+  "@type": pageType,
+  "@id": `${canonicalURL.toString()}#page`,
+  url: canonicalURL.toString(),
+  name: finalTitle,
+  headline: finalTitle,
+  description: finalDescription,
+  inLanguage: "en-CA",
+  isPartOf: { "@id": `${siteURL}/#website` },
+  publisher: { "@id": `${siteURL}/#organization` },
+  datePublished,
+  dateModified,
+  primaryImageOfPage: {
+    "@type": "ImageObject",
+    url: imageURL.toString(),
+  },
+};
+
+if (pageType === "Article") {
+  pageSchema.author = { "@id": `${siteURL}/#organization` };
+  pageSchema.image = imageURL.toString();
+}
+
+// Speakable hint helps voice/AEO surfaces
+pageSchema.speakable = {
+  "@type": "SpeakableSpecification",
+  cssSelector: ["h1", "h2", "p.lead", "[data-speakable]"],
+};
+
+// BreadcrumbList JSON-LD
+let breadcrumbSchema: Record<string, unknown> | null = null;
+if (breadcrumbs && breadcrumbs.length > 0) {
+  const trail = [
+    { name: "Home", url: `${siteURL}/` },
+    ...breadcrumbs.map((b) => ({
+      name: b.name,
+      url: b.url.startsWith("http") ? b.url : `${siteURL}${b.url}`,
+    })),
+  ];
+  breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: trail.map((c, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      name: c.name,
+      item: c.url,
+    })),
+  };
+}
+
+// Collect all JSON-LD nodes
+const allSchemas: Record<string, unknown>[] = [
+  organizationSchema,
+  websiteSchema,
+  pageSchema,
+];
+if (breadcrumbSchema) allSchemas.push(breadcrumbSchema);
+if (schema) {
+  if (Array.isArray(schema)) allSchemas.push(...schema);
+  else allSchemas.push(schema);
+}
 ---
 
 <!-- Global Metadata -->
@@ -31,12 +203,35 @@ const imageURL = new URL(finalImage, Astro.url);
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <meta
   name="robots"
-  content={`${SITE_METADATA.robots.index ? "index" : "noindex"}, ${SITE_METADATA.robots.follow ? "follow" : "nofollow"}`}
+  content={`${SITE_METADATA.robots.index ? "index" : "noindex"}, ${SITE_METADATA.robots.follow ? "follow" : "nofollow"}, max-snippet:-1, max-image-preview:large, max-video-preview:-1`}
 />
-<meta name="keywords" content={SITE_METADATA.keywords.join(", ")} />
+<meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large" />
+<meta name="bingbot" content="index, follow" />
+
+<!-- AI / generative engine hints (AEO + GEO). Defaults are permissive; explicit allow for clarity. -->
+<meta name="GPTBot" content="index, follow" />
+<meta name="ChatGPT-User" content="index, follow" />
+<meta name="OAI-SearchBot" content="index, follow" />
+<meta name="ClaudeBot" content="index, follow" />
+<meta name="anthropic-ai" content="index, follow" />
+<meta name="PerplexityBot" content="index, follow" />
+<meta name="Perplexity-User" content="index, follow" />
+<meta name="Google-Extended" content="index, follow" />
+<meta name="Applebot-Extended" content="index, follow" />
+<meta name="CCBot" content="index, follow" />
+
+<meta name="keywords" content={finalKeywords} />
 <meta name="author" content={SITE_METADATA.authors[0].name} />
 <meta name="creator" content={SITE_METADATA.creator} />
 <meta name="publisher" content={SITE_METADATA.publisher} />
+<meta name="category" content="Finance, Real Estate, Multi-Family Housing, CMHC" />
+<meta name="coverage" content="Canada" />
+<meta name="distribution" content="global" />
+<meta name="rating" content="general" />
+<meta name="revisit-after" content="7 days" />
+<meta http-equiv="content-language" content="en-CA" />
+<meta name="geo.region" content="CA" />
+<meta name="geo.placename" content="Canada" />
 
 <!-- Theme Script -->
 <script is:inline>
@@ -67,6 +262,7 @@ const imageURL = new URL(finalImage, Astro.url);
     <link rel="shortcut icon" href={icon.url} />
   ))
 }
+<link rel="manifest" href="/favicon/site.webmanifest" />
 
 <link rel="sitemap" href="/sitemap-index.xml" />
 <link
@@ -77,8 +273,10 @@ const imageURL = new URL(finalImage, Astro.url);
 />
 <meta name="generator" content={Astro.generator} />
 
-<!-- Canonical URL -->
+<!-- Canonical + hreflang -->
 <link rel="canonical" href={canonicalURL} />
+<link rel="alternate" hreflang="en-ca" href={canonicalURL} />
+<link rel="alternate" hreflang="x-default" href={canonicalURL} />
 
 <!-- Primary Meta Tags -->
 <title>{finalTitle}</title>
@@ -86,12 +284,15 @@ const imageURL = new URL(finalImage, Astro.url);
 <meta name="description" content={finalDescription} />
 
 <!-- Open Graph / Facebook -->
-<meta property="og:type" content="website" />
+<meta property="og:type" content={pageType === "Article" ? "article" : "website"} />
+<meta property="og:locale" content="en_CA" />
 <meta property="og:url" content={Astro.url} />
 <meta property="og:site_name" content={SITE_METADATA.openGraph.siteName} />
 <meta property="og:title" content={finalTitle} />
 <meta property="og:description" content={finalDescription} />
 <meta property="og:image" content={imageURL} />
+<meta property="og:image:secure_url" content={imageURL} />
+<meta property="og:image:type" content="image/jpeg" />
 <meta
   property="og:image:width"
   content={SITE_METADATA.openGraph.images[0].width.toString()}
@@ -102,10 +303,40 @@ const imageURL = new URL(finalImage, Astro.url);
 />
 <meta property="og:image:alt" content={SITE_METADATA.openGraph.images[0].alt} />
 
+{
+  pageType === "Article" && (
+    <>
+      <meta property="article:published_time" content={datePublished} />
+      <meta property="article:modified_time" content={dateModified} />
+      <meta property="article:publisher" content={`${siteURL}/`} />
+      <meta property="article:section" content="CMHC Multi-Family Financing" />
+    </>
+  )
+}
+
 <!-- Twitter -->
 <meta property="twitter:card" content={SITE_METADATA.twitter.card} />
 <meta property="twitter:url" content={Astro.url} />
 <meta property="twitter:title" content={finalTitle} />
 <meta property="twitter:description" content={finalDescription} />
 <meta property="twitter:image" content={imageURL} />
+<meta property="twitter:image:alt" content={SITE_METADATA.openGraph.images[0].alt} />
 <meta property="twitter:creator" content={SITE_METADATA.twitter.creator} />
+<meta property="twitter:site" content={SITE_METADATA.twitter.creator} />
+
+<!-- Dublin Core -->
+<meta name="DC.title" content={finalTitle} />
+<meta name="DC.description" content={finalDescription} />
+<meta name="DC.language" content="en-CA" />
+<meta name="DC.coverage" content="Canada" />
+<meta name="DC.date.modified" content={dateModified} />
+
+<!-- JSON-LD structured data -->
+{
+  allSchemas.map((s) => (
+    <script
+      type="application/ld+json"
+      set:html={JSON.stringify(s)}
+    />
+  ))
+}
