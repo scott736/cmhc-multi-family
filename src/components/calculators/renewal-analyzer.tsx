@@ -40,7 +40,6 @@ export default function RenewalAnalyzer() {
   const [origLoan, setOrigLoan] = useState(15_000_000);
   const [origRate, setOrigRate] = useState(3.5);
   const [origAmort, setOrigAmort] = useState(40);
-  const [origTerm, setOrigTerm] = useState(10);
   const [yearsIntoTerm, setYearsIntoTerm] = useState(10);
   const [noi, setNoi] = useState(950_000);
   const [noiGrowthPct, setNoiGrowthPct] = useState(2.5);
@@ -183,17 +182,6 @@ export default function RenewalAnalyzer() {
                   type="number"
                   value={origAmort}
                   onChange={(e) => setOrigAmort(Number(e.target.value))}
-                />
-              </div>
-              <div>
-                <Label htmlFor="ot" className="text-xs text-muted-foreground">
-                  Term length (yrs)
-                </Label>
-                <Input
-                  id="ot"
-                  type="number"
-                  value={origTerm}
-                  onChange={(e) => setOrigTerm(Number(e.target.value))}
                 />
               </div>
               <div>

@@ -453,21 +453,60 @@ interface ScenarioOpts {
 
 function buildScenario(opts: ScenarioOpts): Scenario {
   const ltvCap = opts.propertyValue * (opts.maxLtv / 100);
-  const dcrCap = loanFromDCR(
+  const dcrCapUnadjusted = loanFromDCR(
     opts.noi,
     opts.minDcr,
     opts.rate / 100,
     opts.amort,
   );
-  const rawLoan = Math.max(0, Math.min(ltvCap, dcrCap));
-  const ltv =
+
+  // Initial raw loan (before premium financing is considered for DCR).
+  let rawLoan = Math.max(0, Math.min(ltvCap, dcrCapUnadjusted));
+  let ltv =
     opts.propertyValue > 0 ? (rawLoan / opts.propertyValue) * 100 : 0;
 
   let premium = 0;
   let premiumPct = 0;
   let financedLoan = rawLoan;
   if (opts.insured && opts.program) {
-    const r = calculatePremium({
+    // Iterate to converge: when DCR is the binding constraint, we need
+    // achievedDCR = NOI / ads(rawLoan + premium) to equal minDcr. Because
+    // premium depends on loan (and LTV tier), we fixed-point iterate the
+    // raw loan down until the DCR constraint holds after premium financing.
+    for (let i = 0; i < 8; i++) {
+      const r = calculatePremium({
+        program: opts.program,
+        txType: "purchaseRefi",
+        loan: rawLoan,
+        ltv,
+        amortYears: opts.amort,
+        nonResidentialPct: 0,
+        secondMortgage: false,
+        egiNotMetFirstAdvance: false,
+        selectTier: opts.selectTier,
+      });
+      premium = r.amount;
+      premiumPct = r.effectivePct;
+      financedLoan = rawLoan + premium;
+
+      // DCR-bound sizing after premium: shrink rawLoan so that
+      // NOI / ads(rawLoan * (1 + premPct)) = minDcr. Equivalent to
+      // dividing the unadjusted DCR cap by (1 + premPct).
+      const premFactor = rawLoan > 0 ? premium / rawLoan : 0;
+      const dcrCapAdjusted = dcrCapUnadjusted / (1 + premFactor);
+      const next = Math.max(0, Math.min(ltvCap, dcrCapAdjusted));
+      if (Math.abs(next - rawLoan) < 1) {
+        rawLoan = next;
+        ltv =
+          opts.propertyValue > 0 ? (rawLoan / opts.propertyValue) * 100 : 0;
+        break;
+      }
+      rawLoan = next;
+      ltv =
+        opts.propertyValue > 0 ? (rawLoan / opts.propertyValue) * 100 : 0;
+    }
+    // Recompute premium and financed loan at the converged rawLoan.
+    const rFinal = calculatePremium({
       program: opts.program,
       txType: "purchaseRefi",
       loan: rawLoan,
@@ -478,8 +517,8 @@ function buildScenario(opts: ScenarioOpts): Scenario {
       egiNotMetFirstAdvance: false,
       selectTier: opts.selectTier,
     });
-    premium = r.amount;
-    premiumPct = r.effectivePct;
+    premium = rFinal.amount;
+    premiumPct = rFinal.effectivePct;
     financedLoan = rawLoan + premium;
   }
 

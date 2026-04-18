@@ -191,7 +191,9 @@ export default function BreakEvenOccupancy() {
                     {percent(breakEvenPct, 1)}
                   </div>
                   <div className="mt-1 text-xs text-muted-foreground">
-                    (Opex + ADS) ÷ GPR
+                    {opexMode === "percent"
+                      ? "ADS ÷ (GPR × (1 − opex%))"
+                      : "(Opex + ADS) ÷ GPR"}
                   </div>
                 </Card>
                 <Card className="bg-jet border-dark-gray p-6">

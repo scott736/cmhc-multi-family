@@ -43,7 +43,7 @@ export default function LoanSizer() {
   const noi = useMemo(() => {
     if (!buildNoi) return directNoi;
     const egi = grossRent * (1 - vacancyPct / 100);
-    return egi - grossRent * (1 - vacancyPct / 100) * (opexPct / 100);
+    return egi * (1 - opexPct / 100);
   }, [buildNoi, grossRent, vacancyPct, opexPct, directNoi]);
 
   // Program caps

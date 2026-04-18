@@ -18,7 +18,6 @@ export default function CashFlow() {
   const [loan, setLoan] = useState(10_000_000);
   const [rate, setRate] = useState(5.25);
   const [amort, setAmort] = useState(40);
-  const [term, setTerm] = useState(10);
 
   const [noi1, setNoi1] = useState(950_000);
   const [equity, setEquity] = useState(1_000_000);
@@ -34,9 +33,9 @@ export default function CashFlow() {
     () =>
       amortizationSchedule(
         { principal: loan, annualRate: rate / 100, amortYears: amort },
-        Math.max(years, term),
+        years,
       ),
-    [loan, rate, amort, years, term],
+    [loan, rate, amort, years],
   );
 
   const ads = useMemo(
@@ -61,7 +60,9 @@ export default function CashFlow() {
     let cumulative = 0;
     // Decompose year-1 NOI into rent & opex using opexShare of revenue
     // Assume revenue = NOI / (1 - opexShare%)  ... when NOI = rev - opex = rev*(1-opexShare)
-    const revenue1 = noi1 / (1 - opexShare / 100);
+    // Clamp opexShare to [0, 99] to avoid divide-by-zero / negative revenue at >= 100%.
+    const opexShareClamped = Math.min(99, Math.max(0, opexShare));
+    const revenue1 = noi1 / (1 - opexShareClamped / 100);
     const opex1 = revenue1 - noi1;
 
     for (let y = 1; y <= years; y++) {
@@ -175,10 +176,6 @@ export default function CashFlow() {
                     <Label htmlFor="amort" className="text-xs text-muted-foreground">Amortization (yrs)</Label>
                     <Input id="amort" type="number" value={amort} onChange={(e) => setAmort(Number(e.target.value))} />
                   </div>
-                  <div>
-                    <Label htmlFor="term" className="text-xs text-muted-foreground">Term (yrs)</Label>
-                    <Input id="term" type="number" value={term} onChange={(e) => setTerm(Number(e.target.value))} />
-                  </div>
                 </div>
               </Card>
 
@@ -203,7 +200,12 @@ export default function CashFlow() {
                   </div>
                   <div>
                     <Label htmlFor="opexshare" className="text-xs text-muted-foreground">Opex % of revenue</Label>
-                    <Input id="opexshare" type="number" step="0.1" value={opexShare} onChange={(e) => setOpexShare(Number(e.target.value))} />
+                    <Input id="opexshare" type="number" step="0.1" max="99" value={opexShare} onChange={(e) => setOpexShare(Number(e.target.value))} />
+                    {opexShare >= 99 && (
+                      <p className="mt-1 text-xs text-muted-foreground">
+                        Opex % clamped to 99% — values at or above 100% imply non-positive revenue.
+                      </p>
+                    )}
                   </div>
                   <div>
                     <Label htmlFor="years" className="text-xs text-muted-foreground">Years to project</Label>

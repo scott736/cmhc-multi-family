@@ -37,8 +37,11 @@ export default function DscrInverse() {
     [loan, rate, amort],
   );
 
+  const opexPctClamped = Math.min(95, Math.max(0, opexPct));
+  const opexCapped = opexPct >= 95;
+
   const requiredNoi = activeDcr * ads;
-  const requiredEgi = opexPct < 100 ? requiredNoi / (1 - opexPct / 100) : 0;
+  const requiredEgi = requiredNoi / (1 - opexPctClamped / 100);
   const requiredMonthlyPerUnit = units > 0 ? requiredEgi / 12 / units : 0;
 
   const tierCompare = useMemo(() => {
@@ -50,9 +53,9 @@ export default function DscrInverse() {
     return tiers.map((t) => ({
       ...t,
       noi: t.dcr * ads,
-      egi: opexPct < 100 ? (t.dcr * ads) / (1 - opexPct / 100) : 0,
+      egi: (t.dcr * ads) / (1 - opexPctClamped / 100),
     }));
-  }, [ads, opexPct]);
+  }, [ads, opexPctClamped]);
 
   return (
     <div className="bg-obsidian text-foreground">
@@ -161,7 +164,12 @@ export default function DscrInverse() {
                 </div>
                 <div className="mt-4">
                   <Label htmlFor="opexn" className="text-xs text-muted-foreground">Or type exact %</Label>
-                  <Input id="opexn" type="number" step="0.1" value={opexPct} onChange={(e) => setOpexPct(Number(e.target.value))} />
+                  <Input id="opexn" type="number" step="0.1" max="95" value={opexPct} onChange={(e) => setOpexPct(Number(e.target.value))} />
+                  {opexCapped && (
+                    <p className="mt-1 text-xs text-muted-foreground">
+                      Opex capped at 95% for sizing.
+                    </p>
+                  )}
                 </div>
               </Card>
             </div>

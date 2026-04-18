@@ -131,9 +131,6 @@ export default function GrantStacking() {
     return w;
   }, [config, nonProfit, incomeQualified]);
 
-  // Federal loan sizing
-  const federalLoan = (config.maxLtc / 100) * totalProjectCost;
-
   // Forgivable grant sizing: capped at both per-unit-max × affordable units
   // and forgivableCostCapPct × project cost.
   const forgivableFromPerUnit = config.hasForgivable
@@ -152,6 +149,20 @@ export default function GrantStacking() {
   // Municipal incentive — applied only to affordable units
   const municipalPerUnit = estimateMunicipalPerAffordableUnit(city);
   const municipalTotal = municipalPerUnit * affordableUnits;
+
+  // Federal loan sizing: capped at both the program's max LTC and the
+  // actual funding gap remaining after forgivable + municipal contributions.
+  // Without this cap, the capital stack can exceed 100% of project cost.
+  const federalLoanCapacity = (config.maxLtc / 100) * totalProjectCost;
+  const fundingGap = Math.max(0, totalProjectCost - forgivableGrant - municipalTotal);
+  const federalLoan = Math.min(federalLoanCapacity, fundingGap);
+
+  // Warn when the user-entered forgivable/unit value was silently clamped
+  // into the program's allowed range.
+  const forgivableClamped =
+    config.hasForgivable &&
+    (forgivablePerUnit < config.forgivablePerUnitMin ||
+      forgivablePerUnit > config.forgivablePerUnitMax);
 
   // Stacking: federal loan goes toward cost basis; forgivable + municipal
   // reduce the equity requirement directly.
@@ -280,6 +291,14 @@ export default function GrantStacking() {
                       value={forgivablePerUnit}
                       onChange={(e) => setForgivablePerUnit(Number(e.target.value))}
                     />
+                    {forgivableClamped && (
+                      <p className="mt-2 text-xs text-star">
+                        Entered value adjusted to stay within $
+                        {config.forgivablePerUnitMin.toLocaleString()}–$
+                        {config.forgivablePerUnitMax.toLocaleString()} per unit
+                        range.
+                      </p>
+                    )}
                   </div>
                 )}
               </Card>
@@ -364,10 +383,18 @@ export default function GrantStacking() {
                   Capital stack
                 </div>
                 <dl className="mt-4 space-y-2 text-sm">
-                  <StackRow
-                    label={`Federal loan · ${config.label.split(" (")[0]} (${config.maxLtc}% LTC @ ${percent(config.interestRate)})`}
-                    value={currency(federalLoan)}
-                  />
+                  <div>
+                    <StackRow
+                      label={`Federal loan · ${config.label.split(" (")[0]} (${config.maxLtc}% LTC @ ${percent(config.interestRate)})`}
+                      value={currency(federalLoan)}
+                    />
+                    {federalLoan < federalLoanCapacity && (
+                      <div className="text-right text-[11px] text-muted-foreground">
+                        (capacity: {config.maxLtc}% × cost ={" "}
+                        {currency(federalLoanCapacity)})
+                      </div>
+                    )}
+                  </div>
                   {config.hasForgivable && (
                     <StackRow
                       label="Forgivable grant"
@@ -393,6 +420,10 @@ export default function GrantStacking() {
                     />
                   </div>
                 </dl>
+                <p className="mt-3 text-xs text-muted-foreground">
+                  Federal loan capped at the funding gap (project cost − grants)
+                  so the stack never exceeds 100% of cost.
+                </p>
               </Card>
 
               <Card className="bg-jet border-dark-gray p-6">

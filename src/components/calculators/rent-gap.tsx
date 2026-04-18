@@ -84,6 +84,7 @@ export default function RentGap() {
     let currentAnnualRent = 0;
     let marketAnnualRent = 0;
     let qualifyingUnits = 0;
+    let qualifyingUnitsAtMarket = 0;
 
     for (const u of units) {
       totalUnits += u.count;
@@ -92,6 +93,10 @@ export default function RentGap() {
       // Qualifies-for-Select if current rent is at or below affordable ceiling
       if (u.currentRent > 0 && u.currentRent <= affordableCeiling) {
         qualifyingUnits += u.count;
+      }
+      // Also test at market rent — a mark-to-market deal may erode affordability
+      if (u.marketRent > 0 && u.marketRent <= affordableCeiling) {
+        qualifyingUnitsAtMarket += u.count;
       }
     }
 
@@ -105,6 +110,8 @@ export default function RentGap() {
 
     const qualifyingPct =
       totalUnits > 0 ? (qualifyingUnits / totalUnits) * 100 : 0;
+    const qualifyingPctAtMarket =
+      totalUnits > 0 ? (qualifyingUnitsAtMarket / totalUnits) * 100 : 0;
 
     return {
       totalUnits,
@@ -116,6 +123,8 @@ export default function RentGap() {
       gapPct,
       qualifyingUnits,
       qualifyingPct,
+      qualifyingUnitsAtMarket,
+      qualifyingPctAtMarket,
     };
   }, [units, vacancyPct, affordableCeiling]);
 
@@ -424,6 +433,10 @@ export default function RentGap() {
               {totals.qualifyingUnits} of {totals.totalUnits} units (
               {percent(totals.qualifyingPct)}) are at or below the{" "}
               {currency(affordableCeiling)}/mo ceiling.
+            </div>
+            <div className="mt-2 rounded border border-dark-gray bg-obsidian p-3 text-xs text-muted-foreground">
+              At market rent: {totals.qualifyingUnitsAtMarket} of{" "}
+              {totals.totalUnits} units ({percent(totals.qualifyingPctAtMarket)}) would meet the affordability cap.
             </div>
             <div className="mt-4 overflow-hidden rounded border border-dark-gray">
               <table className="w-full text-sm">

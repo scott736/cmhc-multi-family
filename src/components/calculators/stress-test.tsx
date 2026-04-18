@@ -141,8 +141,11 @@ export default function StressTest() {
                     <Input id="cr" type="number" step="0.01" value={currentRate} onChange={(e) => setCurrentRate(Number(e.target.value))} />
                   </div>
                   <div>
-                    <Label htmlFor="ar" className="text-xs text-muted-foreground">Amortization remaining (yrs)</Label>
+                    <Label htmlFor="ar" className="text-xs text-muted-foreground">Amortization at start of term (yrs)</Label>
                     <Input id="ar" type="number" value={amortRemaining} onChange={(e) => setAmortRemaining(Number(e.target.value))} />
+                    <p className="mt-1 text-xs text-muted-foreground">
+                      This is the amort that was applied when the current term began — renewal amort will be this minus the years elapsed in the term.
+                    </p>
                   </div>
                   <div>
                     <Label htmlFor="ty" className="text-xs text-muted-foreground">Term years until renewal</Label>

@@ -176,7 +176,13 @@ export default function CashOnCash() {
                   </div>
                   <div>
                     <dt className="text-xs text-muted-foreground">Leverage spread</dt>
-                    <dd className={`mt-1 text-xl font-semibold ${leveragedYield - unleveragedYield >= 0 ? "text-star" : ""}`}>
+                    <dd className={`mt-1 text-xl font-semibold ${
+                      leveragedYield - unleveragedYield > 0
+                        ? "text-star"
+                        : leveragedYield - unleveragedYield < 0
+                          ? "text-muted-foreground"
+                          : ""
+                    }`}>
                       {percent(leveragedYield - unleveragedYield, 2)}
                     </dd>
                   </div>

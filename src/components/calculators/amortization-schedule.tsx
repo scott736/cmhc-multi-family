@@ -232,6 +232,11 @@ export default function AmortizationSchedule() {
                   <div className="mt-1 text-xs text-muted-foreground">
                     Principal paid through term: {currency(principalAtEndOfTerm)} · Interest paid: {currency(interestAtEndOfTerm)}
                   </div>
+                  {term > amort ? (
+                    <div className="mt-2 text-xs text-muted-foreground">
+                      Loan fully amortizes in {amort} years (before term end).
+                    </div>
+                  ) : null}
                 </Card>
                 <Card className="bg-jet border-dark-gray p-6">
                   <div className="text-xs uppercase tracking-wide text-muted-foreground">

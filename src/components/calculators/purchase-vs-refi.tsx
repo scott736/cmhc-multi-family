@@ -74,11 +74,46 @@ export default function PurchaseVsRefi() {
     const maxLtv = 85;
     const minDcr = 1.2;
     const ltvCap = propertyValue * (maxLtv / 100);
-    const dcrCap = loanFromDCR(noi, minDcr, rate / 100, amort);
-    const rawLoan = Math.max(0, Math.min(ltvCap, dcrCap));
-    const ltv = propertyValue > 0 ? (rawLoan / propertyValue) * 100 : 0;
+    const dcrCapUnadjusted = loanFromDCR(noi, minDcr, rate / 100, amort);
 
-    const prem = calculatePremium({
+    // Iterate so that after premium financing the achieved DCR hits minDcr
+    // when DCR is the binding constraint. Premium depends on loan & LTV, so
+    // we fixed-point solve over a few iterations.
+    let rawLoan = Math.max(0, Math.min(ltvCap, dcrCapUnadjusted));
+    let ltv = propertyValue > 0 ? (rawLoan / propertyValue) * 100 : 0;
+    let prem = calculatePremium({
+      program: "mli-standard",
+      txType: "purchaseRefi",
+      loan: rawLoan,
+      ltv,
+      amortYears: amort,
+      nonResidentialPct: 0,
+      secondMortgage: false,
+      egiNotMetFirstAdvance: false,
+    });
+    for (let i = 0; i < 8; i++) {
+      const premFactor = rawLoan > 0 ? prem.amount / rawLoan : 0;
+      const dcrCapAdjusted = dcrCapUnadjusted / (1 + premFactor);
+      const next = Math.max(0, Math.min(ltvCap, dcrCapAdjusted));
+      if (Math.abs(next - rawLoan) < 1) {
+        rawLoan = next;
+        ltv = propertyValue > 0 ? (rawLoan / propertyValue) * 100 : 0;
+        break;
+      }
+      rawLoan = next;
+      ltv = propertyValue > 0 ? (rawLoan / propertyValue) * 100 : 0;
+      prem = calculatePremium({
+        program: "mli-standard",
+        txType: "purchaseRefi",
+        loan: rawLoan,
+        ltv,
+        amortYears: amort,
+        nonResidentialPct: 0,
+        secondMortgage: false,
+        egiNotMetFirstAdvance: false,
+      });
+    }
+    prem = calculatePremium({
       program: "mli-standard",
       txType: "purchaseRefi",
       loan: rawLoan,
@@ -125,12 +160,19 @@ export default function PurchaseVsRefi() {
     const maxLtv = refiProgram === "select" ? 85 : 80;
     const minDcr = refiProgram === "select" ? 1.1 : 1.2;
     const ltvCap = propertyValue * (maxLtv / 100);
-    const dcrCap = loanFromDCR(noi, minDcr, rate / 100, amort);
-    const rawLoan = Math.max(0, Math.min(ltvCap, dcrCap));
-    const ltv = propertyValue > 0 ? (rawLoan / propertyValue) * 100 : 0;
+    const dcrCapUnadjusted = loanFromDCR(noi, minDcr, rate / 100, amort);
 
-    const prem = calculatePremium({
-      program: refiProgram === "select" ? "mli-select" : "mli-standard",
+    const program = refiProgram === "select" ? "mli-select" : "mli-standard";
+    const selectTier = refiProgram === "select" ? (100 as const) : undefined;
+    const creditPct = creditForMonths(monthsSinceInsurance);
+    const credit = originalPremium * (creditPct / 100);
+
+    // Iterate: when DCR binds, shrink rawLoan so NOI / ads(rawLoan + netPremium)
+    // = minDcr. netPremium = max(0, premium − credit); premium depends on loan.
+    let rawLoan = Math.max(0, Math.min(ltvCap, dcrCapUnadjusted));
+    let ltv = propertyValue > 0 ? (rawLoan / propertyValue) * 100 : 0;
+    let prem = calculatePremium({
+      program,
       txType: "purchaseRefi",
       loan: rawLoan,
       ltv,
@@ -138,12 +180,45 @@ export default function PurchaseVsRefi() {
       nonResidentialPct: 0,
       secondMortgage: false,
       egiNotMetFirstAdvance: false,
-      selectTier: refiProgram === "select" ? 100 : undefined,
+      selectTier,
     });
-
-    const creditPct = creditForMonths(monthsSinceInsurance);
-    const credit = originalPremium * (creditPct / 100);
-    const netPremium = Math.max(0, prem.amount - credit);
+    let netPremium = Math.max(0, prem.amount - credit);
+    for (let i = 0; i < 8; i++) {
+      const netFactor = rawLoan > 0 ? netPremium / rawLoan : 0;
+      const dcrCapAdjusted = dcrCapUnadjusted / (1 + netFactor);
+      const next = Math.max(0, Math.min(ltvCap, dcrCapAdjusted));
+      if (Math.abs(next - rawLoan) < 1) {
+        rawLoan = next;
+        ltv = propertyValue > 0 ? (rawLoan / propertyValue) * 100 : 0;
+        break;
+      }
+      rawLoan = next;
+      ltv = propertyValue > 0 ? (rawLoan / propertyValue) * 100 : 0;
+      prem = calculatePremium({
+        program,
+        txType: "purchaseRefi",
+        loan: rawLoan,
+        ltv,
+        amortYears: amort,
+        nonResidentialPct: 0,
+        secondMortgage: false,
+        egiNotMetFirstAdvance: false,
+        selectTier,
+      });
+      netPremium = Math.max(0, prem.amount - credit);
+    }
+    prem = calculatePremium({
+      program,
+      txType: "purchaseRefi",
+      loan: rawLoan,
+      ltv,
+      amortYears: amort,
+      nonResidentialPct: 0,
+      secondMortgage: false,
+      egiNotMetFirstAdvance: false,
+      selectTier,
+    });
+    netPremium = Math.max(0, prem.amount - credit);
     const financedLoan = rawLoan + netPremium;
 
     const ads = annualDebtService({

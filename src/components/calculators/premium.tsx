@@ -323,7 +323,7 @@ export default function PremiumCalculator() {
                   <span className="text-star">Important:</span> Per July 14, 2025,
                   amortization surcharges now apply to MLI Select. A 100-point
                   project at 95% LTV / 50-yr amort now pays approximately
-                  <span className="text-foreground"> 5.18%</span> vs. the old
+                  <span className="text-foreground"> 4.62%</span> vs. the old
                   flat <span className="text-foreground">2.55%</span>.
                 </p>
               </Card>

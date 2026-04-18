@@ -51,7 +51,6 @@ export default function ConstructionDraws() {
   const [constructionLoan, setConstructionLoan] = useState(21_250_000);
   const [rate, setRate] = useState(7.25);
   const [termMonths, setTermMonths] = useState(24);
-  const [interestOnly, setInterestOnly] = useState(true);
   const [capitalizeInterest, setCapitalizeInterest] = useState(true);
   const [expectedTakeout, setExpectedTakeout] = useState(21_250_000);
 
@@ -82,10 +81,28 @@ export default function ConstructionDraws() {
 
   const rows = useMemo<MonthRow[]>(() => {
     const r = rate / 100 / 12;
-    let balance = 0;
-    let cumulativeDrawn = 0;
-    let cumulativeInterest = 0;
     const out: MonthRow[] = [];
+
+    // Closing-advance row (Month 0): schedule[0].cumulativePct is the 10% opening
+    // draw that funds at close. No interest accrues at t=0.
+    const openingCumPct = schedule[0]?.cumulativePct ?? 0;
+    const openingAdvance = (openingCumPct / 100) * constructionLoan;
+    let balance = openingAdvance;
+    let cumulativeDrawn = openingAdvance;
+    let cumulativeInterest = 0;
+
+    out.push({
+      month: 0,
+      phase: "Closing",
+      cumulativeDrawnPct: openingCumPct,
+      cumulativeDrawn,
+      drawThisMonth: openingAdvance,
+      openingBalance: 0,
+      interest: 0,
+      interestCapitalized: 0,
+      endingBalance: balance,
+      cumulativeInterest: 0,
+    });
 
     for (let m = 1; m <= termMonths; m++) {
       const prevCumPct = schedule[m - 1]?.cumulativePct ?? 0;
@@ -100,9 +117,6 @@ export default function ConstructionDraws() {
       const interest = balance * r;
       cumulativeInterest += interest;
       const interestCapitalized = capitalizeInterest ? interest : 0;
-      // Interest-only: no principal paydown. If IO=false we still treat as IO during construction
-      // since amortization on a construction loan pre-stabilization is unusual; this toggle is
-      // preserved for completeness but has no principal-reduction effect here.
       if (capitalizeInterest) {
         balance += interest;
       }
@@ -260,10 +274,15 @@ export default function ConstructionDraws() {
               </Card>
 
               <Card className="bg-jet border-dark-gray p-6">
-                <Label className="text-sm font-semibold">Advance cap</Label>
+                <Label className="text-sm font-semibold">
+                  Lender's max advance %-of-cost (for reference)
+                </Label>
                 <p className="mt-1 text-xs text-muted-foreground">
-                  Maximum loan-to-cost the lender/insurer will advance during
-                  construction. MLI Market Rental supports 85% post-July 3 2025.
+                  Informational benchmark for the maximum loan-to-cost the
+                  lender/insurer will advance during construction. MLI Market
+                  Rental supports 85% post-July 3 2025. This setting does not
+                  cap the loan amount in the schedule — it only flags an
+                  advisory warning when your inputs exceed it.
                 </p>
                 <Tabs
                   value={String(advanceCap)}
@@ -279,7 +298,9 @@ export default function ConstructionDraws() {
                 <div className="mt-3 text-xs text-muted-foreground">
                   Loan-to-cost at inputs: {percent(loanToCostPct)}
                   {capExceedsAdvance ? (
-                    <span className="ml-2 text-star">(exceeds selected cap)</span>
+                    <span className="ml-2 text-star">
+                      (above reference cap — advisory only, not enforced)
+                    </span>
                   ) : null}
                 </div>
               </Card>
@@ -287,16 +308,6 @@ export default function ConstructionDraws() {
               <Card className="bg-jet border-dark-gray p-6">
                 <Label className="text-sm font-semibold">Draw behaviour</Label>
                 <div className="mt-4 space-y-4">
-                  <div className="flex items-center justify-between rounded border border-dark-gray bg-obsidian p-3">
-                    <div>
-                      <div className="text-sm font-medium">Interest-only during construction</div>
-                      <div className="text-xs text-muted-foreground">
-                        Typical. Principal amortization does not begin until
-                        stabilization.
-                      </div>
-                    </div>
-                    <Switch checked={interestOnly} onCheckedChange={setInterestOnly} />
-                  </div>
                   <div className="flex items-center justify-between rounded border border-dark-gray bg-obsidian p-3">
                     <div>
                       <div className="text-sm font-medium">Capitalize interest (interest reserve)</div>
@@ -386,7 +397,7 @@ export default function ConstructionDraws() {
                     <tbody>
                       {rows.map((r) => (
                         <tr key={r.month} className="border-t border-dark-gray">
-                          <td className="p-3">{r.month}</td>
+                          <td className="p-3">{r.month === 0 ? "Close" : r.month}</td>
                           <td className="p-3 text-muted-foreground">{r.phase}</td>
                           <td className="p-3 text-right">{percent(r.cumulativeDrawnPct, 1)}</td>
                           <td className="p-3 text-right text-muted-foreground">

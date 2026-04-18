@@ -76,8 +76,10 @@ export default function PointOptimizer() {
       projectType === "new" ? AFFORDABILITY_SCORING_NEW : AFFORDABILITY_SCORING_EXISTING;
     const energyTable = projectType === "new" ? ENERGY_SCORING_NEW : ENERGY_SCORING_EXISTING;
 
-    // Affordability candidates: 0 + each scoring level's unitPct
-    const affCandidates: { unitPct: number }[] = [{ unitPct: 0 }];
+    // Affordability candidates: only seed 0 when there's no starting
+    // commitment; otherwise enforce the user-stated floor.
+    const affCandidates: { unitPct: number }[] =
+      startingAffPct === 0 ? [{ unitPct: 0 }] : [];
     for (const l of affTable) {
       if (l.unitPct >= startingAffPct) affCandidates.push({ unitPct: l.unitPct });
     }
@@ -87,8 +89,9 @@ export default function PointOptimizer() {
       if (!inserted) affCandidates.push({ unitPct: startingAffPct });
     }
 
-    // Energy candidates
-    const energyCandidates: { value: number }[] = [{ value: 0 }];
+    // Energy candidates: same floor logic as affordability.
+    const energyCandidates: { value: number }[] =
+      startingEnergyPct === 0 ? [{ value: 0 }] : [];
     for (const l of energyTable) {
       // For new: use NECB column as the canonical threshold
       const v = projectType === "new"

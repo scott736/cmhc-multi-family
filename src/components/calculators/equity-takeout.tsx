@@ -148,10 +148,11 @@ export default function EquityTakeout() {
       amortYears: currentAmortRemaining,
     });
 
-    // Cash-out to borrower = rawLoan − currentBalance − closingCosts − netPremium
-    // (netPremium is paid to CMHC, financed, but it reduces what the borrower
-    // receives because the gross loan includes premium)
-    const grossProceeds = rawLoan;
+    // Gross proceeds = the disbursed new loan, which is rawLoan + netPremium
+    // (premium is financed onto the loan). Cash to borrower then nets out the
+    // existing payoff, financed premium, and closing costs. Algebraically this
+    // reduces to rawLoan − currentBalance − closingCosts.
+    const grossProceeds = newLoan;
     const cashOut =
       grossProceeds - currentBalance - closingCosts - netPremium;
 
@@ -207,7 +208,10 @@ export default function EquityTakeout() {
       ),
     [currentBalance, currentRate, currentAmortRemaining],
   );
-  const balIn5 = currentSchedule[4]?.endingBalance ?? currentBalance;
+  const balIn5 =
+    currentAmortRemaining >= 5
+      ? currentSchedule[4]?.endingBalance ?? 0
+      : 0;
 
   return (
     <div className="bg-obsidian text-foreground">
@@ -428,8 +432,8 @@ export default function EquityTakeout() {
                 </div>
                 <dl className="mt-5 space-y-2 text-sm">
                   <Row
-                    label="Gross new loan"
-                    value={currency(result.rawLoan)}
+                    label="Gross new loan (incl. financed premium)"
+                    value={currency(result.newLoan)}
                   />
                   <Row
                     label="Payoff existing"
