@@ -1,0 +1,446 @@
+---
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import {
+  ENERGY_SCORING_EXISTING,
+  ENERGY_SCORING_NEW,
+} from "@/data/cmhc";
+import DefaultLayout from "@/layouts/DefaultLayout.astro";
+
+const title = "MLI Select Energy Efficiency — Scoring, Codes & Upgrade Paths";
+const description =
+  "How the MLI Select energy pillar scoring actually works. The 2020 NECB vs. NBC codes, three point levels for new construction and existing retrofit, typical construction-cost premium by level, and the November 2025 code transition with grace period to September 30, 2026.";
+
+const codeExplainers = [
+  {
+    code: "NECB 2020",
+    long: "National Energy Code for Buildings",
+    use: "Applies to commercial, institutional, and multi-unit residential buildings four storeys or more, or with a building area greater than 600 m².",
+    paths:
+      "Prescriptive path (element-by-element minimums) or performance path (whole-building energy model against a reference baseline). MLI Select energy modelling almost always uses the performance path.",
+  },
+  {
+    code: "NBC 2020 Section 9.36",
+    long: "National Building Code — residential energy efficiency",
+    use: "Applies to residential buildings under three storeys and under 600 m² — Part 9 housing. Low-rise wood-frame multi-unit.",
+    paths:
+      "Prescriptive, trade-off, or performance path. Most Part 9 MLI Select projects model against NBC rather than NECB.",
+  },
+];
+
+const upgradePaths = [
+  {
+    tier: "Level 1",
+    points: "20 pts",
+    premium: "~3–5% hard cost premium",
+    detail:
+      "Achievable with a targeted envelope upgrade: better windows (triple-pane or high-performance double), R-24 to R-28 wall assemblies, continuous exterior insulation, and improved air-tightness. Mechanical baseline unchanged.",
+  },
+  {
+    tier: "Level 2",
+    points: "35 pts",
+    premium: "~5–8% hard cost premium",
+    detail:
+      "Envelope upgrades plus mechanical improvements: heat-recovery ventilation (HRV/ERV) on all suites, condensing boilers or heat pumps for DHW, variable-speed pumps. Often paired with modest rooftop PV to close the gap.",
+  },
+  {
+    tier: "Level 3",
+    points: "50 pts",
+    premium: "~8–12% hard cost premium",
+    detail:
+      "Deep envelope (often Passive House adjacent — R-40+ walls, R-60 roofs, airtightness ≤1.0 ACH50), all-electric heat pumps (VRF or central), significant rooftop PV, and often ground-source heat pumps in favourable sites.",
+  },
+];
+
+const existingRetrofits = [
+  {
+    level: "Level 1 — 15% reduction",
+    detail:
+      "Lighting retrofit (full LED), boiler or DHW tank replacement, low-flow fixtures, basic envelope sealing. Typical capex $5K–$12K per unit.",
+  },
+  {
+    level: "Level 2 — 25% reduction",
+    detail:
+      "Above plus window replacement on worst-performing elevations, insulation top-up, HRV/ERV installation, controls upgrades. $15K–$30K per unit.",
+  },
+  {
+    level: "Level 3 — 40% reduction",
+    detail:
+      "Deep retrofit: fuel switch to heat pumps, full envelope re-clad, PV addition. $40K–$80K+ per unit, often paired with AHF/CHDP contributions.",
+  },
+];
+---
+
+<DefaultLayout title={title} description={description}>
+  <div class="bg-obsidian text-foreground">
+    {/* HERO */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <Badge variant="outline" className="mb-6 border-star/40 text-star">
+          MLI Select · Energy deep dive
+        </Badge>
+        <h1 class="text-4xl font-semibold tracking-tight lg:text-6xl">
+          Energy efficiency — measurable reductions, modelled in.
+        </h1>
+        <p class="mt-6 max-w-3xl text-lg text-muted-foreground">
+          Energy is the most consistently-available 20 to 50 points for
+          projects that can't accept affordability restrictions. The scoring
+          runs against 2020 NECB (commercial and mid-rise) or NBC (Part 9
+          low-rise residential) baselines for new construction, and against
+          pre-retrofit performance for existing buildings. All modelling is
+          performed by a qualified energy evaluator — self-declared
+          reductions are not accepted.
+        </p>
+        <p class="mt-4 max-w-3xl text-lg text-muted-foreground">
+          The November 2025 code transition moved the baseline from 2017 to
+          2020 NECB/NBC Tier 1. A grace period runs to
+          <span class="text-foreground font-semibold">September 30, 2026</span>
+          for projects that had energy modelling already underway against the
+          prior baseline.
+        </p>
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a href="/calculators/point-scorer">
+            <Button size="lg">Score your project</Button>
+          </a>
+          <a href="/programs/mli-select/accessibility">
+            <Button variant="outline" size="lg">Accessibility deep dive</Button>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    {/* SCORING TABLES */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="max-w-3xl">
+          <Badge variant="secondary" className="mb-4">Scoring</Badge>
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+            New construction and existing retrofit tables.
+          </h2>
+          <p class="mt-4 text-muted-foreground">
+            New-construction scoring runs against the NECB or NBC baseline
+            appropriate to the building type. Existing retrofits are scored
+            against the pre-retrofit energy model — audited once, improvements
+            modelled, then re-audited post-retrofit.
+          </p>
+        </div>
+
+        <div class="mt-10 grid gap-6 lg:grid-cols-2">
+          <Card className="bg-jet border-dark-gray p-6">
+            <div class="text-xs uppercase tracking-wide text-star">
+              New construction
+            </div>
+            <div class="mt-1 text-lg font-semibold">
+              % better than 2020 NECB / NBC Tier 1
+            </div>
+            <div class="mt-4 overflow-x-auto">
+              <table class="w-full text-sm">
+                <thead>
+                  <tr class="border-b border-dark-gray">
+                    <th class="px-2 py-2 text-left font-medium">Level</th>
+                    <th class="px-2 py-2 text-right font-medium">NECB</th>
+                    <th class="px-2 py-2 text-right font-medium">NBC</th>
+                    <th class="px-2 py-2 text-right font-medium">Points</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {
+                    ENERGY_SCORING_NEW.map((row) => (
+                      <tr class="border-b border-dark-gray/50 last:border-0">
+                        <td class="px-2 py-2">Level {row.level}</td>
+                        <td class="px-2 py-2 text-right font-medium">
+                          {row.necb}%
+                        </td>
+                        <td class="px-2 py-2 text-right font-medium">
+                          {row.nbc}%
+                        </td>
+                        <td class="px-2 py-2 text-right font-medium text-star">
+                          {row.points}
+                        </td>
+                      </tr>
+                    ))
+                  }
+                </tbody>
+              </table>
+            </div>
+            <p class="mt-4 text-xs text-muted-foreground">
+              Note: at Level 3, the NBC threshold (70%) is set higher than the
+              NECB threshold (60%). This reflects CMHC's view that Part 9
+              residential buildings start from a lower-performance baseline
+              and require a more aggressive reduction to demonstrate
+              equivalent absolute performance.
+            </p>
+          </Card>
+
+          <Card className="bg-jet border-dark-gray p-6">
+            <div class="text-xs uppercase tracking-wide text-star">
+              Existing retrofit
+            </div>
+            <div class="mt-1 text-lg font-semibold">
+              Energy reduction vs. pre-retrofit model
+            </div>
+            <div class="mt-4 overflow-x-auto">
+              <table class="w-full text-sm">
+                <thead>
+                  <tr class="border-b border-dark-gray">
+                    <th class="px-2 py-2 text-left font-medium">Level</th>
+                    <th class="px-2 py-2 text-right font-medium">Reduction</th>
+                    <th class="px-2 py-2 text-right font-medium">Points</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {
+                    ENERGY_SCORING_EXISTING.map((row) => (
+                      <tr class="border-b border-dark-gray/50 last:border-0">
+                        <td class="px-2 py-2">Level {row.level}</td>
+                        <td class="px-2 py-2 text-right font-medium">
+                          {row.reductionPct}%
+                        </td>
+                        <td class="px-2 py-2 text-right font-medium text-star">
+                          {row.points}
+                        </td>
+                      </tr>
+                    ))
+                  }
+                </tbody>
+              </table>
+            </div>
+            <p class="mt-4 text-xs text-muted-foreground">
+              Existing-building scoring requires two energy models — baseline
+              and post-retrofit — both stamped by a qualified evaluator.
+              Photovoltaic contributions are capped at 15% of the total
+              reduction claimed.
+            </p>
+          </Card>
+        </div>
+      </div>
+    </section>
+
+    {/* CODES EXPLAINED */}
+    <section class="border-b border-dark-gray bg-jet">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="max-w-3xl">
+          <Badge variant="secondary" className="mb-4">Codes</Badge>
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+            NECB 2020 vs. NBC 2020.
+          </h2>
+          <p class="mt-4 text-muted-foreground">
+            Which code applies depends on the building's height, area, and
+            occupancy classification — not the developer's preference. The
+            energy evaluator identifies the applicable code at the modelling
+            engagement stage.
+          </p>
+        </div>
+
+        <div class="mt-10 grid gap-6 lg:grid-cols-2">
+          {
+            codeExplainers.map((row) => (
+              <Card className="bg-obsidian border-dark-gray p-6">
+                <div class="text-xs uppercase tracking-wide text-star">
+                  {row.code}
+                </div>
+                <div class="mt-1 text-lg font-semibold">{row.long}</div>
+                <div class="mt-4 space-y-3 text-sm">
+                  <div>
+                    <dt class="text-xs uppercase tracking-wide text-muted-foreground">
+                      Applies to
+                    </dt>
+                    <dd class="mt-1 text-muted-foreground">{row.use}</dd>
+                  </div>
+                  <div>
+                    <dt class="text-xs uppercase tracking-wide text-muted-foreground">
+                      Compliance paths
+                    </dt>
+                    <dd class="mt-1 text-muted-foreground">{row.paths}</dd>
+                  </div>
+                </div>
+              </Card>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    {/* UPGRADE PATHS */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="max-w-3xl">
+          <Badge variant="secondary" className="mb-4">Construction cost premium</Badge>
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+            Typical upgrade scope and hard-cost premium by level.
+          </h2>
+          <p class="mt-4 text-muted-foreground">
+            Actual premium depends heavily on climate zone, building
+            typology, and baseline design. The ranges below reflect
+            market-typical increments for a Part 3 multi-unit building in
+            zones 6–7 modelled against 2020 NECB.
+          </p>
+        </div>
+
+        <div class="mt-10 grid gap-6 lg:grid-cols-3">
+          {
+            upgradePaths.map((row) => (
+              <Card className="bg-jet border-dark-gray p-6">
+                <div class="text-xs uppercase tracking-wide text-star">
+                  {row.tier} · {row.points}
+                </div>
+                <div class="mt-1 text-lg font-semibold">{row.premium}</div>
+                <p class="mt-3 text-sm text-muted-foreground">{row.detail}</p>
+              </Card>
+            ))
+          }
+        </div>
+
+        <Card className="mt-10 bg-jet border-dark-gray p-6">
+          <div class="text-xs uppercase tracking-wide text-muted-foreground">
+            Common upgrade combinations at each level
+          </div>
+          <div class="mt-5 grid gap-5 text-sm md:grid-cols-4">
+            <div>
+              <div class="text-star font-medium">Envelope only</div>
+              <p class="mt-2 text-muted-foreground">
+                Most reliable L1 path. Better windows, wall/roof insulation,
+                air sealing. Lowest modelling risk.
+              </p>
+            </div>
+            <div>
+              <div class="text-star font-medium">Envelope + mechanical</div>
+              <p class="mt-2 text-muted-foreground">
+                L1 to L2 upgrade. Adds HRV/ERV, heat-pump DHW, and controls.
+                Modelling typically tightens the gap by 15–20%.
+              </p>
+            </div>
+            <div>
+              <div class="text-star font-medium">Envelope + PV</div>
+              <p class="mt-2 text-muted-foreground">
+                Closes the last 5–10% to L2 or L3 on constrained sites. PV
+                contribution capped at 15% of total reduction claimed.
+              </p>
+            </div>
+            <div>
+              <div class="text-star font-medium">Passive House-adjacent</div>
+              <p class="mt-2 text-muted-foreground">
+                Reliable L3 path. R-40+ walls, R-60 roofs, ACH50 ≤1.0, HRV
+                &gt;80% efficient, all-electric heat pumps. Often clears L3 with
+                margin.
+              </p>
+            </div>
+          </div>
+        </Card>
+      </div>
+    </section>
+
+    {/* EXISTING RETROFITS */}
+    <section class="border-b border-dark-gray bg-jet">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="max-w-3xl">
+          <Badge variant="secondary" className="mb-4">Existing buildings</Badge>
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+            Retrofit scope to hit each reduction level.
+          </h2>
+          <p class="mt-4 text-muted-foreground">
+            Existing-building retrofits require a pre-retrofit energy model
+            on file, then a post-retrofit re-audit. Per-unit capex
+            benchmarks below assume a 1960s–1980s concrete mid-rise; older
+            and wood-frame stock runs higher.
+          </p>
+        </div>
+
+        <div class="mt-10 grid gap-6 lg:grid-cols-3">
+          {
+            existingRetrofits.map((row) => (
+              <Card className="bg-obsidian border-dark-gray p-6">
+                <div class="text-xs uppercase tracking-wide text-star">
+                  {row.level}
+                </div>
+                <p class="mt-4 text-sm text-muted-foreground">{row.detail}</p>
+              </Card>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    {/* VERIFICATION */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="grid gap-10 lg:grid-cols-[1fr_1.2fr]">
+          <div>
+            <Badge variant="secondary" className="mb-4">Verification</Badge>
+            <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+              Modelling, commissioning, and evaluator qualifications.
+            </h2>
+            <p class="mt-4 text-muted-foreground">
+              Every energy score requires a stamped pre-construction model
+              and, for new construction, post-construction commissioning
+              verification. The evaluator must carry qualifications
+              acceptable to CMHC — most commonly NRCan-registered energy
+              advisors (for Part 9 / NBC work) or professional engineers
+              with energy-modelling credentials (for NECB / Part 3 work).
+            </p>
+            <p class="mt-4 text-muted-foreground">
+              Post-construction verification typically requires whole-building
+              airtightness testing, mechanical commissioning reports, and a
+              reconciled as-built energy model. A material shortfall against
+              the modelled performance can trigger premium clawback the same
+              way an affordability breach can.
+            </p>
+          </div>
+          <Card className="bg-jet border-dark-gray p-6">
+            <div class="text-xs uppercase tracking-wide text-star">
+              Modelling engagement — typical sequence
+            </div>
+            <ol class="mt-5 space-y-3 text-sm">
+              <li>
+                <span class="text-star font-medium">1.</span> Baseline model
+                against 2020 NECB / NBC reference building at schematic
+                design.
+              </li>
+              <li>
+                <span class="text-star font-medium">2.</span> Proposed-design
+                model iterated through DD to target a specific scoring level.
+              </li>
+              <li>
+                <span class="text-star font-medium">3.</span> Final stamped
+                model submitted with the MLI Select application package.
+              </li>
+              <li>
+                <span class="text-star font-medium">4.</span> Post-construction
+                commissioning and airtightness test.
+              </li>
+              <li>
+                <span class="text-star font-medium">5.</span> As-built energy
+                model reconciled against the pre-construction submission.
+              </li>
+            </ol>
+          </Card>
+        </div>
+      </div>
+    </section>
+
+    {/* CTA */}
+    <section class="border-b border-dark-gray bg-jet">
+      <div class="container border-l border-r border-dark-gray px-6 py-20 lg:px-12 lg:py-28">
+        <div class="mx-auto max-w-3xl text-center">
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-5xl">
+            Model the points, budget the premium.
+          </h2>
+          <p class="mx-auto mt-5 max-w-2xl text-muted-foreground">
+            The point scorer combines energy, affordability, and
+            accessibility into a tier outcome. Pair it with the accessibility
+            deep dive to complete the non-affordability scoring paths.
+          </p>
+          <div class="mt-8 flex flex-wrap justify-center gap-3">
+            <a href="/calculators/point-scorer">
+              <Button size="lg">Open the point scorer</Button>
+            </a>
+            <a href="/programs/mli-select/accessibility">
+              <Button variant="outline" size="lg">Accessibility deep dive</Button>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</DefaultLayout>

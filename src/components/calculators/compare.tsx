@@ -16,7 +16,6 @@ import {
   amortizationSchedule,
   annualDebtService,
   loanFromDCR,
-  monthlyPayment,
 } from "@/lib/loan";
 import { calculatePremium } from "@/lib/premium";
 

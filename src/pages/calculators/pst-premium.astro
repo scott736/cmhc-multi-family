@@ -1,0 +1,12 @@
+---
+import PstPremium from "@/components/calculators/pst-premium";
+import DefaultLayout from "@/layouts/DefaultLayout.astro";
+
+const title = "PST on CMHC Premium — Ontario, Quebec, Saskatchewan, Manitoba | CMHC Multi-Family";
+const description =
+  "Compute provincial sales tax on CMHC insurance premium: ON 8%, QC 9.975%, SK 6%, MB 7%. PST on premium is upfront at closing and cannot be capitalized into the loan.";
+---
+
+<DefaultLayout title={title} description={description}>
+  <PstPremium client:load />
+</DefaultLayout>

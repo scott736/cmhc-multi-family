@@ -1,0 +1,394 @@
+---
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import { ACCESSIBILITY_SCORING } from "@/data/cmhc";
+import DefaultLayout from "@/layouts/DefaultLayout.astro";
+
+const title = "MLI Select Accessibility — CSA B651:23, RHFAC & Scoring Paths";
+const description =
+  "How MLI Select scores accessibility. The baseline universal-design prerequisite, CSA B651:23 requirements at Level 1 and Level 2, the Rick Hansen Foundation Accessibility Certification (RHFAC) v4.0 pathway, and typical incremental construction cost.";
+
+const csaRequirements = [
+  {
+    item: "Clear door widths",
+    detail: "Minimum 32″ (860 mm) clear opening at unit doors, bathroom, and bedroom doors.",
+  },
+  {
+    item: "Corridor and path widths",
+    detail: "Minimum 36″ (915 mm) clear path of travel; 48″ (1,220 mm) at turning points.",
+  },
+  {
+    item: "Bathroom dimensions",
+    detail:
+      "5′ (1,500 mm) turning circle in at least one bathroom; roll-in shower option; reinforced walls for future grab bars.",
+  },
+  {
+    item: "Kitchen accessibility",
+    detail:
+      "Clear knee space under one sink; side-approach cooktop; adjustable or lowered countertop section; reachable controls.",
+  },
+  {
+    item: "Door hardware and controls",
+    detail: "Lever-style hardware, thermostats and switches at accessible height (900–1,200 mm).",
+  },
+  {
+    item: "Common area routes",
+    detail:
+      "Barrier-free route from public right-of-way through parking, entry, lobby, elevator, and into every amenity space.",
+  },
+];
+
+const rhfacDimensions = [
+  "Accessible approach and entrance",
+  "Interior circulation — corridors, elevators, stairs",
+  "Assistive technology — visual and auditory alarms, controls",
+  "Way-finding and signage — tactile, visual, cognitive cues",
+  "Amenities — kitchens, bathrooms, laundry, lounges",
+  "Emergency egress — refuge areas, evacuation routes",
+  "Flexibility and adaptability — reconfigurable to user need",
+  "Durability and maintainability of accessible features",
+];
+
+const terminology = [
+  {
+    term: "Visitable",
+    defn:
+      "A unit that a person using a wheelchair can enter and use the main living area and a bathroom on that level. The MLI Select baseline — 100% of units must be visitable per CSA B651:23.",
+  },
+  {
+    term: "Accessible",
+    defn:
+      "A unit fully usable by a person with mobility, vision, hearing, or cognitive disabilities. Full barrier-free — accessible bathroom, kitchen, and sleeping area. The Level 1 (15%) and Level 2 (100%) physical pathway.",
+  },
+  {
+    term: "Universal design",
+    defn:
+      "Design that is usable by people of all abilities without adaptation. At Level 2 this is an alternative to requiring 100% accessible units — the entire building is designed to universal principles.",
+  },
+];
+---
+
+<DefaultLayout title={title} description={description}>
+  <div class="bg-obsidian text-foreground">
+    {/* HERO */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <Badge variant="outline" className="mb-6 border-star/40 text-star">
+          MLI Select · Accessibility deep dive
+        </Badge>
+        <h1 class="text-4xl font-semibold tracking-tight lg:text-6xl">
+          Accessibility — a prerequisite and a scoring lever.
+        </h1>
+        <p class="mt-6 max-w-3xl text-lg text-muted-foreground">
+          Every MLI Select project carries a hard accessibility baseline — all
+          units visitable per CSA B651:23 and all common areas barrier-free.
+          Projects that exceed the baseline earn up to 30 additional points,
+          available through two distinct pathways at each scoring level: a
+          physical-design pathway tied directly to CSA B651:23, or a
+          certification pathway tied to the Rick Hansen Foundation
+          Accessibility Certification (RHFAC) v4.0 program.
+        </p>
+        <p class="mt-4 max-w-3xl text-lg text-muted-foreground">
+          The November 2024 accessibility-standards update clarified RHFAC
+          acceptance and reinforced the CSA B651:23 baseline. The
+          incremental construction cost to reach Level 1 is typically 1–3%
+          of project cost; Level 2 runs 5–10% depending on baseline design
+          and existing-building constraints.
+        </p>
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a href="/calculators/point-scorer">
+            <Button size="lg">Score your project</Button>
+          </a>
+          <a href="/programs/mli-select">
+            <Button variant="outline" size="lg">Back to MLI Select</Button>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    {/* SCORING */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="max-w-3xl">
+          <Badge variant="secondary" className="mb-4">Scoring</Badge>
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+            Two levels, two pathways each.
+          </h2>
+          <p class="mt-4 text-muted-foreground">
+            Points are earned only above the universal baseline. The two
+            pathways at each level are additive alternatives — either the
+            physical design or the third-party certification can deliver the
+            score. Third-party attestation is required at submission; no
+            self-declaration.
+          </p>
+        </div>
+
+        <div class="mt-10 grid gap-6 lg:grid-cols-3">
+          <Card className="bg-jet border-dark-gray p-6">
+            <div class="text-xs uppercase tracking-wide text-muted-foreground">
+              Baseline · 0 points
+            </div>
+            <div class="mt-1 text-lg font-semibold">
+              Prerequisite — not a point source
+            </div>
+            <ul class="mt-4 space-y-3 text-sm text-muted-foreground">
+              <li class="flex gap-2">
+                <span class="text-star">·</span>
+                <span>100% of units meet visitability per CSA B651:23.</span>
+              </li>
+              <li class="flex gap-2">
+                <span class="text-star">·</span>
+                <span>All common areas barrier-free.</span>
+              </li>
+              <li class="flex gap-2">
+                <span class="text-star">·</span>
+                <span>
+                  Adaptable bathroom layouts — reinforced walls for future
+                  grab-bar installation.
+                </span>
+              </li>
+            </ul>
+          </Card>
+
+          {
+            ACCESSIBILITY_SCORING.map((row) => (
+              <Card className="bg-jet border-dark-gray p-6">
+                <div class="text-xs uppercase tracking-wide text-star">
+                  Level {row.level} · {row.points} points
+                </div>
+                <div class="mt-1 text-lg font-semibold">Two pathways</div>
+                <p class="mt-3 text-sm text-muted-foreground">
+                  {row.requirement}
+                </p>
+                <p class="mt-3 text-xs text-muted-foreground">
+                  Physical pathway (CSA B651:23) or certification pathway
+                  (RHFAC v4.0) — either satisfies the level.
+                </p>
+              </Card>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    {/* TERMINOLOGY */}
+    <section class="border-b border-dark-gray bg-jet">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="max-w-3xl">
+          <Badge variant="secondary" className="mb-4">Terminology</Badge>
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+            Visitable vs. accessible vs. universal design.
+          </h2>
+          <p class="mt-4 text-muted-foreground">
+            CMHC's MLI Select guidelines use three distinct terms — they're
+            not interchangeable, and the distinction drives which pathway is
+            feasible on a given project.
+          </p>
+        </div>
+
+        <div class="mt-10 grid gap-6 lg:grid-cols-3">
+          {
+            terminology.map((row) => (
+              <Card className="bg-obsidian border-dark-gray p-6">
+                <div class="text-xs uppercase tracking-wide text-star">
+                  {row.term}
+                </div>
+                <p class="mt-3 text-sm text-muted-foreground">{row.defn}</p>
+              </Card>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    {/* CSA B651:23 */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="max-w-3xl">
+          <Badge variant="secondary" className="mb-4">CSA B651:23</Badge>
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+            The Canadian accessible-design standard.
+          </h2>
+          <p class="mt-4 text-muted-foreground">
+            CSA B651:23 is the Canadian Standards Association's standard for
+            accessible design in the built environment. It sets minimum
+            dimensions, clearances, and hardware requirements across the full
+            building — from the property line to the back of each unit.
+            Published and maintained by CSA Group.
+          </p>
+        </div>
+
+        <div class="mt-10 overflow-x-auto rounded-lg border border-dark-gray bg-jet">
+          <table class="w-full border-collapse text-sm">
+            <thead>
+              <tr class="border-b border-dark-gray text-muted-foreground text-xs uppercase tracking-wide">
+                <th class="px-4 py-3 text-left font-medium">Element</th>
+                <th class="px-4 py-3 text-left font-medium">Typical requirement</th>
+              </tr>
+            </thead>
+            <tbody>
+              {
+                csaRequirements.map((row) => (
+                  <tr class="border-b border-dark-gray last:border-0">
+                    <td class="px-4 py-3 font-medium">{row.item}</td>
+                    <td class="px-4 py-3 text-muted-foreground">{row.detail}</td>
+                  </tr>
+                ))
+              }
+            </tbody>
+          </table>
+        </div>
+        <p class="mt-4 text-sm text-muted-foreground">
+          The figures above are representative; CSA B651:23 itself is the
+          controlling document and contains the complete element-by-element
+          dimensional and performance specifications.
+        </p>
+      </div>
+    </section>
+
+    {/* RHFAC */}
+    <section class="border-b border-dark-gray bg-jet">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="grid gap-10 lg:grid-cols-[1fr_1.2fr]">
+          <div>
+            <Badge variant="secondary" className="mb-4">RHFAC v4.0</Badge>
+            <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+              Rick Hansen Foundation Accessibility Certification.
+            </h2>
+            <p class="mt-4 text-muted-foreground">
+              RHFAC is a meaningful-access rating system administered by the
+              Rick Hansen Foundation. A certified professional conducts an
+              on-site audit and scores the building across eight dimensions of
+              meaningful access. A score of 60–79% satisfies Level 1; Gold
+              (≥80%) satisfies Level 2.
+            </p>
+            <p class="mt-4 text-muted-foreground">
+              RHFAC certification is often the preferred pathway for existing
+              buildings — it accommodates the retrofit constraints of older
+              stock that can't reach 100% CSA B651:23 compliance but can
+              still deliver excellent real-world access.
+            </p>
+          </div>
+          <Card className="bg-obsidian border-dark-gray p-6">
+            <div class="text-xs uppercase tracking-wide text-star">
+              RHFAC v4.0 — eight rating dimensions
+            </div>
+            <ul class="mt-4 space-y-2 text-sm text-muted-foreground">
+              {
+                rhfacDimensions.map((d) => (
+                  <li class="flex gap-2">
+                    <span class="text-star">·</span>
+                    <span>{d}</span>
+                  </li>
+                ))
+              }
+            </ul>
+            <p class="mt-5 text-xs text-muted-foreground">
+              Rating: site visit → scored report → RHFAC Certified (60–79%)
+              or RHFAC Gold (≥80%). Re-certification recommended every five
+              years.
+            </p>
+          </Card>
+        </div>
+      </div>
+    </section>
+
+    {/* COST */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="max-w-3xl">
+          <Badge variant="secondary" className="mb-4">Construction cost</Badge>
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+            Incremental cost and existing-building constraints.
+          </h2>
+          <p class="mt-4 text-muted-foreground">
+            On new construction, the cost to reach Level 1 is almost always
+            less than 3% of project cost — much of CSA B651:23 is already
+            codified in provincial accessibility-design requirements or
+            municipal by-law. Level 2 is a meaningful step-up when pursued
+            via the 100% accessible pathway; via the RHFAC Gold pathway, it
+            can often be achieved with modest incremental investment on a
+            well-designed base project.
+          </p>
+        </div>
+
+        <div class="mt-10 grid gap-6 lg:grid-cols-2">
+          <Card className="bg-jet border-dark-gray p-6">
+            <div class="text-xs uppercase tracking-wide text-star">
+              New construction — typical premium
+            </div>
+            <dl class="mt-5 space-y-3 text-sm">
+              <div class="flex justify-between border-b border-dark-gray pb-2">
+                <dt class="text-muted-foreground">Baseline (visitability only)</dt>
+                <dd class="font-medium">Included in base design</dd>
+              </div>
+              <div class="flex justify-between border-b border-dark-gray pb-2">
+                <dt class="text-muted-foreground">Level 1 — physical (15% accessible)</dt>
+                <dd class="font-medium">~1–2% hard cost premium</dd>
+              </div>
+              <div class="flex justify-between border-b border-dark-gray pb-2">
+                <dt class="text-muted-foreground">Level 1 — RHFAC 60–79%</dt>
+                <dd class="font-medium">~0.5–1.5% premium + audit fee</dd>
+              </div>
+              <div class="flex justify-between border-b border-dark-gray pb-2">
+                <dt class="text-muted-foreground">Level 2 — 100% accessible</dt>
+                <dd class="font-medium">~5–10% hard cost premium</dd>
+              </div>
+              <div class="flex justify-between pt-2">
+                <dt class="text-muted-foreground">Level 2 — RHFAC Gold (≥80%)</dt>
+                <dd class="font-medium">~3–6% premium + audit fee</dd>
+              </div>
+            </dl>
+          </Card>
+
+          <Card className="bg-jet border-dark-gray p-6">
+            <div class="text-xs uppercase tracking-wide text-star">
+              Existing buildings — retrofit paths
+            </div>
+            <div class="mt-5 space-y-4 text-sm text-muted-foreground">
+              <p>
+                Older wood-frame and masonry stock rarely reaches 100%
+                accessible units without gut renovation. The RHFAC pathway
+                is the practical route to Level 1 or Level 2 — it rewards
+                well-chosen upgrades (accessible entrance ramp, automatic
+                doors, elevator refurbishment, signage) rather than
+                demanding unit-by-unit reconfiguration.
+              </p>
+              <p>
+                Level 1 retrofit work typically runs $3K–$12K per unit
+                depending on the starting point. Level 2 (RHFAC Gold) is
+                often unreachable on pre-1970 stock without a major capital
+                program, though the baseline visitability requirement can
+                often be met through targeted common-area work.
+              </p>
+            </div>
+          </Card>
+        </div>
+      </div>
+    </section>
+
+    {/* CTA */}
+    <section class="border-b border-dark-gray bg-jet">
+      <div class="container border-l border-r border-dark-gray px-6 py-20 lg:px-12 lg:py-28">
+        <div class="mx-auto max-w-3xl text-center">
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-5xl">
+            Score the accessibility lever.
+          </h2>
+          <p class="mx-auto mt-5 max-w-2xl text-muted-foreground">
+            The point scorer combines accessibility with energy and
+            affordability to determine the applicable MLI Select tier.
+          </p>
+          <div class="mt-8 flex flex-wrap justify-center gap-3">
+            <a href="/calculators/point-scorer">
+              <Button size="lg">Open the point scorer</Button>
+            </a>
+            <a href="/programs/mli-select/energy">
+              <Button variant="outline" size="lg">Energy deep dive</Button>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</DefaultLayout>

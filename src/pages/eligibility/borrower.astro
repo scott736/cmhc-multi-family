@@ -1,0 +1,399 @@
+---
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import DefaultLayout from "@/layouts/DefaultLayout.astro";
+
+const title = "Borrower Eligibility — CMHC Multi-Unit Covenant and Structure";
+const description =
+  "Who qualifies as a CMHC multi-unit borrower: for-profit, non-profit, co-op, Indigenous, government. Covenant, liquidity, experience, personal guarantees, recourse, foreign ownership, and MLI Select tier 3 limited-recourse treatment.";
+
+const borrowerTypes = [
+  {
+    type: "For-profit",
+    detail:
+      "Individuals, partnerships, corporations, limited partnerships. Covenant, liquidity, and credit tests apply; most common structure for MLI Standard and MLI Select.",
+  },
+  {
+    type: "Non-profit",
+    detail:
+      "Must be registered with applicable provincial or federal authority. Mission alignment required for AHF and CHDP; eligible for all programs including MLI.",
+  },
+  {
+    type: "Co-operatives",
+    detail:
+      "Continuing housing co-ops — eligible for CHDP specifically. Registered under provincial co-op legislation.",
+  },
+  {
+    type: "Indigenous entities",
+    detail:
+      "Bands, development corporations, urban Indigenous non-profits. Priority eligibility for AHF; special provisions under for-indigenous-by-indigenous streams.",
+  },
+  {
+    type: "Government",
+    detail:
+      "Federal, provincial, municipal, and agencies. Common on ACLP files; co-underwrites often stack with provincial programs.",
+  },
+];
+
+const covenantStandards = [
+  {
+    item: "Net worth",
+    detail:
+      "Typically ≥25% of the loan amount (CMHC commitment). Minimum $100,000 across all sizes.",
+  },
+  {
+    item: "Liquidity",
+    detail:
+      "5–10% of loan amount in verifiable liquid assets — cash, marketable securities, committed credit facilities.",
+  },
+  {
+    item: "Credit history",
+    detail:
+      "No major delinquencies in trailing 24 months; no bankruptcies in past 7 years. Business credit for entities — Dun & Bradstreet or equivalent.",
+  },
+  {
+    item: "Operating history",
+    detail:
+      "Multi-unit ownership or operating experience typically required for MLI Select tier 3 and construction deals. First-time owners financeable at tier 1 with strong covenant.",
+  },
+  {
+    item: "FINTRAC / KYC",
+    detail:
+      "Full beneficial ownership disclosure. Politically exposed person (PEP) checks. Source of funds documentation on down payment and reserves.",
+  },
+];
+
+const structureNotes = [
+  {
+    type: "Corporation",
+    detail:
+      "Most common. Financial statements required for 3 years. Principals/shareholders provide personal guarantees in most Tier 1 and 2 files.",
+  },
+  {
+    type: "Limited partnership (GP/LP)",
+    detail:
+      "Eligible. All GPs covenant; LPs typically do not. Common for syndicated institutional deals.",
+  },
+  {
+    type: "Joint venture",
+    detail:
+      "Eligible. All JV partners covenant unless structurally contributed through a holding entity. Disclosure of all beneficial owners.",
+  },
+  {
+    type: "Individual / sole proprietor",
+    detail:
+      "Eligible. Full personal guarantee. Most common on 5–20 unit files; scales poorly above that.",
+  },
+  {
+    type: "Trust",
+    detail:
+      "Case by case. Family trusts typically covenant through the trustee with beneficiary disclosure; REITs through the operating trust.",
+  },
+];
+
+const recourseMatrix = [
+  {
+    tier: "MLI Standard",
+    recourse: "Full recourse",
+    detail:
+      "Personal and/or corporate guarantees to full loan amount. Standard across banks and monolines.",
+  },
+  {
+    tier: "MLI Select Tier 1 (50 pts)",
+    recourse: "Full recourse",
+    detail: "Same as Standard — no recourse relief at Tier 1.",
+  },
+  {
+    tier: "MLI Select Tier 2 (70 pts)",
+    recourse: "Full recourse",
+    detail: "No relief. Tier 2 benefits come through LTC, amort, and DCR.",
+  },
+  {
+    tier: "MLI Select Tier 3 (100 pts)",
+    recourse: "Limited recourse",
+    detail:
+      "Recourse capped at property plus a specified covenantor guarantee (often a percentage of loan). One of the distinctive Tier 3 benefits.",
+  },
+];
+---
+
+<DefaultLayout title={title} description={description}>
+  <div class="bg-obsidian text-foreground">
+    {/* HERO */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <Badge variant="outline" className="mb-6 border-star/40 text-star">
+          Eligibility · Borrower
+        </Badge>
+        <h1 class="text-4xl font-semibold tracking-tight lg:text-6xl">
+          Borrower eligibility — covenant, experience, structure.
+        </h1>
+        <p class="mt-6 max-w-3xl text-lg text-muted-foreground">
+          CMHC multi-unit programs serve five borrower categories:
+          for-profit developers and owners, non-profit housing
+          providers, co-operatives, Indigenous entities, and
+          government bodies. Each category accesses a different
+          subset of programs and faces different underwriting
+          emphasis, but all share a common covenant floor — net
+          worth, liquidity, credit, and operating history.
+        </p>
+        <p class="mt-4 max-w-3xl text-lg text-muted-foreground">
+          Above the covenant floor, program access is segmented:
+          for-profits are the primary audience for MLI Standard and
+          MLI Select; non-profits, Indigenous entities, and
+          government access AHF and ACLP; co-operatives access
+          CHDP exclusively. For-profits can also participate in
+          ACLP in many geographies.
+        </p>
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a href="/programs">
+            <Button size="lg">Review the programs</Button>
+          </a>
+          <a href="/eligibility">
+            <Button variant="outline" size="lg">Back to eligibility</Button>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    {/* BORROWER TYPES */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="max-w-3xl">
+          <Badge variant="secondary" className="mb-4">Eligible borrower types</Badge>
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+            Five borrower categories.
+          </h2>
+          <p class="mt-4 text-muted-foreground">
+            Each category maps to a specific program eligibility
+            profile. For-profits have the broadest insurance access;
+            co-ops the narrowest but deepest through CHDP.
+          </p>
+        </div>
+
+        <div class="mt-10 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+          {
+            borrowerTypes.map((row) => (
+              <Card className="bg-jet border-dark-gray p-6">
+                <div class="text-xs uppercase tracking-wide text-star">
+                  {row.type}
+                </div>
+                <p class="mt-3 text-sm text-muted-foreground">{row.detail}</p>
+              </Card>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    {/* COVENANT STANDARDS */}
+    <section class="border-b border-dark-gray bg-jet">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="max-w-3xl">
+          <Badge variant="secondary" className="mb-4">Covenant standards</Badge>
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+            The covenant floor.
+          </h2>
+          <p class="mt-4 text-muted-foreground">
+            Net worth and liquidity benchmarks are CMHC-level floors;
+            individual lenders often layer additional requirements
+            (coverage ratios, segregated reserve accounts) on top.
+          </p>
+        </div>
+
+        <div class="mt-10 overflow-x-auto rounded-lg border border-dark-gray bg-obsidian">
+          <table class="w-full border-collapse text-sm">
+            <thead>
+              <tr class="border-b border-dark-gray text-muted-foreground text-xs uppercase tracking-wide">
+                <th class="px-4 py-3 text-left font-medium">Test</th>
+                <th class="px-4 py-3 text-left font-medium">Standard</th>
+              </tr>
+            </thead>
+            <tbody>
+              {
+                covenantStandards.map((row) => (
+                  <tr class="border-b border-dark-gray last:border-0">
+                    <td class="px-4 py-3 font-medium">{row.item}</td>
+                    <td class="px-4 py-3 text-muted-foreground">{row.detail}</td>
+                  </tr>
+                ))
+              }
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    {/* STRUCTURE */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="max-w-3xl">
+          <Badge variant="secondary" className="mb-4">Borrowing structures</Badge>
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+            What kinds of entities CMHC accepts.
+          </h2>
+          <p class="mt-4 text-muted-foreground">
+            The structure determines who covenants, who personally
+            guarantees, and how liability flows in default. Clean
+            disclosure at application avoids late-stage re-underwrites.
+          </p>
+        </div>
+
+        <div class="mt-10 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+          {
+            structureNotes.map((row) => (
+              <Card className="bg-jet border-dark-gray p-6">
+                <div class="text-xs uppercase tracking-wide text-star">
+                  {row.type}
+                </div>
+                <p class="mt-3 text-sm text-muted-foreground">{row.detail}</p>
+              </Card>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    {/* RECOURSE */}
+    <section class="border-b border-dark-gray bg-jet">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="max-w-3xl">
+          <Badge variant="outline" className="mb-4 border-star/40 text-star">
+            Recourse
+          </Badge>
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+            Full vs limited recourse by program.
+          </h2>
+          <p class="mt-4 text-muted-foreground">
+            Recourse scope is set at the program level and can be a
+            material borrower-side driver on large files. MLI Select
+            Tier 3 is the only CMHC multi-unit product that moves
+            recourse from full to limited.
+          </p>
+        </div>
+
+        <div class="mt-10 overflow-x-auto rounded-lg border border-dark-gray bg-obsidian">
+          <table class="w-full border-collapse text-sm">
+            <thead>
+              <tr class="border-b border-dark-gray text-muted-foreground text-xs uppercase tracking-wide">
+                <th class="px-4 py-3 text-left font-medium">Program / Tier</th>
+                <th class="px-4 py-3 text-left font-medium">Recourse</th>
+                <th class="px-4 py-3 text-left font-medium">Detail</th>
+              </tr>
+            </thead>
+            <tbody>
+              {
+                recourseMatrix.map((row) => (
+                  <tr class="border-b border-dark-gray last:border-0">
+                    <td class="px-4 py-3 font-medium">{row.tier}</td>
+                    <td class="px-4 py-3 text-star font-medium">{row.recourse}</td>
+                    <td class="px-4 py-3 text-muted-foreground">{row.detail}</td>
+                  </tr>
+                ))
+              }
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    {/* FOREIGN OWNERSHIP */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="grid gap-10 lg:grid-cols-[1fr_1fr]">
+          <div>
+            <Badge variant="secondary" className="mb-4">Foreign ownership</Badge>
+            <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+              Foreign borrowers are permitted — with scrutiny.
+            </h2>
+            <p class="mt-4 text-muted-foreground">
+              CMHC does not categorically bar foreign ownership of
+              insured multi-unit assets. The federal Prohibition on
+              Purchase of Residential Property by Non-Canadians Act
+              applies primarily to single-family and condo purchases
+              by non-resident individuals, not institutional purpose-built
+              rental.
+            </p>
+            <p class="mt-4 text-muted-foreground">
+              That said, foreign-owned structures face heavier
+              FINTRAC/KYC scrutiny, source-of-funds documentation, and
+              ultimate beneficial ownership disclosure down to the
+              natural persons who control the entity.
+            </p>
+          </div>
+          <Card className="bg-jet border-dark-gray p-6">
+            <div class="text-xs uppercase tracking-wide text-star">
+              Compliance checklist
+            </div>
+            <ul class="mt-5 space-y-3 text-sm">
+              <li class="flex gap-3">
+                <span class="text-star">·</span>
+                <span>
+                  FINTRAC registration for corporate entities with
+                  financial activities.
+                </span>
+              </li>
+              <li class="flex gap-3">
+                <span class="text-star">·</span>
+                <span>
+                  Ultimate beneficial owner (UBO) disclosure to 25%+
+                  ownership.
+                </span>
+              </li>
+              <li class="flex gap-3">
+                <span class="text-star">·</span>
+                <span>
+                  Source of funds on down payment and reserves —
+                  wire history and attested.
+                </span>
+              </li>
+              <li class="flex gap-3">
+                <span class="text-star">·</span>
+                <span>
+                  Politically exposed person (PEP) checks on all
+                  covenantors.
+                </span>
+              </li>
+              <li class="flex gap-3">
+                <span class="text-star">·</span>
+                <span>
+                  Provincial foreign-buyer taxes (BC, Ontario) —
+                  separate from CMHC, but material to deal economics.
+                </span>
+              </li>
+            </ul>
+          </Card>
+        </div>
+      </div>
+    </section>
+
+    {/* CTA */}
+    <section class="border-b border-dark-gray bg-jet">
+      <div class="container border-l border-r border-dark-gray px-6 py-20 lg:px-12 lg:py-28">
+        <div class="mx-auto max-w-3xl text-center">
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-5xl">
+            Right program for the borrower profile.
+          </h2>
+          <p class="mx-auto mt-5 max-w-2xl text-muted-foreground">
+            For-profit covenants typically land in MLI Select or
+            Standard. Non-profit and co-op covenants unlock the direct
+            programs. Map the borrower to the program before building
+            the pro forma.
+          </p>
+          <div class="mt-8 flex flex-wrap justify-center gap-3">
+            <a href="/programs">
+              <Button size="lg">Browse programs</Button>
+            </a>
+            <a href="/eligibility/property">
+              <Button variant="outline" size="lg">Property eligibility</Button>
+            </a>
+            <a href="/eligibility/lender">
+              <Button variant="outline" size="lg">Lender eligibility</Button>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</DefaultLayout>

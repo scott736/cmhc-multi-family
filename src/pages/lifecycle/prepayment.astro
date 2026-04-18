@@ -1,0 +1,443 @@
+---
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import DefaultLayout from "@/layouts/DefaultLayout.astro";
+
+const title = "Prepayment — CMHC Multi-Unit Commercial Penalty Mechanics";
+const description =
+  "How prepayment works on CMHC multi-unit loans. No Bank Act cap applies — yield maintenance, interest-rate differential, 3 months' interest, partial prepayment privileges, and tax treatment of prepayment costs.";
+
+const penaltyTypes = [
+  {
+    type: "Yield maintenance (present-value IRD)",
+    detail:
+      "Present value of the interest differential between the contract rate and current reinvestment rate, over the remaining term. The largest penalty structure — common on life company and some monoline loans.",
+  },
+  {
+    type: "Interest-rate differential (IRD)",
+    detail:
+      "Rate differential multiplied by the outstanding balance for the remaining term, not discounted. Moderate penalty — common on bank commercial loans.",
+  },
+  {
+    type: "3 months' interest",
+    detail:
+      "Simple 3 × (monthly interest at contract rate). Smallest penalty structure. Many lenders stipulate the greater of IRD or 3 months' interest.",
+  },
+  {
+    type: "Graduated schedule",
+    detail:
+      "Declining percentage by year (e.g., 5% year 1, 4% year 2, 3% year 3, 2% year 4, 1% year 5). Predictable at origination; common on medium-term commercial.",
+  },
+  {
+    type: "Fully closed",
+    detail:
+      "No prepayment permitted until maturity (or only within a short window prior). Typically reserved for specialized products or longest-term life company loans.",
+  },
+];
+
+const partialPrepayment = [
+  {
+    item: "Annual privilege",
+    detail:
+      "Typically 10–20% of original principal per year without penalty. Must be exercised on anniversary dates.",
+  },
+  {
+    item: "Lump-sum",
+    detail:
+      "Allowed once per year in many commitments; unused privilege does not carry forward.",
+  },
+  {
+    item: "Renewal-window open",
+    detail:
+      "1–3 months before maturity, most commitments allow the loan to be paid out without penalty — the 'open window'.",
+  },
+  {
+    item: "Sale with assumption",
+    detail:
+      "Penalty avoided entirely if the buyer assumes the mortgage (see /lifecycle/assumption).",
+  },
+];
+
+const taxTreatment = [
+  {
+    item: "Prepayment penalty classification",
+    detail:
+      "CRA has historically treated prepayment penalties on commercial loans as deductible interest expense in the year paid (IT-341R4 / T2 filings). Confirm with the borrower's tax advisor.",
+  },
+  {
+    item: "Capital vs current",
+    detail:
+      "If the prepayment is triggered by a sale (and tied to the disposition), some practitioners capitalize the penalty against the adjusted cost base rather than deducting. Deal-specific.",
+  },
+  {
+    item: "Documentation",
+    detail:
+      "Lender payout statements typically break out penalty, accrued interest, and principal — the breakdown supports the tax characterization.",
+  },
+];
+---
+
+<DefaultLayout title={title} description={description}>
+  <div class="bg-obsidian text-foreground">
+    {/* HERO */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <Badge variant="outline" className="mb-6 border-star/40 text-star">
+          Lifecycle · Prepayment
+        </Badge>
+        <h1 class="text-4xl font-semibold tracking-tight lg:text-6xl">
+          Prepayment — commercial rules, not residential rules.
+        </h1>
+        <p class="mt-6 max-w-3xl text-lg text-muted-foreground">
+          CMHC multi-unit mortgages are commercial loans. The Canada Bank
+          Act's residential prepayment cap (3 months' interest on closed
+          mortgages over 5 years into the term) does
+          <span class="text-foreground font-semibold"> not</span> apply.
+          Prepayment clauses are whatever the lender negotiates — most
+          commonly yield maintenance, interest-rate differential, or
+          3 months' interest, with the lender typically entitled to the
+          greater of two calculations.
+        </p>
+        <p class="mt-4 max-w-3xl text-lg text-muted-foreground">
+          On a 10-year $15M loan with rates having moved materially,
+          yield maintenance penalties can run well into seven figures —
+          which is why assumption and porting exist as structural
+          alternatives. Understanding the prepayment clause at
+          origination, not at payout, is the deal-level discipline.
+        </p>
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a href="/lifecycle/assumption">
+            <Button size="lg">Consider assumption</Button>
+          </a>
+          <a href="/lifecycle/porting">
+            <Button variant="outline" size="lg">Consider porting</Button>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    {/* NO BANK ACT CAP */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="grid gap-10 lg:grid-cols-[1fr_1fr]">
+          <div>
+            <Badge variant="secondary" className="mb-4">Key distinction</Badge>
+            <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+              Commercial is different from residential.
+            </h2>
+            <p class="mt-4 text-muted-foreground">
+              Residential closed mortgages in Canada are capped at 3
+              months' interest after 5 years into the term, per the
+              Interest Act. Multi-unit commercial loans — CMHC-insured
+              or conventional — carry no such cap.
+            </p>
+            <p class="mt-4 text-muted-foreground">
+              What the commitment says, the lender collects. A commitment
+              stipulating the greater of yield maintenance and 3 months'
+              interest is the lender's floor, not the borrower's ceiling.
+            </p>
+          </div>
+          <Card className="bg-jet border-dark-gray p-6">
+            <div class="text-xs uppercase tracking-wide text-star">
+              Commitment review discipline
+            </div>
+            <ul class="mt-5 space-y-3 text-sm">
+              <li class="flex gap-3">
+                <span class="text-star">·</span>
+                <span>
+                  Identify the prepayment clause type — YM, IRD, 3MI,
+                  graduated, or fully closed.
+                </span>
+              </li>
+              <li class="flex gap-3">
+                <span class="text-star">·</span>
+                <span>
+                  Confirm the reinvestment rate reference (GoC
+                  benchmark, lender index, or current offered rate).
+                </span>
+              </li>
+              <li class="flex gap-3">
+                <span class="text-star">·</span>
+                <span>
+                  Confirm partial prepayment privileges and open-window
+                  timing.
+                </span>
+              </li>
+              <li class="flex gap-3">
+                <span class="text-star">·</span>
+                <span>
+                  Confirm assumption and port provisions before rate
+                  movement makes them valuable.
+                </span>
+              </li>
+            </ul>
+          </Card>
+        </div>
+      </div>
+    </section>
+
+    {/* PENALTY TYPES */}
+    <section class="border-b border-dark-gray bg-jet">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="max-w-3xl">
+          <Badge variant="secondary" className="mb-4">Penalty structures</Badge>
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+            Five clauses. The first three dominate.
+          </h2>
+          <p class="mt-4 text-muted-foreground">
+            Commercial lenders pick from a small menu of prepayment
+            structures. The biggest variable is whether the lender
+            uses a present-value (yield maintenance) or simple
+            (IRD) calculation.
+          </p>
+        </div>
+
+        <div class="mt-10 grid gap-4 md:grid-cols-2">
+          {
+            penaltyTypes.map((row) => (
+              <Card className="bg-obsidian border-dark-gray p-6">
+                <div class="text-xs uppercase tracking-wide text-star">
+                  {row.type}
+                </div>
+                <p class="mt-3 text-sm text-muted-foreground">{row.detail}</p>
+              </Card>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    {/* YIELD MAINTENANCE FORMULA */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="grid gap-10 lg:grid-cols-[1fr_1.2fr]">
+          <div>
+            <Badge variant="secondary" className="mb-4">Yield maintenance</Badge>
+            <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+              The formula that usually wins.
+            </h2>
+            <p class="mt-4 text-muted-foreground">
+              Yield maintenance computes the present value of the
+              interest differential between the contract rate and the
+              current reinvestment rate, discounted over the remaining
+              term. When rates have moved down materially since
+              origination, YM compounds into the largest possible
+              penalty — often 10–20× the 3 months' interest floor.
+            </p>
+            <p class="mt-4 text-muted-foreground">
+              When rates have moved up, YM typically drops to zero
+              (the lender is no worse off reinvesting) and the 3 months'
+              interest floor applies.
+            </p>
+          </div>
+          <Card className="bg-jet border-dark-gray p-8">
+            <div class="text-xs uppercase tracking-wide text-muted-foreground">
+              Yield maintenance — plain-English formula
+            </div>
+            <div class="mt-5 space-y-4 text-sm">
+              <p>
+                <span class="text-star font-medium">Step 1.</span>
+                Compute the rate differential: contract rate minus
+                current reinvestment rate (typically a GoC yield of
+                matching remaining term).
+              </p>
+              <p>
+                <span class="text-star font-medium">Step 2.</span>
+                Multiply by the outstanding balance to get the annual
+                interest loss.
+              </p>
+              <p>
+                <span class="text-star font-medium">Step 3.</span>
+                Discount each future year's loss back to present value
+                at the reinvestment rate.
+              </p>
+              <p>
+                <span class="text-star font-medium">Step 4.</span>
+                Sum. Compare against 3 months' interest. Lender takes
+                the greater.
+              </p>
+            </div>
+          </Card>
+        </div>
+      </div>
+    </section>
+
+    {/* PARTIAL PREPAYMENT */}
+    <section class="border-b border-dark-gray bg-jet">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="max-w-3xl">
+          <Badge variant="secondary" className="mb-4">Privileges</Badge>
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+            When prepayment is free.
+          </h2>
+          <p class="mt-4 text-muted-foreground">
+            Even closed commercial commitments typically include
+            partial prepayment privileges, an open window near
+            maturity, and the assumption escape hatch.
+          </p>
+        </div>
+
+        <div class="mt-10 overflow-x-auto rounded-lg border border-dark-gray bg-obsidian">
+          <table class="w-full border-collapse text-sm">
+            <thead>
+              <tr class="border-b border-dark-gray text-muted-foreground text-xs uppercase tracking-wide">
+                <th class="px-4 py-3 text-left font-medium">Privilege</th>
+                <th class="px-4 py-3 text-left font-medium">Typical treatment</th>
+              </tr>
+            </thead>
+            <tbody>
+              {
+                partialPrepayment.map((row) => (
+                  <tr class="border-b border-dark-gray last:border-0">
+                    <td class="px-4 py-3 font-medium">{row.item}</td>
+                    <td class="px-4 py-3 text-muted-foreground">{row.detail}</td>
+                  </tr>
+                ))
+              }
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    {/* MLI SELECT vs STANDARD */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="max-w-3xl">
+          <Badge variant="secondary" className="mb-4">Program comparison</Badge>
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+            MLI Standard vs MLI Select — prepayment treatment.
+          </h2>
+          <p class="mt-4 text-muted-foreground">
+            Prepayment terms are set by the originating lender, not by
+            CMHC. That said, some patterns hold across the program
+            families.
+          </p>
+        </div>
+
+        <div class="mt-10 grid gap-6 lg:grid-cols-2">
+          <Card className="bg-jet border-dark-gray p-6">
+            <div class="text-xs uppercase tracking-wide text-star">
+              MLI Standard
+            </div>
+            <ul class="mt-5 space-y-3 text-sm">
+              <li class="flex gap-3">
+                <span class="text-star">·</span>
+                <span>
+                  Brokered placements with monolines and trust
+                  companies: typically YM or IRD with a 3MI floor.
+                </span>
+              </li>
+              <li class="flex gap-3">
+                <span class="text-star">·</span>
+                <span>
+                  Bank commitments: often IRD or 3MI greater-of — less
+                  severe than YM on rate-down scenarios.
+                </span>
+              </li>
+              <li class="flex gap-3">
+                <span class="text-star">·</span>
+                <span>
+                  Life company 15 or 20-year fixed: yield maintenance
+                  is standard, often fully closed for the first 5–7
+                  years.
+                </span>
+              </li>
+            </ul>
+          </Card>
+
+          <Card className="bg-jet border-dark-gray p-6">
+            <div class="text-xs uppercase tracking-wide text-star">
+              MLI Select
+            </div>
+            <ul class="mt-5 space-y-3 text-sm">
+              <li class="flex gap-3">
+                <span class="text-star">·</span>
+                <span>
+                  Same lender patterns as Standard — CMHC does not
+                  mandate prepayment terms.
+                </span>
+              </li>
+              <li class="flex gap-3">
+                <span class="text-star">·</span>
+                <span>
+                  Tier 3 limited-recourse deals tend toward more
+                  protective lender language (YM/IRD greater-of) given
+                  the higher LTC.
+                </span>
+              </li>
+              <li class="flex gap-3">
+                <span class="text-star">·</span>
+                <span>
+                  Covenant portability: the affordability commitment
+                  transfers with assumption, which is the preferred
+                  exit for MLI Select sellers in high-penalty
+                  environments.
+                </span>
+              </li>
+            </ul>
+          </Card>
+        </div>
+      </div>
+    </section>
+
+    {/* TAX TREATMENT */}
+    <section class="border-b border-dark-gray bg-jet">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="max-w-3xl">
+          <Badge variant="secondary" className="mb-4">Tax</Badge>
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+            Tax treatment of prepayment costs.
+          </h2>
+          <p class="mt-4 text-muted-foreground">
+            Commercial prepayment penalties are typically deductible,
+            but characterization depends on the trigger. Always refer
+            the borrower to their own tax advisor — this is high-ticket
+            guidance where fact-pattern matters.
+          </p>
+        </div>
+
+        <div class="mt-10 grid gap-4 md:grid-cols-3">
+          {
+            taxTreatment.map((row) => (
+              <Card className="bg-obsidian border-dark-gray p-6">
+                <div class="text-xs uppercase tracking-wide text-star">
+                  {row.item}
+                </div>
+                <p class="mt-3 text-sm text-muted-foreground">{row.detail}</p>
+              </Card>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    {/* CTA */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-20 lg:px-12 lg:py-28">
+        <div class="mx-auto max-w-3xl text-center">
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-5xl">
+            Penalties avoided are returns earned.
+          </h2>
+          <p class="mx-auto mt-5 max-w-2xl text-muted-foreground">
+            Before triggering a prepayment, model assumption and
+            porting — either path may leave the insurance and rate
+            intact and save the penalty entirely.
+          </p>
+          <div class="mt-8 flex flex-wrap justify-center gap-3">
+            <a href="/lifecycle/assumption">
+              <Button size="lg">Assumption page</Button>
+            </a>
+            <a href="/lifecycle/porting">
+              <Button variant="outline" size="lg">Porting page</Button>
+            </a>
+            <a href="/lifecycle/renewal">
+              <Button variant="outline" size="lg">Renewal page</Button>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</DefaultLayout>

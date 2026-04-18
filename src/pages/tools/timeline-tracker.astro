@@ -1,0 +1,12 @@
+---
+import TimelineTracker from "@/components/tools/timeline-tracker";
+import DefaultLayout from "@/layouts/DefaultLayout.astro";
+
+const title = "CMHC Multi-Unit Application Timeline Tracker | CMHC Multi-Family";
+const description =
+  "Interactive Gantt-style tool for the CMHC multi-unit application process. Pre-application, lender selection, appraisal, MULTI-GO submission, underwriting, CoI, and funding — forecast a funding date or back-schedule from a target close.";
+---
+
+<DefaultLayout title={title} description={description}>
+  <TimelineTracker client:load />
+</DefaultLayout>

@@ -1,0 +1,12 @@
+---
+import StressTest from "@/components/calculators/stress-test";
+import DefaultLayout from "@/layouts/DefaultLayout.astro";
+
+const title = "Rate Shock Stress Test — CMHC Multi-Family";
+const description =
+  "Model DCR through a rate shock at renewal. Highlights the first year DCR drops below 1.10 (MLI Select) and 1.20 (MLI Standard) with preset +50/+100/+150/+200/+300 bps scenarios.";
+---
+
+<DefaultLayout title={title} description={description}>
+  <StressTest client:load />
+</DefaultLayout>

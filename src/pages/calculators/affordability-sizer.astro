@@ -1,0 +1,12 @@
+---
+import AffordabilitySizer from "@/components/calculators/affordability-sizer";
+import DefaultLayout from "@/layouts/DefaultLayout.astro";
+
+const title = "MLI Select Affordability Unit Sizer | CMHC Multi-Family";
+const description =
+  "Size your MLI Select affordable unit commitment by CMA. Required unit count, per-unit rent concession, annual revenue impact and the 20-year bonus leverage for 50 / 70 / 100-point tiers.";
+---
+
+<DefaultLayout title={title} description={description}>
+  <AffordabilitySizer client:load />
+</DefaultLayout>

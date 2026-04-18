@@ -1,0 +1,355 @@
+---
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import DefaultLayout from "@/layouts/DefaultLayout.astro";
+
+const title = "Appraisal Standards — CMHC Multi-Unit Valuation";
+const description =
+  "How CMHC values multi-family property. Mandatory appraisals for all sizes since Nov 2024, income approach vs. direct comparison, lending value vs. appraised value, stabilized rent methodology from Rental Market Survey, AACI-designated independent appraisers.";
+
+const approachWeighting = [
+  {
+    approach: "Income approach",
+    weight: "Primary",
+    body:
+      "Capitalizes stabilized NOI at a market-derived cap rate. For purpose-built rental CMHC weights the income approach most heavily — it reflects how the property will actually pay for itself.",
+  },
+  {
+    approach: "Direct comparison",
+    weight: "Secondary / sanity check",
+    body:
+      "Recent arm's-length sales of comparable multi-unit buildings adjusted for unit count, age, quality, location, and rent positioning. Used to validate the income-approach result rather than drive it.",
+  },
+  {
+    approach: "Cost approach",
+    weight: "Floor / reconciliation",
+    body:
+      "Replacement cost of improvements plus land less depreciation. Lowest-weighted for stabilized apartment buildings but required for the three-method reconciliation and more heavily weighted for new construction.",
+  },
+];
+
+const timelineAndCost = [
+  { label: "Typical turnaround", value: "2–4 weeks from engagement" },
+  { label: "Mid-sized building (30–75 units)", value: "$5,000–$15,000" },
+  { label: "Larger / institutional assets", value: "$15,000–$30,000+" },
+  { label: "Effective-date validity", value: "12 months" },
+  { label: "Commissioned by", value: "Approved lender — not the borrower" },
+  { label: "Qualifications", value: "AIC-designated, AACI typical" },
+];
+
+const lowAppraisalReasons = [
+  {
+    reason: "Optimistic pro forma rents",
+    detail:
+      "Borrower projections above CMHC RMS medians and comparable sales get normalised downward to stabilized-market levels.",
+  },
+  {
+    reason: "Understated opex",
+    detail:
+      "Management fees stripped out, reserves omitted, or tenant-paid utilities missed — each adjusted back in by the appraiser.",
+  },
+  {
+    reason: "Cap rate compression assumed",
+    detail:
+      "Pro formas using sub-market cap rates are reconciled against current brokerage/IPD indices which typically sit higher.",
+  },
+  {
+    reason: "Comparable-sales adjustments",
+    detail:
+      "Weakly-comparable recent transactions (larger, newer, better located) adjusted down to subject, narrowing the price per door.",
+  },
+  {
+    reason: "Condition + deferred maintenance",
+    detail:
+      "Roof, mechanical, envelope issues noted at inspection reduce weighted value or trigger reserve add-backs.",
+  },
+];
+---
+
+<DefaultLayout title={title} description={description}>
+  <div class="bg-obsidian text-foreground">
+    {/* HERO */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <Badge variant="outline" className="mb-6 border-star/40 text-star">
+          Underwriting · Appraisal
+        </Badge>
+        <h1 class="text-4xl font-semibold tracking-tight lg:text-6xl">
+          Appraisal standards — how CMHC values the property.
+        </h1>
+        <p class="mt-6 max-w-3xl text-lg text-muted-foreground">
+          Since November 2024, a full appraisal is mandatory on every
+          multi-unit application regardless of size — the desktop and
+          size-exempt valuations that used to clear smaller deals are
+          gone. The appraisal must be commissioned by the approved
+          lender (not the borrower), prepared by an AIC-designated
+          independent appraiser, and reconciled across all three
+          valuation methods.
+        </p>
+        <p class="mt-4 max-w-3xl text-lg text-muted-foreground">
+          For purpose-built rental, the income approach does most of
+          the work. CMHC lending value is built from stabilized
+          market rents — drawn from the Rental Market Survey and
+          comparable-sales evidence — not from optimistic borrower
+          pro formas. Where market value and stabilized lending
+          value differ, CMHC uses the lesser of the two.
+        </p>
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a href="/calculators/loan-sizer">
+            <Button size="lg">Open the loan sizer</Button>
+          </a>
+          <a href="/underwriting/ltv">
+            <Button variant="outline" size="lg">LTV page</Button>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    {/* NOV 2024 CHANGE */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="grid gap-10 lg:grid-cols-[1fr_1.2fr]">
+          <div>
+            <Badge variant="outline" className="mb-4 border-star/40 text-star">
+              November 2024 change
+            </Badge>
+            <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+              Mandatory appraisals on every size.
+            </h2>
+            <p class="mt-4 text-muted-foreground">
+              Before November 15, 2024, CMHC permitted desktop
+              valuations or appraisal waivers on smaller files.
+              That exemption is eliminated. Every multi-unit
+              application — 5 units and up, any loan size —
+              now requires a full narrative appraisal.
+            </p>
+            <p class="mt-4 text-muted-foreground">
+              Practical consequences: 1–2 weeks added to small-file
+              timelines, $5–15K added to soft costs at the low end,
+              and an important change to deal economics on sub-$2M
+              transactions where the appraisal can now exceed 0.5%
+              of the loan amount.
+            </p>
+          </div>
+          <Card className="bg-jet border-dark-gray p-8">
+            <div class="text-xs uppercase tracking-wide text-muted-foreground">
+              Requirements at a glance
+            </div>
+            <dl class="mt-4 space-y-3">
+              {
+                timelineAndCost.map((r) => (
+                  <div class="flex flex-col border-b border-dark-gray/50 pb-2 last:border-0 last:pb-0">
+                    <dt class="text-xs uppercase tracking-wide text-muted-foreground">
+                      {r.label}
+                    </dt>
+                    <dd class="mt-0.5 text-sm font-medium">{r.value}</dd>
+                  </div>
+                ))
+              }
+            </dl>
+          </Card>
+        </div>
+      </div>
+    </section>
+
+    {/* INCOME APPROACH */}
+    <section class="border-b border-dark-gray bg-jet">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="max-w-3xl">
+          <Badge variant="secondary" className="mb-4">Valuation methods</Badge>
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+            Income approach dominates for rental.
+          </h2>
+          <p class="mt-4 text-muted-foreground">
+            CMHC appraisals reconcile across three methods but the
+            income approach typically drives the result for
+            purpose-built rental. Direct comparison is used as a
+            sanity check and cost approach sets a floor.
+          </p>
+        </div>
+
+        <div class="mt-10 grid gap-4 md:grid-cols-3">
+          {
+            approachWeighting.map((a) => (
+              <Card className="bg-obsidian border-dark-gray p-6">
+                <div class="text-xs uppercase tracking-wide text-star">
+                  {a.weight}
+                </div>
+                <div class="mt-1 text-lg font-semibold">{a.approach}</div>
+                <p class="mt-3 text-sm text-muted-foreground">{a.body}</p>
+              </Card>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    {/* LENDING VALUE VS APPRAISED */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="grid gap-10 lg:grid-cols-2">
+          <div>
+            <Badge variant="secondary" className="mb-4">Key distinction</Badge>
+            <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+              Lending value vs. appraised value.
+            </h2>
+            <p class="mt-4 text-muted-foreground">
+              Appraised (market) value reflects what the property
+              could sell for today. CMHC lending value reflects
+              what the property will stably generate over the term
+              of the insured loan. The two can differ materially —
+              particularly where in-place rents are below market
+              or where the rent-growth assumption is aggressive.
+            </p>
+            <p class="mt-4 text-muted-foreground">
+              Where they diverge, CMHC applies the lesser of the
+              two for loan-sizing. This protects insurance risk
+              against near-term rent compression and is the single
+              biggest reason appraised value sometimes doesn't
+              translate to the expected loan amount.
+            </p>
+          </div>
+          <Card className="bg-jet border-dark-gray p-6">
+            <div class="text-xs uppercase tracking-wide text-star">
+              Stabilized rent methodology
+            </div>
+            <ul class="mt-4 space-y-3 text-sm">
+              <li class="border-b border-dark-gray/50 pb-2">
+                <span class="text-star">+</span> Rental Market Survey
+                medians by CMA and zone.
+              </li>
+              <li class="border-b border-dark-gray/50 pb-2">
+                <span class="text-star">+</span> Recent comparable-lease
+                evidence from the appraiser's market data.
+              </li>
+              <li class="border-b border-dark-gray/50 pb-2">
+                <span class="text-star">+</span> Adjustment for unit
+                mix, bedroom count, and tenure of in-place tenancies.
+              </li>
+              <li>
+                <span class="text-star">+</span> Stabilized vacancy
+                applied even if the property is fully leased.
+              </li>
+            </ul>
+          </Card>
+        </div>
+      </div>
+    </section>
+
+    {/* INTERACTION WITH LTV */}
+    <section class="border-b border-dark-gray bg-jet">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="max-w-3xl">
+          <Badge variant="secondary" className="mb-4">Loan-sizing impact</Badge>
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+            How the appraisal lands in the LTV calculation.
+          </h2>
+          <p class="mt-4 text-muted-foreground">
+            For purchase files, CMHC uses the lesser of agreed
+            purchase price or CMHC lending value. For refinance,
+            lending value governs directly. A low appraisal on a
+            high-LTV deal is one of the most common reasons loan
+            proceeds fall short of borrower expectations.
+          </p>
+        </div>
+
+        <div class="mt-10 grid gap-6 lg:grid-cols-2">
+          <Card className="bg-obsidian border-dark-gray p-6">
+            <div class="text-xs uppercase tracking-wide text-star">
+              Purchase
+            </div>
+            <div class="mt-1 text-lg font-semibold">
+              Lesser of price or lending value
+            </div>
+            <p class="mt-3 text-sm text-muted-foreground">
+              An over-market purchase price won't generate
+              additional loan proceeds — CMHC caps against lending
+              value. Conversely, a below-market purchase (distressed
+              sale, related-party) caps against price, not value.
+            </p>
+          </Card>
+          <Card className="bg-obsidian border-dark-gray p-6">
+            <div class="text-xs uppercase tracking-wide text-star">
+              Refinance
+            </div>
+            <div class="mt-1 text-lg font-semibold">
+              Lending value governs
+            </div>
+            <p class="mt-3 text-sm text-muted-foreground">
+              On refinance the appraisal determines the ceiling
+              directly. Refinance files with optimistic borrower
+              pro formas frequently come in $1–3M below borrower
+              expectation — tightening equity takeout.
+            </p>
+          </Card>
+        </div>
+      </div>
+    </section>
+
+    {/* WHY APPRAISALS COME IN LOW */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="max-w-3xl">
+          <Badge variant="secondary" className="mb-4">Common pitfalls</Badge>
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+            Why appraisals come in below pro forma.
+          </h2>
+          <p class="mt-4 text-muted-foreground">
+            A gap between borrower pro forma and appraised lending
+            value is common — the most frequent drivers show up
+            repeatedly in CMHC files.
+          </p>
+        </div>
+
+        <div class="mt-10 overflow-x-auto rounded-lg border border-dark-gray bg-jet">
+          <table class="w-full border-collapse text-sm">
+            <thead>
+              <tr class="border-b border-dark-gray text-muted-foreground text-xs uppercase tracking-wide">
+                <th class="px-4 py-3 text-left font-medium">Driver</th>
+                <th class="px-4 py-3 text-left font-medium">How it shows up</th>
+              </tr>
+            </thead>
+            <tbody>
+              {
+                lowAppraisalReasons.map((row) => (
+                  <tr class="border-b border-dark-gray last:border-0">
+                    <td class="px-4 py-3 font-medium">{row.reason}</td>
+                    <td class="px-4 py-3 text-muted-foreground">{row.detail}</td>
+                  </tr>
+                ))
+              }
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    {/* CTA */}
+    <section class="border-b border-dark-gray bg-jet">
+      <div class="container border-l border-r border-dark-gray px-6 py-20 lg:px-12 lg:py-28">
+        <div class="mx-auto max-w-3xl text-center">
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-5xl">
+            Size the loan against the right value.
+          </h2>
+          <p class="mx-auto mt-5 max-w-2xl text-muted-foreground">
+            The loan sizer lets you model CMHC lending value
+            alongside DCR and program caps so you can see which
+            constraint binds — and how a conservative appraisal
+            reshapes the deal.
+          </p>
+          <div class="mt-8 flex flex-wrap justify-center gap-3">
+            <a href="/calculators/loan-sizer">
+              <Button size="lg">Open the loan sizer</Button>
+            </a>
+            <a href="/underwriting/ltv">
+              <Button variant="outline" size="lg">
+                LTV page
+              </Button>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</DefaultLayout>

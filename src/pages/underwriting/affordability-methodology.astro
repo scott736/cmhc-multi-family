@@ -1,0 +1,376 @@
+---
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import { AFFORDABILITY_BONUS_20YR,AFFORDABILITY_SCORING_EXISTING, AFFORDABILITY_SCORING_NEW, AFFORDABILITY_THRESHOLDS } from "@/data/cmhc";
+import DefaultLayout from "@/layouts/DefaultLayout.astro";
+
+const title = "Affordability Threshold Methodology — MLI Select";
+const description =
+  "How CMHC determines affordability ceilings for MLI Select. 30% of median renter household income, Statistics Canada + CMHC annual update, CMA-level geography, scoring interplay with AFFORDABILITY_SCORING_NEW / EXISTING, title-registered commitment, 20-year bonus for +30 points.";
+
+const sortedThresholds = [...AFFORDABILITY_THRESHOLDS].sort(
+  (a, b) => b.monthly - a.monthly,
+);
+---
+
+<DefaultLayout title={title} description={description}>
+  <div class="bg-obsidian text-foreground">
+    {/* HERO */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <Badge variant="outline" className="mb-6 border-star/40 text-star">
+          Underwriting · Affordability methodology
+        </Badge>
+        <h1 class="text-4xl font-semibold tracking-tight lg:text-6xl">
+          How CMHC determines the affordability ceiling.
+        </h1>
+        <p class="mt-6 max-w-3xl text-lg text-muted-foreground">
+          Under MLI Select, a unit counts as affordable when its
+          monthly rent is at or below 30% of the median renter
+          household income (before tax) for the subject CMA.
+          Incomes are drawn from Statistics Canada renter-
+          household income data and CMHC publishes a spreadsheet
+          of monthly rent ceilings annually — usually in parallel
+          with the MLI Select XLSX available on the program page.
+        </p>
+        <p class="mt-4 max-w-3xl text-lg text-muted-foreground">
+          The threshold is income-based, not rent-based. In
+          markets where rents have outrun incomes (Vancouver,
+          Toronto), the threshold sits well below median market
+          rent and requires a real discount. In markets where
+          incomes have kept pace (parts of the Prairies), a
+          Level 1 Select qualification can sometimes be achieved
+          at near-market rents.
+        </p>
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a href="/calculators/affordability-sizer">
+            <Button size="lg">Affordability sizer</Button>
+          </a>
+          <a href="/programs/mli-select/affordability">
+            <Button variant="outline" size="lg">MLI Select affordability</Button>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    {/* FORMULA */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="grid gap-10 lg:grid-cols-[1fr_1.2fr]">
+          <div>
+            <Badge variant="secondary" className="mb-4">Formula</Badge>
+            <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+              Monthly rent × 12 ≤ 30% × median renter HH income.
+            </h2>
+            <p class="mt-4 text-muted-foreground">
+              The threshold is explicitly tied to the median
+              renter household income — not median household
+              income overall, and not median family income.
+              Renter households skew lower-income than owner
+              households, which is what makes the 30%-of-
+              renter-income rule more protective than a
+              30%-of-family-income rule would be.
+            </p>
+            <p class="mt-4 text-muted-foreground">
+              Data sources: Statistics Canada renter-household
+              income (primarily the Canadian Income Survey and
+              Census of Population), analyzed by CMHC and
+              published in the MLI Select XLSX each year.
+            </p>
+          </div>
+          <Card className="bg-jet border-dark-gray p-8">
+            <div class="text-xs uppercase tracking-wide text-muted-foreground">
+              Worked example
+            </div>
+            <div class="mt-3 space-y-2 text-sm">
+              <div class="flex justify-between border-b border-dark-gray pb-2">
+                <span class="text-muted-foreground">Median renter HH income (CMA)</span>
+                <span class="font-medium">$65,000</span>
+              </div>
+              <div class="flex justify-between border-b border-dark-gray pb-2">
+                <span class="text-muted-foreground">× 30% affordability ratio</span>
+                <span class="font-medium">$19,500</span>
+              </div>
+              <div class="flex justify-between border-b border-dark-gray pb-2">
+                <span class="text-muted-foreground">÷ 12 months</span>
+                <span class="font-medium">$1,625</span>
+              </div>
+              <div class="flex justify-between pt-2">
+                <span class="text-star font-medium">Monthly rent ceiling</span>
+                <span class="font-semibold text-star">$1,625/mo</span>
+              </div>
+            </div>
+            <p class="mt-5 text-xs text-muted-foreground">
+              For a unit to count toward affordability scoring,
+              its rent including applicable utility costs must
+              be at or below the monthly ceiling.
+            </p>
+          </Card>
+        </div>
+      </div>
+    </section>
+
+    {/* THRESHOLDS */}
+    <section class="border-b border-dark-gray bg-jet">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="max-w-3xl">
+          <Badge variant="secondary" className="mb-4">2025–2026 thresholds</Badge>
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+            Approximate current-year ceilings.
+          </h2>
+          <p class="mt-4 text-muted-foreground">
+            These are approximate values — for authoritative
+            figures always pull the current-year CMHC MLI
+            Select XLSX or the GreenBirch Capital lookup. Values
+            update annually.
+          </p>
+        </div>
+
+        <div class="mt-10 overflow-x-auto rounded-lg border border-dark-gray bg-obsidian">
+          <table class="w-full border-collapse text-sm">
+            <thead>
+              <tr class="border-b border-dark-gray text-muted-foreground text-xs uppercase tracking-wide">
+                <th class="px-4 py-3 text-left font-medium">CMA</th>
+                <th class="px-4 py-3 text-right font-medium">Monthly threshold</th>
+                <th class="px-4 py-3 text-right font-medium">Implied median HH income</th>
+              </tr>
+            </thead>
+            <tbody>
+              {
+                sortedThresholds.map((row) => (
+                  <tr class="border-b border-dark-gray last:border-0">
+                    <td class="px-4 py-3 font-medium">{row.cma}</td>
+                    <td class="px-4 py-3 text-right">
+                      ${row.monthly.toLocaleString()}/mo
+                    </td>
+                    <td class="px-4 py-3 text-right text-muted-foreground">
+                      ~${(row.monthly * 40).toLocaleString()}
+                    </td>
+                  </tr>
+                ))
+              }
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    {/* SCORING */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="max-w-3xl">
+          <Badge variant="secondary" className="mb-4">Scoring interplay</Badge>
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+            Percent of units below threshold drives points.
+          </h2>
+          <p class="mt-4 text-muted-foreground">
+            Affordability scoring depends on the percentage of
+            units held at or below the CMA threshold — with
+            different ladders for new construction vs. existing
+            property. A 20-year commitment adds
+            {" "}
+            <span class="text-star">+{AFFORDABILITY_BONUS_20YR}</span>
+            {" "}
+            bonus points over the default 10-year commitment.
+          </p>
+        </div>
+
+        <div class="mt-10 grid gap-6 lg:grid-cols-2">
+          <Card className="bg-jet border-dark-gray p-6">
+            <div class="text-xs uppercase tracking-wide text-star">New construction</div>
+            <div class="mt-1 text-lg font-semibold">
+              Percent of units ≤ threshold
+            </div>
+            <div class="mt-6 overflow-x-auto">
+              <table class="w-full border-collapse text-sm">
+                <thead>
+                  <tr class="border-b border-dark-gray text-muted-foreground text-xs uppercase tracking-wide">
+                    <th class="px-2 py-2 text-left font-medium">Level</th>
+                    <th class="px-2 py-2 text-right font-medium">% of units</th>
+                    <th class="px-2 py-2 text-right font-medium">Points</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {
+                    AFFORDABILITY_SCORING_NEW.map((row) => (
+                      <tr class="border-b border-dark-gray/50 last:border-0">
+                        <td class="px-2 py-2">Level {row.level}</td>
+                        <td class="px-2 py-2 text-right">{row.unitPct}%</td>
+                        <td class="px-2 py-2 text-right font-medium">{row.points}</td>
+                      </tr>
+                    ))
+                  }
+                </tbody>
+              </table>
+            </div>
+          </Card>
+
+          <Card className="bg-jet border-dark-gray p-6">
+            <div class="text-xs uppercase tracking-wide text-star">Existing property</div>
+            <div class="mt-1 text-lg font-semibold">
+              Percent of units ≤ threshold
+            </div>
+            <div class="mt-6 overflow-x-auto">
+              <table class="w-full border-collapse text-sm">
+                <thead>
+                  <tr class="border-b border-dark-gray text-muted-foreground text-xs uppercase tracking-wide">
+                    <th class="px-2 py-2 text-left font-medium">Level</th>
+                    <th class="px-2 py-2 text-right font-medium">% of units</th>
+                    <th class="px-2 py-2 text-right font-medium">Points</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {
+                    AFFORDABILITY_SCORING_EXISTING.map((row) => (
+                      <tr class="border-b border-dark-gray/50 last:border-0">
+                        <td class="px-2 py-2">Level {row.level}</td>
+                        <td class="px-2 py-2 text-right">{row.unitPct}%</td>
+                        <td class="px-2 py-2 text-right font-medium">{row.points}</td>
+                      </tr>
+                    ))
+                  }
+                </tbody>
+              </table>
+            </div>
+          </Card>
+        </div>
+      </div>
+    </section>
+
+    {/* 20 YEAR BONUS */}
+    <section class="border-b border-dark-gray bg-jet">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="grid gap-10 lg:grid-cols-[1fr_1.2fr]">
+          <div>
+            <Badge variant="outline" className="mb-4 border-star/40 text-star">
+              20-year commitment
+            </Badge>
+            <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+              +30 point bonus for a 20-year commitment.
+            </h2>
+            <p class="mt-4 text-muted-foreground">
+              The default affordability commitment under MLI
+              Select is 10 years. Extending to 20 years adds
+              30 points to the scorecard — a material lever for
+              sponsors who need to bridge to Tier 2 (70 points)
+              or Tier 3 (100 points) when affordability alone
+              doesn't get them there.
+            </p>
+            <p class="mt-4 text-muted-foreground">
+              The commitment is registered on title via a
+              restrictive covenant recorded against the
+              property. It runs with the land — subsequent
+              buyers are bound by the same affordability
+              commitment for the remainder of the term.
+            </p>
+          </div>
+          <Card className="bg-obsidian border-dark-gray p-6">
+            <div class="text-xs uppercase tracking-wide text-muted-foreground">
+              Commitment registration
+            </div>
+            <ul class="mt-4 space-y-3 text-sm">
+              <li class="border-b border-dark-gray/50 pb-2">
+                <span class="text-star">•</span> Title-registered
+                restrictive covenant.
+              </li>
+              <li class="border-b border-dark-gray/50 pb-2">
+                <span class="text-star">•</span> Runs with the land
+                through the commitment period.
+              </li>
+              <li class="border-b border-dark-gray/50 pb-2">
+                <span class="text-star">•</span> Annual rent-roll
+                reporting to verify ongoing compliance.
+              </li>
+              <li class="border-b border-dark-gray/50 pb-2">
+                <span class="text-star">•</span> Cure period for
+                rents drifting above threshold.
+              </li>
+              <li>
+                <span class="text-star">•</span> Premium discount
+                can be forfeited on unresolved breach.
+              </li>
+            </ul>
+          </Card>
+        </div>
+      </div>
+    </section>
+
+    {/* VERIFICATION */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="max-w-3xl">
+          <Badge variant="secondary" className="mb-4">Ongoing verification</Badge>
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+            What happens through the commitment period.
+          </h2>
+          <p class="mt-4 text-muted-foreground">
+            Affordability commitments are live obligations for
+            10 or 20 years post-closing. CMHC monitors
+            compliance annually and has remediation mechanisms
+            for drift.
+          </p>
+        </div>
+
+        <div class="mt-10 grid gap-6 md:grid-cols-3">
+          <Card className="bg-jet border-dark-gray p-6">
+            <div class="text-xs uppercase tracking-wide text-star">Annual rent roll</div>
+            <div class="mt-1 text-lg font-semibold">Submitted to CMHC</div>
+            <p class="mt-3 text-sm text-muted-foreground">
+              Borrowers submit annual rent rolls identifying the
+              units designated as affordable, their actual rents,
+              and tenant income (where tracked). Compliance
+              verified against the current-year CMA threshold.
+            </p>
+          </Card>
+          <Card className="bg-jet border-dark-gray p-6">
+            <div class="text-xs uppercase tracking-wide text-star">Cure period</div>
+            <div class="mt-1 text-lg font-semibold">Drift remediation</div>
+            <p class="mt-3 text-sm text-muted-foreground">
+              If rents drift above threshold — frequently because
+              the threshold moved faster than rents locked in
+              under a tenancy — borrowers have a defined cure
+              period to bring designated units back into
+              compliance.
+            </p>
+          </Card>
+          <Card className="bg-jet border-dark-gray p-6">
+            <div class="text-xs uppercase tracking-wide text-star">Premium forfeiture</div>
+            <div class="mt-1 text-lg font-semibold">On unresolved breach</div>
+            <p class="mt-3 text-sm text-muted-foreground">
+              Persistent breach of the affordability commitment
+              can lead to forfeiture of the premium discount
+              received on the MLI Select tier. The restrictive
+              covenant remains on title regardless.
+            </p>
+          </Card>
+        </div>
+      </div>
+    </section>
+
+    {/* CTA */}
+    <section class="border-b border-dark-gray bg-jet">
+      <div class="container border-l border-r border-dark-gray px-6 py-20 lg:px-12 lg:py-28">
+        <div class="mx-auto max-w-3xl text-center">
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-5xl">
+            Model your affordability path.
+          </h2>
+          <p class="mx-auto mt-5 max-w-2xl text-muted-foreground">
+            The affordability sizer lets you set the subject CMA,
+            project unit mix, and commitment period to show how
+            many units need to clear the threshold for each
+            scoring level.
+          </p>
+          <div class="mt-8 flex flex-wrap justify-center gap-3">
+            <a href="/calculators/affordability-sizer">
+              <Button size="lg">Affordability sizer</Button>
+            </a>
+            <a href="/underwriting/affordability">
+              <Button variant="outline" size="lg">Affordability page</Button>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</DefaultLayout>

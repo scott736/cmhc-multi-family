@@ -1,0 +1,393 @@
+---
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import DefaultLayout from "@/layouts/DefaultLayout.astro";
+
+const title = "Construction Paths — ACLP vs. MLI + Construction Insurance";
+const description =
+  "Two routes to finance a CMHC multi-unit build: ACLP direct lending at below-market rates with mandatory 20% affordability, or MLI Select / MLI Standard insured construction through an approved lender. Side-by-side comparison of rate, speed, flexibility, and capital access with a decision framework.";
+
+const comparisonRows = [
+  {
+    dimension: "Lender / counterparty",
+    aclp: "CMHC lends directly — acts as lender, not insurer",
+    mli: "Approved commercial lender (monoline, bank, trust, credit union) with CMHC insurance",
+  },
+  {
+    dimension: "Interest rate",
+    aclp: "Below-market fixed (Government of Canada bond spread)",
+    mli: "Market insured rates — typically GoC + 80–130 bps",
+  },
+  {
+    dimension: "Affordability requirement",
+    aclp: "Mandatory: 20% of units at ≤30% MFI, 10-year commitment minimum",
+    mli: "Optional — triggered only if the project chooses the affordability pillar for points",
+  },
+  {
+    dimension: "Max LTC (residential)",
+    aclp: "Up to 100% of residential cost",
+    mli: "Up to 95% LTC (MLI Select tier 3); 85% (MLI Standard)",
+  },
+  {
+    dimension: "Amortization ceiling",
+    aclp: "50 years",
+    mli: "50 years (MLI Select tier 3); 50 years MLI Standard new construction",
+  },
+  {
+    dimension: "Construction advance schedule",
+    aclp: "CMHC-administered draws; integrated with insurance and lending",
+    mli: "Approved lender administers with independent QS; 50% / 75% / 85% or similar",
+  },
+  {
+    dimension: "Holdback at substantial completion",
+    aclp: "Retained — released on rental achievement",
+    mli: "Removed for MLI Market Rental (July 3, 2025); retained for MLI Select",
+  },
+  {
+    dimension: "Typical commitment timeline",
+    aclp: "6–12 months from application to commitment",
+    mli: "4–8 weeks with a monoline; 8–14 weeks with a Big 6 bank",
+  },
+  {
+    dimension: "Capital program size",
+    aclp: "$55B total program, 131,000+ home target by 2031-32",
+    mli: "Effectively unlimited — insurance volume, not allocated capital",
+  },
+  {
+    dimension: "Transferability of commitment",
+    aclp: "Constrained — sponsor must remain the proponent through COI",
+    mli: "Freely transferable pre-July 2025; since Sept 3, 2025 CoI transfer between lenders restricted",
+  },
+  {
+    dimension: "Eligible borrowers",
+    aclp: "All — for-profit, non-profit, Indigenous",
+    mli: "For-profit, non-profit",
+  },
+];
+
+const winScenarios = [
+  {
+    winner: "ACLP wins when",
+    points: [
+      "The sponsor is already committed to meaningful affordability — the 20% at ≤30% MFI is already planned in the pro forma.",
+      "Below-market fixed rate is the binding benefit — deep rental-market compression means a 100–200 bps rate advantage dominates.",
+      "The sponsor qualifies for the Frequent Builder framework (July 2024) that accelerates the ACLP path.",
+      "Non-profit or Indigenous proponent pairing ACLP with AHF / CHDP contributions for the full stack.",
+    ],
+  },
+  {
+    winner: "MLI Select wins when",
+    points: [
+      "Speed to market matters — 4–8 week monoline execution vs. 6–12 month ACLP commitment cycle.",
+      "Sponsor wants flexibility to avoid affordability or run a non-affordability points mix (energy + accessibility).",
+      "Project is straightforward enough that CMHC direct review adds friction without adding benefit.",
+      "Sponsor is for-profit without a deep affordability mandate — the MLI Select tier 3 discount delivers most of the economic lift.",
+    ],
+  },
+];
+---
+
+<DefaultLayout title={title} description={description}>
+  <div class="bg-obsidian text-foreground">
+    {/* HERO */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <Badge variant="outline" className="mb-6 border-star/40 text-star">
+          Construction paths
+        </Badge>
+        <h1 class="text-4xl font-semibold tracking-tight lg:text-6xl">
+          Two routes to finance a multi-unit build.
+        </h1>
+        <p class="mt-6 max-w-3xl text-lg text-muted-foreground">
+          A CMHC-backed construction financing path is either ACLP —
+          where CMHC lends directly at below-market rates with affordability
+          baked in — or MLI Select / MLI Standard, where an approved
+          commercial lender funds the construction advances and CMHC
+          provides insurance. The two paths have materially different
+          rates, timelines, commitments, and flexibility profiles.
+        </p>
+        <p class="mt-4 max-w-3xl text-lg text-muted-foreground">
+          Neither path is universally better. ACLP dominates on rate and
+          leverage when the 20% affordability requirement is already part
+          of the plan. MLI Select dominates on speed, flexibility, and
+          scale when it is not. The November 2024 construction bonding
+          requirement applies on both paths; the September 3, 2025 CoI
+          transfer restrictions materially tightened the MLI path.
+        </p>
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a href="/programs/aclp">
+            <Button size="lg">Read the ACLP page</Button>
+          </a>
+          <a href="/programs/mli-select">
+            <Button variant="outline" size="lg">MLI Select overview</Button>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    {/* SIDE BY SIDE */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="max-w-3xl">
+          <Badge variant="secondary" className="mb-4">Side-by-side</Badge>
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+            ACLP vs. MLI construction — direct comparison.
+          </h2>
+          <p class="mt-4 text-muted-foreground">
+            The eleven dimensions most often drive the choice between
+            paths. Rate, speed, and affordability commitment are the usual
+            tie-breakers in a first-pass screen.
+          </p>
+        </div>
+
+        <div class="mt-10 overflow-x-auto rounded-lg border border-dark-gray bg-jet">
+          <table class="w-full border-collapse text-sm">
+            <thead>
+              <tr class="border-b border-dark-gray text-muted-foreground text-xs uppercase tracking-wide">
+                <th class="px-4 py-3 text-left font-medium">Dimension</th>
+                <th class="px-4 py-3 text-left font-medium">ACLP (direct)</th>
+                <th class="px-4 py-3 text-left font-medium">MLI + construction insurance</th>
+              </tr>
+            </thead>
+            <tbody>
+              {
+                comparisonRows.map((row) => (
+                  <tr class="border-b border-dark-gray last:border-0 align-top">
+                    <td class="px-4 py-3 font-medium">{row.dimension}</td>
+                    <td class="px-4 py-3 text-muted-foreground">{row.aclp}</td>
+                    <td class="px-4 py-3 text-muted-foreground">{row.mli}</td>
+                  </tr>
+                ))
+              }
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    {/* ADVANCE MECHANICS */}
+    <section class="border-b border-dark-gray bg-jet">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="max-w-3xl">
+          <Badge variant="secondary" className="mb-4">Advance mechanics</Badge>
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+            How capital is actually advanced.
+          </h2>
+          <p class="mt-4 text-muted-foreground">
+            The construction advance schedule is a key operational
+            difference between the two paths. MLI Market Rental now
+            advances up to 85% at substantial completion without holdback;
+            MLI Select retains rental achievement holdback at the tail; ACLP
+            integrates draws into the CMHC direct lending workflow.
+          </p>
+        </div>
+
+        <div class="mt-10 grid gap-6 lg:grid-cols-2">
+          <Card className="bg-obsidian border-dark-gray p-6">
+            <div class="text-xs uppercase tracking-wide text-star">ACLP</div>
+            <div class="mt-1 text-lg font-semibold">
+              CMHC-administered construction draws
+            </div>
+            <ul class="mt-4 space-y-3 text-sm text-muted-foreground">
+              <li class="flex gap-2">
+                <span class="text-star">·</span>
+                <span>
+                  Draws certified by CMHC cost consultant against the
+                  approved budget.
+                </span>
+              </li>
+              <li class="flex gap-2">
+                <span class="text-star">·</span>
+                <span>
+                  Integrated with the below-market rate commitment — rate
+                  set at commitment, locked through construction.
+                </span>
+              </li>
+              <li class="flex gap-2">
+                <span class="text-star">·</span>
+                <span>
+                  Rental achievement required for final holdback release;
+                  terms set in the commitment letter.
+                </span>
+              </li>
+              <li class="flex gap-2">
+                <span class="text-star">·</span>
+                <span>
+                  Sponsor remains the proponent from commitment through
+                  takeout — tranche selling is constrained.
+                </span>
+              </li>
+            </ul>
+          </Card>
+
+          <Card className="bg-obsidian border-dark-gray p-6">
+            <div class="text-xs uppercase tracking-wide text-star">
+              MLI + construction insurance
+            </div>
+            <div class="mt-1 text-lg font-semibold">
+              Approved lender administers against independent QS
+            </div>
+            <ul class="mt-4 space-y-3 text-sm text-muted-foreground">
+              <li class="flex gap-2">
+                <span class="text-star">·</span>
+                <span>
+                  Typical 50% / 75% / 85% advance schedule (MLI Market
+                  Rental, July 3, 2025 — no holdback up to 85%).
+                </span>
+              </li>
+              <li class="flex gap-2">
+                <span class="text-star">·</span>
+                <span>
+                  MLI Select retains rental achievement holdback at the
+                  tail (up to 20% of loan).
+                </span>
+              </li>
+              <li class="flex gap-2">
+                <span class="text-star">·</span>
+                <span>
+                  First and last draws reviewed by CMHC; intermediate
+                  draws fully delegated to the lender.
+                </span>
+              </li>
+              <li class="flex gap-2">
+                <span class="text-star">·</span>
+                <span>
+                  CoI tied to the approved lender since Sept 3, 2025 —
+                  transfer to an alternate funder is restricted.
+                </span>
+              </li>
+            </ul>
+          </Card>
+        </div>
+      </div>
+    </section>
+
+    {/* BONDING */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="grid gap-10 lg:grid-cols-[1fr_1.2fr]">
+          <div>
+            <Badge variant="outline" className="mb-4 border-star/40 text-star">
+              November 2024
+            </Badge>
+            <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+              Mandatory surety bonding — applies to both paths.
+            </h2>
+            <p class="mt-4 text-muted-foreground">
+              The November 2024 tightening introduced mandatory surety
+              bonding on all CMHC-backed construction files, regardless of
+              path or size. Bonding is provided by an admitted Canadian
+              surety and is typically structured as 50% Labour & Materials +
+              50% Performance, sized against the contract value.
+            </p>
+            <p class="mt-4 text-muted-foreground">
+              Bonding has become an early screen — weak sponsor credit or
+              thin contractor financials can delay the surety process
+              materially and push submission timelines back by several
+              weeks on both paths.
+            </p>
+          </div>
+          <Card className="bg-jet border-dark-gray p-6">
+            <div class="text-xs uppercase tracking-wide text-star">
+              Bonding structure
+            </div>
+            <dl class="mt-5 space-y-4 text-sm">
+              <div>
+                <dt class="text-muted-foreground">Required split</dt>
+                <dd class="mt-1 font-medium">
+                  50% Labour &amp; Materials + 50% Performance
+                </dd>
+              </div>
+              <div>
+                <dt class="text-muted-foreground">Issued by</dt>
+                <dd class="mt-1 font-medium">
+                  Admitted Canadian surety (OSFI regulated)
+                </dd>
+              </div>
+              <div>
+                <dt class="text-muted-foreground">Typical cost</dt>
+                <dd class="mt-1 font-medium">
+                  ~0.5–1.5% of contract value, depending on sponsor and
+                  contractor credit
+                </dd>
+              </div>
+              <div>
+                <dt class="text-muted-foreground">Applies to</dt>
+                <dd class="mt-1 font-medium">
+                  All CMHC-backed construction — ACLP and MLI alike
+                </dd>
+              </div>
+            </dl>
+          </Card>
+        </div>
+      </div>
+    </section>
+
+    {/* DECISION FRAMEWORK */}
+    <section class="border-b border-dark-gray bg-jet">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="max-w-3xl">
+          <Badge variant="secondary" className="mb-4">Decision framework</Badge>
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+            When each path wins.
+          </h2>
+          <p class="mt-4 text-muted-foreground">
+            The right answer depends on the sponsor's risk-free rate, their
+            willingness to commit to affordability, and the project's time
+            sensitivity. Below is the first-pass heuristic most experienced
+            commercial mortgage brokers apply in practice.
+          </p>
+        </div>
+
+        <div class="mt-10 grid gap-6 lg:grid-cols-2">
+          {
+            winScenarios.map((row) => (
+              <Card className="bg-obsidian border-dark-gray p-6">
+                <div class="text-xs uppercase tracking-wide text-star">
+                  {row.winner}
+                </div>
+                <ul class="mt-4 space-y-3 text-sm text-muted-foreground">
+                  {row.points.map((p) => (
+                    <li class="flex gap-2">
+                      <span class="text-star">·</span>
+                      <span>{p}</span>
+                    </li>
+                  ))}
+                </ul>
+              </Card>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    {/* CTA */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-20 lg:px-12 lg:py-28">
+        <div class="mx-auto max-w-3xl text-center">
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-5xl">
+            Model both paths before committing.
+          </h2>
+          <p class="mx-auto mt-5 max-w-2xl text-muted-foreground">
+            The construction draws calculator shows the advance schedule
+            and interest-during-construction cost. The developers
+            construction guide walks through the parallel sponsor-side
+            checklist for both paths.
+          </p>
+          <div class="mt-8 flex flex-wrap justify-center gap-3">
+            <a href="/calculators/construction-draws">
+              <Button size="lg">Construction draws</Button>
+            </a>
+            <a href="/developers/construction">
+              <Button variant="outline" size="lg">Developers — construction</Button>
+            </a>
+            <a href="/programs/aclp">
+              <Button variant="outline" size="lg">ACLP detail</Button>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</DefaultLayout>

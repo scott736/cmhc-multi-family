@@ -1,0 +1,12 @@
+---
+import DocChecklist from "@/components/tools/doc-checklist";
+import DefaultLayout from "@/layouts/DefaultLayout.astro";
+
+const title = "CMHC Multi-Unit Document Checklist | CMHC Multi-Family";
+const description =
+  "Interactive document checklist for CMHC multi-unit applications. Filter by project type (new construction / existing / refinance) and program (MLI Standard / MLI Select / ACLP / AHF / CHDP). Track progress and print for delivery.";
+---
+
+<DefaultLayout title={title} description={description}>
+  <DocChecklist client:load />
+</DefaultLayout>

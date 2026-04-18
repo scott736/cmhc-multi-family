@@ -1,0 +1,338 @@
+---
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import DefaultLayout from "@/layouts/DefaultLayout.astro";
+
+const title = "Porting — Move CMHC Insurance to a New Property";
+const description =
+  "How porting transfers CMHC multi-unit insurance from a sold property to a replacement within a 90-day window. Avoids both prepayment penalty and new CMHC premium. Conditions, timelines, and why the MLI Select covenant usually does not port.";
+
+const portingConditions = [
+  {
+    item: "Time window",
+    detail:
+      "Replacement property must close within approximately 90 days of sale of the original (commitment-specific; check with lender).",
+  },
+  {
+    item: "Borrower entity",
+    detail:
+      "Typically must be the same borrower or a related entity. Third-party ports are rare and require lender and CMHC consent.",
+  },
+  {
+    item: "Property qualification",
+    detail:
+      "Replacement must meet CMHC multi-unit eligibility — 5+ self-contained units, compliant use, acceptable condition.",
+  },
+  {
+    item: "Loan amount",
+    detail:
+      "Ported loan amount ≤ balance of original plus any approved increase. Increase portion priced at current rate and pays new premium.",
+  },
+  {
+    item: "Underwriting",
+    detail:
+      "Expedited but not skipped — NOI, DCR, and covenant re-confirmed against the replacement property's economics.",
+  },
+  {
+    item: "Rate treatment",
+    detail:
+      "Existing contract rate typically continues on the ported balance; increase portion blended at current market.",
+  },
+];
+
+const premiumMath = [
+  {
+    label: "Scenario",
+    value: "Sell $12M property, buy $15M replacement, port $10M balance, take $3M increase",
+  },
+  {
+    label: "Penalty on straight prepayment",
+    value: "$800K–$1.5M (YM-dependent)",
+  },
+  {
+    label: "Penalty with port",
+    value: "$0",
+  },
+  {
+    label: "New premium on $10M ported balance",
+    value: "$0 (insurance continues)",
+  },
+  {
+    label: "New premium on $3M increase",
+    value: "Priced at current grid on new money only",
+  },
+  {
+    label: "Net cost of port vs prepay/refi",
+    value: "Save penalty + save ~$400K–$600K on $10M of new premium",
+  },
+];
+
+const portingRefusals = [
+  {
+    reason: "Replacement fails underwriting",
+    detail:
+      "NOI, DCR, or condition issue with the replacement property that the file cannot be cured to pass.",
+  },
+  {
+    reason: "Borrower entity change",
+    detail:
+      "New purchasing entity not acceptable to lender or CMHC as an assumable covenant party.",
+  },
+  {
+    reason: "Window exceeded",
+    detail:
+      "Closing delays on the replacement push the port past the commitment-specified window; becomes a full refinance.",
+  },
+  {
+    reason: "Program mismatch",
+    detail:
+      "Attempting to port MLI Standard insurance onto a replacement that only qualifies under MLI Select, or vice versa.",
+  },
+];
+---
+
+<DefaultLayout title={title} description={description}>
+  <div class="bg-obsidian text-foreground">
+    {/* HERO */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <Badge variant="outline" className="mb-6 border-star/40 text-star">
+          Lifecycle · Porting
+        </Badge>
+        <h1 class="text-4xl font-semibold tracking-tight lg:text-6xl">
+          Porting — keep the insurance, change the property.
+        </h1>
+        <p class="mt-6 max-w-3xl text-lg text-muted-foreground">
+          Porting transfers a CMHC-insured multi-unit loan and its
+          insurance from a sold property to a newly purchased replacement
+          property within a typical 90-day window. It avoids both the
+          prepayment penalty on the sale side and a new CMHC premium on
+          the purchase side. On large files with significant remaining
+          term, the combined savings can be transformational.
+        </p>
+        <p class="mt-4 max-w-3xl text-lg text-muted-foreground">
+          Porting is structurally different from assumption. Assumption
+          transfers the mortgage to a new buyer on the same property;
+          porting keeps the same borrower and transfers the mortgage
+          to a new property. Both preserve the insurance; the choice is
+          whether the asset or the borrower is moving.
+        </p>
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a href="/calculators/premium-credit">
+            <Button size="lg">Premium credit calculator</Button>
+          </a>
+          <a href="/lifecycle">
+            <Button variant="outline" size="lg">Back to lifecycle</Button>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    {/* CONDITIONS */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="max-w-3xl">
+          <Badge variant="secondary" className="mb-4">Conditions</Badge>
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+            What has to be true for a port to clear.
+          </h2>
+          <p class="mt-4 text-muted-foreground">
+            Port provisions sit inside the original commitment. Not
+            every commitment carries the same language — confirm
+            before relying on porting as an exit strategy.
+          </p>
+        </div>
+
+        <div class="mt-10 overflow-x-auto rounded-lg border border-dark-gray bg-obsidian">
+          <table class="w-full border-collapse text-sm">
+            <thead>
+              <tr class="border-b border-dark-gray text-muted-foreground text-xs uppercase tracking-wide">
+                <th class="px-4 py-3 text-left font-medium">Condition</th>
+                <th class="px-4 py-3 text-left font-medium">Detail</th>
+              </tr>
+            </thead>
+            <tbody>
+              {
+                portingConditions.map((row) => (
+                  <tr class="border-b border-dark-gray last:border-0">
+                    <td class="px-4 py-3 font-medium">{row.item}</td>
+                    <td class="px-4 py-3 text-muted-foreground">{row.detail}</td>
+                  </tr>
+                ))
+              }
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    {/* PREMIUM MATH */}
+    <section class="border-b border-dark-gray bg-jet">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="grid gap-10 lg:grid-cols-[1fr_1.2fr]">
+          <div>
+            <Badge variant="secondary" className="mb-4">Economics</Badge>
+            <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+              Why porting dominates when the numbers permit.
+            </h2>
+            <p class="mt-4 text-muted-foreground">
+              The two savings compound. Prepayment penalty avoided
+              covers the sell side; new premium avoided on the ported
+              balance covers the buy side. The only new premium paid
+              is on the incremental loan amount — a small fraction of
+              the total stack on most upsize-style ports.
+            </p>
+            <p class="mt-4 text-muted-foreground">
+              Premium credits further reduce the cost on the new-money
+              portion by giving the borrower credit for premium
+              previously paid on the balance being carried over. The
+              premium credit calculator models the exact number.
+            </p>
+          </div>
+          <Card className="bg-obsidian border-dark-gray p-8">
+            <div class="text-xs uppercase tracking-wide text-muted-foreground">
+              Illustrative port — upsize
+            </div>
+            <div class="mt-5 space-y-3 text-sm">
+              {
+                premiumMath.map((r) => (
+                  <div class="flex justify-between gap-4 border-b border-dark-gray pb-2 last:border-0">
+                    <span class="text-muted-foreground">{r.label}</span>
+                    <span class="font-medium text-right">{r.value}</span>
+                  </div>
+                ))
+              }
+            </div>
+            <p class="mt-5 text-xs text-muted-foreground">
+              Illustrative. Exact numbers depend on rate movement,
+              remaining term, premium credit calculation, and the
+              specific loan balance.
+            </p>
+          </Card>
+        </div>
+      </div>
+    </section>
+
+    {/* MLI SELECT COVENANT */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="grid gap-10 lg:grid-cols-[1fr_1fr]">
+          <div>
+            <Badge variant="outline" className="mb-4 border-star/40 text-star">
+              MLI Select — critical
+            </Badge>
+            <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+              The affordability covenant does not port with the insurance.
+            </h2>
+            <p class="mt-4 text-muted-foreground">
+              MLI Select covenants are property-specific — they attach
+              to the original asset. When the property sells, the
+              covenant can either run with the property (via assumption)
+              or extinguish on discharge. It does not port to a new
+              replacement property.
+            </p>
+            <p class="mt-4 text-muted-foreground">
+              A borrower porting MLI Select insurance to a replacement
+              property typically retains the financing benefits
+              (LTC, amort, DCR) but loses the Select tier unless the
+              new property is independently underwritten against
+              scoring. Most commonly, ports convert to MLI Standard
+              terms on the replacement. Work this explicitly through
+              with the lender at port-request time — the tier shift
+              materially changes the new-money underwrite.
+            </p>
+          </div>
+          <Card className="bg-jet border-dark-gray p-6">
+            <div class="text-xs uppercase tracking-wide text-star">
+              Which products port cleanly
+            </div>
+            <dl class="mt-5 space-y-4 text-sm">
+              <div>
+                <dt class="font-medium">MLI Standard</dt>
+                <dd class="mt-1 text-muted-foreground">
+                  Ports well. No affordability covenant tied to the
+                  original asset; only the underwriting economics need
+                  to re-clear on the replacement.
+                </dd>
+              </div>
+              <div>
+                <dt class="font-medium">MLI Select</dt>
+                <dd class="mt-1 text-muted-foreground">
+                  Covenant does not move. Ported insurance typically
+                  converts to Standard treatment on the replacement
+                  unless the replacement independently scores.
+                </dd>
+              </div>
+              <div>
+                <dt class="font-medium">ACLP / AHF / CHDP</dt>
+                <dd class="mt-1 text-muted-foreground">
+                  Direct-lending products don't port in the insurance
+                  sense — they are discharged at payout. Applicability
+                  is case by case.
+                </dd>
+              </div>
+            </dl>
+          </Card>
+        </div>
+      </div>
+    </section>
+
+    {/* TIMELINE AND REFUSALS */}
+    <section class="border-b border-dark-gray bg-jet">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="max-w-3xl">
+          <Badge variant="secondary" className="mb-4">Timeline and refusals</Badge>
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+            30–60 days, contingent on a clean replacement.
+          </h2>
+          <p class="mt-4 text-muted-foreground">
+            Porting is expedited because the borrower and insurance
+            are already in place. The new property and any increase
+            still get a full underwrite — the speed comes from the
+            covenant work already being done.
+          </p>
+        </div>
+
+        <div class="mt-10 grid gap-4 md:grid-cols-2">
+          {
+            portingRefusals.map((row) => (
+              <Card className="bg-obsidian border-dark-gray p-6">
+                <div class="text-xs uppercase tracking-wide text-star">
+                  {row.reason}
+                </div>
+                <p class="mt-3 text-sm text-muted-foreground">{row.detail}</p>
+              </Card>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    {/* CTA */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-20 lg:px-12 lg:py-28">
+        <div class="mx-auto max-w-3xl text-center">
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-5xl">
+            Run the numbers before committing to a sell-and-discharge.
+          </h2>
+          <p class="mx-auto mt-5 max-w-2xl text-muted-foreground">
+            A port preserves penalty-avoided and premium-avoided
+            dollars simultaneously. The premium credit calculator
+            models the exact savings on the new-money portion; the
+            prepayment page shows what's on the table if you don't
+            port.
+          </p>
+          <div class="mt-8 flex flex-wrap justify-center gap-3">
+            <a href="/calculators/premium-credit">
+              <Button size="lg">Premium credit calculator</Button>
+            </a>
+            <a href="/lifecycle/prepayment">
+              <Button variant="outline" size="lg">Prepayment page</Button>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</DefaultLayout>

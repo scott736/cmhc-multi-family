@@ -1,0 +1,12 @@
+---
+import BreakEvenOccupancy from "@/components/calculators/break-even-occupancy";
+import DefaultLayout from "@/layouts/DefaultLayout.astro";
+
+const title = "Break-Even Occupancy Calculator — CMHC Multi-Family";
+const description =
+  "Calculate the occupancy percentage required to cover operating expenses plus annual debt service. Compare to CMHC RMS market vacancy for your target CMA.";
+---
+
+<DefaultLayout title={title} description={description}>
+  <BreakEvenOccupancy client:load />
+</DefaultLayout>

@@ -1,0 +1,12 @@
+---
+import PointOptimizer from "@/components/calculators/point-optimizer";
+import DefaultLayout from "@/layouts/DefaultLayout.astro";
+
+const title = "MLI Select Point Optimizer — Cheapest Path to 50 / 70 / 100 | CMHC Multi-Family";
+const description =
+  "Enumerate every affordability, energy and accessibility combination that reaches your MLI Select target tier. Ranked by cheapest dimension: least rent concession, least construction upgrade, or no accessibility.";
+---
+
+<DefaultLayout title={title} description={description}>
+  <PointOptimizer client:load />
+</DefaultLayout>

@@ -1,0 +1,12 @@
+---
+import RentGap from "@/components/calculators/rent-gap";
+import DefaultLayout from "@/layouts/DefaultLayout.astro";
+
+const title = "Rent Gap &amp; Affordability Analyzer — MLI Select Qualification | CMHC Multi-Family";
+const description =
+  "Quantify the gap between in-place and market rents, project NOI lift as leases turn over, and test MLI Select affordability qualification against CMA 30% MFI ceilings.";
+---
+
+<DefaultLayout title={title} description={description}>
+  <RentGap client:load />
+</DefaultLayout>

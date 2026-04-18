@@ -1,0 +1,354 @@
+---
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import DefaultLayout from "@/layouts/DefaultLayout.astro";
+
+const title = "Quebec — CMHC Multi-Unit Financing Considerations";
+const description =
+  "Quebec-specific context for CMHC multi-unit financing. TAL rent review, 5-year new-construction exemption, SHQ funding stacking, Bill 96 language requirements, notarial real estate, and QST 9.975% on the CMHC premium.";
+
+const rentRules = [
+  {
+    item: "Rent cap mechanism",
+    value:
+      "TAL publishes annual recommended percentage increase; tenant can contest a higher increase",
+  },
+  {
+    item: "New-construction exemption",
+    value:
+      "Units exempt from TAL review for the first 5 years following first occupancy",
+  },
+  {
+    item: "Landlord-applied increases",
+    value:
+      "Can exceed TAL recommendation if justified (property tax, major improvements, utilities)",
+  },
+  {
+    item: "Vacancy decontrol",
+    value:
+      "Limited — incoming tenants can request TAL review within first 10 days of lease citing prior rent (section G of lease)",
+  },
+  {
+    item: "Tribunal",
+    value:
+      "Tribunal administratif du logement (TAL) — formerly Régie du logement",
+  },
+  {
+    item: "Governing statute",
+    value: "Civil Code of Québec, articles 1851–2000",
+  },
+];
+---
+
+<DefaultLayout title={title} description={description}>
+  <div class="bg-obsidian text-foreground">
+    {/* HERO */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <Badge variant="outline" className="mb-6 border-star/40 text-star">
+          Provinces · Quebec
+        </Badge>
+        <h1 class="text-4xl font-semibold tracking-tight lg:text-6xl">
+          Quebec — civil law, TAL, and the 5-year window.
+        </h1>
+        <p class="mt-6 max-w-3xl text-lg text-muted-foreground">
+          Quebec operates under the Civil Code rather than the
+          common-law landlord-tenant statutes of other provinces.
+          The Tribunal administratif du logement (TAL) — formerly
+          the Régie du logement — publishes an annual recommended
+          rent-increase percentage, but tenants can contest
+          proposed increases and landlords can apply for higher
+          amounts when justified by property tax, major
+          improvements, or utility costs.
+        </p>
+        <p class="mt-4 max-w-3xl text-lg text-muted-foreground">
+          The critical exemption: new construction is outside TAL
+          review for the first 5 years of first occupancy. This
+          is shorter than Ontario's permanent post-2018
+          exemption, but it provides a meaningful lease-up
+          window. QST of 9.975% on the CMHC premium is the
+          highest PST component in Canada and materially affects
+          closing costs.
+        </p>
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a href="/programs/mli-select">
+            <Button size="lg">MLI Select</Button>
+          </a>
+          <a href="/calculators/premium">
+            <Button variant="outline" size="lg">Premium calculator</Button>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    {/* TAL FRAMEWORK */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="max-w-3xl">
+          <Badge variant="secondary" className="mb-4">TAL framework</Badge>
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+            Recommended, not capped.
+          </h2>
+          <p class="mt-4 text-muted-foreground">
+            Unlike Ontario's hard cap or BC's CPI-indexed ceiling,
+            Quebec's rent regime is recommendation-based.
+            Landlords can propose any increase; tenants can
+            accept, negotiate, or contest at the TAL. The tribunal
+            applies a calculation methodology accounting for
+            property tax, insurance, major expenditures, and
+            utility costs.
+          </p>
+        </div>
+
+        <div class="mt-10 overflow-x-auto rounded-lg border border-dark-gray bg-jet">
+          <table class="w-full border-collapse text-sm">
+            <thead>
+              <tr class="border-b border-dark-gray text-muted-foreground text-xs uppercase tracking-wide">
+                <th class="px-4 py-3 text-left font-medium">Dimension</th>
+                <th class="px-4 py-3 text-left font-medium">Quebec rule</th>
+              </tr>
+            </thead>
+            <tbody>
+              {
+                rentRules.map((row) => (
+                  <tr class="border-b border-dark-gray last:border-0">
+                    <td class="px-4 py-3 font-medium">{row.item}</td>
+                    <td class="px-4 py-3 text-muted-foreground">
+                      {row.value}
+                    </td>
+                  </tr>
+                ))
+              }
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    {/* 5-YEAR EXEMPTION */}
+    <section class="border-b border-dark-gray bg-jet">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="grid gap-10 lg:grid-cols-[1.2fr_1fr]">
+          <div>
+            <Badge variant="outline" className="mb-4 border-star/40 text-star">
+              Critical rule
+            </Badge>
+            <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+              The 5-year new-construction exemption.
+            </h2>
+            <p class="mt-4 text-muted-foreground">
+              Quebec exempts new residential construction from
+              TAL rent review for the first 5 years following
+              first occupancy. The "section G" clause in the
+              Quebec lease — which would normally inform the
+              tenant of the prior rent and their right to contest
+              — is not applicable to new buildings during the
+              exemption window.
+            </p>
+            <p class="mt-4 text-muted-foreground">
+              Practical use: during the first 5 years, new-build
+              rents can adjust to market at any speed without
+              tribunal intervention. Leases signed in year 1 that
+              expire in year 4 can re-sign at market; a unit
+              first occupied in year 4 gets its own 1-year
+              remaining exemption tied to the building's
+              occupancy clock.
+            </p>
+            <p class="mt-4 text-muted-foreground">
+              After year 5, TAL review applies. Pro formas with
+              long-hold assumptions need to model
+              TAL-recommended growth from year 6 onward —
+              typically CPI-plus depending on opex trajectory.
+            </p>
+          </div>
+          <Card className="bg-obsidian border-dark-gray p-8">
+            <div class="text-xs uppercase tracking-wide text-muted-foreground">
+              Vs. other provinces
+            </div>
+            <div class="mt-4 space-y-3 text-sm">
+              <div class="border-b border-dark-gray pb-3">
+                <div class="text-star font-medium">Ontario</div>
+                <div class="text-muted-foreground">
+                  Permanent exemption (post-Nov 15 2018 builds)
+                </div>
+              </div>
+              <div class="border-b border-dark-gray pb-3">
+                <div class="text-star font-medium">Quebec</div>
+                <div class="text-muted-foreground">
+                  5-year exemption from first occupancy
+                </div>
+              </div>
+              <div class="border-b border-dark-gray pb-3">
+                <div class="text-star font-medium">British Columbia</div>
+                <div class="text-muted-foreground">
+                  No exemption — CPI cap from day one
+                </div>
+              </div>
+              <div>
+                <div class="text-star font-medium">Alberta</div>
+                <div class="text-muted-foreground">
+                  N/A — no rent control
+                </div>
+              </div>
+            </div>
+          </Card>
+        </div>
+      </div>
+    </section>
+
+    {/* SHQ AND STACKING */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="max-w-3xl">
+          <Badge variant="secondary" className="mb-4">Provincial programs</Badge>
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+            SHQ and Montreal stacking.
+          </h2>
+          <p class="mt-4 text-muted-foreground">
+            Société d'habitation du Québec (SHQ) is the provincial
+            housing agency. SHQ funding is the most common
+            provincial layer stacking onto federal CMHC programs
+            — especially for non-profit, co-operative, and
+            affordable projects.
+          </p>
+        </div>
+
+        <div class="mt-10 grid gap-6 md:grid-cols-2">
+          <Card className="bg-jet border-dark-gray p-6">
+            <div class="text-xs uppercase tracking-wide text-star">SHQ</div>
+            <div class="mt-1 text-lg font-semibold">
+              Provincial housing agency
+            </div>
+            <p class="mt-3 text-sm text-muted-foreground">
+              Administers a suite of capital and operating
+              programs. Stacking with federal AHF and CHDP is
+              common for affordable and co-op projects —
+              provincial capital often fills gaps left by AHF
+              forgivable loan caps.
+            </p>
+          </Card>
+          <Card className="bg-jet border-dark-gray p-6">
+            <div class="text-xs uppercase tracking-wide text-star">Montreal</div>
+            <div class="mt-1 text-lg font-semibold">
+              SHQ match + Loger+ strategy
+            </div>
+            <p class="mt-3 text-sm text-muted-foreground">
+              City of Montreal provides a 40% match on SHQ grants
+              for qualifying social and affordable housing.
+              Loger+ prioritizes land transfers for rental and
+              affordable projects. Both stack with CMHC
+              financing.
+            </p>
+          </Card>
+        </div>
+      </div>
+    </section>
+
+    {/* QUEBEC-SPECIFIC PROCEDURAL */}
+    <section class="border-b border-dark-gray bg-jet">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="max-w-3xl">
+          <Badge variant="secondary" className="mb-4">Procedural factors</Badge>
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+            Civil-law closings and Bill 96.
+          </h2>
+        </div>
+
+        <div class="mt-10 grid gap-4 md:grid-cols-2">
+          <Card className="bg-obsidian border-dark-gray p-6">
+            <div class="text-lg font-semibold">Notarial real estate</div>
+            <p class="mt-3 text-sm text-muted-foreground">
+              All real estate transfers in Quebec are processed
+              through a notary rather than a lawyer. This adds
+              steps to closing relative to common-law provinces;
+              notaries draft and register the deed of sale and
+              the hypothec (mortgage). Budget 2–4 weeks beyond
+              typical common-law timelines for files with
+              complicated title or joint venture structures.
+            </p>
+          </Card>
+          <Card className="bg-obsidian border-dark-gray p-6">
+            <div class="text-lg font-semibold">Bill 96 language rules</div>
+            <p class="mt-3 text-sm text-muted-foreground">
+              The Charter of the French Language (expanded by
+              Bill 96 in 2022) requires French-language versions
+              of most commercial contracts, tenant notices,
+              signage, and marketing materials. Lease templates,
+              tenant communications, and property signage must
+              comply — affects operating practice but not CMHC
+              eligibility.
+            </p>
+          </Card>
+          <Card className="bg-obsidian border-dark-gray p-6">
+            <div class="text-lg font-semibold">Divided vs undivided</div>
+            <p class="mt-3 text-sm text-muted-foreground">
+              Quebec co-ownership can be "divided" (separate
+              titles per unit, like strata) or "undivided" (joint
+              title with percentage share). The legal structure
+              affects financing — undivided co-ownership is
+              generally not amenable to institutional multi-unit
+              CMHC insurance without restructuring.
+            </p>
+          </Card>
+          <Card className="bg-obsidian border-dark-gray p-6">
+            <div class="text-lg font-semibold">QST on CMHC premium</div>
+            <p class="mt-3 text-sm text-muted-foreground">
+              Quebec charges 9.975% QST on the CMHC premium —
+              the highest provincial sales tax on premium in
+              Canada. Paid upfront at closing, not capitalizable.
+              On a $10M loan at ~5% premium, QST is roughly $50K
+              out of pocket.
+            </p>
+          </Card>
+          <Card className="bg-obsidian border-dark-gray p-6">
+            <div class="text-lg font-semibold">GST/QST on construction</div>
+            <p class="mt-3 text-sm text-muted-foreground">
+              New purpose-built rental construction attracts GST
+              (5%) and QST (9.975%). NRRP-equivalent rebates
+              apply at the federal level; Quebec's rebate regime
+              parallels Ontario's treatment. Work the numbers
+              with a Quebec tax specialist given recent changes.
+            </p>
+          </Card>
+          <Card className="bg-obsidian border-dark-gray p-6">
+            <div class="text-lg font-semibold">Rent escalation methodology</div>
+            <p class="mt-3 text-sm text-muted-foreground">
+              In-lease escalation clauses must follow the TAL
+              calculation methodology post-year-5 to survive
+              review. Draft escalation language carefully; TAL
+              will strike or modify non-compliant clauses.
+            </p>
+          </Card>
+        </div>
+      </div>
+    </section>
+
+    {/* CTA */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-20 lg:px-12 lg:py-28">
+        <div class="mx-auto max-w-3xl text-center">
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-5xl">
+            Structure the Quebec deal.
+          </h2>
+          <p class="mx-auto mt-5 max-w-2xl text-muted-foreground">
+            The 5-year exemption, SHQ/Montreal stacking, and
+            higher QST on premium each materially affect the pro
+            forma. Budget notary fees and model year 6 TAL
+            transitions explicitly.
+          </p>
+          <div class="mt-8 flex flex-wrap justify-center gap-3">
+            <a href="/calculators/premium">
+              <Button size="lg">Premium calculator</Button>
+            </a>
+            <a href="/developers/provincial">
+              <Button variant="outline" size="lg">
+                Provincial rules
+              </Button>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</DefaultLayout>

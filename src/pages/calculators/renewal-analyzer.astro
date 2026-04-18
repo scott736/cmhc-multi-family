@@ -1,0 +1,12 @@
+---
+import RenewalAnalyzer from "@/components/calculators/renewal-analyzer";
+import DefaultLayout from "@/layouts/DefaultLayout.astro";
+
+const title = "CMHC Renewal / Maturity Analyzer — Rate Shock &amp; DCR | CMHC Multi-Family";
+const description =
+  "Project CMHC loan balance at maturity, stress-test renewal rate scenarios (−100 to +300 bps), and model payment shock with keep-remaining or reset amortization options.";
+---
+
+<DefaultLayout title={title} description={description}>
+  <RenewalAnalyzer client:load />
+</DefaultLayout>

@@ -1,0 +1,12 @@
+---
+import GrantStacking from "@/components/calculators/grant-stacking";
+import DefaultLayout from "@/layouts/DefaultLayout.astro";
+
+const title = "Grant & Program Stacking Calculator — ACLP + AHF + Municipal | CMHC Multi-Family";
+const description =
+  "Model ACLP, MLI Select, AHF and CHDP stacked with municipal affordable-housing incentives in Toronto, Vancouver, Calgary, Edmonton, Ottawa and Montreal. See the equity requirement before vs. after the stack.";
+---
+
+<DefaultLayout title={title} description={description}>
+  <GrantStacking client:load />
+</DefaultLayout>

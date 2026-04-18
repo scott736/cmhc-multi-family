@@ -1,14 +1,20 @@
 import {
+  BookOpen,
   Building2,
   Calculator,
+  CheckSquare,
   ChevronRight,
+  Clock,
   Database,
   FileText,
+  HelpCircle,
   Landmark,
   Layers,
   LineChart,
   MapPin,
   Scale,
+  Scroll,
+  Shuffle,
   TrendingUp,
 } from "lucide-react";
 import React, { useEffect, useState } from "react";
@@ -92,10 +98,66 @@ export default function Navbar({ currentPath }: NavbarProps) {
           icon: Building2,
         },
         {
+          title: "Select · Affordability scoring",
+          href: "/programs/mli-select/affordability",
+          description:
+            "How 10/15/25% new or 40/60/80% existing maps to points + 20yr bonus.",
+          icon: Scale,
+        },
+        {
+          title: "Select · Energy scoring",
+          href: "/programs/mli-select/energy",
+          description:
+            "NECB / NBC 2020 paths, construction premiums, L1/L2/L3 pathways.",
+          icon: TrendingUp,
+        },
+        {
+          title: "Select · Accessibility scoring",
+          href: "/programs/mli-select/accessibility",
+          description:
+            "CSA B651:23 vs RHFAC v4.0 — Level 1/2 scoring mechanics.",
+          icon: CheckSquare,
+        },
+        {
+          title: "Select · Commitment mechanics",
+          href: "/programs/mli-select/commitment",
+          description:
+            "Legal instruments, monitoring, enforcement, transition periods.",
+          icon: FileText,
+        },
+        {
+          title: "Amortization options",
+          href: "/programs/amortization-options",
+          description:
+            "25/30/40/45/50yr trade-offs and surcharge grid since July 2025.",
+          icon: Clock,
+        },
+        {
+          title: "Construction paths",
+          href: "/programs/construction-paths",
+          description:
+            "ACLP direct vs MLI Select + construction insurance decision framework.",
+          icon: Building2,
+        },
+        {
+          title: "Rental achievement",
+          href: "/programs/rental-achievement",
+          description:
+            "Holdback mechanics, July 3 2025 Market Rental removal, worked scenarios.",
+          icon: CheckSquare,
+        },
+        {
+          title: "MULTI-GO platform",
+          href: "/programs/multi-go",
+          description:
+            "CMHC's digital portal — submission, underwriting, CoI issuance.",
+          icon: FileText,
+        },
+        {
           title: "Application process",
           href: "/programs/application-process",
           description:
-            "MULTI-GO submission, fees, COI workflow, processing timelines.",
+            "Submission, fees, COI workflow, processing timelines.",
           icon: FileText,
         },
         {
@@ -125,6 +187,48 @@ export default function Navbar({ currentPath }: NavbarProps) {
           icon: LineChart,
         },
         {
+          title: "DSCR Inverse (required NOI)",
+          href: "/calculators/dscr-inverse",
+          description:
+            "Given a target loan, what NOI is needed at DCR 1.10/1.20/1.30?",
+          icon: Calculator,
+        },
+        {
+          title: "NOI / Cap Rate",
+          href: "/calculators/noi-cap-rate",
+          description:
+            "Build NOI, compute cap rate, or solve for implied value.",
+          icon: LineChart,
+        },
+        {
+          title: "Amortization Schedule",
+          href: "/calculators/amortization-schedule",
+          description:
+            "Yearly/monthly P vs I split with CSV download.",
+          icon: Calculator,
+        },
+        {
+          title: "Stress Test",
+          href: "/calculators/stress-test",
+          description:
+            "Rate-shock scenarios — DCR and cash flow impact at renewal.",
+          icon: TrendingUp,
+        },
+        {
+          title: "Break-Even Occupancy",
+          href: "/calculators/break-even-occupancy",
+          description:
+            "What occupancy % covers debt service and opex?",
+          icon: Calculator,
+        },
+        {
+          title: "Cash Flow Projection",
+          href: "/calculators/cash-flow",
+          description:
+            "Year-by-year NOI, debt service, DCR, cash-on-cash.",
+          icon: LineChart,
+        },
+        {
           title: "Premium Calculator",
           href: "/calculators/premium",
           description:
@@ -132,25 +236,95 @@ export default function Navbar({ currentPath }: NavbarProps) {
           icon: Calculator,
         },
         {
-          title: "Cash Flow Projection",
-          href: "/calculators/cash-flow",
+          title: "Premium Credit (refinance)",
+          href: "/calculators/premium-credit",
           description:
-            "NOI, debt service, cash-on-cash, amortization schedule.",
+            "Refinance credit — 75% declining to 20% by year 7.",
+          icon: Calculator,
+        },
+        {
+          title: "Equity Take-Out",
+          href: "/calculators/equity-takeout",
+          description:
+            "Refinance cash-out — max new loan, premium credit, net cash.",
+          icon: Calculator,
+        },
+        {
+          title: "PST on Premium",
+          href: "/calculators/pst-premium",
+          description:
+            "Upfront provincial sales tax on CMHC premium by province.",
+          icon: Calculator,
+        },
+        {
+          title: "Renewal Analyzer",
+          href: "/calculators/renewal-analyzer",
+          description:
+            "Balance at maturity + debt service under rate scenarios.",
+          icon: Clock,
+        },
+        {
+          title: "Construction Draws",
+          href: "/calculators/construction-draws",
+          description:
+            "Advance schedule, interest reserve, takeout loan sizing.",
+          icon: Building2,
+        },
+        {
+          title: "Conventional vs CMHC",
+          href: "/calculators/conventional-vs-cmhc",
+          description:
+            "Side-by-side: insured vs uninsured on leverage and yield.",
+          icon: Shuffle,
+        },
+        {
+          title: "Purchase vs Refinance",
+          href: "/calculators/purchase-vs-refi",
+          description:
+            "Max loan, premium, cash-out vs equity-in for each path.",
+          icon: Shuffle,
+        },
+        {
+          title: "Point Optimizer (MLI Select)",
+          href: "/calculators/point-optimizer",
+          description:
+            "All scoring combinations ranked by ease and cost.",
+          icon: Calculator,
+        },
+        {
+          title: "Affordability Unit Sizer",
+          href: "/calculators/affordability-sizer",
+          description:
+            "Required units, rent concession, NOI impact to hit a tier.",
+          icon: MapPin,
+        },
+        {
+          title: "Rent vs Market Gap",
+          href: "/calculators/rent-gap",
+          description:
+            "Unit-mix current vs market rents with MLI Select qualification test.",
+          icon: LineChart,
+        },
+        {
+          title: "Grant / Program Stacking",
+          href: "/calculators/grant-stacking",
+          description:
+            "ACLP + AHF + municipal incentive residual-equity math.",
+          icon: Layers,
+        },
+        {
+          title: "Cash-on-Cash Return",
+          href: "/calculators/cash-on-cash",
+          description:
+            "Leveraged yield and equity multiple at 5/10/20yr hold.",
           icon: LineChart,
         },
         {
           title: "Scenario Comparison",
           href: "/calculators/compare",
           description:
-            "MLI Select vs. MLI Standard vs. conventional — side by side.",
+            "MLI Select vs MLI Standard vs conventional on one deal.",
           icon: FileText,
-        },
-        {
-          title: "Premium Credit",
-          href: "/calculators/premium-credit",
-          description:
-            "Refinance credit — 75% declining to 20% by year 7.",
-          icon: Calculator,
         },
       ],
     },
@@ -173,6 +347,41 @@ export default function Navbar({ currentPath }: NavbarProps) {
           icon: Scale,
         },
         {
+          title: "Appraisal standards",
+          href: "/underwriting/appraisal",
+          description:
+            "Income vs comparison approach; lending value; Nov 2024 mandatory.",
+          icon: FileText,
+        },
+        {
+          title: "NOI methodology",
+          href: "/underwriting/noi-methodology",
+          description:
+            "GPR → EGI → opex → NOI, line-by-line CMHC treatment.",
+          icon: LineChart,
+        },
+        {
+          title: "Vacancy standards",
+          href: "/underwriting/vacancy",
+          description:
+            "RMS source, 3% structural floor, bad-debt allowance.",
+          icon: Database,
+        },
+        {
+          title: "Opex benchmarks",
+          href: "/underwriting/opex",
+          description:
+            "Vacancy, reserves, management — key benchmarks used in practice.",
+          icon: Database,
+        },
+        {
+          title: "Opex categories",
+          href: "/underwriting/opex-categories",
+          description:
+            "$/unit and % EGI ranges for every opex line.",
+          icon: Database,
+        },
+        {
           title: "Affordability thresholds",
           href: "/underwriting/affordability",
           description:
@@ -180,16 +389,121 @@ export default function Navbar({ currentPath }: NavbarProps) {
           icon: MapPin,
         },
         {
-          title: "Opex, vacancy, reserves",
-          href: "/underwriting/opex",
-          description: "Key underwriting benchmarks used in practice.",
+          title: "Affordability methodology",
+          href: "/underwriting/affordability-methodology",
+          description:
+            "How CMHC derives and verifies the MFI-based rent ceilings.",
+          icon: MapPin,
+        },
+        {
+          title: "Cash reserves",
+          href: "/underwriting/cash-reserves",
+          description:
+            "Liquidity, replacement, operating, interest, holdback reserves.",
           icon: Database,
+        },
+        {
+          title: "Environmental standards",
+          href: "/underwriting/environmental",
+          description:
+            "Phase I/II ESA, building codes, seismic, accessibility overlay.",
+          icon: Scale,
+        },
+        {
+          title: "Seasoning & lease-up",
+          href: "/underwriting/seasoning",
+          description:
+            "Pro forma vs trailing 12, rental achievement, takeout sizing.",
+          icon: Clock,
+        },
+        {
+          title: "Rental Market Survey",
+          href: "/underwriting/rental-market-survey",
+          description:
+            "CMHC RMS for pre-app market analysis and underwriting.",
+          icon: Database,
+        },
+        {
+          title: "Common conditions",
+          href: "/underwriting/common-conditions",
+          description:
+            "What CMHC typically asks for in conditional approval.",
+          icon: CheckSquare,
         },
         {
           title: "Required documentation",
           href: "/underwriting/documentation",
           description:
             "Phase I ESA, geotech, appraisal, QS, surety bonding, covenant.",
+          icon: FileText,
+        },
+      ],
+    },
+    {
+      label: "Tools",
+      href: "/tools",
+      dropdownItems: [
+        {
+          title: "Eligibility pre-qualifier",
+          href: "/tools/eligibility-tree",
+          description:
+            "8-step decision wizard with ranked program recommendations.",
+          icon: CheckSquare,
+        },
+        {
+          title: "Program suitability matcher",
+          href: "/tools/program-matcher",
+          description:
+            "Priority sliders → weighted fit across all five programs.",
+          icon: Shuffle,
+        },
+        {
+          title: "Application timeline tracker",
+          href: "/tools/timeline-tracker",
+          description:
+            "Forecast funding date or back-schedule from a target.",
+          icon: Clock,
+        },
+        {
+          title: "Document checklist",
+          href: "/tools/doc-checklist",
+          description:
+            "Filter by project type × program; track progress.",
+          icon: CheckSquare,
+        },
+        {
+          title: "CoI / rate-lock expiry",
+          href: "/tools/coi-expiry",
+          description:
+            "Countdown with Sep 3 2025 CoI transfer callout.",
+          icon: Clock,
+        },
+        {
+          title: "Rental achievement tracker",
+          href: "/tools/rental-achievement",
+          description:
+            "Lease-up projection and holdback-release timing.",
+          icon: TrendingUp,
+        },
+        {
+          title: "Lender comparison matrix",
+          href: "/tools/lender-matrix",
+          description:
+            "Filter + sort approved CMHC multi-unit lenders.",
+          icon: Landmark,
+        },
+        {
+          title: "MLI Select vs Standard",
+          href: "/tools/mli-comparison",
+          description:
+            "16-row feature matrix + when-to-choose panels.",
+          icon: Shuffle,
+        },
+        {
+          title: "Fee schedule reference",
+          href: "/tools/fee-schedule",
+          description:
+            "Appraisal, legal, lender, CMHC fees with typical ranges.",
           icon: FileText,
         },
       ],
@@ -229,8 +543,68 @@ export default function Navbar({ currentPath }: NavbarProps) {
         },
       ],
     },
-    { label: "Policy", href: "/policy" },
-    { label: "Data", href: "/data" },
+    {
+      label: "Resources",
+      href: "/glossary",
+      dropdownItems: [
+        {
+          title: "FAQ",
+          href: "/faq",
+          description:
+            "43 common questions across programs, underwriting, and process.",
+          icon: HelpCircle,
+        },
+        {
+          title: "Glossary",
+          href: "/glossary",
+          description:
+            "70 CMHC multi-unit terms — searchable and categorized.",
+          icon: BookOpen,
+        },
+        {
+          title: "Application timeline",
+          href: "/timeline",
+          description:
+            "Pre-app through funding — week-by-week process map.",
+          icon: Clock,
+        },
+        {
+          title: "Provinces",
+          href: "/provinces",
+          description:
+            "ON, BC, AB, QC — rent control, exemptions, provincial overlays.",
+          icon: MapPin,
+        },
+        {
+          title: "Lifecycle",
+          href: "/lifecycle",
+          description:
+            "Renewal, assumption, prepayment, porting.",
+          icon: Shuffle,
+        },
+        {
+          title: "Eligibility",
+          href: "/eligibility",
+          description:
+            "Borrower, property, and lender eligibility rules.",
+          icon: CheckSquare,
+        },
+        {
+          title: "Policy timeline",
+          href: "/policy",
+          description:
+            "2024-2026 major CMHC multi-unit policy changes.",
+          icon: Scroll,
+        },
+        {
+          title: "Data sources",
+          href: "/data",
+          description:
+            "RMS, HMIP, StatCan, cmhc R package, open data.",
+          icon: Database,
+        },
+      ],
+    },
   ];
 
   const bgColor = "bg-obsidian";

@@ -1,0 +1,382 @@
+---
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import DefaultLayout from "@/layouts/DefaultLayout.astro";
+
+const title = "Loan Renewal at Maturity — CMHC Multi-Unit";
+const description =
+  "What happens when a CMHC-insured multi-unit loan matures: renewal vs refinance, what gets re-underwritten, premium treatment, the September 3 2025 CoI restrictions, and a worked example of renewing a $15M MLI Select term at a higher rate.";
+
+const renewalReunderwrite = [
+  {
+    item: "NOI update",
+    detail:
+      "Trailing 12-month actuals from property statements. CMHC expects the NOI that supported the original DCR to still support the renewal DCR at the new rate.",
+  },
+  {
+    item: "DCR at renewal rate",
+    detail:
+      "Recomputed at the proposed new contract rate on the remaining amortization. This is where rising-rate renewals bind.",
+  },
+  {
+    item: "Remaining amortization",
+    detail:
+      "Loan rolls forward at the remaining amort (e.g. 40-year original, 30 years left at year-10 renewal) unless explicitly re-amortized.",
+  },
+  {
+    item: "No new premium",
+    detail:
+      "If the loan amount is not increasing, no new CMHC premium applies. The original premium covers the full life of the insurance.",
+  },
+  {
+    item: "Covenant confirmation",
+    detail:
+      "Guarantors re-signed; MLI Select affordability covenant continues to run against the property.",
+  },
+];
+
+const renewalOptions = [
+  {
+    option: "Fixed-to-fixed",
+    detail:
+      "Roll from current fixed into a new 5 or 10-year fixed. Most common; simplest re-underwrite.",
+  },
+  {
+    option: "Fixed-to-floating",
+    detail:
+      "Lock a floating rate (often Prime-linked) with a lender-specified ceiling rate for DCR testing.",
+  },
+  {
+    option: "Blended",
+    detail:
+      "Lender blends the existing rate with current market for a mid-term adjustment; effectively resets the term without triggering prepayment.",
+  },
+  {
+    option: "Re-amortization",
+    detail:
+      "Extend amortization if the new DCR and remaining permitted amort allow — helps cash flow at renewal into a higher rate environment.",
+  },
+  {
+    option: "Full refinance",
+    detail:
+      "Cash-out, consolidation, or program switch (e.g. MLI Standard → MLI Select) — triggers fresh underwriting and new premium on the increase.",
+  },
+];
+
+const renewalExampleRows = [
+  { label: "Original loan (MLI Select, 10yr term)", value: "$15,000,000" },
+  { label: "Original rate", value: "5.00%" },
+  { label: "Original amortization", value: "50 years" },
+  { label: "Remaining amortization at renewal", value: "40 years" },
+  { label: "Balance at renewal", value: "~$13.4M" },
+  { label: "Renewal rate", value: "6.00%" },
+  { label: "New annual debt service", value: "~$907,000" },
+  { label: "Prior annual debt service", value: "~$978,000" },
+  { label: "NOI required for DCR 1.10", value: "~$998,000" },
+];
+---
+
+<DefaultLayout title={title} description={description}>
+  <div class="bg-obsidian text-foreground">
+    {/* HERO */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <Badge variant="outline" className="mb-6 border-star/40 text-star">
+          Lifecycle · Renewal
+        </Badge>
+        <h1 class="text-4xl font-semibold tracking-tight lg:text-6xl">
+          Renewal at maturity — same insurer, new term.
+        </h1>
+        <p class="mt-6 max-w-3xl text-lg text-muted-foreground">
+          A CMHC-insured multi-unit loan renews with the same insurer (CMHC)
+          into a new term. The insurance continues, the premium does not
+          reset, and the re-underwriting is typically a DCR and covenant
+          confirmation rather than a full redo. This is distinct from a
+          refinance, which is a new CMHC application and new premium on any
+          increased portion.
+        </p>
+        <p class="mt-4 max-w-3xl text-lg text-muted-foreground">
+          Terms are typically 5 or 10 years for monolines and banks, with
+          life companies offering up to 20-year fixed terms. The lender
+          issues a renewal offer 60–90 days before maturity. Where a
+          borrower needs cash out, consolidation, or a program switch, that
+          triggers a full refinance rather than a renewal.
+        </p>
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a href="/calculators/renewal-analyzer">
+            <Button size="lg">Open renewal analyzer</Button>
+          </a>
+          <a href="/lifecycle">
+            <Button variant="outline" size="lg">Back to lifecycle</Button>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    {/* RENEWAL VS REFINANCE */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="grid gap-10 lg:grid-cols-[1fr_1.2fr]">
+          <div>
+            <Badge variant="secondary" className="mb-4">Renewal vs refinance</Badge>
+            <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+              Two different transactions.
+            </h2>
+            <p class="mt-4 text-muted-foreground">
+              A renewal rolls the existing insured loan into a new term
+              with no new premium and a light-touch re-underwrite. A
+              refinance is a new CMHC application — full documentation,
+              new premium on the increase portion, and potentially a
+              program switch.
+            </p>
+            <p class="mt-4 text-muted-foreground">
+              Cash-out, debt consolidation, or moving from MLI Standard
+              to MLI Select (or vice versa) all trigger the refinance
+              path. Keeping the same loan amount and program is the
+              renewal path.
+            </p>
+          </div>
+          <Card className="bg-jet border-dark-gray p-8">
+            <div class="text-xs uppercase tracking-wide text-muted-foreground">
+              Decision tree
+            </div>
+            <div class="mt-5 space-y-3 text-sm">
+              <div class="flex justify-between gap-4 border-b border-dark-gray pb-3">
+                <span class="text-muted-foreground">Same loan amount</span>
+                <span class="font-medium text-star">Renewal</span>
+              </div>
+              <div class="flex justify-between gap-4 border-b border-dark-gray pb-3">
+                <span class="text-muted-foreground">Increase ≤ DCR headroom</span>
+                <span class="font-medium">Renewal + top-up (new premium on increase)</span>
+              </div>
+              <div class="flex justify-between gap-4 border-b border-dark-gray pb-3">
+                <span class="text-muted-foreground">Material cash out</span>
+                <span class="font-medium">Refinance</span>
+              </div>
+              <div class="flex justify-between gap-4 border-b border-dark-gray pb-3">
+                <span class="text-muted-foreground">Program switch</span>
+                <span class="font-medium">Refinance</span>
+              </div>
+              <div class="flex justify-between gap-4 pt-1">
+                <span class="text-muted-foreground">Consolidation / second mortgage payoff</span>
+                <span class="font-medium">Refinance</span>
+              </div>
+            </div>
+          </Card>
+        </div>
+      </div>
+    </section>
+
+    {/* RE-UNDERWRITE */}
+    <section class="border-b border-dark-gray bg-jet">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="max-w-3xl">
+          <Badge variant="secondary" className="mb-4">What gets re-underwritten</Badge>
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+            Light-touch, but DCR is the gate.
+          </h2>
+          <p class="mt-4 text-muted-foreground">
+            Renewal is not a full redo — but the lender and CMHC do
+            confirm that the property still passes the DCR test at the
+            proposed new rate. Rising-rate renewals can bind where the
+            original deal squeaked through at 1.10.
+          </p>
+        </div>
+
+        <div class="mt-10 overflow-x-auto rounded-lg border border-dark-gray bg-obsidian">
+          <table class="w-full border-collapse text-sm">
+            <thead>
+              <tr class="border-b border-dark-gray text-muted-foreground text-xs uppercase tracking-wide">
+                <th class="px-4 py-3 text-left font-medium">Item</th>
+                <th class="px-4 py-3 text-left font-medium">Treatment at renewal</th>
+              </tr>
+            </thead>
+            <tbody>
+              {
+                renewalReunderwrite.map((row) => (
+                  <tr class="border-b border-dark-gray last:border-0">
+                    <td class="px-4 py-3 font-medium">{row.item}</td>
+                    <td class="px-4 py-3 text-muted-foreground">{row.detail}</td>
+                  </tr>
+                ))
+              }
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    {/* RENEWAL OPTIONS */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="max-w-3xl">
+          <Badge variant="secondary" className="mb-4">Rate and structure options</Badge>
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+            Five renewal paths.
+          </h2>
+          <p class="mt-4 text-muted-foreground">
+            The same file can renew five different ways. Four of them
+            stay within the renewal framework (no new premium on the
+            existing portion); the fifth is a full refinance.
+          </p>
+        </div>
+
+        <div class="mt-10 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+          {
+            renewalOptions.map((row) => (
+              <Card className="bg-jet border-dark-gray p-6">
+                <div class="text-xs uppercase tracking-wide text-star">
+                  {row.option}
+                </div>
+                <p class="mt-3 text-sm text-muted-foreground">{row.detail}</p>
+              </Card>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    {/* COI TIGHTENING */}
+    <section class="border-b border-dark-gray bg-jet">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="grid gap-10 lg:grid-cols-[1fr_1fr]">
+          <div>
+            <Badge variant="outline" className="mb-4 border-star/40 text-star">
+              Policy change — September 3, 2025
+            </Badge>
+            <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+              CoI transferability is materially tightened.
+            </h2>
+            <p class="mt-4 text-muted-foreground">
+              Pre-September 2025, borrowers could and did shop a
+              Certificate of Insurance between approved lenders at
+              renewal — a practice that put pressure on incumbent
+              lenders to sharpen renewal rates.
+            </p>
+            <p class="mt-4 text-muted-foreground">
+              CMHC tightened CoI transfer rules effective September 3,
+              2025. Approved lenders must now fund ≥80% of the loans they
+              hold approvals for, and CoI transfer between lenders is
+              restricted. Borrowers still negotiate renewals, but the
+              incumbent lender now holds meaningfully more structural
+              leverage.
+            </p>
+          </div>
+          <Card className="bg-obsidian border-dark-gray p-6">
+            <div class="text-xs uppercase tracking-wide text-star">
+              What this means in practice
+            </div>
+            <ul class="mt-5 space-y-4 text-sm">
+              <li class="flex gap-3">
+                <span class="text-star">·</span>
+                <span>
+                  Competing lenders can still bid renewals, but they must
+                  submit a fresh CMHC file and wait for a new CoI rather
+                  than carrying the existing one over.
+                </span>
+              </li>
+              <li class="flex gap-3">
+                <span class="text-star">·</span>
+                <span>
+                  Effectively: renewal-shopping is now a refinance-shop
+                  in disguise. Timing pressure favours staying with the
+                  incumbent.
+                </span>
+              </li>
+              <li class="flex gap-3">
+                <span class="text-star">·</span>
+                <span>
+                  Strong borrowers with 120+ day lead times can still
+                  run a competitive process. Anything under 90 days is
+                  effectively single-lender.
+                </span>
+              </li>
+            </ul>
+          </Card>
+        </div>
+      </div>
+    </section>
+
+    {/* WORKED EXAMPLE */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="grid gap-10 lg:grid-cols-[1fr_1.2fr]">
+          <div>
+            <Badge variant="secondary" className="mb-4">Worked example</Badge>
+            <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+              $15M MLI Select — 5% maturing into 6%.
+            </h2>
+            <p class="mt-4 text-muted-foreground">
+              A 10-year MLI Select loan originated at 5.00% on 50-year
+              amort. At maturity the balance has amortized down to
+              approximately $13.4M and the remaining amort is 40 years.
+              The renewal rate is 6.00%.
+            </p>
+            <p class="mt-4 text-muted-foreground">
+              Annual debt service at the new rate on the remaining
+              amort lands around $907K — actually lower than the
+              original $978K because the balance has dropped faster
+              than the rate has risen. NOI required to maintain the
+              1.10 MLI Select DCR is approximately $998K.
+            </p>
+            <p class="mt-4 text-muted-foreground">
+              The borrower is fine on DCR if NOI held at underwritten
+              levels — which, 10 years into a holding period with
+              market rent growth, it typically has. The cash flow
+              impact is modest and the renewal clears.
+            </p>
+          </div>
+          <Card className="bg-jet border-dark-gray p-8">
+            <div class="text-xs uppercase tracking-wide text-muted-foreground">
+              Renewal math
+            </div>
+            <div class="mt-5 space-y-3 text-sm">
+              {
+                renewalExampleRows.map((r) => (
+                  <div class="flex justify-between gap-4 border-b border-dark-gray pb-2 last:border-0">
+                    <span class="text-muted-foreground">{r.label}</span>
+                    <span class="font-medium">{r.value}</span>
+                  </div>
+                ))
+              }
+            </div>
+            <p class="mt-5 text-xs text-muted-foreground">
+              Illustrative. Actual amortization schedule, rate, and
+              NOI vary by deal. Run the renewal analyzer for your
+              specific loan.
+            </p>
+          </Card>
+        </div>
+      </div>
+    </section>
+
+    {/* CTA */}
+    <section class="border-b border-dark-gray bg-jet">
+      <div class="container border-l border-r border-dark-gray px-6 py-20 lg:px-12 lg:py-28">
+        <div class="mx-auto max-w-3xl text-center">
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-5xl">
+            Model the renewal before the offer arrives.
+          </h2>
+          <p class="mx-auto mt-5 max-w-2xl text-muted-foreground">
+            The renewal analyzer runs the DCR test at the new rate on
+            the remaining amortization. The premium credit calculator
+            handles any top-up or refinance increase on the existing
+            insured balance.
+          </p>
+          <div class="mt-8 flex flex-wrap justify-center gap-3">
+            <a href="/calculators/renewal-analyzer">
+              <Button size="lg">Renewal analyzer</Button>
+            </a>
+            <a href="/calculators/premium-credit">
+              <Button variant="outline" size="lg">Premium credit</Button>
+            </a>
+            <a href="/lifecycle/porting">
+              <Button variant="outline" size="lg">Consider porting</Button>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</DefaultLayout>

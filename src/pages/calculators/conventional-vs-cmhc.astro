@@ -1,0 +1,12 @@
+---
+import ConventionalVsCmhc from "@/components/calculators/conventional-vs-cmhc";
+import DefaultLayout from "@/layouts/DefaultLayout.astro";
+
+const title = "Conventional vs. CMHC Comparison — When Does the Premium Pay Off? | CMHC Multi-Family";
+const description =
+  "Three-column scenario: uninsured conventional vs. MLI Standard vs. MLI Select 100. Max loan, premium, equity required, cash-on-cash, 10-year interest cost, and premium break-even years.";
+---
+
+<DefaultLayout title={title} description={description}>
+  <ConventionalVsCmhc client:load />
+</DefaultLayout>

@@ -1,0 +1,379 @@
+---
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import DefaultLayout from "@/layouts/DefaultLayout.astro";
+
+const title = "NOI Calculation Methodology — CMHC Multi-Unit";
+const description =
+  "The line-by-line NOI build CMHC actually underwrites. Gross Potential Rent at market, vacancy from RMS with structural floors, EGI with other-income NRI, opex treatment for taxes, insurance, utilities, R&M, management, and replacement reserves — and why borrower-submitted NOI rarely survives the final review.";
+
+const noiWalk = [
+  {
+    row: "Gross Potential Rent (GPR)",
+    formula: "market rent × 12 × unit count",
+    detail:
+      "CMHC uses achievable market rents per unit type — not in-place rents. Grossed up to 100% occupancy before vacancy is subtracted.",
+  },
+  {
+    row: "− Vacancy & bad debt",
+    formula: "GPR × (v% + bad debt %)",
+    detail:
+      "Pulled from the local CMA Rental Market Survey. Structural floor typically 3–5% applied even in sub-1% markets.",
+  },
+  {
+    row: "+ Other income",
+    formula: "parking, laundry, storage, commercial NRI",
+    detail:
+      "Commercial rents included at NRI (net) — not gross. Ancillary income must be documented against 3-year actuals.",
+  },
+  {
+    row: "= Effective Gross Income (EGI)",
+    formula: "GPR − vacancy + other",
+    detail:
+      "The denominator most opex ratios apply against (management %, reserves %, etc.).",
+  },
+  {
+    row: "− Property taxes",
+    formula: "Actual post-reassessment",
+    detail:
+      "Verified against the municipal assessment roll. Adjusted for pending reassessment or appeals in progress.",
+  },
+  {
+    row: "− Insurance",
+    formula: "Actual broker quote",
+    detail:
+      "Current bound policy premium or a firm broker quote. Stale policies frequently flagged.",
+  },
+  {
+    row: "− Utilities (landlord-paid)",
+    formula: "Actual from 3-year statements",
+    detail:
+      "Landlord-paid only — tenant-paid utilities are excluded. Heat, hot water, common-area electricity, water/sewer where applicable.",
+  },
+  {
+    row: "− Repairs & maintenance",
+    formula: "3-year trailing average",
+    detail:
+      "Actual from property statements, sometimes benchmarked against CMHC-accepted ranges for property type and age.",
+  },
+  {
+    row: "− Property management",
+    formula: "3–5% of EGI MINIMUM",
+    detail:
+      "Imputed even if the property is self-managed. Larger or full-service assets are underwritten at 4–5% of EGI.",
+  },
+  {
+    row: "− Replacement reserves",
+    formula: "$250–500/unit/yr or 2–4% EGI",
+    detail:
+      "CMHC-dictated at submission. Newer buildings sit at the low end; older stock or deferred-maintenance files trend higher.",
+  },
+  {
+    row: "= Net Operating Income (NOI)",
+    formula: "EGI − operating expenses",
+    detail:
+      "The NOI that feeds DCR and the income-approach valuation. Not the borrower's NOI — CMHC's.",
+  },
+];
+
+const commonAdjustments = [
+  {
+    line: "Rent roll rents",
+    adjustment:
+      "Replaced with market rents per RMS + comparables, with unit-level adjustments for below-market legacy tenancies.",
+  },
+  {
+    line: "Vacancy at zero",
+    adjustment:
+      "Replaced with RMS CMA vacancy + 1–2% bad-debt allowance, subject to structural minimum.",
+  },
+  {
+    line: "Self-managed pro forma",
+    adjustment:
+      "Property management added back at 3–5% of EGI minimum even if owner intends to self-manage.",
+  },
+  {
+    line: "No replacement reserves",
+    adjustment:
+      "Added at $250–500/unit/yr or 2–4% EGI depending on asset age and condition.",
+  },
+  {
+    line: "Understated utilities",
+    adjustment:
+      "Reconciled against 3-year actuals; incomplete records backed into from comparable buildings.",
+  },
+];
+---
+
+<DefaultLayout title={title} description={description}>
+  <div class="bg-obsidian text-foreground">
+    {/* HERO */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <Badge variant="outline" className="mb-6 border-star/40 text-star">
+          Underwriting · NOI methodology
+        </Badge>
+        <h1 class="text-4xl font-semibold tracking-tight lg:text-6xl">
+          NOI methodology — how CMHC builds the number.
+        </h1>
+        <p class="mt-6 max-w-3xl text-lg text-muted-foreground">
+          Every CMHC multi-unit file runs through the same NOI
+          build: Gross Potential Rent at market, less vacancy
+          and bad debt from the Rental Market Survey, plus
+          ancillary income — to arrive at Effective Gross
+          Income. Operating expenses then come off line by line,
+          each one validated against three years of actual
+          property statements (or market comparables for new
+          construction).
+        </p>
+        <p class="mt-4 max-w-3xl text-lg text-muted-foreground">
+          The final NOI belongs to CMHC, not the borrower.
+          Underwriters routinely adjust rent rolls to market,
+          add back stripped-out management fees, impose
+          structural vacancy floors, and insert replacement
+          reserves into pro formas that omitted them. The DCR
+          calculation uses the adjusted NOI — which is why
+          pro forma-based loan sizing so often overshoots.
+        </p>
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a href="/calculators/noi-cap-rate">
+            <Button size="lg">Open the NOI / cap-rate calculator</Button>
+          </a>
+          <a href="/underwriting/dcr">
+            <Button variant="outline" size="lg">DCR page</Button>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    {/* FULL WALK */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="max-w-3xl">
+          <Badge variant="secondary" className="mb-4">Line-by-line walk</Badge>
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+            GPR to NOI, in the order CMHC reconciles it.
+          </h2>
+          <p class="mt-4 text-muted-foreground">
+            The sequence matters — vacancy applies to GPR, not
+            to EGI. Other income is added after vacancy. Most
+            opex ratios (management, reserves) apply against
+            EGI, not against GPR.
+          </p>
+        </div>
+
+        <div class="mt-10 overflow-x-auto rounded-lg border border-dark-gray bg-jet">
+          <table class="w-full border-collapse text-sm">
+            <thead>
+              <tr class="border-b border-dark-gray text-muted-foreground text-xs uppercase tracking-wide">
+                <th class="px-4 py-3 text-left font-medium">Line</th>
+                <th class="px-4 py-3 text-left font-medium">Formula</th>
+                <th class="px-4 py-3 text-left font-medium">CMHC treatment</th>
+              </tr>
+            </thead>
+            <tbody>
+              {
+                noiWalk.map((row) => (
+                  <tr class="border-b border-dark-gray last:border-0">
+                    <td class="px-4 py-3 font-medium">{row.row}</td>
+                    <td class="px-4 py-3 text-muted-foreground">{row.formula}</td>
+                    <td class="px-4 py-3 text-muted-foreground">{row.detail}</td>
+                  </tr>
+                ))
+              }
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    {/* GPR + EGI DETAIL */}
+    <section class="border-b border-dark-gray bg-jet">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="max-w-3xl">
+          <Badge variant="secondary" className="mb-4">Gross potential rent</Badge>
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+            GPR uses market, not actual.
+          </h2>
+          <p class="mt-4 text-muted-foreground">
+            GPR is built from achievable market rents per unit
+            type — not from the in-place rent roll. Rent-
+            controlled or legacy below-market tenancies are
+            underwritten at market rent but with a vacancy /
+            turnover haircut on the delta until the tenancies
+            actually turn over.
+          </p>
+        </div>
+
+        <div class="mt-10 grid gap-6 lg:grid-cols-3">
+          <Card className="bg-obsidian border-dark-gray p-6">
+            <div class="text-xs uppercase tracking-wide text-star">Market rent source</div>
+            <div class="mt-1 text-lg font-semibold">RMS + comparables</div>
+            <p class="mt-3 text-sm text-muted-foreground">
+              CMHC Rental Market Survey medians by CMA, zone,
+              and bedroom count — triangulated against recent
+              comparable leases from the appraiser's market
+              data set.
+            </p>
+          </Card>
+          <Card className="bg-obsidian border-dark-gray p-6">
+            <div class="text-xs uppercase tracking-wide text-star">Other income</div>
+            <div class="mt-1 text-lg font-semibold">NRI, not gross</div>
+            <p class="mt-3 text-sm text-muted-foreground">
+              Parking, laundry, storage, commercial — all
+              underwritten net of their direct operating
+              costs. Commercial rent is NRI, not gross rent.
+              Under-reported CAM recoveries frequently adjusted.
+            </p>
+          </Card>
+          <Card className="bg-obsidian border-dark-gray p-6">
+            <div class="text-xs uppercase tracking-wide text-star">Structural vacancy</div>
+            <div class="mt-1 text-lg font-semibold">Floor even in tight markets</div>
+            <p class="mt-3 text-sm text-muted-foreground">
+              CMHC applies a vacancy floor (typically 3–5%
+              including bad debt) regardless of RMS or in-place
+              occupancy. This is a policy choice — protecting
+              insurance risk against market normalization.
+            </p>
+          </Card>
+        </div>
+      </div>
+    </section>
+
+    {/* OPEX TREATMENT */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="max-w-3xl">
+          <Badge variant="secondary" className="mb-4">Opex treatment</Badge>
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+            Every line has a rule.
+          </h2>
+          <p class="mt-4 text-muted-foreground">
+            CMHC doesn't publish opex assumptions, but the
+            operational rules applied by underwriters are
+            consistent. For benchmark $/unit and % of EGI
+            ranges, see the opex benchmarks page.
+          </p>
+        </div>
+
+        <div class="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          <Card className="bg-jet border-dark-gray p-6">
+            <div class="text-xs uppercase tracking-wide text-star">Property taxes</div>
+            <div class="mt-1 text-lg font-semibold">Actual + reassessment</div>
+            <p class="mt-3 text-sm text-muted-foreground">
+              Current roll. Pending reassessments adjusted in.
+              Appeal activity flagged but not baked in until
+              resolved.
+            </p>
+          </Card>
+          <Card className="bg-jet border-dark-gray p-6">
+            <div class="text-xs uppercase tracking-wide text-star">Insurance</div>
+            <div class="mt-1 text-lg font-semibold">Broker quote</div>
+            <p class="mt-3 text-sm text-muted-foreground">
+              In-force policy or current firm quote. Older
+              policies re-quoted at submission where material.
+            </p>
+          </Card>
+          <Card className="bg-jet border-dark-gray p-6">
+            <div class="text-xs uppercase tracking-wide text-star">Utilities</div>
+            <div class="mt-1 text-lg font-semibold">Landlord-paid only</div>
+            <p class="mt-3 text-sm text-muted-foreground">
+              Tenant-paid portions excluded. Sub-metered buildings
+              must document tenant responsibility in the lease.
+            </p>
+          </Card>
+          <Card className="bg-jet border-dark-gray p-6">
+            <div class="text-xs uppercase tracking-wide text-star">R&M</div>
+            <div class="mt-1 text-lg font-semibold">3-year average</div>
+            <p class="mt-3 text-sm text-muted-foreground">
+              Outliers investigated. Benchmarked against CMHC-
+              accepted ranges for the asset type, age, and
+              region.
+            </p>
+          </Card>
+          <Card className="bg-jet border-dark-gray p-6">
+            <div class="text-xs uppercase tracking-wide text-star">Management</div>
+            <div class="mt-1 text-lg font-semibold">3–5% of EGI minimum</div>
+            <p class="mt-3 text-sm text-muted-foreground">
+              Imputed even on self-managed properties. Larger or
+              management-intensive buildings sit at 4–5%.
+            </p>
+          </Card>
+          <Card className="bg-jet border-dark-gray p-6">
+            <div class="text-xs uppercase tracking-wide text-star">Replacement reserves</div>
+            <div class="mt-1 text-lg font-semibold">$250–500/unit or 2–4% EGI</div>
+            <p class="mt-3 text-sm text-muted-foreground">
+              CMHC-dictated. Newer stock at the low end, older
+              deferred-maintenance buildings at the top.
+            </p>
+          </Card>
+        </div>
+      </div>
+    </section>
+
+    {/* ADJUSTMENTS */}
+    <section class="border-b border-dark-gray bg-jet">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="grid gap-10 lg:grid-cols-[1fr_1.2fr]">
+          <div>
+            <Badge variant="outline" className="mb-4 border-star/40 text-star">
+              Gotcha
+            </Badge>
+            <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+              Borrower NOI is not CMHC NOI.
+            </h2>
+            <p class="mt-4 text-muted-foreground">
+              The NOI the borrower submits is a starting point.
+              The NOI that feeds loan-sizing is what CMHC's
+              underwriter lands on after the standard adjustments
+              below. DCR at approval is computed against the
+              adjusted NOI — which is why loan sizing from an
+              unadjusted pro forma routinely overstates deliverable
+              proceeds by 10–20%.
+            </p>
+          </div>
+          <Card className="bg-obsidian border-dark-gray p-6">
+            <div class="text-xs uppercase tracking-wide text-muted-foreground">
+              Typical adjustments
+            </div>
+            <div class="mt-4 space-y-3 text-sm">
+              {
+                commonAdjustments.map((row) => (
+                  <div class="flex flex-col border-b border-dark-gray/50 pb-2 last:border-0 last:pb-0">
+                    <span class="text-star font-medium">{row.line}</span>
+                    <span class="text-muted-foreground">{row.adjustment}</span>
+                  </div>
+                ))
+              }
+            </div>
+          </Card>
+        </div>
+      </div>
+    </section>
+
+    {/* CTA */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-20 lg:px-12 lg:py-28">
+        <div class="mx-auto max-w-3xl text-center">
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-5xl">
+            Build NOI the way CMHC builds it.
+          </h2>
+          <p class="mx-auto mt-5 max-w-2xl text-muted-foreground">
+            Pair the NOI calculator with the opex benchmarks page
+            and the DCR page to build a pro forma that survives
+            CMHC review without surprises.
+          </p>
+          <div class="mt-8 flex flex-wrap justify-center gap-3">
+            <a href="/calculators/noi-cap-rate">
+              <Button size="lg">NOI / cap-rate calculator</Button>
+            </a>
+            <a href="/underwriting/opex">
+              <Button variant="outline" size="lg">Opex page</Button>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</DefaultLayout>

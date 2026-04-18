@@ -1,0 +1,386 @@
+---
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import DefaultLayout from "@/layouts/DefaultLayout.astro";
+
+const title = "Lender Eligibility — Approved Lenders Only (Sept 2024+)";
+const description =
+  "Only CMHC-approved lenders can submit multi-unit files since September 2024. Approval criteria, MUA thresholds, the September 2025 CoI restrictions, lender categories (Big 6, monolines, trust, credit unions, life cos, specialized), and how borrowers engage.";
+
+const lenderObligations = [
+  {
+    item: "Approved-lender-only submissions",
+    detail:
+      "Effective September 2024: only approved CMHC lenders can submit files through MULTI-GO. Borrowers cannot submit directly. This formalized a previously informal practice and cut off direct-borrower submissions entirely.",
+  },
+  {
+    item: "≥80% funding obligation",
+    detail:
+      "Approved lenders must fund at least 80% of the CMHC-approved loans they hold commitments for. Intended to prevent lenders from gathering approvals without funding capacity.",
+  },
+  {
+    item: "CoI transfer restrictions (Sept 3, 2025)",
+    detail:
+      "Certificate of Insurance transferability between lenders materially tightened. Effectively ended 'shopping a CoI' — competing bids at renewal now require a fresh CMHC submission.",
+  },
+  {
+    item: "Ongoing reporting",
+    detail:
+      "Approved lenders submit regular portfolio reporting to CMHC on insured loan performance, covenant compliance, and funding activity.",
+  },
+  {
+    item: "Relationship management",
+    detail:
+      "CMHC assigns account coverage at the Underwriting Centre. Lenders maintain escalation paths, exception handling, and commitment interpretation.",
+  },
+];
+
+const lenderCategories = [
+  {
+    category: "Big 6 banks",
+    examples: "TD, National Bank, Scotiabank, RBC, BMO, CIBC",
+    detail:
+      "Full-product approved lenders. Deep commitment ranges; slower internal credit cycles. National Bank and TD are the most CMHC-active.",
+  },
+  {
+    category: "Monolines",
+    examples: "First National, MCAP, CMLS, Peakhill",
+    detail:
+      "Dedicated multi-unit teams, fast turnaround, deep CMHC volume. First National self-identifies as Canada's #1 CMHC apartment lender; Peakhill has funded $13.5B+ across 2,500+ CMHC loans.",
+  },
+  {
+    category: "Trust companies",
+    examples: "Equitable Bank, Peoples Trust, Home Trust",
+    detail:
+      "Equitable is the largest CMHC multi-unit issuer by volume at $27.5B MUA (+175% since 2021). Peoples Trust at $18B+ servicing. Competitive on execution speed.",
+  },
+  {
+    category: "Credit unions",
+    examples: "Vancity, Meridian, Alterna, Coast Capital via Central 1",
+    detail:
+      "Typically submit via provincial centrals (Central 1, Credit Union Central of Alberta). Competitive in local markets; scale constrained vs monolines.",
+  },
+  {
+    category: "Life companies",
+    examples: "Sun Life, Canada Life, Manulife, Great-West, Empire Life",
+    detail:
+      "$13B+ commercial mortgage portfolios each. Compete on 15 and 20-year fixed-rate terms; asset-liability match favours long duration. Selective on credit.",
+  },
+  {
+    category: "Specialized / dual-role",
+    examples: "Canada ICI, CBRE Capital",
+    detail:
+      "Canada ICI and CBRE Capital uniquely sit as both approved lender and advisor/broker. Useful for complex structured deals requiring capital-markets expertise alongside CMHC execution.",
+  },
+];
+
+const approvalCriteria = [
+  {
+    item: "Capitalization",
+    detail:
+      "Minimum regulatory capital adequacy for the lender's charter. Demonstrated funding capacity to satisfy the 80% funding obligation.",
+  },
+  {
+    item: "Operational capability",
+    detail:
+      "Dedicated multi-unit underwriting team; commercial loan servicing infrastructure; file management through MULTI-GO.",
+  },
+  {
+    item: "Risk management",
+    detail:
+      "Documented policies, concentration limits, covenant monitoring, and problem-loan management processes.",
+  },
+  {
+    item: "CMHC relationship management",
+    detail:
+      "Named relationship owner, escalation paths, commitment interpretation consistency, and track record with CMHC underwriters.",
+  },
+  {
+    item: "Regulatory standing",
+    detail:
+      "OSFI (federally regulated) or provincial regulator (credit unions, trusts) in good standing with no material compliance orders.",
+  },
+];
+
+const borrowerImplications = [
+  {
+    step: "1",
+    title: "Pick the lender first",
+    detail:
+      "Before building the submission package, identify the approved lender. Borrowers cannot bypass. Lender selection drives turnaround, rate, and product access.",
+  },
+  {
+    step: "2",
+    title: "Lender submits, not borrower",
+    detail:
+      "The approved lender uploads the full package to MULTI-GO. Borrowers support by providing financials, covenantor docs, and access to the property for inspection.",
+  },
+  {
+    step: "3",
+    title: "CoI issues to the lender",
+    detail:
+      "The Certificate of Insurance is CMHC's commitment to the lender — not the borrower. The borrower's funding depends on the lender funding against the CoI.",
+  },
+  {
+    step: "4",
+    title: "Primary relationship sits with the lender",
+    detail:
+      "Post-funding servicing, renewal negotiation, and commitment interpretation run through the lender. Borrower-CMHC direct contact is atypical.",
+  },
+];
+---
+
+<DefaultLayout title={title} description={description}>
+  <div class="bg-obsidian text-foreground">
+    {/* HERO */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <Badge variant="outline" className="mb-6 border-star/40 text-star">
+          Eligibility · Lender
+        </Badge>
+        <h1 class="text-4xl font-semibold tracking-tight lg:text-6xl">
+          Lender eligibility — approved only, since September 2024.
+        </h1>
+        <p class="mt-6 max-w-3xl text-lg text-muted-foreground">
+          The September 2024 CMHC policy change made it formal: only
+          approved lenders can submit multi-unit files. Borrowers cannot
+          submit directly. September 2025 tightened the framework
+          further — approved lenders now face an 80% funding obligation
+          on the approvals they carry, and Certificate of Insurance
+          transferability between lenders is restricted.
+        </p>
+        <p class="mt-4 max-w-3xl text-lg text-muted-foreground">
+          Understanding the lender landscape is therefore front-of-deal,
+          not back-of-deal. Lender selection now drives turnaround
+          speed, pricing, product access, and ongoing servicing. The
+          approved lender universe breaks into six categories: Big 6
+          banks, monolines, trust companies, credit unions, life
+          companies, and specialized / dual-role firms.
+        </p>
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a href="/lenders">
+            <Button size="lg">Approved lender directory</Button>
+          </a>
+          <a href="/eligibility">
+            <Button variant="outline" size="lg">Back to eligibility</Button>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    {/* LENDER OBLIGATIONS */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="max-w-3xl">
+          <Badge variant="secondary" className="mb-4">Obligations</Badge>
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+            What approved status requires.
+          </h2>
+          <p class="mt-4 text-muted-foreground">
+            The September 2024 and September 2025 policy changes
+            converted approved-lender status from a credential into an
+            active operational commitment.
+          </p>
+        </div>
+
+        <div class="mt-10 overflow-x-auto rounded-lg border border-dark-gray bg-obsidian">
+          <table class="w-full border-collapse text-sm">
+            <thead>
+              <tr class="border-b border-dark-gray text-muted-foreground text-xs uppercase tracking-wide">
+                <th class="px-4 py-3 text-left font-medium">Obligation</th>
+                <th class="px-4 py-3 text-left font-medium">Detail</th>
+              </tr>
+            </thead>
+            <tbody>
+              {
+                lenderObligations.map((row) => (
+                  <tr class="border-b border-dark-gray last:border-0">
+                    <td class="px-4 py-3 font-medium">{row.item}</td>
+                    <td class="px-4 py-3 text-muted-foreground">{row.detail}</td>
+                  </tr>
+                ))
+              }
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    {/* LENDER CATEGORIES */}
+    <section class="border-b border-dark-gray bg-jet">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="max-w-3xl">
+          <Badge variant="secondary" className="mb-4">Categories</Badge>
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+            Six approved-lender categories.
+          </h2>
+          <p class="mt-4 text-muted-foreground">
+            Each category has a distinctive profile on turnaround, term
+            preferences, and deal size sweet spots. The lenders page
+            ranks specific firms by MUA.
+          </p>
+        </div>
+
+        <div class="mt-10 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+          {
+            lenderCategories.map((row) => (
+              <Card className="bg-obsidian border-dark-gray p-6">
+                <div class="text-xs uppercase tracking-wide text-star">
+                  {row.category}
+                </div>
+                <div class="mt-2 text-sm font-medium">{row.examples}</div>
+                <p class="mt-3 text-sm text-muted-foreground">{row.detail}</p>
+              </Card>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    {/* MUA TIERING */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="grid gap-10 lg:grid-cols-[1fr_1fr]">
+          <div>
+            <Badge variant="secondary" className="mb-4">MUA tiering</Badge>
+            <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+              Mortgages Under Administration — the informal benchmark.
+            </h2>
+            <p class="mt-4 text-muted-foreground">
+              CMHC does not publish a formal approved-lender tier list.
+              Mortgages Under Administration (MUA) is the closest
+              public benchmark — the dollar volume of CMHC-insured
+              loans a lender services.
+            </p>
+            <p class="mt-4 text-muted-foreground">
+              MUA is correlated with (but not a formal determinant of)
+              approved-lender tier. Tier I lenders have the broadest
+              product access including direct-lending program
+              participation; Tier II and III face restrictions on
+              specific product combinations.
+            </p>
+          </div>
+          <Card className="bg-jet border-dark-gray p-6">
+            <div class="text-xs uppercase tracking-wide text-star">
+              MUA benchmarks (indicative)
+            </div>
+            <dl class="mt-5 space-y-4 text-sm">
+              <div class="flex justify-between gap-4 border-b border-dark-gray pb-2">
+                <dt class="text-muted-foreground">Tier I (full products)</dt>
+                <dd class="font-medium">$15B+ MUA</dd>
+              </div>
+              <div class="flex justify-between gap-4 border-b border-dark-gray pb-2">
+                <dt class="text-muted-foreground">Tier II</dt>
+                <dd class="font-medium">$5–15B MUA</dd>
+              </div>
+              <div class="flex justify-between gap-4 border-b border-dark-gray pb-2">
+                <dt class="text-muted-foreground">Tier III</dt>
+                <dd class="font-medium">$1–5B MUA</dd>
+              </div>
+              <div class="flex justify-between gap-4 pt-1">
+                <dt class="text-muted-foreground">Entry-tier / new approvals</dt>
+                <dd class="font-medium">Under $1B MUA</dd>
+              </div>
+            </dl>
+            <p class="mt-5 text-xs text-muted-foreground">
+              Indicative only — CMHC does not publish formal tier
+              thresholds. MUA is the closest publicly-referenced
+              benchmark for lender scale.
+            </p>
+          </Card>
+        </div>
+      </div>
+    </section>
+
+    {/* APPROVAL CRITERIA */}
+    <section class="border-b border-dark-gray bg-jet">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="max-w-3xl">
+          <Badge variant="secondary" className="mb-4">Becoming approved</Badge>
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+            What CMHC evaluates.
+          </h2>
+          <p class="mt-4 text-muted-foreground">
+            The approval process is application-based. Five evaluation
+            pillars drive accept/reject and initial product scope.
+          </p>
+        </div>
+
+        <div class="mt-10 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+          {
+            approvalCriteria.map((row) => (
+              <Card className="bg-obsidian border-dark-gray p-6">
+                <div class="text-xs uppercase tracking-wide text-star">
+                  {row.item}
+                </div>
+                <p class="mt-3 text-sm text-muted-foreground">{row.detail}</p>
+              </Card>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    {/* BORROWER IMPLICATIONS */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="max-w-3xl">
+          <Badge variant="outline" className="mb-4 border-star/40 text-star">
+            Borrower perspective
+          </Badge>
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+            Four implications borrowers must absorb.
+          </h2>
+          <p class="mt-4 text-muted-foreground">
+            The approved-lender-only model reshapes how borrowers
+            engage with CMHC. Direct borrower-CMHC relationships that
+            existed pre-2024 no longer apply.
+          </p>
+        </div>
+
+        <div class="mt-10 grid gap-6 md:grid-cols-2">
+          {
+            borrowerImplications.map((row) => (
+              <Card className="bg-jet border-dark-gray p-6">
+                <div class="flex items-start gap-4">
+                  <div class="text-3xl font-semibold text-star">{row.step}</div>
+                  <div>
+                    <div class="text-lg font-semibold">{row.title}</div>
+                    <p class="mt-2 text-sm text-muted-foreground">
+                      {row.detail}
+                    </p>
+                  </div>
+                </div>
+              </Card>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    {/* CTA */}
+    <section class="border-b border-dark-gray bg-jet">
+      <div class="container border-l border-r border-dark-gray px-6 py-20 lg:px-12 lg:py-28">
+        <div class="mx-auto max-w-3xl text-center">
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-5xl">
+            Pick the lender; the rest follows.
+          </h2>
+          <p class="mx-auto mt-5 max-w-2xl text-muted-foreground">
+            The lenders page ranks approved submitters by CMHC
+            multi-unit volume, category, and specialization. Pair
+            with the programs overview to match lender to product.
+          </p>
+          <div class="mt-8 flex flex-wrap justify-center gap-3">
+            <a href="/lenders">
+              <Button size="lg">Approved lenders</Button>
+            </a>
+            <a href="/programs">
+              <Button variant="outline" size="lg">Programs overview</Button>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</DefaultLayout>

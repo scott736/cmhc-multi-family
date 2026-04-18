@@ -1,0 +1,173 @@
+---
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import { EXAMPLE_CLOSING_COSTS, FEE_CATEGORIES } from "@/data/fees";
+import DefaultLayout from "@/layouts/DefaultLayout.astro";
+
+const title = "CMHC Multi-Unit Fee Schedule Reference | CMHC Multi-Family";
+const description =
+  "Reference table of typical CMHC multi-unit fees — application, appraisal, Phase I, QS, surety, lender, legal, and provincial PST on premium. Plus a worked example for a $10M MLI Select purchase.";
+
+function fmt(n: number): string {
+  return new Intl.NumberFormat("en-CA", {
+    style: "currency",
+    currency: "CAD",
+    maximumFractionDigits: 0,
+  }).format(n);
+}
+---
+
+<DefaultLayout title={title} description={description}>
+  <div class="bg-obsidian text-foreground">
+    {/* HERO */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <Badge variant="outline" className="mb-6 border-star/40 text-star">
+          Fee schedule reference
+        </Badge>
+        <h1 class="text-4xl font-semibold tracking-tight lg:text-6xl">
+          What a CMHC multi-unit deal actually costs.
+        </h1>
+        <p class="mt-6 max-w-3xl text-lg text-muted-foreground">
+          Typical ranges across CMHC, appraisal, professional reports,
+          lender, legal, construction-specific costs, and the provincial
+          sales tax layered on the CMHC premium. Quoted fees vary by
+          lender and deal size; treat these as planning ranges, not
+          commitments.
+        </p>
+      </div>
+    </section>
+
+    {/* CATEGORIES */}
+    {
+      FEE_CATEGORIES.map((cat) => (
+        <section class="border-b border-dark-gray">
+          <div class="container border-l border-r border-dark-gray px-6 py-12 lg:px-12 lg:py-16">
+            <div class="max-w-3xl">
+              <Badge variant="secondary" className="mb-4">
+                {cat.title}
+              </Badge>
+              <h2 class="text-2xl font-semibold tracking-tight lg:text-3xl">
+                {cat.title}
+              </h2>
+              <p class="mt-3 text-muted-foreground">{cat.description}</p>
+            </div>
+
+            <div class="mt-8 overflow-x-auto rounded-lg border border-dark-gray bg-jet">
+              <table class="w-full min-w-[720px] text-sm">
+                <thead>
+                  <tr class="border-b border-dark-gray text-muted-foreground text-xs uppercase tracking-wide">
+                    <th class="px-4 py-3 text-left font-medium">Item</th>
+                    <th class="px-4 py-3 text-left font-medium">Typical range</th>
+                    <th class="px-4 py-3 text-left font-medium">Notes</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {
+                    cat.lines.map((line) => (
+                      <tr class="border-b border-dark-gray/60 last:border-0">
+                        <td class="px-4 py-3 font-medium">{line.label}</td>
+                        <td class="px-4 py-3 text-star">{line.range}</td>
+                        <td class="px-4 py-3 text-muted-foreground">
+                          {line.notes}
+                        </td>
+                      </tr>
+                    ))
+                  }
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+      ))
+    }
+
+    {/* WORKED EXAMPLE */}
+    <section class="border-b border-dark-gray bg-jet">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="max-w-3xl">
+          <Badge variant="secondary" className="mb-4">Worked example</Badge>
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+            ${fmt(EXAMPLE_CLOSING_COSTS.dealSize)} {EXAMPLE_CLOSING_COSTS.program}.
+          </h2>
+          <p class="mt-3 text-muted-foreground">
+            {EXAMPLE_CLOSING_COSTS.note}
+          </p>
+        </div>
+
+        <div class="mt-8 overflow-x-auto rounded-lg border border-dark-gray bg-obsidian">
+          <table class="w-full min-w-[640px] text-sm">
+            <thead>
+              <tr class="border-b border-dark-gray text-muted-foreground text-xs uppercase tracking-wide">
+                <th class="px-4 py-3 text-left font-medium">Line item</th>
+                <th class="px-4 py-3 text-right font-medium">Low</th>
+                <th class="px-4 py-3 text-right font-medium">High</th>
+              </tr>
+            </thead>
+            <tbody>
+              {
+                EXAMPLE_CLOSING_COSTS.lines.map((line) => (
+                  <tr class="border-b border-dark-gray/60 last:border-0">
+                    <td class="px-4 py-3 font-medium">{line.label}</td>
+                    <td class="px-4 py-3 text-right text-muted-foreground">
+                      {fmt(line.low)}
+                    </td>
+                    <td class="px-4 py-3 text-right text-muted-foreground">
+                      {fmt(line.high)}
+                    </td>
+                  </tr>
+                ))
+              }
+              <tr class="bg-jet">
+                <td class="px-4 py-4 font-semibold">Total closing costs</td>
+                <td class="px-4 py-4 text-right font-semibold text-star">
+                  {fmt(EXAMPLE_CLOSING_COSTS.totalRange.low)}
+                </td>
+                <td class="px-4 py-4 text-right font-semibold text-star">
+                  {fmt(EXAMPLE_CLOSING_COSTS.totalRange.high)}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <Card className="mt-8 bg-obsidian border-dark-gray p-6">
+          <div class="text-xs uppercase tracking-wide text-muted-foreground">
+            Cash-at-closing vs. capitalized
+          </div>
+          <p class="mt-3 text-sm text-muted-foreground">
+            The CMHC premium itself is capitalizable into the insured
+            loan — meaning the premium is financed rather than paid in
+            cash. Every other line (appraisal, Phase I, lender, legal,
+            PST) is cash at closing. Plan equity accordingly.
+          </p>
+        </Card>
+      </div>
+    </section>
+
+    {/* CTA */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-20 lg:px-12 lg:py-28">
+        <div class="mx-auto max-w-3xl text-center">
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-5xl">
+            Model the full stack.
+          </h2>
+          <p class="mx-auto mt-5 max-w-2xl text-muted-foreground">
+            The premium calculator applies the July 14 2025 LTV-banded
+            grid; the loan sizer tests DCR, LTV, and program cap
+            simultaneously.
+          </p>
+          <div class="mt-8 flex flex-wrap justify-center gap-3">
+            <a href="/calculators/premium">
+              <Button size="lg">Premium calculator</Button>
+            </a>
+            <a href="/calculators/loan-sizer">
+              <Button variant="outline" size="lg">Loan sizer</Button>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</DefaultLayout>

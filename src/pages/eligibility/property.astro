@@ -1,0 +1,433 @@
+---
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import DefaultLayout from "@/layouts/DefaultLayout.astro";
+
+const title = "Property Eligibility — CMHC Multi-Unit Asset Criteria";
+const description =
+  "Which properties qualify for CMHC multi-unit programs. Minimum 5 self-contained units, purpose-built rental, mixed-use thresholds, specialized property types, and the disqualifying conditions — short-term rentals, condo inventory, hotel/motel.";
+
+const eligibleTypes = [
+  {
+    type: "Conventional apartments",
+    detail:
+      "Purpose-built rental, 5+ self-contained units, garden/walk-up through high-rise. Core asset class for MLI Standard and MLI Select.",
+  },
+  {
+    type: "Townhome rentals",
+    detail:
+      "Rental townhomes operated as a single rental property under common ownership. Condo-tenured stacks of townhomes intended for rental qualify under multi-unit.",
+  },
+  {
+    type: "Retirement (50+ units/beds)",
+    detail:
+      "Independent and assisted living. Priced on the Other Shelter Models premium grid — materially higher than standard rental.",
+  },
+  {
+    type: "Student housing",
+    detail:
+      "Purpose-built student accommodation. Specialized premium grid. Location typically near post-secondary institutions.",
+  },
+  {
+    type: "Supportive housing",
+    detail:
+      "Non-market housing with on-site supports. Specialized grid; often financed alongside AHF contributions.",
+  },
+  {
+    type: "Single-room occupancy (SRO)",
+    detail:
+      "Shared-bathroom/kitchen rooming accommodations. Specialized premium grid at the highest end; usually non-profit operated.",
+  },
+];
+
+const ineligibleTypes = [
+  {
+    type: "Condo inventory for sale",
+    detail:
+      "Stratified units held for retail sale are not insurable as multi-unit. Rental-held condos can qualify if unit count and control thresholds are met.",
+  },
+  {
+    type: "Short-term / Airbnb",
+    detail:
+      "Tourist accommodation and short-term rental operations are excluded. Rental period must be month-to-month or longer.",
+  },
+  {
+    type: "Hotel / motel",
+    detail:
+      "Hospitality operations are commercial real estate — CMHC does not insure. Hotel-to-apartment conversions can qualify post-conversion.",
+  },
+  {
+    type: "Commercial-primary mixed-use",
+    detail:
+      "Residential must be ≥70% of NRI. Buildings under that threshold are commercial, not multi-unit, from CMHC's perspective.",
+  },
+  {
+    type: "Personal-use rental",
+    detail:
+      "Owner-occupied portion, cottage/secondary-use, or units held for family members are excluded from insured NRI.",
+  },
+];
+
+const mixedUseRules = [
+  {
+    rule: "Residential share",
+    detail: "≥70% of Net Rental Income must come from residential units.",
+  },
+  {
+    rule: "Commercial surcharge",
+    detail:
+      "Non-residential component >20% of NRI triggers a +1.00% premium surcharge (per CMHC surcharge schedule).",
+  },
+  {
+    rule: "Commercial tenant mix",
+    detail:
+      "Investment-grade tenants (national chains, government, essential services) preferred over high-volatility retail.",
+  },
+  {
+    rule: "Commercial lease structure",
+    detail:
+      "Triple-net preferred; fully-gross or percentage-rent structures require conservative NOI adjustments.",
+  },
+];
+
+const conditionAndAge = [
+  {
+    item: "Condition",
+    detail:
+      "Habitable, code-compliant, no material deferred maintenance. Structural, envelope, mechanical systems assessed in the appraisal and Phase I ESA.",
+  },
+  {
+    item: "Age",
+    detail:
+      "No hard cap, but buildings 40+ years old face heightened scrutiny — envelope, plumbing, electrical, roof assessed more rigorously.",
+  },
+  {
+    item: "New construction",
+    detail:
+      "ACLP, MLI Select construction, MLI Standard construction all eligible. Post-November 2024: mandatory geotechnical, structural, surety bonding.",
+  },
+  {
+    item: "Repositioning / retrofit",
+    detail:
+      "Existing buildings undergoing major retrofit eligible under MLI Standard existing or MLI Select; energy-reduction scoring available for Select.",
+  },
+  {
+    item: "Vacant land",
+    detail:
+      "Eligible only under construction programs (ACLP, MLI Select construction, MLI Standard construction).",
+  },
+];
+
+const specialTenure = [
+  {
+    item: "Agricultural Land Reserve (BC ALR)",
+    detail:
+      "Case-by-case review. Residential use on ALR is often restricted; confirm with ALC and local zoning before underwriting.",
+  },
+  {
+    item: "First Nations / reserve land",
+    detail:
+      "Reviewed on case-by-case basis. AHF and Indigenous-specific streams have dedicated pathways.",
+  },
+  {
+    item: "Leasehold",
+    detail:
+      "Eligible with sufficient remaining lease term (typically ≥30 years past the insurance maturity). Common in BC leaseholds (UBC Endowment Lands, Musqueam) and Toronto air-rights.",
+  },
+  {
+    item: "Strata (condo-tenured rental)",
+    detail:
+      "Eligible when held as a single rental property or where rental stratas are controlled by a common ownership entity meeting the 5+ unit threshold.",
+  },
+];
+---
+
+<DefaultLayout title={title} description={description}>
+  <div class="bg-obsidian text-foreground">
+    {/* HERO */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <Badge variant="outline" className="mb-6 border-star/40 text-star">
+          Eligibility · Property
+        </Badge>
+        <h1 class="text-4xl font-semibold tracking-tight lg:text-6xl">
+          Property eligibility — 5+ units, rental in fact.
+        </h1>
+        <p class="mt-6 max-w-3xl text-lg text-muted-foreground">
+          CMHC multi-unit insurance starts with a minimum of 5
+          self-contained residential rental units under common
+          ownership. Purpose-built rental, rental-tenured townhomes,
+          and specialized segments (retirement 50+, student, supportive,
+          SRO) are eligible; condo inventory for sale, short-term
+          rental operations, and hotels are not. Mixed-use is eligible
+          when residential is at least 70% of net rental income.
+        </p>
+        <p class="mt-4 max-w-3xl text-lg text-muted-foreground">
+          Beyond the type test, the property must be in habitable
+          condition, code-compliant, and back a defensible NOI. Urban
+          CMA locations are the core market; rural and remote files
+          are eligible but face additional review. Program-specific
+          scoring criteria (MLI Select energy and accessibility tiers)
+          sit on top of baseline property eligibility.
+        </p>
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a href="/programs/specialized">
+            <Button size="lg">Specialized products</Button>
+          </a>
+          <a href="/eligibility">
+            <Button variant="outline" size="lg">Back to eligibility</Button>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    {/* ELIGIBLE TYPES */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="max-w-3xl">
+          <Badge variant="secondary" className="mb-4">Eligible property types</Badge>
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+            Six primary asset classes.
+          </h2>
+          <p class="mt-4 text-muted-foreground">
+            Conventional apartments dominate volume. Specialized
+            segments (retirement, student, supportive, SRO) sit on
+            their own higher premium grid but use the same
+            underwriting framework.
+          </p>
+        </div>
+
+        <div class="mt-10 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+          {
+            eligibleTypes.map((row) => (
+              <Card className="bg-jet border-dark-gray p-6">
+                <div class="text-xs uppercase tracking-wide text-star">
+                  {row.type}
+                </div>
+                <p class="mt-3 text-sm text-muted-foreground">{row.detail}</p>
+              </Card>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    {/* INELIGIBLE */}
+    <section class="border-b border-dark-gray bg-jet">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="max-w-3xl">
+          <Badge variant="secondary" className="mb-4">Ineligible</Badge>
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+            What CMHC will not insure.
+          </h2>
+          <p class="mt-4 text-muted-foreground">
+            The disqualifying conditions are categorical — they cannot
+            be cured through scoring or pricing. Screen for these
+            before any underwriting work.
+          </p>
+        </div>
+
+        <div class="mt-10 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+          {
+            ineligibleTypes.map((row) => (
+              <Card className="bg-obsidian border-dark-gray p-6">
+                <div class="text-xs uppercase tracking-wide text-star">
+                  {row.type}
+                </div>
+                <p class="mt-3 text-sm text-muted-foreground">{row.detail}</p>
+              </Card>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    {/* MIXED USE */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="max-w-3xl">
+          <Badge variant="secondary" className="mb-4">Mixed-use</Badge>
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+            Residential-majority mixed-use is eligible.
+          </h2>
+          <p class="mt-4 text-muted-foreground">
+            Ground-floor retail with apartments above is the canonical
+            mixed-use pattern. As long as residential income dominates,
+            the file is insurable — with a surcharge above the 20%
+            non-residential threshold.
+          </p>
+        </div>
+
+        <div class="mt-10 overflow-x-auto rounded-lg border border-dark-gray bg-obsidian">
+          <table class="w-full border-collapse text-sm">
+            <thead>
+              <tr class="border-b border-dark-gray text-muted-foreground text-xs uppercase tracking-wide">
+                <th class="px-4 py-3 text-left font-medium">Rule</th>
+                <th class="px-4 py-3 text-left font-medium">Detail</th>
+              </tr>
+            </thead>
+            <tbody>
+              {
+                mixedUseRules.map((row) => (
+                  <tr class="border-b border-dark-gray last:border-0">
+                    <td class="px-4 py-3 font-medium">{row.rule}</td>
+                    <td class="px-4 py-3 text-muted-foreground">{row.detail}</td>
+                  </tr>
+                ))
+              }
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    {/* CONDITION AND AGE */}
+    <section class="border-b border-dark-gray bg-jet">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="max-w-3xl">
+          <Badge variant="secondary" className="mb-4">Condition and age</Badge>
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+            New, existing, or retrofit.
+          </h2>
+          <p class="mt-4 text-muted-foreground">
+            CMHC insures across the lifecycle of the asset — new
+            construction, stabilized existing rental, and retrofit
+            repositioning. Each carries its own documentation stack.
+          </p>
+        </div>
+
+        <div class="mt-10 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+          {
+            conditionAndAge.map((row) => (
+              <Card className="bg-obsidian border-dark-gray p-6">
+                <div class="text-xs uppercase tracking-wide text-star">
+                  {row.item}
+                </div>
+                <p class="mt-3 text-sm text-muted-foreground">{row.detail}</p>
+              </Card>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    {/* SPECIAL TENURE */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="max-w-3xl">
+          <Badge variant="secondary" className="mb-4">Special tenure</Badge>
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+            Case-by-case land and tenure situations.
+          </h2>
+          <p class="mt-4 text-muted-foreground">
+            A handful of tenure patterns require CMHC pre-consult
+            before submission. All are potentially insurable; none
+            are categorically excluded.
+          </p>
+        </div>
+
+        <div class="mt-10 grid gap-4 md:grid-cols-2">
+          {
+            specialTenure.map((row) => (
+              <Card className="bg-jet border-dark-gray p-6">
+                <div class="text-xs uppercase tracking-wide text-star">
+                  {row.item}
+                </div>
+                <p class="mt-3 text-sm text-muted-foreground">{row.detail}</p>
+              </Card>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    {/* MLI SELECT ENERGY / ACCESSIBILITY */}
+    <section class="border-b border-dark-gray bg-jet">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="grid gap-10 lg:grid-cols-[1fr_1fr]">
+          <div>
+            <Badge variant="secondary" className="mb-4">Scoring layers</Badge>
+            <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+              Energy and accessibility scoring is optional beyond baseline.
+            </h2>
+            <p class="mt-4 text-muted-foreground">
+              MLI Standard has no minimum energy performance beyond
+              applicable building code. MLI Select layers two optional
+              scoring tiers on top of property eligibility — points
+              earned for measurable energy performance and for
+              accessibility beyond the CSA B651:23 visitability baseline.
+            </p>
+            <p class="mt-4 text-muted-foreground">
+              Provincial accessibility law compliance (AODA in Ontario,
+              Accessibility for Manitobans Act, BC Accessible Canada
+              Act alignment) is a separate jurisdictional requirement
+              that applies regardless of CMHC scoring.
+            </p>
+          </div>
+          <Card className="bg-obsidian border-dark-gray p-6">
+            <div class="text-xs uppercase tracking-wide text-star">
+              Baseline vs scoring
+            </div>
+            <dl class="mt-5 space-y-4 text-sm">
+              <div>
+                <dt class="font-medium">Baseline accessibility (all MLI Select)</dt>
+                <dd class="mt-1 text-muted-foreground">
+                  100% units visitable per CSA B651:23. Common areas
+                  barrier-free. Adaptable bathroom layouts.
+                </dd>
+              </div>
+              <div>
+                <dt class="font-medium">Accessibility Level 1 (20 pts)</dt>
+                <dd class="mt-1 text-muted-foreground">
+                  ≥15% fully accessible OR RHFAC v4.0 score 60–79%.
+                </dd>
+              </div>
+              <div>
+                <dt class="font-medium">Accessibility Level 2 (30 pts)</dt>
+                <dd class="mt-1 text-muted-foreground">
+                  100% accessible OR RHFAC Gold (≥80%).
+                </dd>
+              </div>
+              <div>
+                <dt class="font-medium">Energy baseline</dt>
+                <dd class="mt-1 text-muted-foreground">
+                  Applicable building code. Scoring starts at 20
+                  points for meaningful reductions above baseline.
+                </dd>
+              </div>
+            </dl>
+          </Card>
+        </div>
+      </div>
+    </section>
+
+    {/* CTA */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-20 lg:px-12 lg:py-28">
+        <div class="mx-auto max-w-3xl text-center">
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-5xl">
+            Map the property to the right program.
+          </h2>
+          <p class="mx-auto mt-5 max-w-2xl text-muted-foreground">
+            Conventional rental lands in MLI Standard or Select.
+            Specialized types (retirement, student, supportive, SRO)
+            have their own premium grid. Construction has its own
+            documentation stack.
+          </p>
+          <div class="mt-8 flex flex-wrap justify-center gap-3">
+            <a href="/programs/specialized">
+              <Button size="lg">Specialized products</Button>
+            </a>
+            <a href="/programs/mli-select">
+              <Button variant="outline" size="lg">MLI Select scoring</Button>
+            </a>
+            <a href="/eligibility/lender">
+              <Button variant="outline" size="lg">Lender eligibility</Button>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</DefaultLayout>

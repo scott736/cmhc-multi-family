@@ -1,0 +1,12 @@
+---
+import CashOnCash from "@/components/calculators/cash-on-cash";
+import DefaultLayout from "@/layouts/DefaultLayout.astro";
+
+const title = "Cash-on-Cash Return Calculator — CMHC Multi-Family";
+const description =
+  "Quick Year-1 cash-on-cash yield for CMHC multi-unit deals. See leveraged vs. unleveraged yield, leverage spread, and equity multiple at 5 / 10 / 20-year holds.";
+---
+
+<DefaultLayout title={title} description={description}>
+  <CashOnCash client:load />
+</DefaultLayout>

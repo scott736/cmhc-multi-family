@@ -1,0 +1,381 @@
+---
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import DefaultLayout from "@/layouts/DefaultLayout.astro";
+
+const title = "Environmental & Building Standards — CMHC Multi-Unit";
+const description =
+  "Environmental, seismic, and building-code requirements for CMHC multi-unit files. Phase I ESA mandatory at CSA Z768-01, Phase II triggers, June 2024 contamination policy relaxation, NBC 2020 transition, seismic retrofit, asbestos/lead, fire and accessibility compliance.";
+
+const esaPhases = [
+  {
+    phase: "Phase I ESA",
+    trigger: "Every application",
+    cost: "$3,000–$8,000",
+    standard: "CSA Z768-01",
+    detail:
+      "Records review, site inspection, interviews. Identifies recognized environmental conditions (RECs). Valid for 18 months from report date to submission.",
+  },
+  {
+    phase: "Phase II ESA",
+    trigger: "Phase I identified RECs",
+    cost: "$8,000–$40,000+",
+    standard: "CSA Z769-00",
+    detail:
+      "Intrusive investigation — soil and groundwater sampling. Defines contamination extent and informs remediation scope.",
+  },
+  {
+    phase: "Remediation plan",
+    trigger: "Phase II confirms contamination",
+    cost: "Varies",
+    standard: "Peer-reviewed",
+    detail:
+      "Post-June 2024, CMHC will accept approval with an accepted remediation plan in place — contamination is no longer an automatic disqualifier.",
+  },
+];
+
+const buildingStandards = [
+  {
+    standard: "Building code compliance",
+    current: "NBC 2020 (or provincial equivalent)",
+    note: "National Building Code 2020 transition well advanced. Provinces adopted at different dates — Ontario OBC 2024 references NBC 2020 with Ontario amendments.",
+  },
+  {
+    standard: "Seismic design (BC, QC)",
+    current: "NBC 2020 seismic category",
+    note: "Most relevant in BC (all of Lower Mainland and Vancouver Island). Older Vancouver buildings often flagged for retrofit requirements or reserve additions.",
+  },
+  {
+    standard: "Asbestos / lead paint",
+    current: "Pre-1990 survey required",
+    note: "Designated substance surveys required before renovation work. Remediation costs feed into the reserve build for older buildings.",
+  },
+  {
+    standard: "Fire code",
+    current: "NFC 2020 + provincial fire code",
+    note: "Sprinklers, separations, egress, alarm systems. Older buildings sometimes require retrofit — captured in the QS report for renovation files.",
+  },
+  {
+    standard: "Accessibility — provincial",
+    current: "AODA (ON), BCBC 3.8 (BC), similar",
+    note: "Provincial accessibility legislation applies in parallel with the CSA B651:23 MLI Select baseline. Visitability is separate from provincial standards.",
+  },
+];
+---
+
+<DefaultLayout title={title} description={description}>
+  <div class="bg-obsidian text-foreground">
+    {/* HERO */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <Badge variant="outline" className="mb-6 border-star/40 text-star">
+          Underwriting · Environmental & building
+        </Badge>
+        <h1 class="text-4xl font-semibold tracking-tight lg:text-6xl">
+          Environmental, seismic, and building-code standards.
+        </h1>
+        <p class="mt-6 max-w-3xl text-lg text-muted-foreground">
+          Every CMHC multi-unit application requires a Phase I
+          Environmental Site Assessment prepared to CSA Z768-01
+          standard. A Phase II is triggered only if the Phase I
+          identifies recognized environmental conditions (RECs)
+          — former industrial use, historical fuel storage,
+          known contamination on adjacent sites. Since June
+          2024, contamination is no longer an automatic
+          disqualifier where an accepted remediation plan is
+          in place.
+        </p>
+        <p class="mt-4 max-w-3xl text-lg text-muted-foreground">
+          Alongside the environmental work, files need to
+          demonstrate compliance with the applicable building,
+          fire, and accessibility codes — primarily NBC 2020
+          (or provincial equivalent), provincial fire codes,
+          and provincial accessibility legislation. Older
+          buildings carry additional scrutiny for asbestos,
+          lead paint, and (in BC) seismic retrofit.
+        </p>
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a href="/programs/mli-select/accessibility">
+            <Button size="lg">MLI Select accessibility</Button>
+          </a>
+          <a href="/underwriting/documentation">
+            <Button variant="outline" size="lg">Documentation page</Button>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    {/* PHASE I ESA */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="max-w-3xl">
+          <Badge variant="secondary" className="mb-4">ESA phasing</Badge>
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+            Phase I, Phase II, and remediation.
+          </h2>
+          <p class="mt-4 text-muted-foreground">
+            Most CMHC files clear with a Phase I alone. A Phase
+            II is triggered by specific findings — former
+            industrial or commercial use, underground storage
+            tanks, known contamination on adjacent sites, or
+            staining/odour evidence during inspection.
+          </p>
+        </div>
+
+        <div class="mt-10 overflow-x-auto rounded-lg border border-dark-gray bg-jet">
+          <table class="w-full border-collapse text-sm">
+            <thead>
+              <tr class="border-b border-dark-gray text-muted-foreground text-xs uppercase tracking-wide">
+                <th class="px-4 py-3 text-left font-medium">Phase</th>
+                <th class="px-4 py-3 text-left font-medium">Trigger</th>
+                <th class="px-4 py-3 text-left font-medium">Typical cost</th>
+                <th class="px-4 py-3 text-left font-medium">Standard</th>
+                <th class="px-4 py-3 text-left font-medium">Detail</th>
+              </tr>
+            </thead>
+            <tbody>
+              {
+                esaPhases.map((row) => (
+                  <tr class="border-b border-dark-gray last:border-0">
+                    <td class="px-4 py-3 font-medium">{row.phase}</td>
+                    <td class="px-4 py-3">{row.trigger}</td>
+                    <td class="px-4 py-3">{row.cost}</td>
+                    <td class="px-4 py-3">{row.standard}</td>
+                    <td class="px-4 py-3 text-muted-foreground">{row.detail}</td>
+                  </tr>
+                ))
+              }
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    {/* JUNE 2024 CHANGE */}
+    <section class="border-b border-dark-gray bg-jet">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="grid gap-10 lg:grid-cols-[1fr_1.2fr]">
+          <div>
+            <Badge variant="outline" className="mb-4 border-star/40 text-star">
+              June 2024 policy
+            </Badge>
+            <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+              Contamination no longer automatic disqualifier.
+            </h2>
+            <p class="mt-4 text-muted-foreground">
+              Prior to June 2024, non-residential contamination
+              on the site was an automatic disqualifier — CMHC
+              would not insure the file regardless of remediation
+              intent. The June 2024 update allows approval where
+              a peer-reviewed remediation plan is in place before
+              commitment.
+            </p>
+            <p class="mt-4 text-muted-foreground">
+              The change materially expanded the universe of
+              developable urban infill sites — particularly
+              former industrial parcels, rail-adjacent lands,
+              and gas-station redevelopments that historically
+              couldn't clear CMHC review.
+            </p>
+          </div>
+          <Card className="bg-obsidian border-dark-gray p-8">
+            <div class="text-xs uppercase tracking-wide text-muted-foreground">
+              Remediation acceptance criteria
+            </div>
+            <ul class="mt-4 space-y-3 text-sm">
+              <li class="border-b border-dark-gray/50 pb-2">
+                <span class="text-star">•</span> Peer-reviewed by qualified
+                environmental engineer.
+              </li>
+              <li class="border-b border-dark-gray/50 pb-2">
+                <span class="text-star">•</span> Cost estimate with
+                contingency feeding the construction budget.
+              </li>
+              <li class="border-b border-dark-gray/50 pb-2">
+                <span class="text-star">•</span> Regulatory approval pathway
+                documented.
+              </li>
+              <li class="border-b border-dark-gray/50 pb-2">
+                <span class="text-star">•</span> Environmental monitoring
+                plan post-remediation.
+              </li>
+              <li>
+                <span class="text-star">•</span> Reserve / LOC coverage for
+                cost overruns.
+              </li>
+            </ul>
+          </Card>
+        </div>
+      </div>
+    </section>
+
+    {/* BUILDING + CODE STANDARDS */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="max-w-3xl">
+          <Badge variant="secondary" className="mb-4">Building + code</Badge>
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+            Codes CMHC files must comply with.
+          </h2>
+          <p class="mt-4 text-muted-foreground">
+            The code stack below applies across every file, with
+            different emphasis by region. BC seismic and older
+            Ontario/Quebec building stocks tend to attract the
+            most scrutiny.
+          </p>
+        </div>
+
+        <div class="mt-10 overflow-x-auto rounded-lg border border-dark-gray bg-jet">
+          <table class="w-full border-collapse text-sm">
+            <thead>
+              <tr class="border-b border-dark-gray text-muted-foreground text-xs uppercase tracking-wide">
+                <th class="px-4 py-3 text-left font-medium">Standard</th>
+                <th class="px-4 py-3 text-left font-medium">Current baseline</th>
+                <th class="px-4 py-3 text-left font-medium">Notes</th>
+              </tr>
+            </thead>
+            <tbody>
+              {
+                buildingStandards.map((row) => (
+                  <tr class="border-b border-dark-gray last:border-0">
+                    <td class="px-4 py-3 font-medium">{row.standard}</td>
+                    <td class="px-4 py-3">{row.current}</td>
+                    <td class="px-4 py-3 text-muted-foreground">{row.note}</td>
+                  </tr>
+                ))
+              }
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    {/* SEISMIC + HAZARD */}
+    <section class="border-b border-dark-gray bg-jet">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="max-w-3xl">
+          <Badge variant="secondary" className="mb-4">Regional hazards</Badge>
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+            Seismic, asbestos, lead, and fire.
+          </h2>
+          <p class="mt-4 text-muted-foreground">
+            Building-specific hazard scrutiny concentrates on
+            older stock and specific regions.
+          </p>
+        </div>
+
+        <div class="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+          <Card className="bg-obsidian border-dark-gray p-6">
+            <div class="text-xs uppercase tracking-wide text-star">Seismic — BC</div>
+            <div class="mt-1 text-lg font-semibold">Retrofit scrutiny</div>
+            <p class="mt-3 text-sm text-muted-foreground">
+              Older (pre-1985) BC buildings often flagged for
+              retrofit requirements. Engineering assessments
+              trigger reserve additions or capital work as a
+              condition.
+            </p>
+          </Card>
+          <Card className="bg-obsidian border-dark-gray p-6">
+            <div class="text-xs uppercase tracking-wide text-star">Asbestos</div>
+            <div class="mt-1 text-lg font-semibold">Pre-1990 survey</div>
+            <p class="mt-3 text-sm text-muted-foreground">
+              Designated substance survey required before any
+              renovation work. Remediation costs captured in
+              the QS report on renovation files.
+            </p>
+          </Card>
+          <Card className="bg-obsidian border-dark-gray p-6">
+            <div class="text-xs uppercase tracking-wide text-star">Lead paint</div>
+            <div class="mt-1 text-lg font-semibold">Pre-1978 survey</div>
+            <p class="mt-3 text-sm text-muted-foreground">
+              Lead paint risk highest on pre-1978 stock. Often
+              combined with asbestos survey. Targeted
+              abatement typical rather than full removal.
+            </p>
+          </Card>
+          <Card className="bg-obsidian border-dark-gray p-6">
+            <div class="text-xs uppercase tracking-wide text-star">Fire code</div>
+            <div class="mt-1 text-lg font-semibold">NFC + provincial</div>
+            <p class="mt-3 text-sm text-muted-foreground">
+              Sprinklers, separations, egress, alarm retrofits
+              on older buildings sometimes trigger capital
+              items or reserve top-ups at approval.
+            </p>
+          </Card>
+        </div>
+      </div>
+    </section>
+
+    {/* ACCESSIBILITY */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="grid gap-10 lg:grid-cols-2">
+          <div>
+            <Badge variant="secondary" className="mb-4">Accessibility</Badge>
+            <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+              Provincial vs. MLI Select scoring.
+            </h2>
+            <p class="mt-4 text-muted-foreground">
+              Accessibility applies at two layers. Provincial
+              legislation (AODA in Ontario, BC Building Code
+              Section 3.8, similar in other provinces) applies
+              to every building regardless of CMHC program.
+              MLI Select accessibility scoring is a separate,
+              optional point-path layered on top — assessed
+              against CSA B651:23 or the Rick Hansen Foundation
+              Accessibility Certification.
+            </p>
+            <p class="mt-4 text-muted-foreground">
+              A building meeting AODA minimums does not
+              automatically score accessibility points under
+              MLI Select. The scoring framework requires CSA
+              B651:23 visitability as a baseline and higher
+              tiers for points.
+            </p>
+          </div>
+          <Card className="bg-jet border-dark-gray p-6">
+            <div class="text-xs uppercase tracking-wide text-star">
+              CMHC environmental consultants
+            </div>
+            <div class="mt-1 text-lg font-semibold">Qualification criteria</div>
+            <p class="mt-3 text-sm text-muted-foreground">
+              Phase I / Phase II ESAs must be prepared by a
+              qualified environmental professional — P.Eng or
+              P.Geo with environmental specialization, or a
+              qualified consulting firm with the required
+              insurance coverage. CMHC maintains an internal
+              list of regularly-accepted consultants; non-listed
+              consultants are reviewed case-by-case.
+            </p>
+          </Card>
+        </div>
+      </div>
+    </section>
+
+    {/* CTA */}
+    <section class="border-b border-dark-gray bg-jet">
+      <div class="container border-l border-r border-dark-gray px-6 py-20 lg:px-12 lg:py-28">
+        <div class="mx-auto max-w-3xl text-center">
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-5xl">
+            Clear the environmental layer early.
+          </h2>
+          <p class="mx-auto mt-5 max-w-2xl text-muted-foreground">
+            Environmental findings are the single most common
+            reason files hit an unplanned 4–8 week delay. Run
+            Phase I commissioning before the application is
+            ready to submit rather than as a closing condition.
+          </p>
+          <div class="mt-8 flex flex-wrap justify-center gap-3">
+            <a href="/programs/mli-select/accessibility">
+              <Button size="lg">MLI Select accessibility</Button>
+            </a>
+            <a href="/underwriting/documentation">
+              <Button variant="outline" size="lg">Documentation page</Button>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</DefaultLayout>

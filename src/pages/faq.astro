@@ -1,0 +1,180 @@
+---
+import FaqContent from "@/components/sections/faq-content";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import { LAST_UPDATED } from "@/data/cmhc";
+import DefaultLayout from "@/layouts/DefaultLayout.astro";
+
+const title = "FAQ — CMHC Multi-Unit Financing";
+const description =
+  "Frequently asked questions about CMHC multi-unit (5+ unit) financing — program selection, underwriting, premium and costs, process and timing, recent policy changes, and lifecycle mechanics. Current to April 2026.";
+
+const jumpLinks = [
+  { id: "program-selection", label: "Program selection" },
+  { id: "underwriting", label: "Underwriting" },
+  { id: "premium-costs", label: "Premium and costs" },
+  { id: "process-timing", label: "Process and timing" },
+  { id: "policy-changes", label: "Policy and recent changes" },
+  { id: "lifecycle", label: "Lifecycle" },
+];
+---
+
+<DefaultLayout title={title} description={description}>
+  <div class="bg-obsidian text-foreground">
+    {/* HERO */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <Badge variant="outline" className="mb-6 border-star/40 text-star">
+          Frequently asked questions
+        </Badge>
+        <h1 class="text-4xl font-semibold tracking-tight lg:text-6xl">
+          CMHC multi-unit — answered.
+        </h1>
+        <p class="mt-6 max-w-3xl text-lg text-muted-foreground">
+          Answers to the questions brokers, developers, and owners
+          ask most often about CMHC's multi-unit (5+ unit)
+          programs — MLI Standard, MLI Select, ACLP, AHF, CHDP, and
+          the specialized segment. Current to {LAST_UPDATED},
+          incorporating the July 14 2025 premium overhaul, the
+          November 2025 MLI Select refresh, and recent LTB and
+          lender-selection policy changes.
+        </p>
+        <p class="mt-4 max-w-3xl text-lg text-muted-foreground">
+          Jump to a section below, or browse the full list.
+        </p>
+        <div class="mt-8 flex flex-wrap gap-3">
+          {
+            jumpLinks.map((l) => (
+              <a href={`#${l.id}`}>
+                <Button variant="outline" size="sm">
+                  {l.label}
+                </Button>
+              </a>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    {/* FAQ BODY */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <FaqContent client:load />
+      </div>
+    </section>
+
+    {/* FOLLOW-UP RESOURCES */}
+    <section class="border-b border-dark-gray bg-jet">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="max-w-3xl">
+          <Badge variant="secondary" className="mb-4">Keep reading</Badge>
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+            Deeper dives by topic.
+          </h2>
+        </div>
+
+        <div class="mt-10 grid gap-4 md:grid-cols-3">
+          <Card className="bg-obsidian border-dark-gray p-6">
+            <div class="text-lg font-semibold">Programs</div>
+            <p class="mt-3 text-sm text-muted-foreground">
+              Per-program deep dives on MLI Standard, MLI Select,
+              ACLP, AHF, and CHDP.
+            </p>
+            <div class="mt-4">
+              <a href="/programs">
+                <Button variant="outline" size="sm">Programs hub</Button>
+              </a>
+            </div>
+          </Card>
+          <Card className="bg-obsidian border-dark-gray p-6">
+            <div class="text-lg font-semibold">Underwriting</div>
+            <p class="mt-3 text-sm text-muted-foreground">
+              DCR, NOI build, opex benchmarks, and the minimum-DCR
+              tables by segment.
+            </p>
+            <div class="mt-4">
+              <a href="/underwriting">
+                <Button variant="outline" size="sm">Underwriting hub</Button>
+              </a>
+            </div>
+          </Card>
+          <Card className="bg-obsidian border-dark-gray p-6">
+            <div class="text-lg font-semibold">Policy timeline</div>
+            <p class="mt-3 text-sm text-muted-foreground">
+              Every material CMHC policy change from June 2024
+              through March 2026, with implementation dates.
+            </p>
+            <div class="mt-4">
+              <a href="/policy">
+                <Button variant="outline" size="sm">Policy timeline</Button>
+              </a>
+            </div>
+          </Card>
+          <Card className="bg-obsidian border-dark-gray p-6">
+            <div class="text-lg font-semibold">Calculators</div>
+            <p class="mt-3 text-sm text-muted-foreground">
+              Loan sizer, premium, DSCR inverse, cash-on-cash,
+              grant stacking, and more.
+            </p>
+            <div class="mt-4">
+              <a href="/calculators">
+                <Button variant="outline" size="sm">All calculators</Button>
+              </a>
+            </div>
+          </Card>
+          <Card className="bg-obsidian border-dark-gray p-6">
+            <div class="text-lg font-semibold">Provinces</div>
+            <p class="mt-3 text-sm text-muted-foreground">
+              Provincial rent control, new-build exemptions, and
+              municipal stacking by city.
+            </p>
+            <div class="mt-4">
+              <a href="/provinces">
+                <Button variant="outline" size="sm">Provinces hub</Button>
+              </a>
+            </div>
+          </Card>
+          <Card className="bg-obsidian border-dark-gray p-6">
+            <div class="text-lg font-semibold">Lifecycle</div>
+            <p class="mt-3 text-sm text-muted-foreground">
+              Assumption, renewal, prepayment, and
+              affordability-commitment transfer on sale.
+            </p>
+            <div class="mt-4">
+              <a href="/lifecycle">
+                <Button variant="outline" size="sm">Lifecycle</Button>
+              </a>
+            </div>
+          </Card>
+        </div>
+      </div>
+    </section>
+
+    {/* CTA */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-20 lg:px-12 lg:py-28">
+        <div class="mx-auto max-w-3xl text-center">
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-5xl">
+            Size a deal.
+          </h2>
+          <p class="mx-auto mt-5 max-w-2xl text-muted-foreground">
+            Once the program fit is clear, model the numbers. The
+            loan sizer applies DCR, LTV/LTC, and program cap
+            together and flags the binding constraint.
+          </p>
+          <div class="mt-8 flex flex-wrap justify-center gap-3">
+            <a href="/calculators/loan-sizer">
+              <Button size="lg">Open the loan sizer</Button>
+            </a>
+            <a href="/calculators/compare">
+              <Button variant="outline" size="lg">
+                Compare scenarios
+              </Button>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</DefaultLayout>

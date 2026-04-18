@@ -1,0 +1,348 @@
+---
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import DefaultLayout from "@/layouts/DefaultLayout.astro";
+
+const title = "British Columbia — CMHC Multi-Unit Financing Considerations";
+const description =
+  "BC-specific context for CMHC multi-unit financing. CPI-capped rent control with no new-construction exemption, Vancouver's Secured Rental Policy and DCL waivers, Feb 2026 Rental Development Relief, rental-only zoning, and PTT exemptions.";
+
+const rentRules = [
+  {
+    item: "2026 rent cap",
+    value: "2.3% — CPI-based, published annually by BC Ministry of Housing",
+  },
+  {
+    item: "New-construction exemption",
+    value: "None — all tenancies subject to the annual cap",
+  },
+  {
+    item: "Vacancy decontrol",
+    value: "Permitted — rent can be reset to market between tenancies",
+  },
+  {
+    item: "Above-cap increases",
+    value:
+      "Possible via RTB application for specific capital expenditures; narrower than Ontario AGIs",
+  },
+  {
+    item: "Tribunal",
+    value: "Residential Tenancy Branch (RTB)",
+  },
+  {
+    item: "Governing statute",
+    value: "Residential Tenancy Act",
+  },
+];
+
+const vancouverIncentives = [
+  {
+    item: "DCL Class A waiver",
+    value:
+      "100% waiver for rental projects with ≥20% of units at least 20% below CMHC average market rent",
+  },
+  {
+    item: "DCL Class B waiver",
+    value: "86.24% waiver for secured market rental that doesn't qualify for Class A",
+  },
+  {
+    item: "Rental Development Relief (Feb 2026–Dec 2027)",
+    value:
+      "Full DCL waiver plus 20% DCL discount on all rental projects during the two-year window",
+  },
+  {
+    item: "CHIP — Community Housing Incentive Program",
+    value:
+      "Capital grants from City of Vancouver; stacks additively with CMHC AHF or CHDP",
+  },
+  {
+    item: "Rental-only zoning",
+    value:
+      "Multiple Vancouver zones restrict new buildings to rental tenure — CMHC financing is the natural match",
+  },
+];
+---
+
+<DefaultLayout title={title} description={description}>
+  <div class="bg-obsidian text-foreground">
+    {/* HERO */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <Badge variant="outline" className="mb-6 border-star/40 text-star">
+          Provinces · British Columbia
+        </Badge>
+        <h1 class="text-4xl font-semibold tracking-tight lg:text-6xl">
+          British Columbia — tenant-retention economics.
+        </h1>
+        <p class="mt-6 max-w-3xl text-lg text-muted-foreground">
+          Unlike Ontario, BC has no new-construction rent control
+          exemption. The annual cap — 2.3% for 2026, CPI-based —
+          applies to every tenancy in the province, regardless of
+          when the building was first occupied. Vacancy decontrol
+          is permitted, so turnover economics still matter, but
+          in-place revenue growth is fundamentally capped at CPI.
+        </p>
+        <p class="mt-4 max-w-3xl text-lg text-muted-foreground">
+          The trade-off: BC municipalities have the most
+          aggressive rental-only zoning and DCL-waiver programs
+          in the country. Vancouver's Secured Rental Policy
+          delivers 86–100% DCL waivers, and the Feb 2026–Dec 2027
+          Rental Development Relief window layers a full DCL
+          waiver plus a 20% DCL discount on every rental project.
+          CMHC financing is the natural fit for rental-only
+          zones.
+        </p>
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a href="/programs/mli-select">
+            <Button size="lg">MLI Select</Button>
+          </a>
+          <a href="/developers/municipal">
+            <Button variant="outline" size="lg">Vancouver stacking</Button>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    {/* RENT CONTROL FRAMEWORK */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="grid gap-10 lg:grid-cols-[1fr_1.2fr]">
+          <div>
+            <Badge variant="secondary" className="mb-4">Rent control</Badge>
+            <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+              CPI cap applies to all tenancies.
+            </h2>
+            <p class="mt-4 text-muted-foreground">
+              BC's Residential Tenancy Act caps annual rent
+              increases at a CPI-indexed percentage. For 2026,
+              the cap is 2.3%. There is no carve-out for new
+              construction — a building first occupied in 2025 is
+              subject to the same cap as one built in 1975.
+            </p>
+            <p class="mt-4 text-muted-foreground">
+              Vacancy decontrol is allowed: at tenancy turnover,
+              landlords can reset rent to market. This is the
+              primary lever for bringing in-place rent closer to
+              market over time. Long-tenured units (average BC
+              tenure runs 5–8 years in coastal markets) can sit
+              substantially below market for extended periods.
+            </p>
+          </div>
+          <div class="overflow-x-auto rounded-lg border border-dark-gray bg-jet">
+            <table class="w-full border-collapse text-sm">
+              <thead>
+                <tr class="border-b border-dark-gray text-muted-foreground text-xs uppercase tracking-wide">
+                  <th class="px-4 py-3 text-left font-medium">Dimension</th>
+                  <th class="px-4 py-3 text-left font-medium">BC rule</th>
+                </tr>
+              </thead>
+              <tbody>
+                {
+                  rentRules.map((row) => (
+                    <tr class="border-b border-dark-gray last:border-0">
+                      <td class="px-4 py-3 font-medium">{row.item}</td>
+                      <td class="px-4 py-3 text-muted-foreground">
+                        {row.value}
+                      </td>
+                    </tr>
+                  ))
+                }
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* INVESTOR IMPLICATIONS */}
+    <section class="border-b border-dark-gray bg-jet">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="max-w-3xl">
+          <Badge variant="outline" className="mb-4 border-star/40 text-star">
+            Investor implications
+          </Badge>
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+            Revenue growth capped at CPI.
+          </h2>
+          <p class="mt-4 text-muted-foreground">
+            No new-construction exemption means pro forma rent
+            growth is fundamentally tied to the annual cap.
+            Tenant retention becomes a revenue strategy, not just
+            an opex lever.
+          </p>
+        </div>
+
+        <div class="mt-10 grid gap-4 md:grid-cols-3">
+          <Card className="bg-obsidian border-dark-gray p-6">
+            <div class="text-lg font-semibold">Tenant retention matters</div>
+            <p class="mt-3 text-sm text-muted-foreground">
+              Every turnover cycle is a revenue event — vacancy
+              decontrol lets you reset to market. But if tenure
+              is long, in-place rents drift below market and
+              revenue upside only crystallizes at turnover.
+            </p>
+          </Card>
+          <Card className="bg-obsidian border-dark-gray p-6">
+            <div class="text-lg font-semibold">Value-add strategies weaker</div>
+            <p class="mt-3 text-sm text-muted-foreground">
+              Because mid-tenancy capital improvements don't
+              unlock above-cap increases the way Ontario AGIs do,
+              reposition strategies are less attractive in BC
+              than Ontario.
+            </p>
+          </Card>
+          <Card className="bg-obsidian border-dark-gray p-6">
+            <div class="text-lg font-semibold">New-build pro forma</div>
+            <p class="mt-3 text-sm text-muted-foreground">
+              Underwrite initial rents at achievable market; grow
+              at CPI annually. CMHC underwriting will apply its
+              own market-data floor regardless of assumptions.
+            </p>
+          </Card>
+        </div>
+      </div>
+    </section>
+
+    {/* VANCOUVER STACKING */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="max-w-3xl">
+          <Badge variant="secondary" className="mb-4">Vancouver stacking</Badge>
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+            Secured Rental Policy + Rental Development Relief.
+          </h2>
+          <p class="mt-4 text-muted-foreground">
+            Vancouver's DCL waiver program is the key municipal
+            stacking anchor in BC. The Feb 2026–Dec 2027 Rental
+            Development Relief period layers a full DCL waiver
+            plus a 20% DCL discount onto every rental project —
+            a material cost-base reduction.
+          </p>
+        </div>
+
+        <div class="mt-10 overflow-x-auto rounded-lg border border-dark-gray bg-jet">
+          <table class="w-full border-collapse text-sm">
+            <thead>
+              <tr class="border-b border-dark-gray text-muted-foreground text-xs uppercase tracking-wide">
+                <th class="px-4 py-3 text-left font-medium">Program</th>
+                <th class="px-4 py-3 text-left font-medium">Treatment</th>
+              </tr>
+            </thead>
+            <tbody>
+              {
+                vancouverIncentives.map((row) => (
+                  <tr class="border-b border-dark-gray last:border-0">
+                    <td class="px-4 py-3 font-medium">{row.item}</td>
+                    <td class="px-4 py-3 text-muted-foreground">
+                      {row.value}
+                    </td>
+                  </tr>
+                ))
+              }
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    {/* OTHER FACTORS */}
+    <section class="border-b border-dark-gray bg-jet">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="max-w-3xl">
+          <Badge variant="secondary" className="mb-4">Other factors</Badge>
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+            Zoning, PTT, and seismic.
+          </h2>
+        </div>
+
+        <div class="mt-10 grid gap-4 md:grid-cols-2">
+          <Card className="bg-obsidian border-dark-gray p-6">
+            <div class="text-lg font-semibold">Rental-only zoning</div>
+            <p class="mt-3 text-sm text-muted-foreground">
+              Vancouver, Victoria, North Vancouver, and several
+              other BC municipalities have zoning districts that
+              restrict new residential development to rental
+              tenure. CMHC insurance — inherently rental-focused
+              — is the natural financing match.
+            </p>
+          </Card>
+          <Card className="bg-obsidian border-dark-gray p-6">
+            <div class="text-lg font-semibold">Property Transfer Tax</div>
+            <p class="mt-3 text-sm text-muted-foreground">
+              BC's PTT applies on acquisition. Exemptions exist
+              for certain rental/affordable projects and
+              qualifying new construction. On a $20M refinance
+              with no acquisition, PTT is not triggered, but new
+              acquisitions need to budget it.
+            </p>
+          </Card>
+          <Card className="bg-obsidian border-dark-gray p-6">
+            <div class="text-lg font-semibold">Seismic retrofit</div>
+            <p class="mt-3 text-sm text-muted-foreground">
+              Older Lower Mainland buildings (pre-1980) may
+              require seismic retrofit as a condition of
+              refinancing or major renovation. CMHC underwriting
+              will flag structural review for buildings in
+              higher-risk zones; budget for engineering review
+              on acquisitions.
+            </p>
+          </Card>
+          <Card className="bg-obsidian border-dark-gray p-6">
+            <div class="text-lg font-semibold">Foreign Buyer / SVT</div>
+            <p class="mt-3 text-sm text-muted-foreground">
+              The federal Foreign Buyer Ban and BC's Speculation
+              and Vacancy Tax apply primarily to individual
+              buyers. Institutional multi-unit rental acquisitions
+              are generally exempt — but structure review is
+              worth it for foreign-capital-involved deals.
+            </p>
+          </Card>
+          <Card className="bg-obsidian border-dark-gray p-6">
+            <div class="text-lg font-semibold">Vancouver Empty Home Tax</div>
+            <p class="mt-3 text-sm text-muted-foreground">
+              Applies to residential properties left vacant for
+              more than 6 months of the year; purpose-built
+              rental is generally exempt when actively rented or
+              marketed. Lease-up periods have specific treatment.
+            </p>
+          </Card>
+          <Card className="bg-obsidian border-dark-gray p-6">
+            <div class="text-lg font-semibold">PST on CMHC premium</div>
+            <p class="mt-3 text-sm text-muted-foreground">
+              BC charges 7% PST on the CMHC premium, paid at
+              closing and not capitalizable. On a $10M loan at
+              ~5% premium, PST is roughly $35K out of pocket.
+            </p>
+          </Card>
+        </div>
+      </div>
+    </section>
+
+    {/* CTA */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-20 lg:px-12 lg:py-28">
+        <div class="mx-auto max-w-3xl text-center">
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-5xl">
+            Size a BC deal.
+          </h2>
+          <p class="mx-auto mt-5 max-w-2xl text-muted-foreground">
+            CPI-capped growth compresses DCR headroom over time —
+            test pro formas under rent-growth sensitivities
+            before committing.
+          </p>
+          <div class="mt-8 flex flex-wrap justify-center gap-3">
+            <a href="/calculators/loan-sizer">
+              <Button size="lg">Open the loan sizer</Button>
+            </a>
+            <a href="/developers/provincial">
+              <Button variant="outline" size="lg">
+                Rent-control detail
+              </Button>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</DefaultLayout>

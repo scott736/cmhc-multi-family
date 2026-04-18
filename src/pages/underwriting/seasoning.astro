@@ -1,0 +1,350 @@
+---
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import DefaultLayout from "@/layouts/DefaultLayout.astro";
+
+const title = "Seasoning & Rental Achievement Timeline — CMHC";
+const description =
+  "How CMHC treats NOI for new-build, recently-acquired, and stabilized buildings. Pro forma vs. trailing actuals, 12-month trailing requirement for recent refinances, rental achievement formalized Nov 2024 for MLI Select, July 3 2025 holdback removed for MLI Market Rental, vacancy ramp-up assumptions.";
+
+const seasoningPath = [
+  {
+    stage: "New construction",
+    noi: "Pro forma stabilized",
+    note: "Market-rent pro forma used until rental achievement demonstrated. CMHC applies conservative vacancy ramp-up — lower-than-stabilized occupancy in months 1–6.",
+  },
+  {
+    stage: "Lease-up (0–6 months post-completion)",
+    noi: "Pro forma with ramp-up",
+    note: "Occupancy ramp modelled month-by-month. Debt service on construction draw until rental achievement released.",
+  },
+  {
+    stage: "Rental achievement (2–3 months at target)",
+    noi: "Demonstrated at stabilized occupancy",
+    note: "Triggers release of rental achievement holdback (MLI Select post-Nov 2024). Takeout loan sized off demonstrated NOI.",
+  },
+  {
+    stage: "Recently acquired (<12 months)",
+    noi: "12-month trailing + pro forma bridge",
+    note: "For refinance, may require 12-month trailing demonstration. Sub-12-month operating history bridged with comparable-building benchmarks.",
+  },
+  {
+    stage: "Stabilized (>12 months operating)",
+    noi: "Trailing 12-month actual",
+    note: "Preferred basis. 3-year average used for smoothing where trailing 12 includes anomalies (major repair, one-time tenancy).",
+  },
+];
+
+const holdbackEvolution = [
+  {
+    date: "November 2024",
+    change: "MLI Select rental achievement formalized",
+    detail:
+      "Last-tranche advance held back until the property demonstrates target occupancy at target rents — typically 2–3 months at stabilized occupancy. Applies to MLI Select construction files.",
+  },
+  {
+    date: "July 3, 2025",
+    change: "MLI Market Rental holdback removed",
+    detail:
+      "MLI Market Rental (non-Select) construction files now advance to the full 85% LTC without a stabilization holdback. Targeted incentive to support purpose-built rental supply.",
+  },
+];
+---
+
+<DefaultLayout title={title} description={description}>
+  <div class="bg-obsidian text-foreground">
+    {/* HERO */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <Badge variant="outline" className="mb-6 border-star/40 text-star">
+          Underwriting · Seasoning
+        </Badge>
+        <h1 class="text-4xl font-semibold tracking-tight lg:text-6xl">
+          Seasoning and rental achievement.
+        </h1>
+        <p class="mt-6 max-w-3xl text-lg text-muted-foreground">
+          "Seasoning" is how long the property has been operating
+          at stabilized occupancy. CMHC treats NOI differently
+          depending on where the asset sits on the seasoning
+          curve — from pro forma stabilized (new construction) to
+          trailing 12-month actuals (existing, &gt;12 months
+          operating). Between those anchors sits the lease-up /
+          rental achievement window, which has been the subject
+          of two policy changes in the last 18 months.
+        </p>
+        <p class="mt-4 max-w-3xl text-lg text-muted-foreground">
+          For construction files, the critical consequence is
+          that takeout loan proceeds are sized against
+          demonstrated NOI, not pro forma — which is why rental
+          achievement holdbacks exist. The November 2024 MLI
+          Select formalization and the July 3, 2025 MLI Market
+          Rental removal both shape how the takeout advance is
+          structured.
+        </p>
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a href="/programs/rental-achievement">
+            <Button size="lg">Rental achievement page</Button>
+          </a>
+          <a href="/calculators/construction-draws">
+            <Button variant="outline" size="lg">Construction draws calculator</Button>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    {/* SEASONING CURVE */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="max-w-3xl">
+          <Badge variant="secondary" className="mb-4">Seasoning curve</Badge>
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+            NOI treatment along the operating timeline.
+          </h2>
+          <p class="mt-4 text-muted-foreground">
+            From shovel-in-ground through long-stabilized,
+            CMHC reads NOI differently at each stage. The
+            conservative stance at each transition is the
+            source of most lease-up financing friction.
+          </p>
+        </div>
+
+        <div class="mt-10 overflow-x-auto rounded-lg border border-dark-gray bg-jet">
+          <table class="w-full border-collapse text-sm">
+            <thead>
+              <tr class="border-b border-dark-gray text-muted-foreground text-xs uppercase tracking-wide">
+                <th class="px-4 py-3 text-left font-medium">Stage</th>
+                <th class="px-4 py-3 text-left font-medium">NOI basis</th>
+                <th class="px-4 py-3 text-left font-medium">Notes</th>
+              </tr>
+            </thead>
+            <tbody>
+              {
+                seasoningPath.map((row) => (
+                  <tr class="border-b border-dark-gray last:border-0">
+                    <td class="px-4 py-3 font-medium">{row.stage}</td>
+                    <td class="px-4 py-3">{row.noi}</td>
+                    <td class="px-4 py-3 text-muted-foreground">{row.note}</td>
+                  </tr>
+                ))
+              }
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    {/* NEW CONSTRUCTION */}
+    <section class="border-b border-dark-gray bg-jet">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="max-w-3xl">
+          <Badge variant="secondary" className="mb-4">New construction</Badge>
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+            Pro forma NOI with a vacancy ramp-up.
+          </h2>
+          <p class="mt-4 text-muted-foreground">
+            For new construction, CMHC underwrites stabilized
+            pro forma NOI but applies a conservative vacancy
+            ramp in the first 6 months post-occupancy. Month 1
+            may be underwritten at 60–70% occupancy, stepping
+            up to stabilized by month 6–9. This conservatism
+            sits inside the construction financial model and
+            informs the rental achievement holdback sizing.
+          </p>
+        </div>
+
+        <div class="mt-10 grid gap-6 lg:grid-cols-3">
+          <Card className="bg-obsidian border-dark-gray p-6">
+            <div class="text-xs uppercase tracking-wide text-star">Months 1–3</div>
+            <div class="mt-1 text-lg font-semibold">Lease-up phase</div>
+            <p class="mt-3 text-sm text-muted-foreground">
+              Typically 40–70% occupied. NOI highly depressed.
+              Debt service covered by interest reserve or
+              sponsor support depending on file structure.
+            </p>
+          </Card>
+          <Card className="bg-obsidian border-dark-gray p-6">
+            <div class="text-xs uppercase tracking-wide text-star">Months 4–9</div>
+            <div class="mt-1 text-lg font-semibold">Ramp-up</div>
+            <p class="mt-3 text-sm text-muted-foreground">
+              Occupancy climbing toward stabilized. Rents
+              achievable may lag market if the project leased
+              aggressively to accelerate absorption.
+            </p>
+          </Card>
+          <Card className="bg-obsidian border-dark-gray p-6">
+            <div class="text-xs uppercase tracking-wide text-star">Months 9+</div>
+            <div class="mt-1 text-lg font-semibold">Rental achievement</div>
+            <p class="mt-3 text-sm text-muted-foreground">
+              Target occupancy demonstrated at target rents for
+              2–3 months. Holdback released, takeout loan sized
+              to demonstrated NOI.
+            </p>
+          </Card>
+        </div>
+      </div>
+    </section>
+
+    {/* HOLDBACK POLICY */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="max-w-3xl">
+          <Badge variant="secondary" className="mb-4">Holdback evolution</Badge>
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+            Rental achievement holdbacks — policy shifts.
+          </h2>
+          <p class="mt-4 text-muted-foreground">
+            Two policy changes have reshaped how construction
+            takeout advances are structured. Net effect: MLI
+            Select now carries a formal holdback mechanism;
+            MLI Market Rental does not.
+          </p>
+        </div>
+
+        <div class="mt-10 grid gap-6 lg:grid-cols-2">
+          {
+            holdbackEvolution.map((row) => (
+              <Card className="bg-jet border-dark-gray p-6">
+                <div class="text-xs uppercase tracking-wide text-star">
+                  {row.date}
+                </div>
+                <div class="mt-1 text-lg font-semibold">{row.change}</div>
+                <p class="mt-3 text-sm text-muted-foreground">{row.detail}</p>
+              </Card>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    {/* RECENTLY ACQUIRED */}
+    <section class="border-b border-dark-gray bg-jet">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="grid gap-10 lg:grid-cols-[1fr_1.2fr]">
+          <div>
+            <Badge variant="secondary" className="mb-4">Recently acquired</Badge>
+            <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+              The 12-month trailing issue.
+            </h2>
+            <p class="mt-4 text-muted-foreground">
+              Properties purchased within the last 12 months
+              present a specific underwriting issue on refinance.
+              CMHC may require a 12-month trailing demonstration
+              under current ownership — partial-year operating
+              history may be bridged with comparable-building
+              benchmarks but tends to be underwritten
+              conservatively.
+            </p>
+            <p class="mt-4 text-muted-foreground">
+              Value-add acquisitions where the sponsor plans to
+              increase rents face particular scrutiny here. The
+              rent uplift is not recognized in NOI until it has
+              been demonstrated in the trailing 12 — which often
+              means waiting 18–24 months post-acquisition before
+              a refinance can capture the uplift value.
+            </p>
+          </div>
+          <Card className="bg-obsidian border-dark-gray p-6">
+            <div class="text-xs uppercase tracking-wide text-muted-foreground">
+              Trailing NOI windows
+            </div>
+            <div class="mt-4 space-y-3 text-sm">
+              <div class="flex flex-col border-b border-dark-gray/50 pb-2">
+                <span class="text-star font-medium">Trailing 3 months (T3)</span>
+                <span class="text-muted-foreground">Current run-rate indicator. Used as a cross-check but not typically a loan-sizing basis.</span>
+              </div>
+              <div class="flex flex-col border-b border-dark-gray/50 pb-2">
+                <span class="text-star font-medium">Trailing 12 months (T12)</span>
+                <span class="text-muted-foreground">Preferred basis for most stabilized files. Captures seasonality and one-time items.</span>
+              </div>
+              <div class="flex flex-col">
+                <span class="text-star font-medium">3-year average</span>
+                <span class="text-muted-foreground">Used for smoothing where the trailing 12 includes anomalies or major one-time repairs.</span>
+              </div>
+            </div>
+          </Card>
+        </div>
+      </div>
+    </section>
+
+    {/* TAKEOUT SIZING */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="grid gap-10 lg:grid-cols-2">
+          <div>
+            <Badge variant="outline" className="mb-4 border-star/40 text-star">
+              Takeout sizing
+            </Badge>
+            <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+              Construction holdback + takeout advance.
+            </h2>
+            <p class="mt-4 text-muted-foreground">
+              On MLI Select construction files, the approved
+              takeout loan is conceptually split: the advanced
+              portion is drawn during construction, and the
+              holdback portion is released on rental achievement.
+              Until rental achievement, the takeout is
+              effectively sized to the advanced portion.
+            </p>
+            <p class="mt-4 text-muted-foreground">
+              This matters for sponsors because any shortfall
+              between advanced takeout and outstanding
+              construction debt must be covered from equity
+              until holdback release — which can mean a 6–12
+              month bridging gap on slower lease-ups.
+            </p>
+          </div>
+          <Card className="bg-jet border-dark-gray p-6">
+            <div class="text-xs uppercase tracking-wide text-muted-foreground">
+              Bridging the gap
+            </div>
+            <ul class="mt-4 space-y-3 text-sm">
+              <li class="border-b border-dark-gray/50 pb-2">
+                <span class="text-star">•</span> Sponsor equity or
+                related-party loan into the cap stack.
+              </li>
+              <li class="border-b border-dark-gray/50 pb-2">
+                <span class="text-star">•</span> Mezzanine debt from a
+                specialist lender, priced higher than the takeout.
+              </li>
+              <li class="border-b border-dark-gray/50 pb-2">
+                <span class="text-star">•</span> Extension of the
+                construction facility through rental achievement.
+              </li>
+              <li>
+                <span class="text-star">•</span> Accelerated lease-up
+                incentives (first-month free, upgraded units) to
+                compress the holdback window.
+              </li>
+            </ul>
+          </Card>
+        </div>
+      </div>
+    </section>
+
+    {/* CTA */}
+    <section class="border-b border-dark-gray bg-jet">
+      <div class="container border-l border-r border-dark-gray px-6 py-20 lg:px-12 lg:py-28">
+        <div class="mx-auto max-w-3xl text-center">
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-5xl">
+            Model seasoning into your file.
+          </h2>
+          <p class="mx-auto mt-5 max-w-2xl text-muted-foreground">
+            The construction draws calculator lets you model the
+            advance-and-holdback structure across the lease-up
+            window so you can see where bridging equity is
+            actually required.
+          </p>
+          <div class="mt-8 flex flex-wrap justify-center gap-3">
+            <a href="/programs/rental-achievement">
+              <Button size="lg">Rental achievement page</Button>
+            </a>
+            <a href="/calculators/construction-draws">
+              <Button variant="outline" size="lg">Construction draws</Button>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</DefaultLayout>

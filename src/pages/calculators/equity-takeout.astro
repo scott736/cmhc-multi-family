@@ -1,0 +1,12 @@
+---
+import EquityTakeout from "@/components/calculators/equity-takeout";
+import DefaultLayout from "@/layouts/DefaultLayout.astro";
+
+const title = "CMHC Equity Take-Out Calculator — Refinance Cash-Out | CMHC Multi-Family";
+const description =
+  "Size a CMHC multi-unit refinance: max new loan under LTV or DCR, premium payable net of refinance credit, and net cash delivered to the borrower after payoff and closing costs.";
+---
+
+<DefaultLayout title={title} description={description}>
+  <EquityTakeout client:load />
+</DefaultLayout>

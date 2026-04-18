@@ -1,0 +1,12 @@
+---
+import EligibilityTree from "@/components/tools/eligibility-tree";
+import DefaultLayout from "@/layouts/DefaultLayout.astro";
+
+const title = "CMHC Multi-Unit Eligibility Pre-Qualifier | CMHC Multi-Family";
+const description =
+  "Interactive decision tree for CMHC multi-unit financing. Answer 8 questions about property type, unit count, construction status, borrower type and commitment appetite to get a ranked program shortlist (MLI Standard, MLI Select, ACLP, AHF, CHDP, specialized).";
+---
+
+<DefaultLayout title={title} description={description}>
+  <EligibilityTree client:load />
+</DefaultLayout>

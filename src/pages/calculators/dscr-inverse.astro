@@ -1,0 +1,12 @@
+---
+import DscrInverse from "@/components/calculators/dscr-inverse";
+import DefaultLayout from "@/layouts/DefaultLayout.astro";
+
+const title = "Required NOI Calculator (DSCR Inverse) — CMHC Multi-Family";
+const description =
+  "Work backward from target loan amount to required NOI and revenue floor. DCR presets for MLI Select (1.10) and MLI Standard (1.20 / 1.30), with per-unit rent requirement.";
+---
+
+<DefaultLayout title={title} description={description}>
+  <DscrInverse client:load />
+</DefaultLayout>

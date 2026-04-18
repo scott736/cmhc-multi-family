@@ -1,0 +1,32 @@
+---
+import LenderTable from "@/components/tools/lender-table";
+import { Badge } from "@/components/ui/badge";
+import DefaultLayout from "@/layouts/DefaultLayout.astro";
+
+const title = "CMHC Lender Comparison Matrix | CMHC Multi-Family";
+const description =
+  "Sortable, filterable lender comparison matrix covering top CMHC multi-unit approved lenders — banks, monolines, trusts, credit unions, and life insurers. Search by name, type, specialization, or geography.";
+---
+
+<DefaultLayout title={title} description={description}>
+  <div class="bg-obsidian text-foreground">
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <Badge variant="outline" className="mb-6 border-star/40 text-star">
+          Lender matrix
+        </Badge>
+        <h1 class="text-4xl font-semibold tracking-tight lg:text-6xl">
+          Compare CMHC-approved multi-unit lenders.
+        </h1>
+        <p class="mt-6 max-w-3xl text-lg text-muted-foreground">
+          Filter by type, volume tier, or geography. CMHC-insured rates
+          cluster within a narrow 5–15 bps band across lenders, so
+          differentiation shows up in execution speed, underwriting
+          depth, term length, and open-prepayment features.
+        </p>
+      </div>
+    </section>
+
+    <LenderTable client:load />
+  </div>
+</DefaultLayout>

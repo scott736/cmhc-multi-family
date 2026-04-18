@@ -1,0 +1,316 @@
+---
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import DefaultLayout from "@/layouts/DefaultLayout.astro";
+
+const title = "Alberta — CMHC Multi-Unit Financing Considerations";
+const description =
+  "Alberta-specific context for CMHC multi-unit financing. No rent control, Calgary's non-market property tax exemption and Housing Incentive Program, Edmonton's AHIP, HAF-funded initiatives, and secondary-market underwriting considerations.";
+
+const rentRules = [
+  {
+    item: "Rent control",
+    value: "None — landlords can increase rents by any amount",
+  },
+  {
+    item: "Notice period",
+    value:
+      "3 months for a periodic (month-to-month) tenancy; Residential Tenancies Act s.14",
+  },
+  {
+    item: "Frequency cap",
+    value: "Not more than once per 12 months per tenancy",
+  },
+  {
+    item: "Mid-term increases",
+    value: "Not permitted during a fixed-term lease",
+  },
+  {
+    item: "Dispute adjudication",
+    value:
+      "Residential Tenancy Dispute Resolution Service (RTDRS) or Alberta Court of Justice — no dedicated tribunal",
+  },
+  {
+    item: "Governing statute",
+    value: "Residential Tenancies Act (Alberta)",
+  },
+];
+---
+
+<DefaultLayout title={title} description={description}>
+  <div class="bg-obsidian text-foreground">
+    {/* HERO */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <Badge variant="outline" className="mb-6 border-star/40 text-star">
+          Provinces · Alberta
+        </Badge>
+        <h1 class="text-4xl font-semibold tracking-tight lg:text-6xl">
+          Alberta — no rent control, investor-friendly.
+        </h1>
+        <p class="mt-6 max-w-3xl text-lg text-muted-foreground">
+          Alberta has no rent control. Landlords can increase
+          rents by any amount with 3 months' written notice on a
+          periodic tenancy, subject only to the once-per-12-months
+          cap and the existing lease term. This is the most
+          permissive rent environment in Canada — unlimited
+          revenue growth potential, at the trade-off of tenant
+          turnover and reputational exposure.
+        </p>
+        <p class="mt-4 max-w-3xl text-lg text-muted-foreground">
+          Calgary and Edmonton have added substantial municipal
+          programs post-2023, partially funded through the
+          federal Housing Accelerator Fund. Calgary's
+          non-market property tax exemption (Jan 2025) and
+          Housing Incentive Program pair cleanly with MLI Select;
+          Edmonton's Affordable Housing Investment Program
+          stacks with CMHC AHF/CHDP for non-profit and for-profit
+          developers.
+        </p>
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a href="/programs/mli-select">
+            <Button size="lg">MLI Select</Button>
+          </a>
+          <a href="/developers/municipal">
+            <Button variant="outline" size="lg">Calgary & Edmonton stacking</Button>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    {/* RENT RULES */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="max-w-3xl">
+          <Badge variant="secondary" className="mb-4">Rent framework</Badge>
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+            Residential Tenancies Act, no cap.
+          </h2>
+          <p class="mt-4 text-muted-foreground">
+            Alberta's RTA governs residential tenancies but does
+            not cap annual rent increases. The once-per-12-months
+            rule and 3-month notice requirement are the only
+            procedural constraints.
+          </p>
+        </div>
+
+        <div class="mt-10 overflow-x-auto rounded-lg border border-dark-gray bg-jet">
+          <table class="w-full border-collapse text-sm">
+            <thead>
+              <tr class="border-b border-dark-gray text-muted-foreground text-xs uppercase tracking-wide">
+                <th class="px-4 py-3 text-left font-medium">Dimension</th>
+                <th class="px-4 py-3 text-left font-medium">Alberta rule</th>
+              </tr>
+            </thead>
+            <tbody>
+              {
+                rentRules.map((row) => (
+                  <tr class="border-b border-dark-gray last:border-0">
+                    <td class="px-4 py-3 font-medium">{row.item}</td>
+                    <td class="px-4 py-3 text-muted-foreground">
+                      {row.value}
+                    </td>
+                  </tr>
+                ))
+              }
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    {/* INVESTOR IMPLICATIONS */}
+    <section class="border-b border-dark-gray bg-jet">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="max-w-3xl">
+          <Badge variant="outline" className="mb-4 border-star/40 text-star">
+            Investor implications
+          </Badge>
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+            Maximum revenue flexibility, with caveats.
+          </h2>
+        </div>
+
+        <div class="mt-10 grid gap-4 md:grid-cols-3">
+          <Card className="bg-obsidian border-dark-gray p-6">
+            <div class="text-lg font-semibold">Unlimited growth</div>
+            <p class="mt-3 text-sm text-muted-foreground">
+              CMHC underwriting will still apply a market-data
+              floor (historical CMA rent growth typically 2–5%),
+              so the flexibility doesn't translate to aggressive
+              pro forma assumptions — it protects against
+              regulatory risk rather than creating above-market
+              revenue.
+            </p>
+          </Card>
+          <Card className="bg-obsidian border-dark-gray p-6">
+            <div class="text-lg font-semibold">Turnover risk</div>
+            <p class="mt-3 text-sm text-muted-foreground">
+              Large rent increases can drive tenant turnover and
+              reputational issues. Property management discipline
+              matters more in Alberta than in rent-controlled
+              provinces where the cap effectively smooths
+              increases.
+            </p>
+          </Card>
+          <Card className="bg-obsidian border-dark-gray p-6">
+            <div class="text-lg font-semibold">Secondary markets</div>
+            <p class="mt-3 text-sm text-muted-foreground">
+              Lethbridge, Red Deer, Fort McMurray, and other
+              resource-exposed markets have historically run
+              higher vacancy than Calgary/Edmonton. CMHC uses
+              the RMS vacancy floor; pro forma sensitivity
+              analysis should model commodity-cycle downside.
+            </p>
+          </Card>
+        </div>
+      </div>
+    </section>
+
+    {/* MUNICIPAL STACKING */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="max-w-3xl">
+          <Badge variant="secondary" className="mb-4">Municipal stacking</Badge>
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+            Calgary and Edmonton programs.
+          </h2>
+          <p class="mt-4 text-muted-foreground">
+            Both major Alberta cities have added substantial
+            rental-housing programs post-2023, with meaningful
+            federal Housing Accelerator Fund contributions.
+          </p>
+        </div>
+
+        <div class="mt-10 grid gap-6 md:grid-cols-2">
+          <Card className="bg-jet border-dark-gray p-6">
+            <div class="text-xs uppercase tracking-wide text-star">Calgary</div>
+            <div class="mt-1 text-lg font-semibold">
+              Non-market property tax exemption + HIP
+            </div>
+            <p class="mt-3 text-sm text-muted-foreground">
+              As of January 2025, Calgary exempts qualifying
+              non-market housing from property tax. The Housing
+              Incentive Program provides pre-development grants
+              and capital support for rental projects meeting
+              affordability targets. Both stack with MLI Select
+              or CMHC AHF.
+            </p>
+          </Card>
+          <Card className="bg-jet border-dark-gray p-6">
+            <div class="text-xs uppercase tracking-wide text-star">Edmonton</div>
+            <div class="mt-1 text-lg font-semibold">
+              Affordable Housing Investment Program
+            </div>
+            <p class="mt-3 text-sm text-muted-foreground">
+              AHIP delivers grants aligned with median market
+              rents, available to both non-profit and for-profit
+              developers. Edmonton secured $192M through the
+              federal Housing Accelerator Fund targeting 36,000
+              new homes — deployable alongside CMHC-insured
+              financing.
+            </p>
+          </Card>
+        </div>
+      </div>
+    </section>
+
+    {/* OTHER FACTORS */}
+    <section class="border-b border-dark-gray bg-jet">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="max-w-3xl">
+          <Badge variant="secondary" className="mb-4">Other factors</Badge>
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+            Construction costs, energy code, and tax.
+          </h2>
+        </div>
+
+        <div class="mt-10 grid gap-4 md:grid-cols-2">
+          <Card className="bg-obsidian border-dark-gray p-6">
+            <div class="text-lg font-semibold">Construction cost stability</div>
+            <p class="mt-3 text-sm text-muted-foreground">
+              Alberta per-unit build costs typically run below ON
+              and BC on comparable wood-frame mid-rise product —
+              contributing to lower total project cost and better
+              LTC math for MLI Select scoring.
+            </p>
+          </Card>
+          <Card className="bg-obsidian border-dark-gray p-6">
+            <div class="text-lg font-semibold">Energy efficiency</div>
+            <p class="mt-3 text-sm text-muted-foreground">
+              No provincial overlay beyond the federal NECB 2020
+              / NBC 2020 baseline that flows through the Alberta
+              Building Code. MLI Select energy scoring applies
+              the same NECB/NBC tier tables nationwide.
+            </p>
+          </Card>
+          <Card className="bg-obsidian border-dark-gray p-6">
+            <div class="text-lg font-semibold">PST on CMHC premium</div>
+            <p class="mt-3 text-sm text-muted-foreground">
+              Alberta has no provincial sales tax — zero PST on
+              the CMHC premium. This is a meaningful closing-cost
+              advantage vs ON (8%), BC (7%), SK (6%), MB (7%),
+              and QC (9.975%).
+            </p>
+          </Card>
+          <Card className="bg-obsidian border-dark-gray p-6">
+            <div class="text-lg font-semibold">No foreign buyer ban</div>
+            <p class="mt-3 text-sm text-muted-foreground">
+              Alberta has no provincial foreign-buyer restrictions
+              beyond the federal ban, which largely exempts
+              institutional multi-unit rental acquisitions.
+            </p>
+          </Card>
+          <Card className="bg-obsidian border-dark-gray p-6">
+            <div class="text-lg font-semibold">Property tax</div>
+            <p class="mt-3 text-sm text-muted-foreground">
+              Municipally set. Calgary and Edmonton publish
+              multi-residential tax rates separately from
+              single-family residential. Model actual mill rates
+              on the target parcel; don't rely on category
+              averages.
+            </p>
+          </Card>
+          <Card className="bg-obsidian border-dark-gray p-6">
+            <div class="text-lg font-semibold">Oil and gas exposure</div>
+            <p class="mt-3 text-sm text-muted-foreground">
+              Secondary markets track commodity cycles. WCS
+              differential, employment levels in producing
+              counties, and population flows materially affect
+              vacancy and rent growth outside the Calgary-Edmonton
+              corridor.
+            </p>
+          </Card>
+        </div>
+      </div>
+    </section>
+
+    {/* CTA */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-20 lg:px-12 lg:py-28">
+        <div class="mx-auto max-w-3xl text-center">
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-5xl">
+            Run the Alberta numbers.
+          </h2>
+          <p class="mx-auto mt-5 max-w-2xl text-muted-foreground">
+            No PST on premium, lower construction costs, and
+            stacking with Calgary HIP or Edmonton AHIP make
+            Alberta competitive — but model secondary-market
+            vacancy carefully.
+          </p>
+          <div class="mt-8 flex flex-wrap justify-center gap-3">
+            <a href="/calculators/loan-sizer">
+              <Button size="lg">Open the loan sizer</Button>
+            </a>
+            <a href="/developers/municipal">
+              <Button variant="outline" size="lg">
+                Municipal detail
+              </Button>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</DefaultLayout>

@@ -1,0 +1,12 @@
+---
+import AmortizationSchedule from "@/components/calculators/amortization-schedule";
+import DefaultLayout from "@/layouts/DefaultLayout.astro";
+
+const title = "Amortization Schedule Calculator — CMHC Multi-Family";
+const description =
+  "Generate a full amortization schedule for any CMHC-insured multi-unit loan. Interest vs. principal split, cumulative totals, balance at renewal, monthly and yearly views, CSV export.";
+---
+
+<DefaultLayout title={title} description={description}>
+  <AmortizationSchedule client:load />
+</DefaultLayout>

@@ -1,0 +1,413 @@
+---
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import DefaultLayout from "@/layouts/DefaultLayout.astro";
+
+const title = "Rental Achievement & Holdback — CMHC Construction Advances";
+const description =
+  "How rental achievement and holdback policy actually work across CMHC multi-unit programs. The November 2024 formalization for MLI Select, the July 3, 2025 holdback removal for MLI Market Rental, and the takeout sizing implications in each case.";
+
+const definitionRows = [
+  {
+    item: "Target occupancy",
+    detail:
+      "Typically 85–90% of underwritten stabilized rent roll. Both occupancy and rent level are tested — a fully leased building at below-underwritten rents does not clear.",
+  },
+  {
+    item: "Sustainment period",
+    detail:
+      "2–3 consecutive months at or above the target. Certified rent roll delivered to the lender, who passes it to CMHC.",
+  },
+  {
+    item: "Measurement basis",
+    detail:
+      "Effective gross income (EGI) — net of concessions, not gross face rent. CMHC is explicit that leasing incentives do not count toward the target.",
+  },
+  {
+    item: "Certification",
+    detail:
+      "Signed rent roll plus (typically) audited EGI figures for the sustainment period. Large projects may require third-party property-management attestation.",
+  },
+];
+
+const holdbackScenarios = [
+  {
+    product: "MLI Market Rental (MLI Standard, market construction)",
+    policy: "No holdback — July 3, 2025",
+    detail:
+      "The most consequential construction-policy change of 2025. Advances run to 85% of approved loan without a rental-achievement holdback. Takeout is sized against the full loan amount.",
+  },
+  {
+    product: "MLI Select — all tiers",
+    policy: "Rental achievement holdback retained — formalized November 2024",
+    detail:
+      "Up to 20% of the approved loan amount held back until the rental-achievement target is cleared. Effective LTC at advance drops from 95% to approximately 75% for the holdback duration.",
+  },
+  {
+    product: "ACLP",
+    policy: "Rental achievement required — integrated with direct lending",
+    detail:
+      "Holdback retained and released on rental achievement. Terms set case-by-case in the CMHC commitment letter. Typically aligned with MLI Select practice.",
+  },
+  {
+    product: "Specialized (retirement, student, SRO, supportive)",
+    policy: "Holdback retained",
+    detail:
+      "Rental achievement requirement maintained across the Other Shelter Models product lines. Lease-up risk is higher in these segments and CMHC has not extended the market-rental relief here.",
+  },
+];
+---
+
+<DefaultLayout title={title} description={description}>
+  <div class="bg-obsidian text-foreground">
+    {/* HERO */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <Badge variant="outline" className="mb-6 border-star/40 text-star">
+          Rental achievement &amp; holdback
+        </Badge>
+        <h1 class="text-4xl font-semibold tracking-tight lg:text-6xl">
+          Rental achievement — the lease-up test that gates final advance.
+        </h1>
+        <p class="mt-6 max-w-3xl text-lg text-muted-foreground">
+          Rental achievement is the CMHC test that confirms a newly built
+          property has leased up at or above the underwritten EGI. Until
+          that test is passed, a portion of the approved loan is typically
+          withheld — the rental-achievement holdback — which reduces
+          effective leverage during lease-up and materially changes the
+          takeout-loan sizing exercise.
+        </p>
+        <p class="mt-4 max-w-3xl text-lg text-muted-foreground">
+          Two policy events reshaped the landscape in 2024–2025. November
+          2024 formalized rental achievement within MLI Select — previously
+          there was no holdback requirement. July 3, 2025 removed the
+          holdback entirely from MLI Market Rental construction, allowing
+          advance to 85% at substantial completion. The transition window
+          for projects spanning policy changes runs to September 30, 2026.
+        </p>
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a href="/calculators/construction-draws">
+            <Button size="lg">Construction draws calculator</Button>
+          </a>
+          <a href="/programs/mli-select">
+            <Button variant="outline" size="lg">MLI Select</Button>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    {/* DEFINITION */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="max-w-3xl">
+          <Badge variant="secondary" className="mb-4">Definition</Badge>
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+            What "rental achievement" actually means.
+          </h2>
+          <p class="mt-4 text-muted-foreground">
+            The test has four components — a target, a sustainment period, a
+            measurement basis, and a certification requirement. All four
+            have to clear for the holdback to release.
+          </p>
+        </div>
+
+        <div class="mt-10 overflow-x-auto rounded-lg border border-dark-gray bg-jet">
+          <table class="w-full border-collapse text-sm">
+            <thead>
+              <tr class="border-b border-dark-gray text-muted-foreground text-xs uppercase tracking-wide">
+                <th class="px-4 py-3 text-left font-medium">Component</th>
+                <th class="px-4 py-3 text-left font-medium">Typical standard</th>
+              </tr>
+            </thead>
+            <tbody>
+              {
+                definitionRows.map((row) => (
+                  <tr class="border-b border-dark-gray last:border-0">
+                    <td class="px-4 py-3 font-medium">{row.item}</td>
+                    <td class="px-4 py-3 text-muted-foreground">{row.detail}</td>
+                  </tr>
+                ))
+              }
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    {/* BY PRODUCT */}
+    <section class="border-b border-dark-gray bg-jet">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="max-w-3xl">
+          <Badge variant="secondary" className="mb-4">By product</Badge>
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+            Which products carry a holdback today.
+          </h2>
+          <p class="mt-4 text-muted-foreground">
+            The holdback rule now differs materially by product — the July
+            3, 2025 change applied only to MLI Market Rental. Every other
+            CMHC construction path retained rental achievement.
+          </p>
+        </div>
+
+        <div class="mt-10 grid gap-6 md:grid-cols-2">
+          {
+            holdbackScenarios.map((row) => (
+              <Card className="bg-obsidian border-dark-gray p-6">
+                <div class="text-xs uppercase tracking-wide text-star">
+                  {row.product}
+                </div>
+                <div class="mt-1 text-lg font-semibold">{row.policy}</div>
+                <p class="mt-3 text-sm text-muted-foreground">{row.detail}</p>
+              </Card>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    {/* ADVANCE SCHEDULE */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="max-w-3xl">
+          <Badge variant="secondary" className="mb-4">Advance schedule</Badge>
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+            Typical construction draw progression.
+          </h2>
+          <p class="mt-4 text-muted-foreground">
+            Progress advances are tied to percentage completion as certified
+            by the cost consultant. The rental achievement step applies at
+            the end — determining whether the final advance is released at
+            substantial completion or held back until the lease-up target
+            is cleared.
+          </p>
+        </div>
+
+        <div class="mt-10 grid gap-6 lg:grid-cols-2">
+          <Card className="bg-jet border-dark-gray p-6">
+            <div class="text-xs uppercase tracking-wide text-star">
+              Typical advance percentages
+            </div>
+            <dl class="mt-5 space-y-3 text-sm">
+              <div class="flex justify-between border-b border-dark-gray pb-2">
+                <dt class="text-muted-foreground">At 50% complete</dt>
+                <dd class="font-medium">50% advance</dd>
+              </div>
+              <div class="flex justify-between border-b border-dark-gray pb-2">
+                <dt class="text-muted-foreground">At 75% complete</dt>
+                <dd class="font-medium">75% advance</dd>
+              </div>
+              <div class="flex justify-between border-b border-dark-gray pb-2">
+                <dt class="text-muted-foreground">Substantial completion — MLI Market Rental</dt>
+                <dd class="font-medium">85% (no holdback)</dd>
+              </div>
+              <div class="flex justify-between border-b border-dark-gray pb-2">
+                <dt class="text-muted-foreground">Substantial completion — MLI Select</dt>
+                <dd class="font-medium">75% (20% held back)</dd>
+              </div>
+              <div class="flex justify-between pt-2">
+                <dt class="text-muted-foreground">Post rental achievement (Select)</dt>
+                <dd class="font-medium">Full approved balance</dd>
+              </div>
+            </dl>
+          </Card>
+
+          <Card className="bg-jet border-dark-gray p-6">
+            <div class="text-xs uppercase tracking-wide text-star">
+              Takeout loan sizing implications
+            </div>
+            <div class="mt-5 space-y-3 text-sm text-muted-foreground">
+              <p>
+                If the holdback is removed (MLI Market Rental, post July 3,
+                2025), the takeout loan is sized against the full 85%
+                advance — the borrower avoids bridging the held-back
+                tranche with equity during lease-up.
+              </p>
+              <p>
+                If the holdback is retained (MLI Select and everything
+                else), the takeout loan must first cover the advanced
+                portion, and the borrower holds the 20% gap until rental
+                achievement — typically through a combination of sponsor
+                equity, mezzanine financing, or construction loan extension.
+              </p>
+              <p>
+                Pro formas written under a 95% LTC assumption can show
+                effective LTC at advance closer to 75% for MLI Select
+                deals — a 20-point equity swing on a large construction
+                loan.
+              </p>
+            </div>
+          </Card>
+        </div>
+      </div>
+    </section>
+
+    {/* WORKED SCENARIO */}
+    <section class="border-b border-dark-gray bg-jet">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="max-w-3xl">
+          <Badge variant="secondary" className="mb-4">Worked scenario</Badge>
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+            100-unit Toronto build — holdback vs. no-holdback math.
+          </h2>
+          <p class="mt-4 text-muted-foreground">
+            Same project, same approved loan, under the two possible
+            construction-insurance regimes. The effective advance at
+            substantial completion differs by 10 percentage points, and
+            the lease-up equity gap differs materially.
+          </p>
+        </div>
+
+        <div class="mt-10 grid gap-6 lg:grid-cols-2">
+          <Card className="bg-obsidian border-dark-gray p-6">
+            <div class="text-xs uppercase tracking-wide text-star">
+              Scenario A — MLI Market Rental (no holdback)
+            </div>
+            <dl class="mt-5 space-y-3 text-sm">
+              <div class="flex justify-between border-b border-dark-gray pb-2">
+                <dt class="text-muted-foreground">Total project cost</dt>
+                <dd class="font-medium">$60M</dd>
+              </div>
+              <div class="flex justify-between border-b border-dark-gray pb-2">
+                <dt class="text-muted-foreground">Approved loan (85% LTC)</dt>
+                <dd class="font-medium">$51M</dd>
+              </div>
+              <div class="flex justify-between border-b border-dark-gray pb-2">
+                <dt class="text-muted-foreground">Advance at substantial completion</dt>
+                <dd class="font-medium">$51M (85% of TPC)</dd>
+              </div>
+              <div class="flex justify-between border-b border-dark-gray pb-2">
+                <dt class="text-muted-foreground">Sponsor equity required</dt>
+                <dd class="font-medium">$9M (15%)</dd>
+              </div>
+              <div class="flex justify-between pt-2">
+                <dt class="text-star font-medium">Additional lease-up equity</dt>
+                <dd class="text-star font-semibold">None</dd>
+              </div>
+            </dl>
+          </Card>
+
+          <Card className="bg-obsidian border-dark-gray p-6">
+            <div class="text-xs uppercase tracking-wide text-star">
+              Scenario B — MLI Select tier 3 (20% holdback)
+            </div>
+            <dl class="mt-5 space-y-3 text-sm">
+              <div class="flex justify-between border-b border-dark-gray pb-2">
+                <dt class="text-muted-foreground">Total project cost</dt>
+                <dd class="font-medium">$60M</dd>
+              </div>
+              <div class="flex justify-between border-b border-dark-gray pb-2">
+                <dt class="text-muted-foreground">Approved loan (95% LTC)</dt>
+                <dd class="font-medium">$57M</dd>
+              </div>
+              <div class="flex justify-between border-b border-dark-gray pb-2">
+                <dt class="text-muted-foreground">Advance at substantial completion</dt>
+                <dd class="font-medium">$45.6M (80% of loan)</dd>
+              </div>
+              <div class="flex justify-between border-b border-dark-gray pb-2">
+                <dt class="text-muted-foreground">Held back until rental achievement</dt>
+                <dd class="font-medium">$11.4M (20%)</dd>
+              </div>
+              <div class="flex justify-between pt-2">
+                <dt class="text-star font-medium">Additional lease-up equity</dt>
+                <dd class="text-star font-semibold">~$11.4M gap</dd>
+              </div>
+            </dl>
+          </Card>
+        </div>
+        <p class="mt-6 text-sm text-muted-foreground">
+          The $11.4M lease-up gap in Scenario B is often bridged with a
+          construction-loan extension, sponsor equity top-up, or mezzanine
+          financing — each carrying a meaningful cost of capital for the
+          3–9 months typical to reach rental achievement on a 100-unit
+          Toronto build.
+        </p>
+      </div>
+    </section>
+
+    {/* TRANSITION */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="grid gap-10 lg:grid-cols-[1fr_1.2fr]">
+          <div>
+            <Badge variant="outline" className="mb-4 border-star/40 text-star">
+              Transition period
+            </Badge>
+            <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+              November 2025 → September 2026 — who is covered.
+            </h2>
+            <p class="mt-4 text-muted-foreground">
+              The November 28, 2025 MLI Select refresh carried forward the
+              existing rental-achievement framework. Projects with COIs
+              issued under the prior regime are covered by a transition
+              window through September 30, 2026. After that, every new
+              MLI Select CoI sits under the refreshed rental-achievement
+              mechanics.
+            </p>
+            <p class="mt-4 text-muted-foreground">
+              MLI Market Rental no-holdback treatment has been in effect
+              since July 3, 2025 and is not on a transition clock — every
+              new MLI Market Rental construction submission benefits from
+              the 85% no-holdback advance.
+            </p>
+          </div>
+          <Card className="bg-jet border-dark-gray p-6">
+            <div class="text-xs uppercase tracking-wide text-star">
+              Policy timeline — quick reference
+            </div>
+            <ul class="mt-5 space-y-4 text-sm text-muted-foreground">
+              <li>
+                <span class="text-foreground font-medium">November 2024</span>{" "}
+                — Rental achievement formalized within MLI Select; prior to
+                this there was no holdback requirement on Select files.
+              </li>
+              <li>
+                <span class="text-foreground font-medium">July 3, 2025</span>{" "}
+                — Holdback removed for MLI Market Rental construction
+                (Standard). Advance to 85% without holdback.
+              </li>
+              <li>
+                <span class="text-foreground font-medium">November 28, 2025</span>{" "}
+                — MLI Select policy refresh; rental achievement mechanics
+                carried forward.
+              </li>
+              <li>
+                <span class="text-foreground font-medium">September 30, 2026</span>{" "}
+                — Transition period ends for projects qualified under the
+                prior MLI Select framework.
+              </li>
+            </ul>
+          </Card>
+        </div>
+      </div>
+    </section>
+
+    {/* CTA */}
+    <section class="border-b border-dark-gray bg-jet">
+      <div class="container border-l border-r border-dark-gray px-6 py-20 lg:px-12 lg:py-28">
+        <div class="mx-auto max-w-3xl text-center">
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-5xl">
+            Model the draw schedule and the lease-up gap.
+          </h2>
+          <p class="mx-auto mt-5 max-w-2xl text-muted-foreground">
+            The construction draws calculator handles both regimes and
+            shows the equity required through lease-up. Pair it with the
+            MLI Select or MLI Standard product pages to match the right
+            path to the project.
+          </p>
+          <div class="mt-8 flex flex-wrap justify-center gap-3">
+            <a href="/calculators/construction-draws">
+              <Button size="lg">Construction draws</Button>
+            </a>
+            <a href="/programs/mli-select">
+              <Button variant="outline" size="lg">MLI Select</Button>
+            </a>
+            <a href="/programs/mli-standard">
+              <Button variant="outline" size="lg">MLI Standard</Button>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</DefaultLayout>

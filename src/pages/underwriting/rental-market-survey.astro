@@ -1,0 +1,398 @@
+---
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import DefaultLayout from "@/layouts/DefaultLayout.astro";
+
+const title = "Rental Market Survey — CMHC Due Diligence";
+const description =
+  "How to use the CMHC Rental Market Survey for CMHC underwriting. October annual survey covering urban areas ≥10,000 population. Vacancy, rent by bedroom, turnover, rental universe, structure age. Access via HMIP, open data portal, cmhc R package. Limitations and practical underwriting use.";
+
+const dataAvailable = [
+  {
+    metric: "Vacancy rate",
+    geography: "CMA, zone, neighbourhood, census tract",
+    usage: "Underwriting vacancy assumption; subject to structural floor.",
+  },
+  {
+    metric: "Average rent",
+    geography: "CMA, zone, by bedroom count, by structure year",
+    usage: "Market-rent input for GPR and appraisal income-approach.",
+  },
+  {
+    metric: "Turnover rate",
+    geography: "CMA, by structure size",
+    usage: "Management-cost assumptions, rent-growth pacing.",
+  },
+  {
+    metric: "Rental universe",
+    geography: "CMA, structure size, structure age",
+    usage: "Market-depth indicator; absorption analysis.",
+  },
+  {
+    metric: "Age breakdown",
+    geography: "CMA by decade built",
+    usage: "Comparable selection; age-mix analysis for valuation.",
+  },
+];
+
+const accessPaths = [
+  {
+    path: "HMIP (Housing Market Information Portal)",
+    url: "https://www03.cmhc-schl.gc.ca/hmip-pimh/en",
+    detail:
+      "Interactive web interface. Drill down from national to census tract. Export to XLSX for inclusion in submissions.",
+  },
+  {
+    path: "CMHC open data portal",
+    url: "https://open.canada.ca/data/organization/cmhc-schl",
+    detail:
+      "Bulk CSV downloads. Useful for multi-CMA comparisons or historical trend analysis.",
+  },
+  {
+    path: "cmhc R package (unofficial HMIP API)",
+    url: "https://mountainmath.github.io/cmhc/",
+    detail:
+      "Third-party R package wrapping HMIP. Closest thing to a CMHC REST API; useful for automated reporting workflows.",
+  },
+  {
+    path: "StatCan Table 34-10-0133-01",
+    url: "https://www150.statcan.gc.ca/",
+    detail:
+      "Mirrors CMHC average rents for 247 geographies. Accessible via StatCan Web Data Service API for programmatic pulls.",
+  },
+];
+---
+
+<DefaultLayout title={title} description={description}>
+  <div class="bg-obsidian text-foreground">
+    {/* HERO */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <Badge variant="outline" className="mb-6 border-star/40 text-star">
+          Underwriting · Rental Market Survey
+        </Badge>
+        <h1 class="text-4xl font-semibold tracking-tight lg:text-6xl">
+          Using CMHC RMS for underwriting.
+        </h1>
+        <p class="mt-6 max-w-3xl text-lg text-muted-foreground">
+          The CMHC Rental Market Survey is the single most
+          important data source for multi-unit underwriting.
+          Conducted every October and published the following
+          spring, the RMS covers all urban areas with 10,000+
+          population and reports vacancy, average rent by
+          bedroom and structure age, turnover, and rental
+          universe size down to census-tract level.
+        </p>
+        <p class="mt-4 max-w-3xl text-lg text-muted-foreground">
+          CMHC underwriters cite RMS data directly in vacancy
+          and market-rent conclusions. Brokers and sponsors
+          submitting files benefit from pulling the same data
+          pre-application — it sets realistic expectations on
+          NOI, catches pro forma overshoots before submission,
+          and documents the market narrative the underwriter
+          is about to verify.
+        </p>
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a href="/data">
+            <Button size="lg">Full data sources</Button>
+          </a>
+          <a href="/underwriting/vacancy">
+            <Button variant="outline" size="lg">Vacancy standards</Button>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    {/* WHAT RMS COVERS */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="grid gap-10 lg:grid-cols-[1.2fr_1fr]">
+          <div>
+            <Badge variant="secondary" className="mb-4">Coverage</Badge>
+            <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+              What the RMS actually measures.
+            </h2>
+            <p class="mt-4 text-muted-foreground">
+              The survey covers privately-owned purpose-built
+              rental structures of three or more units in urban
+              areas with populations of 10,000 or more. It
+              does not cover single-unit rentals, condo rentals
+              (captured separately under the Secondary Rental
+              Market Survey), or seniors housing (Seniors
+              Housing Survey). Units under construction are
+              excluded; newly-completed buildings typically
+              don't appear in the RMS in their first survey
+              year.
+            </p>
+            <p class="mt-4 text-muted-foreground">
+              Survey date is October. Publication is the
+              following spring — typically February to April.
+              The figures in use at any given moment reflect
+              market conditions from 6 to 18 months earlier,
+              which is a meaningful lag in fast-moving markets.
+            </p>
+          </div>
+          <Card className="bg-jet border-dark-gray p-8">
+            <div class="text-xs uppercase tracking-wide text-muted-foreground">
+              Survey specifications
+            </div>
+            <div class="mt-4 space-y-2 text-sm">
+              <div class="flex justify-between border-b border-dark-gray pb-2">
+                <span class="text-muted-foreground">Survey month</span>
+                <span class="font-medium">October, annual</span>
+              </div>
+              <div class="flex justify-between border-b border-dark-gray pb-2">
+                <span class="text-muted-foreground">Publication</span>
+                <span class="font-medium">Spring, following year</span>
+              </div>
+              <div class="flex justify-between border-b border-dark-gray pb-2">
+                <span class="text-muted-foreground">Coverage</span>
+                <span class="font-medium">Urban ≥10,000 pop.</span>
+              </div>
+              <div class="flex justify-between border-b border-dark-gray pb-2">
+                <span class="text-muted-foreground">Unit type</span>
+                <span class="font-medium">Purpose-built rental ≥3 units</span>
+              </div>
+              <div class="flex justify-between pt-2">
+                <span class="text-star font-medium">Geography</span>
+                <span class="font-semibold text-star">CMA → census tract</span>
+              </div>
+            </div>
+          </Card>
+        </div>
+      </div>
+    </section>
+
+    {/* DATA AVAILABLE */}
+    <section class="border-b border-dark-gray bg-jet">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="max-w-3xl">
+          <Badge variant="secondary" className="mb-4">Metrics</Badge>
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+            Data available and how it's used.
+          </h2>
+          <p class="mt-4 text-muted-foreground">
+            Five core measures carry most of the underwriting
+            weight, each available at multiple geographic levels
+            and typically sliceable by bedroom count, structure
+            size, and structure year.
+          </p>
+        </div>
+
+        <div class="mt-10 overflow-x-auto rounded-lg border border-dark-gray bg-obsidian">
+          <table class="w-full border-collapse text-sm">
+            <thead>
+              <tr class="border-b border-dark-gray text-muted-foreground text-xs uppercase tracking-wide">
+                <th class="px-4 py-3 text-left font-medium">Metric</th>
+                <th class="px-4 py-3 text-left font-medium">Available geographies</th>
+                <th class="px-4 py-3 text-left font-medium">Underwriting use</th>
+              </tr>
+            </thead>
+            <tbody>
+              {
+                dataAvailable.map((row) => (
+                  <tr class="border-b border-dark-gray last:border-0">
+                    <td class="px-4 py-3 font-medium">{row.metric}</td>
+                    <td class="px-4 py-3">{row.geography}</td>
+                    <td class="px-4 py-3 text-muted-foreground">{row.usage}</td>
+                  </tr>
+                ))
+              }
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    {/* RELATED SURVEYS */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="max-w-3xl">
+          <Badge variant="secondary" className="mb-4">Related surveys</Badge>
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+            RMS siblings.
+          </h2>
+          <p class="mt-4 text-muted-foreground">
+            The main RMS has three companion surveys covering
+            rental product it doesn't capture directly.
+          </p>
+        </div>
+
+        <div class="mt-10 grid gap-6 md:grid-cols-3">
+          <Card className="bg-jet border-dark-gray p-6">
+            <div class="text-xs uppercase tracking-wide text-star">
+              Secondary Rental Market Survey
+            </div>
+            <div class="mt-1 text-lg font-semibold">Condo rentals</div>
+            <p class="mt-3 text-sm text-muted-foreground">
+              Covers condominium-apartment rental stock. Important
+              in Toronto and Vancouver where condo rentals are a
+              material share of the rental universe.
+            </p>
+          </Card>
+          <Card className="bg-jet border-dark-gray p-6">
+            <div class="text-xs uppercase tracking-wide text-star">
+              Seniors Housing Survey
+            </div>
+            <div class="mt-1 text-lg font-semibold">Independent + assisted</div>
+            <p class="mt-3 text-sm text-muted-foreground">
+              Reports occupancy, rent, and service-package pricing
+              for independent and assisted-living seniors units.
+              Used in retirement-housing underwriting.
+            </p>
+          </Card>
+          <Card className="bg-jet border-dark-gray p-6">
+            <div class="text-xs uppercase tracking-wide text-star">
+              Starts & Completions
+            </div>
+            <div class="mt-1 text-lg font-semibold">New supply pipeline</div>
+            <p class="mt-3 text-sm text-muted-foreground">
+              Monthly data on housing starts and completions.
+              Not RMS, but published on HMIP and used for
+              absorption analysis alongside RMS vacancy data.
+            </p>
+          </Card>
+        </div>
+      </div>
+    </section>
+
+    {/* ACCESS PATHS */}
+    <section class="border-b border-dark-gray bg-jet">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="max-w-3xl">
+          <Badge variant="secondary" className="mb-4">Access</Badge>
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+            How to pull RMS data.
+          </h2>
+          <p class="mt-4 text-muted-foreground">
+            Four practical access paths. HMIP is the default
+            for one-off queries; the R package is useful for
+            automated workflows.
+          </p>
+        </div>
+
+        <div class="mt-10 overflow-x-auto rounded-lg border border-dark-gray bg-obsidian">
+          <table class="w-full border-collapse text-sm">
+            <thead>
+              <tr class="border-b border-dark-gray text-muted-foreground text-xs uppercase tracking-wide">
+                <th class="px-4 py-3 text-left font-medium">Access path</th>
+                <th class="px-4 py-3 text-left font-medium">Notes</th>
+              </tr>
+            </thead>
+            <tbody>
+              {
+                accessPaths.map((row) => (
+                  <tr class="border-b border-dark-gray last:border-0">
+                    <td class="px-4 py-3">
+                      <div class="font-medium">{row.path}</div>
+                      <a
+                        href={row.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="text-xs text-star"
+                      >
+                        {row.url}
+                      </a>
+                    </td>
+                    <td class="px-4 py-3 text-muted-foreground">{row.detail}</td>
+                  </tr>
+                ))
+              }
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    {/* LIMITATIONS */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="grid gap-10 lg:grid-cols-2">
+          <div>
+            <Badge variant="outline" className="mb-4 border-star/40 text-star">
+              Limitations
+            </Badge>
+            <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+              What RMS doesn't capture.
+            </h2>
+            <p class="mt-4 text-muted-foreground">
+              The October snapshot is a structural limitation —
+              in fast-moving markets, by the time the spring
+              publication lands, conditions may have shifted
+              meaningfully. New properties typically don't appear
+              in their first survey year. Secondary rental
+              (condo rentals) requires the SRMS, not RMS.
+            </p>
+            <p class="mt-4 text-muted-foreground">
+              The survey excludes single-unit rentals and very
+              small properties — a gap in markets where a large
+              share of rental stock sits in the secondary market
+              or in duplex/triplex formats. Underwriters typically
+              supplement RMS with Rentals.ca, PadMapper, and
+              local brokerage data for current-period market
+              rent.
+            </p>
+          </div>
+          <Card className="bg-jet border-dark-gray p-6">
+            <div class="text-xs uppercase tracking-wide text-star">
+              Pre-application RMS pull
+            </div>
+            <div class="mt-1 text-lg font-semibold">A 30-minute exercise</div>
+            <p class="mt-3 text-sm text-muted-foreground">
+              Before submitting a CMHC file, pull RMS for the
+              subject CMA and zone. Compare subject rent
+              position to the CMA median by bedroom count.
+              Check the vacancy trajectory (3-year trend) and
+              pull structure-age weighted averages for
+              appropriate comparable selection.
+            </p>
+            <ul class="mt-4 space-y-3 text-sm">
+              <li class="border-b border-dark-gray/50 pb-2">
+                <span class="text-star">•</span> Pull CMA + zone for
+                subject location.
+              </li>
+              <li class="border-b border-dark-gray/50 pb-2">
+                <span class="text-star">•</span> Compare subject rent to
+                CMA median by bedroom count.
+              </li>
+              <li class="border-b border-dark-gray/50 pb-2">
+                <span class="text-star">•</span> Check 3-year vacancy
+                trajectory.
+              </li>
+              <li>
+                <span class="text-star">•</span> Document findings in
+                the submission narrative.
+              </li>
+            </ul>
+          </Card>
+        </div>
+      </div>
+    </section>
+
+    {/* CTA */}
+    <section class="border-b border-dark-gray bg-jet">
+      <div class="container border-l border-r border-dark-gray px-6 py-20 lg:px-12 lg:py-28">
+        <div class="mx-auto max-w-3xl text-center">
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-5xl">
+            Run the RMS before you submit.
+          </h2>
+          <p class="mx-auto mt-5 max-w-2xl text-muted-foreground">
+            A 30-minute HMIP pull catches most of the adjustments
+            CMHC underwriters make — and lets you build the pro
+            forma around realistic market data rather than
+            having it adjusted against you.
+          </p>
+          <div class="mt-8 flex flex-wrap justify-center gap-3">
+            <a href="/data">
+              <Button size="lg">Data sources</Button>
+            </a>
+            <a href="/underwriting/vacancy">
+              <Button variant="outline" size="lg">Vacancy standards</Button>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</DefaultLayout>

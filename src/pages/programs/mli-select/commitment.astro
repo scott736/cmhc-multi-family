@@ -1,0 +1,380 @@
+---
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import DefaultLayout from "@/layouts/DefaultLayout.astro";
+
+const title = "MLI Select Commitment — Legal, Operational & Enforcement Details";
+const description =
+  "What 'commitment' means across the three MLI Select pillars. Restrictive covenants on title, rent escalation, monitoring, porting on refinance, and CMHC's clawback and non-compliance tools. Transition rules running to September 30, 2026.";
+
+const pillarCommitments = [
+  {
+    pillar: "Affordability",
+    instrument: "Restrictive covenant / affordability agreement registered on title",
+    term: "10 years (default) or 20 years (+30 pt bonus)",
+    monitoring: "Annual certified rent roll, spot tenant-income verification",
+    enforcement:
+      "Premium discount clawback first; loan call / renewal refusal for serious or uncured breaches",
+  },
+  {
+    pillar: "Energy efficiency",
+    instrument:
+      "Construction to the modelled standard; post-construction commissioning and as-built reconciliation",
+    term: "Performance is fixed at construction — no ongoing scoring covenant, but design cannot be downgraded",
+    monitoring: "Post-construction commissioning; airtightness testing; as-built model submission",
+    enforcement:
+      "Clawback of premium discount if as-built model materially misses the submitted design; may require corrective construction",
+  },
+  {
+    pillar: "Accessibility",
+    instrument:
+      "CSA B651:23 design and construction; RHFAC certification where the certification pathway was selected",
+    term: "Design requirements are permanent; RHFAC recertification recommended every 5 years",
+    monitoring: "Final inspection against the submitted design; RHFAC re-audit on the applicable cycle",
+    enforcement:
+      "Clawback of premium discount for material design deviations; retention of the baseline visitability requirement is non-negotiable",
+  },
+];
+
+const enforcementTools = [
+  {
+    tool: "Premium discount clawback",
+    detail:
+      "Most common outcome. CMHC recalculates the premium at the MLI Standard (non-discounted) equivalent and seeks the difference from the borrower.",
+  },
+  {
+    tool: "Renewal refusal",
+    detail:
+      "At term end CMHC can decline to renew the insurance — forcing the borrower to refinance to a conventional (uninsured) lender, typically at materially higher rates and lower LTV.",
+  },
+  {
+    tool: "Loan call",
+    detail:
+      "Reserved for serious or unremediated breaches. The lender is entitled to accelerate the loan and the CMHC claim process is unavailable to protect against a resulting loss.",
+  },
+  {
+    tool: "Corrective works",
+    detail:
+      "For energy or accessibility breaches, CMHC may require remedial construction to bring the building into compliance with the original commitment.",
+  },
+];
+---
+
+<DefaultLayout title={title} description={description}>
+  <div class="bg-obsidian text-foreground">
+    {/* HERO */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <Badge variant="outline" className="mb-6 border-star/40 text-star">
+          MLI Select · Commitment mechanics
+        </Badge>
+        <h1 class="text-4xl font-semibold tracking-tight lg:text-6xl">
+          The three commitments — legal form, operational mechanics, enforcement.
+        </h1>
+        <p class="mt-6 max-w-3xl text-lg text-muted-foreground">
+          Every MLI Select point is backed by a commitment that CMHC can
+          enforce. For affordability that commitment is a restrictive
+          covenant registered on title with a rent-escalation schedule and
+          annual monitoring. For energy it is construction to a stamped
+          model with post-construction commissioning. For accessibility it
+          is design to CSA B651:23 or certified access through RHFAC. All
+          three survive refinance and ownership transfer.
+        </p>
+        <p class="mt-4 max-w-3xl text-lg text-muted-foreground">
+          The November 28, 2025 MLI Select refresh formalized monitoring
+          language across all three pillars and tightened the enforcement
+          menu. Projects qualified under the prior framework are covered by
+          a transition window running to
+          <span class="text-foreground font-semibold">September 30, 2026</span>.
+        </p>
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a href="/calculators/affordability-sizer">
+            <Button size="lg">Size the affordability covenant</Button>
+          </a>
+          <a href="/programs/mli-select">
+            <Button variant="outline" size="lg">Back to MLI Select</Button>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    {/* THREE PILLAR COMMITMENTS */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="max-w-3xl">
+          <Badge variant="secondary" className="mb-4">By pillar</Badge>
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+            What is actually committed to, on each pillar.
+          </h2>
+          <p class="mt-4 text-muted-foreground">
+            Each pillar uses a different legal instrument with different
+            monitoring and enforcement rhythms. The affordability covenant
+            is the most enduring — it runs for 10 or 20 years on title and
+            carries annual reporting obligations.
+          </p>
+        </div>
+
+        <div class="mt-10 overflow-x-auto rounded-lg border border-dark-gray bg-jet">
+          <table class="w-full border-collapse text-sm">
+            <thead>
+              <tr class="border-b border-dark-gray text-muted-foreground text-xs uppercase tracking-wide">
+                <th class="px-4 py-3 text-left font-medium">Pillar</th>
+                <th class="px-4 py-3 text-left font-medium">Legal instrument</th>
+                <th class="px-4 py-3 text-left font-medium">Term</th>
+                <th class="px-4 py-3 text-left font-medium">Monitoring</th>
+                <th class="px-4 py-3 text-left font-medium">Enforcement trigger</th>
+              </tr>
+            </thead>
+            <tbody>
+              {
+                pillarCommitments.map((row) => (
+                  <tr class="border-b border-dark-gray last:border-0 align-top">
+                    <td class="px-4 py-3 font-medium">{row.pillar}</td>
+                    <td class="px-4 py-3 text-muted-foreground">{row.instrument}</td>
+                    <td class="px-4 py-3 text-muted-foreground">{row.term}</td>
+                    <td class="px-4 py-3 text-muted-foreground">{row.monitoring}</td>
+                    <td class="px-4 py-3 text-muted-foreground">{row.enforcement}</td>
+                  </tr>
+                ))
+              }
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    {/* AFFORDABILITY DETAIL */}
+    <section class="border-b border-dark-gray bg-jet">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="grid gap-10 lg:grid-cols-[1fr_1.2fr]">
+          <div>
+            <Badge variant="secondary" className="mb-4">Affordability covenant</Badge>
+            <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+              Registered on title; travels with the property.
+            </h2>
+            <p class="mt-4 text-muted-foreground">
+              The affordability agreement is registered against title by way
+              of a restrictive covenant — typically drafted using language
+              analogous to an Ontario Section 37/111 agreement, a BC housing
+              agreement under Local Government Act Section 483, or equivalent
+              municipal/provincial frameworks elsewhere. The instrument
+              survives refinance and sale; any subsequent lender and any
+              subsequent owner takes title subject to the covenant.
+            </p>
+            <p class="mt-4 text-muted-foreground">
+              A "genuinely affordable" standard applies to the unit mix. CMHC
+              rejects covenants that concentrate the affordable share into
+              the smallest or least-marketable unit types when the broader
+              project is family-sized — e.g., a 100-unit family building
+              where all 15 affordable units are studios.
+            </p>
+          </div>
+          <Card className="bg-obsidian border-dark-gray p-6">
+            <div class="text-xs uppercase tracking-wide text-star">
+              Rent escalation — annual mechanics
+            </div>
+            <div class="mt-5 space-y-3 text-sm">
+              <p>
+                <span class="text-star font-medium">1.</span> CMHC publishes
+                updated MFI figures annually by CMA and bedroom type.
+              </p>
+              <p>
+                <span class="text-star font-medium">2.</span> Permitted
+                maximum rent = 30% of current-year MFI (gross, including
+                utilities).
+              </p>
+              <p>
+                <span class="text-star font-medium">3.</span> Year-over-year
+                increase is capped at the lower of MFI growth or the
+                applicable provincial rent-control guideline.
+              </p>
+              <p>
+                <span class="text-star font-medium">4.</span> Vacancy
+                decontrol does not apply — incoming tenants rent at or below
+                the ceiling.
+              </p>
+              <p>
+                <span class="text-star font-medium">5.</span> Annual certified
+                rent roll to CMHC confirms compliance on every affordable
+                unit.
+              </p>
+            </div>
+          </Card>
+        </div>
+      </div>
+    </section>
+
+    {/* PORTING / REFI */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="max-w-3xl">
+          <Badge variant="secondary" className="mb-4">Refinance and porting</Badge>
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+            The covenant is durable across financing events.
+          </h2>
+          <p class="mt-4 text-muted-foreground">
+            Refinancing does not reset or extinguish the MLI Select
+            affordability covenant. The remaining term of the covenant
+            continues to run against title, and the new insured loan is
+            underwritten with the covenant already in place. This has three
+            practical implications.
+          </p>
+        </div>
+
+        <div class="mt-10 grid gap-6 lg:grid-cols-3">
+          <Card className="bg-jet border-dark-gray p-6">
+            <div class="text-xs uppercase tracking-wide text-star">1</div>
+            <div class="mt-1 text-lg font-semibold">Remaining-term math</div>
+            <p class="mt-3 text-sm text-muted-foreground">
+              A project that took a 20-year covenant in Year 1 is an existing
+              building with 15 years of covenant remaining at Year 5
+              refinance. CMHC does not award fresh points for the remaining
+              covenant — the refinance benefit sits in the premium credit
+              schedule and the underlying MLI Select tier already in place.
+            </p>
+          </Card>
+          <Card className="bg-jet border-dark-gray p-6">
+            <div class="text-xs uppercase tracking-wide text-star">2</div>
+            <div class="mt-1 text-lg font-semibold">Transferability</div>
+            <p class="mt-3 text-sm text-muted-foreground">
+              On sale, the buyer takes title subject to the covenant. The
+              buyer can apply for a new MLI Select loan that assumes the
+              covenant already in place, or refinance conventionally with
+              the covenant still binding. Either way the affordability
+              obligations continue uninterrupted.
+            </p>
+          </Card>
+          <Card className="bg-jet border-dark-gray p-6">
+            <div class="text-xs uppercase tracking-wide text-star">3</div>
+            <div class="mt-1 text-lg font-semibold">CoI transfer limits</div>
+            <p class="mt-3 text-sm text-muted-foreground">
+              September 3, 2025 tightened CoI transfer rules. A CMHC CoI
+              cannot be freely moved between lenders to chase a better
+              funding quote — the covenant travels with the property but the
+              insurance decision is now materially stickier with the first
+              approved lender.
+            </p>
+          </Card>
+        </div>
+      </div>
+    </section>
+
+    {/* ENFORCEMENT */}
+    <section class="border-b border-dark-gray bg-jet">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="max-w-3xl">
+          <Badge variant="outline" className="mb-4 border-star/40 text-star">
+            Enforcement
+          </Badge>
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+            What CMHC can actually do on a breach.
+          </h2>
+          <p class="mt-4 text-muted-foreground">
+            CMHC has a graduated set of tools. Clawback of the premium
+            discount is the most common first response; loan call is
+            reserved for serious or unremediated breaches. All tools are
+            discretionary and CMHC has historically preferred remediation
+            over acceleration.
+          </p>
+        </div>
+
+        <div class="mt-10 grid gap-6 md:grid-cols-2">
+          {
+            enforcementTools.map((row) => (
+              <Card className="bg-obsidian border-dark-gray p-6">
+                <div class="text-xs uppercase tracking-wide text-star">
+                  {row.tool}
+                </div>
+                <p class="mt-3 text-sm text-muted-foreground">{row.detail}</p>
+              </Card>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    {/* TRANSITION */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="grid gap-10 lg:grid-cols-[1fr_1fr]">
+          <div>
+            <Badge variant="secondary" className="mb-4">Transition</Badge>
+            <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+              November 28, 2025 refresh — who is covered by the grace window.
+            </h2>
+            <p class="mt-4 text-muted-foreground">
+              Projects that had a complete MLI Select application submitted
+              before the refresh date, or that were relying on the prior
+              energy-baseline (2017 NECB/NBC) framework, are covered by a
+              grace period running to September 30, 2026. After that date
+              every new submission is underwritten to the refreshed
+              framework.
+            </p>
+            <p class="mt-4 text-muted-foreground">
+              The monitoring and enforcement language in the refreshed
+              framework is broadly continuous with prior practice — the
+              refresh formalized what CMHC was already doing rather than
+              introducing new clawback mechanisms.
+            </p>
+          </div>
+          <Card className="bg-jet border-dark-gray p-6">
+            <div class="text-xs uppercase tracking-wide text-star">
+              Grace-period eligibility checklist
+            </div>
+            <ul class="mt-5 space-y-3 text-sm text-muted-foreground">
+              <li class="flex gap-2">
+                <span class="text-star">·</span>
+                <span>
+                  Complete MLI Select application submitted through an
+                  approved lender before November 28, 2025, OR
+                </span>
+              </li>
+              <li class="flex gap-2">
+                <span class="text-star">·</span>
+                <span>
+                  Energy modelling against 2017 NECB/NBC already stamped
+                  and on file as part of the submission package.
+                </span>
+              </li>
+              <li class="flex gap-2">
+                <span class="text-star">·</span>
+                <span>
+                  File must reach COI issuance before September 30, 2026 to
+                  retain the prior-framework treatment.
+                </span>
+              </li>
+            </ul>
+          </Card>
+        </div>
+      </div>
+    </section>
+
+    {/* CTA */}
+    <section class="border-b border-dark-gray bg-jet">
+      <div class="container border-l border-r border-dark-gray px-6 py-20 lg:px-12 lg:py-28">
+        <div class="mx-auto max-w-3xl text-center">
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-5xl">
+            Model the covenant before you price the loan.
+          </h2>
+          <p class="mx-auto mt-5 max-w-2xl text-muted-foreground">
+            The affordability sizer shows the NOI give-up on the covenant.
+            The MLI Select page layers that into the full tier-based
+            economics.
+          </p>
+          <div class="mt-8 flex flex-wrap justify-center gap-3">
+            <a href="/calculators/affordability-sizer">
+              <Button size="lg">Affordability sizer</Button>
+            </a>
+            <a href="/programs/mli-select">
+              <Button variant="outline" size="lg">MLI Select overview</Button>
+            </a>
+            <a href="/lifecycle/renewal">
+              <Button variant="outline" size="lg">Renewal mechanics</Button>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</DefaultLayout>

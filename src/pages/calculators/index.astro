@@ -5,46 +5,154 @@ import { Card } from "@/components/ui/card";
 import { LAST_UPDATED } from "@/data/cmhc";
 import DefaultLayout from "@/layouts/DefaultLayout.astro";
 
-const title = "CMHC Multi-Family Calculators — Point Scorer, Loan Sizer, Premium, Cash Flow";
+const title = "CMHC Multi-Family Calculators — Loan Sizing, Premium, NOI, Stress Test";
 const description =
-  "Interactive calculators for CMHC multi-unit financing: MLI Select point scorer, triple-constrained loan sizer, July 14 2025 premium calculator, cash-flow projection, scenario comparison, and premium credit.";
+  "22 interactive calculators for CMHC multi-unit financing: MLI Select point scorer, loan sizing, premium (July 14 2025 grid), NOI/cap rate, stress test, construction draws, amortization schedule, affordability sizer, and more.";
 
-const calculators = [
-  {
-    name: "MLI Select Point Scorer",
-    href: "/calculators/point-scorer",
-    tagline: "Score 50 / 70 / 100",
-    body: "Affordability, energy and accessibility scoring with the 20-year commitment bonus. See exactly which MLI Select tier you qualify for and the LTV, amortization, DCR and premium discount that come with it.",
-  },
+const sizing = [
   {
     name: "Loan Sizer",
     href: "/calculators/loan-sizer",
     tagline: "Triple-constrained",
-    body: "Tests LTV/LTC, minimum DCR and program cap simultaneously. Highlights the binding constraint so you can see whether underwriting is leverage-capped or coverage-capped.",
+    body: "LTV/LTC, minimum DCR and program cap simultaneously. Highlights the binding constraint.",
   },
   {
-    name: "Premium Calculator",
-    href: "/calculators/premium",
-    tagline: "July 14 2025 grid",
-    body: "LTV-tiered base premium with amortization, non-residential, second-mortgage and EGI surcharges — plus MLI Select 10% / 20% / 30% discount by tier.",
+    name: "DSCR Inverse",
+    href: "/calculators/dscr-inverse",
+    tagline: "Required NOI",
+    body: "Given a target loan and rate, what NOI is needed at DCR 1.10 / 1.20 / 1.30?",
   },
+  {
+    name: "Break-Even Occupancy",
+    href: "/calculators/break-even-occupancy",
+    tagline: "Income stability",
+    body: "What occupancy % covers debt service and opex? Margin vs market vacancy.",
+  },
+  {
+    name: "NOI / Cap Rate",
+    href: "/calculators/noi-cap-rate",
+    tagline: "Three modes",
+    body: "Build NOI, compute cap rate, or solve for implied value with sensitivity.",
+  },
+  {
+    name: "Amortization Schedule",
+    href: "/calculators/amortization-schedule",
+    tagline: "P vs I split",
+    body: "Yearly/monthly amortization with cumulative interest, balance at term, CSV download.",
+  },
+  {
+    name: "Cash-on-Cash Return",
+    href: "/calculators/cash-on-cash",
+    tagline: "Quick yield",
+    body: "Leveraged vs unleveraged yield, equity multiple at 5/10/20-year hold.",
+  },
+];
+
+const scenarios = [
   {
     name: "Cash Flow Projection",
     href: "/calculators/cash-flow",
     tagline: "Year-by-year",
-    body: "Projects NOI, debt service, P+I split, cash flow, DCR and loan balance over the holding period. Downloadable CSV.",
+    body: "NOI, debt service, P+I split, DCR, balance over the holding period. CSV export.",
+  },
+  {
+    name: "Stress Test",
+    href: "/calculators/stress-test",
+    tagline: "Rate shock",
+    body: "+50 to +300 bps scenarios — DCR impact, cash flow impact, payment shock.",
+  },
+  {
+    name: "Renewal Analyzer",
+    href: "/calculators/renewal-analyzer",
+    tagline: "Maturity modelling",
+    body: "Projected balance + debt service at renewal under rate scenarios and amort resets.",
   },
   {
     name: "Scenario Comparison",
     href: "/calculators/compare",
-    tagline: "Conventional vs. Select vs. Standard",
-    body: "Three structures side-by-side on one set of inputs: max loan, equity required, annual debt service, cash-on-cash and total insurance cost.",
+    tagline: "Three structures",
+    body: "MLI Select vs. MLI Standard vs. conventional — max loan, equity, cash flow.",
+  },
+  {
+    name: "Conventional vs CMHC",
+    href: "/calculators/conventional-vs-cmhc",
+    tagline: "Insured vs uninsured",
+    body: "When CMHC premium pays for itself — 10-year interest cost and cash-on-cash.",
+  },
+  {
+    name: "Purchase vs Refinance",
+    href: "/calculators/purchase-vs-refi",
+    tagline: "Side-by-side",
+    body: "Max loan, premium, cash-out vs equity-in, DCR, cash-on-cash for each path.",
+  },
+];
+
+const premium = [
+  {
+    name: "Premium Calculator",
+    href: "/calculators/premium",
+    tagline: "July 14 2025 grid",
+    body: "LTV-tiered premium with amortization, non-residential, second-mortgage, EGI surcharges.",
   },
   {
     name: "Premium Credit",
     href: "/calculators/premium-credit",
     tagline: "Refinance rebate",
-    body: "Estimate the CMHC premium credit available on a refinance based on time since the original insurance was placed.",
+    body: "Stepped 75% → 20% credit declining over seven years since original insurance.",
+  },
+  {
+    name: "Equity Take-Out",
+    href: "/calculators/equity-takeout",
+    tagline: "Refinance cash-out",
+    body: "Max new loan, premium credit applied, net cash after payoff and closing costs.",
+  },
+  {
+    name: "PST on Premium",
+    href: "/calculators/pst-premium",
+    tagline: "Upfront closing cost",
+    body: "Provincial PST on CMHC premium — ON 8%, QC 9.975%, SK 6%, MB 7%.",
+  },
+];
+
+const selectTools = [
+  {
+    name: "MLI Select Point Scorer",
+    href: "/calculators/point-scorer",
+    tagline: "Score 50 / 70 / 100",
+    body: "Affordability, energy, accessibility scoring with the 20-year bonus.",
+  },
+  {
+    name: "Point Optimizer",
+    href: "/calculators/point-optimizer",
+    tagline: "Path ranking",
+    body: "All scoring combinations ranked by ease, cost, and affordability concession.",
+  },
+  {
+    name: "Affordability Unit Sizer",
+    href: "/calculators/affordability-sizer",
+    tagline: "Required unit count",
+    body: "Units, rent concession and NOI impact to hit 50 / 70 / 100 by CMA.",
+  },
+  {
+    name: "Rent vs Market Gap",
+    href: "/calculators/rent-gap",
+    tagline: "Value-add analysis",
+    body: "Unit-mix current vs market rents; MLI Select qualification test per unit.",
+  },
+];
+
+const developerTools = [
+  {
+    name: "Construction Draw & Interest Reserve",
+    href: "/calculators/construction-draws",
+    tagline: "Advance schedule",
+    body: "50/75/85% advance curve, interest reserve, takeout loan size required.",
+  },
+  {
+    name: "Grant / Program Stacking",
+    href: "/calculators/grant-stacking",
+    tagline: "ACLP + AHF + municipal",
+    body: "Federal loan + forgivable + municipal incentive = residual equity required.",
   },
 ];
 ---
@@ -60,11 +168,11 @@ const calculators = [
           Model any CMHC multi-unit deal.
         </h1>
         <p class="mt-6 max-w-3xl text-lg text-muted-foreground">
-          Six integrated tools that replicate how an approved CMHC lender
+          22 integrated tools that replicate how an approved CMHC lender
           actually underwrites. Score your MLI Select project, size the loan
           against all three constraints, compute the post-July 2025 premium,
-          and project cash flow year by year — all with the current grid and
-          policy assumptions baked in.
+          stress-test against rate shocks, model construction draws, and
+          compare every refinance or renewal scenario.
         </p>
         <p class="mt-4 max-w-3xl text-muted-foreground">
           Results are estimates for educational purposes. Confirm all program
@@ -83,9 +191,123 @@ const calculators = [
 
     <section class="border-b border-dark-gray">
       <div class="container border-l border-r border-dark-gray px-6 py-12 lg:px-12 lg:py-16">
+        <div class="mb-8">
+          <Badge variant="secondary" className="mb-3">Loan sizing & returns</Badge>
+          <h2 class="text-2xl font-semibold tracking-tight lg:text-3xl">
+            Size the loan, check the returns.
+          </h2>
+        </div>
         <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           {
-            calculators.map((c) => (
+            sizing.map((c) => (
+              <a href={c.href} class="group">
+                <Card className="h-full bg-jet border-dark-gray p-6 transition-colors hover:border-star/50">
+                  <div class="text-xs uppercase tracking-wide text-muted-foreground">
+                    {c.tagline}
+                  </div>
+                  <div class="mt-1 text-xl font-semibold">{c.name}</div>
+                  <p class="mt-3 text-sm text-muted-foreground">{c.body}</p>
+                  <div class="mt-5 text-sm text-star">Open {c.name} →</div>
+                </Card>
+              </a>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <section class="border-b border-dark-gray bg-jet">
+      <div class="container border-l border-r border-dark-gray px-6 py-12 lg:px-12 lg:py-16">
+        <div class="mb-8">
+          <Badge variant="secondary" className="mb-3">Scenarios & comparisons</Badge>
+          <h2 class="text-2xl font-semibold tracking-tight lg:text-3xl">
+            Compare paths and stress the deal.
+          </h2>
+        </div>
+        <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+          {
+            scenarios.map((c) => (
+              <a href={c.href} class="group">
+                <Card className="h-full bg-obsidian border-dark-gray p-6 transition-colors hover:border-star/50">
+                  <div class="text-xs uppercase tracking-wide text-muted-foreground">
+                    {c.tagline}
+                  </div>
+                  <div class="mt-1 text-xl font-semibold">{c.name}</div>
+                  <p class="mt-3 text-sm text-muted-foreground">{c.body}</p>
+                  <div class="mt-5 text-sm text-star">Open {c.name} →</div>
+                </Card>
+              </a>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-12 lg:px-12 lg:py-16">
+        <div class="mb-8">
+          <Badge variant="secondary" className="mb-3">Premium & refinance</Badge>
+          <h2 class="text-2xl font-semibold tracking-tight lg:text-3xl">
+            Price the insurance and structure the refi.
+          </h2>
+        </div>
+        <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+          {
+            premium.map((c) => (
+              <a href={c.href} class="group">
+                <Card className="h-full bg-jet border-dark-gray p-6 transition-colors hover:border-star/50">
+                  <div class="text-xs uppercase tracking-wide text-muted-foreground">
+                    {c.tagline}
+                  </div>
+                  <div class="mt-1 text-xl font-semibold">{c.name}</div>
+                  <p class="mt-3 text-sm text-muted-foreground">{c.body}</p>
+                  <div class="mt-5 text-sm text-star">Open {c.name} →</div>
+                </Card>
+              </a>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <section class="border-b border-dark-gray bg-jet">
+      <div class="container border-l border-r border-dark-gray px-6 py-12 lg:px-12 lg:py-16">
+        <div class="mb-8">
+          <Badge variant="secondary" className="mb-3">MLI Select optimization</Badge>
+          <h2 class="text-2xl font-semibold tracking-tight lg:text-3xl">
+            Score, optimize, size affordability.
+          </h2>
+        </div>
+        <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+          {
+            selectTools.map((c) => (
+              <a href={c.href} class="group">
+                <Card className="h-full bg-obsidian border-dark-gray p-6 transition-colors hover:border-star/50">
+                  <div class="text-xs uppercase tracking-wide text-muted-foreground">
+                    {c.tagline}
+                  </div>
+                  <div class="mt-1 text-xl font-semibold">{c.name}</div>
+                  <p class="mt-3 text-sm text-muted-foreground">{c.body}</p>
+                  <div class="mt-5 text-sm text-star">Open {c.name} →</div>
+                </Card>
+              </a>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-12 lg:px-12 lg:py-16">
+        <div class="mb-8">
+          <Badge variant="secondary" className="mb-3">Construction & stacking</Badge>
+          <h2 class="text-2xl font-semibold tracking-tight lg:text-3xl">
+            Model the build and the stack.
+          </h2>
+        </div>
+        <div class="grid gap-4 md:grid-cols-2">
+          {
+            developerTools.map((c) => (
               <a href={c.href} class="group">
                 <Card className="h-full bg-jet border-dark-gray p-6 transition-colors hover:border-star/50">
                   <div class="text-xs uppercase tracking-wide text-muted-foreground">
@@ -111,13 +333,15 @@ const calculators = [
           </h2>
           <p class="mt-4 text-muted-foreground">
             Premium grid reflects the July 14, 2025 overhaul (LTV-tiered with
-            amortization surcharges now applied to MLI Select). Loan-sizer
+            amortization surcharges now applied to MLI Select). Loan sizing
             uses monthly-compounded debt service as a simplification of
             Canadian semi-annual compounding; impact on typical CMHC-insured
             payments is under 5 basis points. Point scoring uses CMHC's
             published thresholds with the 20-year commitment bonus of 30
             points. Minimum DCR, max LTV and amortization for MLI Select come
-            from the published tier grid (50 / 70 / 100 points).
+            from the published tier grid (50 / 70 / 100 points). Rental
+            achievement holdbacks reflect July 3 2025 policy removing
+            holdbacks for MLI Market Rental.
           </p>
         </div>
       </div>

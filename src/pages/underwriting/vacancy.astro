@@ -1,0 +1,406 @@
+---
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import DefaultLayout from "@/layouts/DefaultLayout.astro";
+
+const title = "Vacancy & Loss Factor Standards — CMHC Underwriting";
+const description =
+  "How CMHC sets vacancy assumptions from the Rental Market Survey. CMA, zone, and neighbourhood geography. Structural minimum applied even in sub-1% markets. Bad debt allowance typically 1–2% on top. 2024–2025 CMA snapshot for tight and softening markets.";
+
+const cmaVacancy = [
+  {
+    cma: "Toronto",
+    overall: "2.1%",
+    trend: "Softening from 0.8%",
+    underwritten: "3.0%",
+    note: "Still below structural floor — underwritten at 3% minimum.",
+  },
+  {
+    cma: "Vancouver",
+    overall: "1.6%",
+    trend: "Stable",
+    underwritten: "3.0%",
+    note: "Persistently tight market; structural floor binds.",
+  },
+  {
+    cma: "Calgary",
+    overall: "4.8%",
+    trend: "Loosening from 1.4%",
+    underwritten: "4.5–5.0%",
+    note: "Supply response following strong population growth.",
+  },
+  {
+    cma: "Edmonton",
+    overall: "4.2%",
+    trend: "Rising",
+    underwritten: "4.0–4.5%",
+    note: "Moderate softening across all unit types.",
+  },
+  {
+    cma: "Ottawa–Gatineau",
+    overall: "2.8%",
+    trend: "Stable",
+    underwritten: "3.0%",
+    note: "Government-employment base holds occupancy.",
+  },
+  {
+    cma: "Montréal",
+    overall: "2.0%",
+    trend: "Stable",
+    underwritten: "3.0%",
+    note: "Low in core, higher on periphery; zone-level matters.",
+  },
+  {
+    cma: "Halifax",
+    overall: "2.2%",
+    trend: "Tight",
+    underwritten: "3.0%",
+    note: "Structural floor binds.",
+  },
+  {
+    cma: "Saskatoon",
+    overall: "4.9%",
+    trend: "Softening",
+    underwritten: "4.5%",
+    note: "Secondary market softness most visible here.",
+  },
+];
+
+const geoLevels = [
+  {
+    level: "National / provincial",
+    useCase: "Orientation only",
+    detail:
+      "Rolled-up average masks wide CMA-level variation. Not used for actual loan underwriting.",
+  },
+  {
+    level: "CMA (Census Metropolitan Area)",
+    useCase: "Default CMHC input",
+    detail:
+      "The primary geography CMHC underwriters cite. Published annually in the RMS spring release.",
+  },
+  {
+    level: "Zone (within CMA)",
+    useCase: "Subject-market refinement",
+    detail:
+      "CMAs are divided into zones that capture neighbourhood-level variation. Used when a CMA is too heterogeneous (Toronto, Montréal).",
+  },
+  {
+    level: "Neighbourhood / census tract",
+    useCase: "Detailed submissions",
+    detail:
+      "Available via HMIP down to census-tract level. Useful for supporting a lower vacancy assumption on a sub-market basis.",
+  },
+];
+---
+
+<DefaultLayout title={title} description={description}>
+  <div class="bg-obsidian text-foreground">
+    {/* HERO */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <Badge variant="outline" className="mb-6 border-star/40 text-star">
+          Underwriting · Vacancy
+        </Badge>
+        <h1 class="text-4xl font-semibold tracking-tight lg:text-6xl">
+          Vacancy & loss factor — how CMHC sets the assumption.
+        </h1>
+        <p class="mt-6 max-w-3xl text-lg text-muted-foreground">
+          Vacancy is sourced from the CMHC Rental Market Survey
+          — the October annual survey published each spring.
+          CMHC underwriters apply CMA-level figures by default,
+          refine by zone where a CMA is heterogeneous, and drop
+          to neighbourhood or census-tract data on larger
+          submissions where it supports the narrative.
+        </p>
+        <p class="mt-4 max-w-3xl text-lg text-muted-foreground">
+          A structural minimum applies regardless of reported
+          figures. Even in CMAs with overall vacancy below 1%,
+          CMHC typically underwrites at 3%+ including bad debt.
+          This protects insurance risk against market
+          normalization over the term of the loan and is why
+          underwritten vacancy almost never matches in-place
+          occupancy.
+        </p>
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a href="/underwriting/noi-methodology">
+            <Button size="lg">NOI methodology</Button>
+          </a>
+          <a href="/data">
+            <Button variant="outline" size="lg">Data sources</Button>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    {/* RMS SOURCE */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="grid gap-10 lg:grid-cols-[1.2fr_1fr]">
+          <div>
+            <Badge variant="secondary" className="mb-4">Source</Badge>
+            <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+              The CMHC Rental Market Survey.
+            </h2>
+            <p class="mt-4 text-muted-foreground">
+              The RMS covers all urban areas with populations of
+              10,000 or more. The survey is conducted in October
+              and published the following spring — meaning the
+              figure in use today reflects market conditions six
+              months ago. Primary measures include vacancy rate,
+              average rent, turnover rate, rental universe size,
+              and structure-age distribution.
+            </p>
+            <p class="mt-4 text-muted-foreground">
+              The RMS is accessed through CMHC's Housing Market
+              Information Portal (HMIP), open data portal, and
+              via the third-party cmhc R package that wraps HMIP.
+              Many CMHC-accepted submissions include an explicit
+              HMIP pull for the subject CMA and zone.
+            </p>
+          </div>
+          <Card className="bg-jet border-dark-gray p-8">
+            <div class="text-xs uppercase tracking-wide text-muted-foreground">
+              Survey at a glance
+            </div>
+            <div class="mt-4 space-y-2 text-sm">
+              <div class="flex justify-between border-b border-dark-gray pb-2">
+                <span class="text-muted-foreground">Survey date</span>
+                <span class="font-medium">October, annual</span>
+              </div>
+              <div class="flex justify-between border-b border-dark-gray pb-2">
+                <span class="text-muted-foreground">Publication</span>
+                <span class="font-medium">Spring, following year</span>
+              </div>
+              <div class="flex justify-between border-b border-dark-gray pb-2">
+                <span class="text-muted-foreground">Coverage</span>
+                <span class="font-medium">Urban ≥10,000 population</span>
+              </div>
+              <div class="flex justify-between border-b border-dark-gray pb-2">
+                <span class="text-muted-foreground">Geography</span>
+                <span class="font-medium">CMA, zone, census tract</span>
+              </div>
+              <div class="flex justify-between pt-2">
+                <span class="text-star font-medium">Access</span>
+                <span class="font-semibold text-star">HMIP</span>
+              </div>
+            </div>
+          </Card>
+        </div>
+      </div>
+    </section>
+
+    {/* GEOGRAPHIC GRANULARITY */}
+    <section class="border-b border-dark-gray bg-jet">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="max-w-3xl">
+          <Badge variant="secondary" className="mb-4">Geography</Badge>
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+            CMA, zone, or neighbourhood.
+          </h2>
+          <p class="mt-4 text-muted-foreground">
+            CMHC underwriters typically cite CMA-level vacancy
+            by default but will accept zone or neighbourhood
+            figures where the submission supports it.
+          </p>
+        </div>
+
+        <div class="mt-10 overflow-x-auto rounded-lg border border-dark-gray bg-obsidian">
+          <table class="w-full border-collapse text-sm">
+            <thead>
+              <tr class="border-b border-dark-gray text-muted-foreground text-xs uppercase tracking-wide">
+                <th class="px-4 py-3 text-left font-medium">Geography</th>
+                <th class="px-4 py-3 text-left font-medium">When used</th>
+                <th class="px-4 py-3 text-left font-medium">Notes</th>
+              </tr>
+            </thead>
+            <tbody>
+              {
+                geoLevels.map((row) => (
+                  <tr class="border-b border-dark-gray last:border-0">
+                    <td class="px-4 py-3 font-medium">{row.level}</td>
+                    <td class="px-4 py-3">{row.useCase}</td>
+                    <td class="px-4 py-3 text-muted-foreground">{row.detail}</td>
+                  </tr>
+                ))
+              }
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    {/* STRUCTURAL MINIMUM */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="grid gap-10 lg:grid-cols-2">
+          <div>
+            <Badge variant="outline" className="mb-4 border-star/40 text-star">
+              Structural floor
+            </Badge>
+            <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+              A 3%+ floor even in tight markets.
+            </h2>
+            <p class="mt-4 text-muted-foreground">
+              Even where RMS reports sub-1% vacancy, CMHC typically
+              underwrites at 3% or more (including bad debt). The
+              floor reflects a 20–30 year insurance horizon —
+              markets that are tight today may not be in 2035.
+            </p>
+            <p class="mt-4 text-muted-foreground">
+              The floor is applied even on fully-leased properties
+              with zero historical vacancy. Borrowers sometimes
+              attempt to argue against it with 24-month waitlist
+              evidence or long tenancies — CMHC will note the
+              strength of occupancy but will not reduce the
+              underwritten figure below the floor.
+            </p>
+          </div>
+          <Card className="bg-jet border-dark-gray p-6">
+            <div class="text-xs uppercase tracking-wide text-star">
+              Bad-debt allowance
+            </div>
+            <div class="mt-1 text-lg font-semibold">1–2% on top of vacancy</div>
+            <p class="mt-3 text-sm text-muted-foreground">
+              Most CMHC files apply a bad-debt allowance of 1–2%
+              in addition to the vacancy figure. Together, the
+              combined vacancy + bad-debt allowance is what
+              actually comes off GPR to reach EGI. This is why
+              underwritten "vacancy" often looks higher than
+              RMS numbers alone.
+            </p>
+            <div class="mt-5 space-y-2 text-sm">
+              <div class="flex justify-between border-b border-dark-gray pb-2">
+                <span class="text-muted-foreground">RMS vacancy</span>
+                <span class="font-medium">e.g. 1.6%</span>
+              </div>
+              <div class="flex justify-between border-b border-dark-gray pb-2">
+                <span class="text-muted-foreground">Bad-debt allowance</span>
+                <span class="font-medium">+1.5%</span>
+              </div>
+              <div class="flex justify-between border-b border-dark-gray pb-2">
+                <span class="text-muted-foreground">Calculated</span>
+                <span class="font-medium">3.1%</span>
+              </div>
+              <div class="flex justify-between pt-2">
+                <span class="text-star font-medium">Underwritten (floor)</span>
+                <span class="font-semibold text-star">3.0–3.5%</span>
+              </div>
+            </div>
+          </Card>
+        </div>
+      </div>
+    </section>
+
+    {/* CMA TABLE */}
+    <section class="border-b border-dark-gray bg-jet">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="max-w-3xl">
+          <Badge variant="secondary" className="mb-4">2024–2025 snapshot</Badge>
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+            Current CMA vacancy context.
+          </h2>
+          <p class="mt-4 text-muted-foreground">
+            Approximate figures drawn from the most recent RMS
+            publications. These update annually — always pull
+            current-year data from HMIP at underwriting. Numbers
+            below reflect overall (all-unit-type, all-structure)
+            vacancy at the CMA level.
+          </p>
+        </div>
+
+        <div class="mt-10 overflow-x-auto rounded-lg border border-dark-gray bg-obsidian">
+          <table class="w-full border-collapse text-sm">
+            <thead>
+              <tr class="border-b border-dark-gray text-muted-foreground text-xs uppercase tracking-wide">
+                <th class="px-4 py-3 text-left font-medium">CMA</th>
+                <th class="px-4 py-3 text-right font-medium">Overall vacancy</th>
+                <th class="px-4 py-3 text-left font-medium">Trend</th>
+                <th class="px-4 py-3 text-right font-medium">Underwritten</th>
+                <th class="px-4 py-3 text-left font-medium">Notes</th>
+              </tr>
+            </thead>
+            <tbody>
+              {
+                cmaVacancy.map((row) => (
+                  <tr class="border-b border-dark-gray last:border-0">
+                    <td class="px-4 py-3 font-medium">{row.cma}</td>
+                    <td class="px-4 py-3 text-right">{row.overall}</td>
+                    <td class="px-4 py-3">{row.trend}</td>
+                    <td class="px-4 py-3 text-right font-medium">{row.underwritten}</td>
+                    <td class="px-4 py-3 text-muted-foreground">{row.note}</td>
+                  </tr>
+                ))
+              }
+            </tbody>
+          </table>
+        </div>
+        <p class="mt-4 text-sm text-muted-foreground">
+          Approximate values; confirm current-year figures from
+          the <a href="/data" class="text-star">RMS</a> before
+          submission.
+        </p>
+      </div>
+    </section>
+
+    {/* TURNOVER */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="grid gap-10 lg:grid-cols-2">
+          <Card className="bg-jet border-dark-gray p-6">
+            <div class="text-xs uppercase tracking-wide text-star">Related concept</div>
+            <div class="mt-1 text-lg font-semibold">Turnover frequency</div>
+            <p class="mt-3 text-sm text-muted-foreground">
+              Turnover is the share of units that change
+              tenancy in a year. RMS reports turnover alongside
+              vacancy. Turnover doesn't change NOI directly
+              but it feeds management expense assumptions —
+              leasing fees, unit preparation, marketing — and
+              interacts with rent-growth pacing in rent-
+              controlled provinces where vacancy decontrol
+              applies.
+            </p>
+          </Card>
+          <Card className="bg-jet border-dark-gray p-6">
+            <div class="text-xs uppercase tracking-wide text-star">2024–2025 pattern</div>
+            <div class="mt-1 text-lg font-semibold">Tight core, softer secondary</div>
+            <p class="mt-3 text-sm text-muted-foreground">
+              Toronto, Vancouver, Ottawa–Gatineau, Halifax,
+              Montréal all remain structurally tight — underwritten
+              at the 3% floor. Calgary, Edmonton, and Prairie
+              secondary markets (Saskatoon, Regina, parts of
+              Manitoba) are loosening as supply responds to the
+              post-pandemic population growth of 2022–2023.
+            </p>
+          </Card>
+        </div>
+      </div>
+    </section>
+
+    {/* CTA */}
+    <section class="border-b border-dark-gray bg-jet">
+      <div class="container border-l border-r border-dark-gray px-6 py-20 lg:px-12 lg:py-28">
+        <div class="mx-auto max-w-3xl text-center">
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-5xl">
+            Pull current-year RMS before you submit.
+          </h2>
+          <p class="mx-auto mt-5 max-w-2xl text-muted-foreground">
+            The RMS updates every spring. For any submission
+            where vacancy materially affects DCR, confirm current
+            CMA and zone figures — and remember that CMHC may
+            override reported numbers with the structural floor.
+          </p>
+          <div class="mt-8 flex flex-wrap justify-center gap-3">
+            <a href="/data">
+              <Button size="lg">Data sources</Button>
+            </a>
+            <a href="/underwriting/noi-methodology">
+              <Button variant="outline" size="lg">NOI methodology</Button>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</DefaultLayout>

@@ -1,0 +1,400 @@
+---
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import DefaultLayout from "@/layouts/DefaultLayout.astro";
+
+const title = "MULTI-GO — CMHC's Digital Multi-Unit Submission Platform";
+const description =
+  "What MULTI-GO is and how it actually operates. CMHC's digital platform for multi-unit loan applications, document exchange, underwriting correspondence, CoI issuance, and rental achievement reporting. Lender-only access, tier-based portal privileges, and the September 2024 / September 2025 policy changes that reshaped lender obligations.";
+
+const capabilities = [
+  {
+    capability: "Loan application submission",
+    detail:
+      "Approved lenders submit the full application package — borrower profile, environmental, appraisal, energy modelling, financial statements — through MULTI-GO for the CMHC Underwriting Centre.",
+  },
+  {
+    capability: "Document upload and version control",
+    detail:
+      "All supporting documents live in the file's MULTI-GO workspace. Revised appraisals, updated rent rolls, and corrected schedules are uploaded directly rather than emailed.",
+  },
+  {
+    capability: "Underwriting correspondence",
+    detail:
+      "CMHC underwriter conditions, requests for information, and sponsor responses all flow through the platform. There is an audit trail on every exchange.",
+  },
+  {
+    capability: "Certificate of Insurance issuance",
+    detail:
+      "Approved CoIs are issued directly to the lender through MULTI-GO. The borrower receives a copy via the lender — not independently from CMHC.",
+  },
+  {
+    capability: "Rental achievement reporting",
+    detail:
+      "Post-completion rent rolls and EGI certifications are submitted through MULTI-GO for holdback release on MLI Select and other products retaining the rental-achievement step.",
+  },
+  {
+    capability: "Premium remittance",
+    detail:
+      "Premium payments are remitted through the platform against the issued CoI. Premium credit on refinance is calculated automatically from the CMHC-held record of the prior insurance.",
+  },
+];
+
+const accessLevels = [
+  {
+    tier: "Approved lender — all tiers",
+    access:
+      "Full MULTI-GO submission privileges subject to CMHC lender agreement. Different internal permission levels by lender organization size and multi-unit volume.",
+  },
+  {
+    tier: "Borrowers / sponsors",
+    access:
+      "No direct access. All interaction flows through the approved lender's file lead. This is a material change from earlier CMHC workflows that accepted sponsor-originated documents.",
+  },
+  {
+    tier: "Advisors / brokers",
+    access:
+      "No direct access unless also an approved lender (e.g., CBRE Capital, Canada ICI). Advisors work through their chosen lender partner on any given file.",
+  },
+];
+---
+
+<DefaultLayout title={title} description={description}>
+  <div class="bg-obsidian text-foreground">
+    {/* HERO */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <Badge variant="outline" className="mb-6 border-star/40 text-star">
+          Platform guide
+        </Badge>
+        <h1 class="text-4xl font-semibold tracking-tight lg:text-6xl">
+          MULTI-GO — the digital channel every 5+ unit file flows through.
+        </h1>
+        <p class="mt-6 max-w-3xl text-lg text-muted-foreground">
+          MULTI-GO is CMHC's digital multi-unit submission platform,
+          replacing the paper-and-email workflows that preceded it. Every
+          CMHC multi-unit file — whether MLI Standard, MLI Select, ACLP,
+          AHF, CHDP, or Specialized — routes through MULTI-GO via the
+          approved lender. Since September 2024, only approved lenders can
+          submit, and borrowers must have selected a lender before CMHC
+          will commence underwriting.
+        </p>
+        <p class="mt-4 max-w-3xl text-lg text-muted-foreground">
+          The September 3, 2025 policy tightened lender-side obligations:
+          approved lenders must fund at least 80% of the loans they have
+          insurance approvals for, and CoI transfer between lenders is now
+          restricted. In practice this ended the earlier practice of
+          shopping a CoI across multiple lenders to optimize funding
+          economics.
+        </p>
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a href="/programs/application-process">
+            <Button size="lg">Application process</Button>
+          </a>
+          <a href="/lenders">
+            <Button variant="outline" size="lg">Approved lender list</Button>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    {/* WHAT IT DOES */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="max-w-3xl">
+          <Badge variant="secondary" className="mb-4">Capabilities</Badge>
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+            What the platform actually does.
+          </h2>
+          <p class="mt-4 text-muted-foreground">
+            MULTI-GO covers the full loan lifecycle — submission, document
+            exchange, underwriting correspondence, approval, CoI issuance,
+            post-funding reporting, and premium remittance.
+          </p>
+        </div>
+
+        <div class="mt-10 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+          {
+            capabilities.map((row) => (
+              <Card className="bg-jet border-dark-gray p-6">
+                <div class="text-xs uppercase tracking-wide text-muted-foreground">
+                  {row.capability}
+                </div>
+                <p class="mt-3 text-sm text-muted-foreground">{row.detail}</p>
+              </Card>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    {/* ACCESS */}
+    <section class="border-b border-dark-gray bg-jet">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="max-w-3xl">
+          <Badge variant="outline" className="mb-4 border-star/40 text-star">
+            Access — September 2024 rules
+          </Badge>
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+            Who can submit, and who cannot.
+          </h2>
+          <p class="mt-4 text-muted-foreground">
+            Access was narrowed materially in September 2024. MULTI-GO is
+            now a lender-only submission channel; borrowers have no direct
+            path to CMHC, and an approved lender must be in place before
+            the file reaches the Underwriting Centre.
+          </p>
+        </div>
+
+        <div class="mt-10 grid gap-6 md:grid-cols-3">
+          {
+            accessLevels.map((row) => (
+              <Card className="bg-obsidian border-dark-gray p-6">
+                <div class="text-xs uppercase tracking-wide text-star">
+                  {row.tier}
+                </div>
+                <p class="mt-3 text-sm text-muted-foreground">{row.access}</p>
+              </Card>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    {/* TIMELINE */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="grid gap-10 lg:grid-cols-[1fr_1.2fr]">
+          <div>
+            <Badge variant="secondary" className="mb-4">Underwriting timeline</Badge>
+            <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+              2–6 weeks, once the package is complete.
+            </h2>
+            <p class="mt-4 text-muted-foreground">
+              Typical CMHC Underwriting Centre review runs 2–6 weeks from
+              the date a complete package lands in MULTI-GO. Files that
+              arrive with gaps — missing Phase I, incomplete bonding
+              commitment, energy model not yet stamped — sit in a condition
+              queue until resolved, and the clock does not start until the
+              gap is closed.
+            </p>
+            <p class="mt-4 text-muted-foreground">
+              Platform correspondence is typically resolved in 3–7 business
+              days per round. Two to three rounds of underwriter conditions
+              is normal for a straightforward MLI Standard file; MLI Select
+              and ACLP files with bespoke affordability structures can run
+              four to six rounds.
+            </p>
+          </div>
+          <Card className="bg-jet border-dark-gray p-6">
+            <div class="text-xs uppercase tracking-wide text-star">
+              Typical MULTI-GO file flow
+            </div>
+            <ol class="mt-5 space-y-3 text-sm">
+              <li>
+                <span class="text-star font-medium">1.</span> Lender
+                uploads complete submission package.
+              </li>
+              <li>
+                <span class="text-star font-medium">2.</span> CMHC
+                intake review — completeness check within 3–5 business
+                days.
+              </li>
+              <li>
+                <span class="text-star font-medium">3.</span> Underwriter
+                assigned; first round of conditions typically within 1–2
+                weeks.
+              </li>
+              <li>
+                <span class="text-star font-medium">4.</span> Lender
+                responses uploaded; iterative underwriting 2–4 weeks.
+              </li>
+              <li>
+                <span class="text-star font-medium">5.</span> Approval
+                and CoI issuance to the lender via MULTI-GO.
+              </li>
+              <li>
+                <span class="text-star font-medium">6.</span> Post-funding
+                reporting (draws, rental achievement, premium remittance)
+                through the same workspace.
+              </li>
+            </ol>
+          </Card>
+        </div>
+      </div>
+    </section>
+
+    {/* SEPT 2025 POLICY */}
+    <section class="border-b border-dark-gray bg-jet">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="grid gap-10 lg:grid-cols-2">
+          <div>
+            <Badge variant="outline" className="mb-4 border-star/40 text-star">
+              September 3, 2025
+            </Badge>
+            <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+              CoI transfer restrictions and 80% funding rule.
+            </h2>
+            <p class="mt-4 text-muted-foreground">
+              Prior to September 3, 2025, it was common practice for
+              sponsors to obtain a CoI through one lender and then transfer
+              the CoI to a more competitively priced lender at funding. CMHC
+              ended that practice.
+            </p>
+            <p class="mt-4 text-muted-foreground">
+              Approved lenders must now fund at least 80% of the loans they
+              hold CoIs for, and CoI transfers between lenders are
+              restricted. Choosing the lender is now effectively an
+              irreversible decision at CoI issuance — a change that has
+              reshaped early-stage lender selection across the industry.
+            </p>
+          </div>
+          <Card className="bg-obsidian border-dark-gray p-6">
+            <div class="text-xs uppercase tracking-wide text-star">
+              Practical implications
+            </div>
+            <dl class="mt-5 space-y-4 text-sm">
+              <div>
+                <dt class="text-foreground font-medium">Lender selection is a first-order decision</dt>
+                <dd class="mt-1 text-muted-foreground">
+                  Sponsors need to select the right approved lender up-front
+                  rather than shopping at funding. Monoline vs. Big 6 vs.
+                  trust company choice is now locked in at application.
+                </dd>
+              </div>
+              <div>
+                <dt class="text-foreground font-medium">80% funding rule</dt>
+                <dd class="mt-1 text-muted-foreground">
+                  Lenders track their funding ratio as an explicit KPI. An
+                  approved lender carrying too many unfunded CoIs risks
+                  CMHC intervention on their approved-lender status.
+                </dd>
+              </div>
+              <div>
+                <dt class="text-foreground font-medium">Rate negotiation shifts earlier</dt>
+                <dd class="mt-1 text-muted-foreground">
+                  Rate discussions now happen before CoI submission rather
+                  than at funding. Brokers have adjusted workflow to lock
+                  pricing earlier in the process.
+                </dd>
+              </div>
+            </dl>
+          </Card>
+        </div>
+      </div>
+    </section>
+
+    {/* NOT AVAILABLE TO BORROWERS */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="max-w-3xl">
+          <Badge variant="secondary" className="mb-4">Sponsor-side workflow</Badge>
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+            What sponsors actually see — and what they do not.
+          </h2>
+          <p class="mt-4 text-muted-foreground">
+            Borrowers do not log in to MULTI-GO. Every interaction with
+            CMHC during underwriting, funding, draw administration, and
+            post-funding reporting is mediated by the approved lender.
+            Sponsors receive lender-provided status updates on the file,
+            the CoI, the draw schedule, and any rental achievement
+            reporting.
+          </p>
+        </div>
+
+        <div class="mt-10 grid gap-6 lg:grid-cols-2">
+          <Card className="bg-jet border-dark-gray p-6">
+            <div class="text-xs uppercase tracking-wide text-star">
+              Sponsor-side file hygiene
+            </div>
+            <ul class="mt-4 space-y-3 text-sm text-muted-foreground">
+              <li class="flex gap-2">
+                <span class="text-star">·</span>
+                <span>
+                  Provide documents to the approved lender in clean, CMHC-ready
+                  format — Phase I stamped by an environmental professional,
+                  financials audited where required, appraisal commissioned
+                  via the lender.
+                </span>
+              </li>
+              <li class="flex gap-2">
+                <span class="text-star">·</span>
+                <span>
+                  Respond to lender-forwarded underwriting conditions
+                  promptly — the MULTI-GO clock continues to run while
+                  conditions are outstanding.
+                </span>
+              </li>
+              <li class="flex gap-2">
+                <span class="text-star">·</span>
+                <span>
+                  Retain originals of title, rent rolls, and the
+                  construction contract — MULTI-GO is CMHC's record, not
+                  the sponsor's.
+                </span>
+              </li>
+            </ul>
+          </Card>
+
+          <Card className="bg-jet border-dark-gray p-6">
+            <div class="text-xs uppercase tracking-wide text-star">
+              Lender selection — practical guidance
+            </div>
+            <ul class="mt-4 space-y-3 text-sm text-muted-foreground">
+              <li class="flex gap-2">
+                <span class="text-star">·</span>
+                <span>
+                  Match lender to product — monolines dominate MLI Select
+                  construction; Big 6 banks and life cos skew to larger
+                  stabilized refinance.
+                </span>
+              </li>
+              <li class="flex gap-2">
+                <span class="text-star">·</span>
+                <span>
+                  Confirm the lender's typical timeline on MULTI-GO —
+                  monolines turn MLI Select in 4–8 weeks, Big 6 banks
+                  typically 8–14 weeks.
+                </span>
+              </li>
+              <li class="flex gap-2">
+                <span class="text-star">·</span>
+                <span>
+                  Negotiate rate and structure up-front — post Sept 3, 2025,
+                  there is no CoI-transfer safety valve to re-optimize at
+                  funding.
+                </span>
+              </li>
+            </ul>
+          </Card>
+        </div>
+      </div>
+    </section>
+
+    {/* CTA */}
+    <section class="border-b border-dark-gray bg-jet">
+      <div class="container border-l border-r border-dark-gray px-6 py-20 lg:px-12 lg:py-28">
+        <div class="mx-auto max-w-3xl text-center">
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-5xl">
+            The platform is the lender's channel — choose the lender first.
+          </h2>
+          <p class="mx-auto mt-5 max-w-2xl text-muted-foreground">
+            The application process page walks through the full
+            engagement-to-CoI workflow. The lenders page ranks approved
+            submitters by multi-unit volume. Match the lender to the file
+            before anything else.
+          </p>
+          <div class="mt-8 flex flex-wrap justify-center gap-3">
+            <a href="/programs/application-process">
+              <Button size="lg">Application process</Button>
+            </a>
+            <a href="/lenders">
+              <Button variant="outline" size="lg">Approved lenders</Button>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</DefaultLayout>

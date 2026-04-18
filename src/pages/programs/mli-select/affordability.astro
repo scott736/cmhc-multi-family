@@ -1,0 +1,513 @@
+---
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import {
+  AFFORDABILITY_BONUS_20YR,
+  AFFORDABILITY_SCORING_EXISTING,
+  AFFORDABILITY_SCORING_NEW,
+  AFFORDABILITY_THRESHOLDS,
+} from "@/data/cmhc";
+import DefaultLayout from "@/layouts/DefaultLayout.astro";
+
+const title = "MLI Select Affordability — Scoring, Thresholds & Commitment Mechanics";
+const description =
+  "How MLI Select's affordability pillar actually works: the CMHC definition of an affordable unit, the 30% of median renter household income ceiling by CMA, scoring tables for new vs. existing, the 20-year +30 point bonus, rent-escalation rules, and interplay with provincial rent control.";
+
+const complianceMechanics = [
+  {
+    item: "Commitment registration",
+    detail:
+      "Restrictive covenant or affordability agreement registered on title — typically analogous to a Section 37 / Section 111 agreement depending on jurisdiction. Survives refinance and ownership transfer.",
+  },
+  {
+    item: "Minimum commitment term",
+    detail:
+      "10 years default. A 20+ year commitment unlocks the +30 point bonus. Commitments cannot be unwound early without CMHC consent.",
+  },
+  {
+    item: "Bedroom-mix discipline",
+    detail:
+      "Affordable units must be genuinely representative of the project. CMHC rejects covenants that cluster the affordable share into the smallest or least-desirable unit types when the broader project is family-sized.",
+  },
+  {
+    item: "Rent escalation",
+    detail:
+      "Affordable-unit rent grows with annual Median Family Income (MFI) updates for the CMA — or with the applicable provincial rent-control guideline, whichever is lower. Vacancy decontrol does not apply to affordable units.",
+  },
+  {
+    item: "Monitoring",
+    detail:
+      "Annual certified rent roll submission through the approved lender. CMHC reserves the right to spot-audit and request tenant-income verification on sampled units.",
+  },
+  {
+    item: "Non-compliance consequences",
+    detail:
+      "CMHC can demand repayment of the premium discount, decline renewal at maturity, or — in extreme cases — call the loan. Premium discount clawback is the most common outcome.",
+  },
+];
+---
+
+<DefaultLayout title={title} description={description}>
+  <div class="bg-obsidian text-foreground">
+    {/* HERO */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <Badge variant="outline" className="mb-6 border-star/40 text-star">
+          MLI Select · Affordability deep dive
+        </Badge>
+        <h1 class="text-4xl font-semibold tracking-tight lg:text-6xl">
+          Affordability — the largest, most durable point source.
+        </h1>
+        <p class="mt-6 max-w-3xl text-lg text-muted-foreground">
+          Affordability is the only pillar that can reach 100 points on its own
+          — and the only one that carries a multi-decade covenant on title.
+          Understanding exactly what counts as an "affordable unit," how the
+          CMHC ceiling is set, and how rent escalation interacts with
+          provincial rent control is essential before committing a project to
+          MLI Select.
+        </p>
+        <p class="mt-4 max-w-3xl text-lg text-muted-foreground">
+          The November 28, 2025 MLI Select refresh left the core scoring
+          thresholds intact but formalized monitoring and non-compliance
+          language. Projects qualified under prior criteria are covered by a
+          transition period running to September 30, 2026.
+        </p>
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a href="/calculators/affordability-sizer">
+            <Button size="lg">Open the affordability sizer</Button>
+          </a>
+          <a href="/calculators/point-scorer">
+            <Button variant="outline" size="lg">Score your project</Button>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    {/* DEFINITION */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="grid gap-10 lg:grid-cols-[1fr_1.2fr]">
+          <div>
+            <Badge variant="secondary" className="mb-4">Definition</Badge>
+            <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+              What counts as an "affordable unit."
+            </h2>
+            <p class="mt-4 text-muted-foreground">
+              An MLI Select affordable unit is one whose rent is no greater
+              than <span class="text-foreground font-semibold">30% of the
+              median renter household income</span> for the relevant CMA,
+              measured before tax. CMHC uses its own published Median Family
+              Income figures for renter households — not the all-household MFI
+              used for other federal programs.
+            </p>
+            <p class="mt-4 text-muted-foreground">
+              The rent ceiling is <span class="text-foreground font-semibold">gross
+              rent including utilities</span>. Where utilities are tenant-paid,
+              an imputed utility allowance is deducted from the gross ceiling
+              to arrive at the maximum chargeable base rent.
+            </p>
+            <p class="mt-4 text-muted-foreground">
+              Affordable units must be indistinguishable from market units in
+              finish, amenity access, and bedroom count distribution. They
+              cannot be segregated on specific floors or into a dedicated
+              building wing.
+            </p>
+          </div>
+          <Card className="bg-jet border-dark-gray p-8">
+            <div class="text-xs uppercase tracking-wide text-muted-foreground">
+              Affordability ceilings (approximate, 2025–2026)
+            </div>
+            <div class="mt-4 overflow-x-auto">
+              <table class="w-full border-collapse text-sm">
+                <thead>
+                  <tr class="border-b border-dark-gray text-muted-foreground text-xs uppercase tracking-wide">
+                    <th class="px-2 py-2 text-left font-medium">CMA</th>
+                    <th class="px-2 py-2 text-right font-medium">Monthly ceiling</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {
+                    AFFORDABILITY_THRESHOLDS.map((row) => (
+                      <tr class="border-b border-dark-gray/50 last:border-0">
+                        <td class="px-2 py-2">{row.cma}</td>
+                        <td class="px-2 py-2 text-right font-medium">
+                          ${row.monthly.toLocaleString()}
+                        </td>
+                      </tr>
+                    ))
+                  }
+                </tbody>
+              </table>
+            </div>
+            <p class="mt-4 text-xs text-muted-foreground">
+              Published annually by CMA and bedroom type. These figures
+              approximate the ranges applicable in 2025–2026; always confirm
+              against the current CMHC affordability lookup at application
+              time.
+            </p>
+          </Card>
+        </div>
+      </div>
+    </section>
+
+    {/* SCORING TABLES */}
+    <section class="border-b border-dark-gray bg-jet">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="max-w-3xl">
+          <Badge variant="secondary" className="mb-4">Scoring</Badge>
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+            New construction vs. existing — different thresholds.
+          </h2>
+          <p class="mt-4 text-muted-foreground">
+            Existing buildings carry higher unit-share thresholds because
+            in-place rents are often already below market. The scoring grid is
+            calibrated so the economic lift of the commitment is broadly
+            comparable across the two property types at each level.
+          </p>
+        </div>
+
+        <div class="mt-10 grid gap-6 lg:grid-cols-2">
+          <Card className="bg-obsidian border-dark-gray p-6">
+            <div class="text-xs uppercase tracking-wide text-star">
+              New construction
+            </div>
+            <div class="mt-1 text-lg font-semibold">
+              % of units at ≤30% median renter income
+            </div>
+            <div class="mt-4 overflow-x-auto">
+              <table class="w-full text-sm">
+                <thead>
+                  <tr class="border-b border-dark-gray">
+                    <th class="px-2 py-2 text-left font-medium">Level</th>
+                    <th class="px-2 py-2 text-right font-medium">Unit %</th>
+                    <th class="px-2 py-2 text-right font-medium">Points</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {
+                    AFFORDABILITY_SCORING_NEW.map((row) => (
+                      <tr class="border-b border-dark-gray/50 last:border-0">
+                        <td class="px-2 py-2">Level {row.level}</td>
+                        <td class="px-2 py-2 text-right font-medium">
+                          {row.unitPct}%
+                        </td>
+                        <td class="px-2 py-2 text-right font-medium text-star">
+                          {row.points}
+                        </td>
+                      </tr>
+                    ))
+                  }
+                </tbody>
+              </table>
+            </div>
+            <p class="mt-4 text-sm text-muted-foreground">
+              Level 3 (25% of units, 100 pts) clears tier 3 on affordability
+              alone — without any energy or accessibility commitment.
+            </p>
+          </Card>
+
+          <Card className="bg-obsidian border-dark-gray p-6">
+            <div class="text-xs uppercase tracking-wide text-star">
+              Existing properties
+            </div>
+            <div class="mt-1 text-lg font-semibold">
+              Higher unit share required
+            </div>
+            <div class="mt-4 overflow-x-auto">
+              <table class="w-full text-sm">
+                <thead>
+                  <tr class="border-b border-dark-gray">
+                    <th class="px-2 py-2 text-left font-medium">Level</th>
+                    <th class="px-2 py-2 text-right font-medium">Unit %</th>
+                    <th class="px-2 py-2 text-right font-medium">Points</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {
+                    AFFORDABILITY_SCORING_EXISTING.map((row) => (
+                      <tr class="border-b border-dark-gray/50 last:border-0">
+                        <td class="px-2 py-2">Level {row.level}</td>
+                        <td class="px-2 py-2 text-right font-medium">
+                          {row.unitPct}%
+                        </td>
+                        <td class="px-2 py-2 text-right font-medium text-star">
+                          {row.points}
+                        </td>
+                      </tr>
+                    ))
+                  }
+                </tbody>
+              </table>
+            </div>
+            <p class="mt-4 text-sm text-muted-foreground">
+              Existing-building rent-roll analysis typically shows that 30–50%
+              of in-place tenants already pay below the CMHC ceiling — the
+              Level 1 (40%) threshold is often closer than first inspection
+              suggests.
+            </p>
+          </Card>
+        </div>
+
+        <Card className="mt-10 bg-obsidian border-dark-gray p-6">
+          <div class="grid gap-6 md:grid-cols-[auto_1fr] md:items-center">
+            <div class="text-center">
+              <div class="text-xs uppercase tracking-wide text-star">Bonus</div>
+              <div class="mt-2 text-4xl font-semibold text-star">
+                +{AFFORDABILITY_BONUS_20YR}
+              </div>
+              <div class="text-xs text-muted-foreground">points</div>
+            </div>
+            <div>
+              <div class="text-lg font-semibold">
+                20-year commitment — flat bonus on any scoring level
+              </div>
+              <p class="mt-2 text-sm text-muted-foreground">
+                A 20+ year registered covenant adds {AFFORDABILITY_BONUS_20YR}
+                points to any affordability score. Level 1 (50 pts) plus the
+                bonus reaches {50 + AFFORDABILITY_BONUS_20YR} pts and clears
+                tier 2 (70 pts) without any energy or accessibility spend.
+                Municipal incentive programs — Toronto's Rental Housing Supply
+                Program and Vancouver's Class A DCL waiver — frequently
+                require a 20–40 year covenant, in which case the bonus is
+                essentially free.
+              </p>
+            </div>
+          </div>
+        </Card>
+      </div>
+    </section>
+
+    {/* COMMITMENT MECHANICS */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="max-w-3xl">
+          <Badge variant="secondary" className="mb-4">Commitment mechanics</Badge>
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+            How the commitment is registered, enforced, and monitored.
+          </h2>
+          <p class="mt-4 text-muted-foreground">
+            Every affordability point earned is underwritten to a legal
+            instrument registered on title. The November 28, 2025 refresh
+            tightened CMHC's language around monitoring and clawback — the
+            mechanics below apply to all new commitments.
+          </p>
+        </div>
+
+        <div class="mt-10 overflow-x-auto rounded-lg border border-dark-gray bg-jet">
+          <table class="w-full border-collapse text-sm">
+            <thead>
+              <tr class="border-b border-dark-gray text-muted-foreground text-xs uppercase tracking-wide">
+                <th class="px-4 py-3 text-left font-medium">Item</th>
+                <th class="px-4 py-3 text-left font-medium">Detail</th>
+              </tr>
+            </thead>
+            <tbody>
+              {
+                complianceMechanics.map((row) => (
+                  <tr class="border-b border-dark-gray last:border-0">
+                    <td class="px-4 py-3 font-medium">{row.item}</td>
+                    <td class="px-4 py-3 text-muted-foreground">{row.detail}</td>
+                  </tr>
+                ))
+              }
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    {/* RENT CONTROL INTERPLAY */}
+    <section class="border-b border-dark-gray bg-jet">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="grid gap-10 lg:grid-cols-2">
+          <div>
+            <Badge variant="outline" className="mb-4 border-star/40 text-star">
+              Provincial overlay
+            </Badge>
+            <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+              Rent control and the affordable covenant.
+            </h2>
+            <p class="mt-4 text-muted-foreground">
+              Ontario exempts buildings first occupied after November 15, 2018
+              from rent control. For a new MLI Select project in Ontario, the
+              affordable-unit rent can still grow with CMHC's annual MFI
+              update — the provincial exemption applies to the market units
+              and keeps overall revenue growth uncapped. This is a materially
+              stronger economic position than equivalent BC projects.
+            </p>
+            <p class="mt-4 text-muted-foreground">
+              British Columbia has no new-construction rent-control exemption.
+              Affordable-unit rent grows with the lower of the provincial
+              guideline (2.3% in 2026) or CMHC MFI growth. Market units are
+              also capped at the provincial guideline, compressing overall
+              revenue growth materially.
+            </p>
+            <p class="mt-4 text-muted-foreground">
+              Alberta has no rent control, so affordable-unit rent escalation
+              is governed purely by CMHC MFI. Quebec's TAL framework applies,
+              with a 5-year exemption for new construction.
+            </p>
+          </div>
+          <Card className="bg-obsidian border-dark-gray p-6">
+            <div class="text-xs uppercase tracking-wide text-star">
+              Rent-escalation logic
+            </div>
+            <div class="mt-5 space-y-4 text-sm">
+              <p>
+                <span class="text-star font-medium">Step 1.</span> Look up
+                current-year CMHC MFI for the CMA and bedroom type.
+              </p>
+              <p>
+                <span class="text-star font-medium">Step 2.</span> Compute the
+                30% MFI ceiling (gross rent including utilities).
+              </p>
+              <p>
+                <span class="text-star font-medium">Step 3.</span> Compare to
+                prior-year rent × (1 + provincial guideline).
+              </p>
+              <p>
+                <span class="text-star font-medium">Step 4.</span> Use the
+                lower of the two as the new permitted rent.
+              </p>
+              <p>
+                <span class="text-star font-medium">Step 5.</span> Vacancy
+                decontrol does not reset — incoming tenant rents to the same
+                ceiling.
+              </p>
+            </div>
+          </Card>
+        </div>
+      </div>
+    </section>
+
+    {/* WORKED EXAMPLES */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="max-w-3xl">
+          <Badge variant="secondary" className="mb-4">Worked examples</Badge>
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+            Two representative scorings.
+          </h2>
+          <p class="mt-4 text-muted-foreground">
+            The math is straightforward once the ceilings and scoring tables
+            are applied together. The interesting work is in the bedroom-mix
+            analysis and the revenue-delta between market and affordable
+            rents.
+          </p>
+        </div>
+
+        <div class="mt-10 grid gap-6 lg:grid-cols-2">
+          <Card className="bg-jet border-dark-gray p-6">
+            <div class="text-xs uppercase tracking-wide text-star">
+              Toronto · new construction · 100 units
+            </div>
+            <div class="mt-1 text-lg font-semibold">
+              Level 2 affordability — 15% of units
+            </div>
+            <dl class="mt-5 space-y-3 text-sm">
+              <div class="flex justify-between border-b border-dark-gray pb-2">
+                <dt class="text-muted-foreground">Affordable unit count</dt>
+                <dd class="font-medium">15 units (15 of 100)</dd>
+              </div>
+              <div class="flex justify-between border-b border-dark-gray pb-2">
+                <dt class="text-muted-foreground">Ceiling (Toronto high)</dt>
+                <dd class="font-medium">$1,625 / month gross</dd>
+              </div>
+              <div class="flex justify-between border-b border-dark-gray pb-2">
+                <dt class="text-muted-foreground">Market 1-bed comp</dt>
+                <dd class="font-medium">~$2,400 / month</dd>
+              </div>
+              <div class="flex justify-between border-b border-dark-gray pb-2">
+                <dt class="text-muted-foreground">Monthly revenue delta</dt>
+                <dd class="font-medium">$775 × 15 = $11,625</dd>
+              </div>
+              <div class="flex justify-between border-b border-dark-gray pb-2">
+                <dt class="text-muted-foreground">Annual NOI give-up</dt>
+                <dd class="font-medium">~$139,500</dd>
+              </div>
+              <div class="flex justify-between pt-2">
+                <dt class="text-star font-medium">Points earned</dt>
+                <dd class="text-star font-semibold">70 pts (tier 2)</dd>
+              </div>
+            </dl>
+            <p class="mt-4 text-xs text-muted-foreground">
+              At 10-year commitment. Add +30 pts for 20-year covenant → 100
+              pts tier 3 path, typically paired with Toronto's Rental Housing
+              Supply Program 40-year DCL exemption for ~$97K/affordable unit
+              in DC savings.
+            </p>
+          </Card>
+
+          <Card className="bg-jet border-dark-gray p-6">
+            <div class="text-xs uppercase tracking-wide text-star">
+              Vancouver · existing · 200 units
+            </div>
+            <div class="mt-1 text-lg font-semibold">
+              Level 1 affordability — 40% of units
+            </div>
+            <dl class="mt-5 space-y-3 text-sm">
+              <div class="flex justify-between border-b border-dark-gray pb-2">
+                <dt class="text-muted-foreground">Affordable unit count</dt>
+                <dd class="font-medium">80 units (80 of 200)</dd>
+              </div>
+              <div class="flex justify-between border-b border-dark-gray pb-2">
+                <dt class="text-muted-foreground">Ceiling (Vancouver high)</dt>
+                <dd class="font-medium">$1,500 / month gross</dd>
+              </div>
+              <div class="flex justify-between border-b border-dark-gray pb-2">
+                <dt class="text-muted-foreground">In-place rents already below</dt>
+                <dd class="font-medium">~55 of 80 (long-tenured tenants)</dd>
+              </div>
+              <div class="flex justify-between border-b border-dark-gray pb-2">
+                <dt class="text-muted-foreground">Incremental cap on 25 units</dt>
+                <dd class="font-medium">Modest — rent control already binds</dd>
+              </div>
+              <div class="flex justify-between border-b border-dark-gray pb-2">
+                <dt class="text-muted-foreground">NOI give-up</dt>
+                <dd class="font-medium">Limited — BC rent control binds anyway</dd>
+              </div>
+              <div class="flex justify-between pt-2">
+                <dt class="text-star font-medium">Points earned</dt>
+                <dd class="text-star font-semibold">50 pts (tier 1)</dd>
+              </div>
+            </dl>
+            <p class="mt-4 text-xs text-muted-foreground">
+              Existing-building MLI Select refinance. The economic cost of the
+              covenant is often negligible in BC because provincial rent
+              control already constrains rent growth; the premium discount
+              and 95% LTV refinance dominate the economics.
+            </p>
+          </Card>
+        </div>
+      </div>
+    </section>
+
+    {/* CTA */}
+    <section class="border-b border-dark-gray bg-jet">
+      <div class="container border-l border-r border-dark-gray px-6 py-20 lg:px-12 lg:py-28">
+        <div class="mx-auto max-w-3xl text-center">
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-5xl">
+            Size the affordability commitment, then score it.
+          </h2>
+          <p class="mx-auto mt-5 max-w-2xl text-muted-foreground">
+            The affordability sizer converts unit counts and CMA ceilings
+            into a point score and NOI delta. The point scorer rolls that
+            into the full three-pillar view for MLI Select qualification.
+          </p>
+          <div class="mt-8 flex flex-wrap justify-center gap-3">
+            <a href="/calculators/affordability-sizer">
+              <Button size="lg">Open the affordability sizer</Button>
+            </a>
+            <a href="/calculators/point-scorer">
+              <Button variant="outline" size="lg">Score the full project</Button>
+            </a>
+            <a href="/underwriting/affordability">
+              <Button variant="outline" size="lg">Underwriting notes</Button>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</DefaultLayout>

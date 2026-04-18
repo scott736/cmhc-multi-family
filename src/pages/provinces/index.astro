@@ -1,0 +1,320 @@
+---
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import { LAST_UPDATED, PROVINCIAL_RENT_RULES } from "@/data/cmhc";
+import DefaultLayout from "@/layouts/DefaultLayout.astro";
+
+const title = "Provinces — CMHC Multi-Unit Financing by Province";
+const description =
+  "Provincial context for CMHC multi-unit financing. Rent control regimes, new-construction exemptions, tenancy tribunals, and municipal incentive stacking across Ontario, British Columbia, Alberta, and Quebec.";
+
+const provinceCards = [
+  {
+    slug: "ontario",
+    name: "Ontario",
+    headline: "2018 new-build exemption",
+    summary:
+      "Rent control under the Residential Tenancies Act, but buildings first occupied on or after Nov 15, 2018 are permanently exempt. Bill 60 (Nov 2025) accelerated LTB timelines. Toronto RHSP worth roughly $97K per affordable unit.",
+  },
+  {
+    slug: "british-columbia",
+    name: "British Columbia",
+    headline: "No new-construction exemption",
+    summary:
+      "Rent control applies to all existing tenancies with 2026 cap at 2.3% (CPI-based). Vacancy decontrol permitted. Vancouver's Secured Rental Policy and Feb 2026 Rental Development Relief offer meaningful DCL reductions.",
+  },
+  {
+    slug: "alberta",
+    name: "Alberta",
+    headline: "No rent control",
+    summary:
+      "Landlords can raise rents by any amount with 3 months' notice — Canada's most investor-friendly rent environment. Calgary and Edmonton added substantial 2024-2026 programs funded in part through the federal Housing Accelerator Fund.",
+  },
+  {
+    slug: "quebec",
+    name: "Quebec",
+    headline: "5-year new-build exemption",
+    summary:
+      "TAL publishes annual recommended increases; tenants can contest. New construction exempt from TAL review for first 5 years of first occupancy. QST 9.975% on CMHC premium is the highest PST component in Canada.",
+  },
+];
+
+const summaryRules = PROVINCIAL_RENT_RULES.map((p) => {
+  const cap = (() => {
+    switch (p.province) {
+      case "Ontario":
+        return "2.1% (2026, cap 2.5%)";
+      case "British Columbia":
+        return "2.3% (2026, CPI)";
+      case "Alberta":
+        return "No cap";
+      case "Quebec":
+        return "TAL recommended";
+      default:
+        return "";
+    }
+  })();
+  const exemption = (() => {
+    switch (p.province) {
+      case "Ontario":
+        return "Permanent, post-Nov 15 2018 builds";
+      case "British Columbia":
+        return "None";
+      case "Alberta":
+        return "N/A";
+      case "Quebec":
+        return "First 5 years";
+      default:
+        return "";
+    }
+  })();
+  const tribunal = (() => {
+    switch (p.province) {
+      case "Ontario":
+        return "Landlord and Tenant Board (LTB)";
+      case "British Columbia":
+        return "Residential Tenancy Branch (RTB)";
+      case "Alberta":
+        return "RTDRS / small claims";
+      case "Quebec":
+        return "Tribunal administratif du logement (TAL)";
+      default:
+        return "";
+    }
+  })();
+  return { province: p.province, cap, exemption, tribunal };
+});
+---
+
+<DefaultLayout title={title} description={description}>
+  <div class="bg-obsidian text-foreground">
+    {/* HERO */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <Badge variant="outline" className="mb-6 border-star/40 text-star">
+          Provinces · Overview
+        </Badge>
+        <h1 class="text-4xl font-semibold tracking-tight lg:text-6xl">
+          Provincial context for CMHC multi-unit.
+        </h1>
+        <p class="mt-6 max-w-3xl text-lg text-muted-foreground">
+          CMHC insurance is a federal product, but every property it
+          insures operates under a provincial tenancy framework. Rent
+          control, new-construction exemptions, tribunal speed, and
+          property tax classification vary materially — and they
+          determine what pro forma rent growth and turnover economics
+          are defensible on an underwriting file.
+        </p>
+        <p class="mt-4 max-w-3xl text-lg text-muted-foreground">
+          These pages cover the four largest rental markets: Ontario,
+          British Columbia, Alberta, and Quebec. Each province page
+          details the rent regime, tribunal, municipal stacking
+          anchors, and underwriting implications for a broker
+          packaging a CMHC deal. Current to {LAST_UPDATED}.
+        </p>
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a href="/developers/provincial">
+            <Button size="lg">Rent-control deep dive</Button>
+          </a>
+          <a href="/developers/municipal">
+            <Button variant="outline" size="lg">Municipal stacking</Button>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    {/* WHY THIS MATTERS */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="grid gap-10 lg:grid-cols-[1fr_1.2fr]">
+          <div>
+            <Badge variant="secondary" className="mb-4">Why it matters</Badge>
+            <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+              CMHC is federal; the pro forma is provincial.
+            </h2>
+            <p class="mt-4 text-muted-foreground">
+              The same MLI Select Tier 3 structure behaves very
+              differently in Toronto (new-build exempt from rent
+              control, 15% municipal tax subclass) versus Vancouver
+              (no rent-control exemption, CPI-capped growth) versus
+              Calgary (no rent control at all). Rent regime changes
+              the defensible growth assumption; municipal programs
+              change the cost base.
+            </p>
+            <p class="mt-4 text-muted-foreground">
+              MLI Select affordability commitments are defined
+              against CMHC's median-renter-income threshold — they
+              sit on top of provincial rules and do not replace
+              them.
+            </p>
+          </div>
+          <Card className="bg-jet border-dark-gray p-8">
+            <div class="text-xs uppercase tracking-wide text-muted-foreground">
+              Underwriting inputs that vary by province
+            </div>
+            <ul class="mt-5 space-y-3 text-sm">
+              <li class="border-b border-dark-gray pb-3">
+                <span class="text-star font-medium">Rent growth cap</span>
+                <span class="ml-2 text-muted-foreground">
+                  controlled vs exempt vs no control
+                </span>
+              </li>
+              <li class="border-b border-dark-gray pb-3">
+                <span class="text-star font-medium">Vacancy decontrol</span>
+                <span class="ml-2 text-muted-foreground">
+                  turnover rent reset rules
+                </span>
+              </li>
+              <li class="border-b border-dark-gray pb-3">
+                <span class="text-star font-medium">Tribunal speed</span>
+                <span class="ml-2 text-muted-foreground">
+                  LTB, RTB, TAL, RTDRS timelines
+                </span>
+              </li>
+              <li class="border-b border-dark-gray pb-3">
+                <span class="text-star font-medium">PST on premium</span>
+                <span class="ml-2 text-muted-foreground">
+                  ON 8%, QC 9.975%, MB 7%, SK 6%
+                </span>
+              </li>
+              <li class="border-b border-dark-gray pb-3">
+                <span class="text-star font-medium">Property tax class</span>
+                <span class="ml-2 text-muted-foreground">
+                  multi-res subclasses / exemptions
+                </span>
+              </li>
+              <li>
+                <span class="text-star font-medium">Municipal stacking</span>
+                <span class="ml-2 text-muted-foreground">
+                  DC/CBC/DCL waivers and grants
+                </span>
+              </li>
+            </ul>
+          </Card>
+        </div>
+      </div>
+    </section>
+
+    {/* PROVINCE CARDS */}
+    <section class="border-b border-dark-gray bg-jet">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="max-w-3xl">
+          <Badge variant="secondary" className="mb-4">Deep dives</Badge>
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+            Four provinces, four different files.
+          </h2>
+          <p class="mt-4 text-muted-foreground">
+            Each province page covers the rent-control framework,
+            tribunal, key 2024-2026 policy changes, and CMHC
+            underwriting implications.
+          </p>
+        </div>
+
+        <div class="mt-10 grid gap-6 md:grid-cols-2">
+          {
+            provinceCards.map((p) => (
+              <Card className="bg-obsidian border-dark-gray p-6">
+                <div class="text-xs uppercase tracking-wide text-star">
+                  {p.name}
+                </div>
+                <div class="mt-1 text-lg font-semibold">{p.headline}</div>
+                <p class="mt-3 text-sm text-muted-foreground">{p.summary}</p>
+                <div class="mt-5">
+                  <a href={`/provinces/${p.slug}`}>
+                    <Button variant="outline" size="sm">
+                      Read {p.name} guide
+                    </Button>
+                  </a>
+                </div>
+              </Card>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    {/* SUMMARY TABLE */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="max-w-3xl">
+          <Badge variant="secondary" className="mb-4">Summary table</Badge>
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+            Rent regime at a glance.
+          </h2>
+          <p class="mt-4 text-muted-foreground">
+            Cap values reflect the 2026 guideline where published;
+            new-construction exemption column describes how long
+            new builds remain outside the rent-control regime.
+          </p>
+        </div>
+
+        <div class="mt-10 overflow-x-auto rounded-lg border border-dark-gray bg-jet">
+          <table class="w-full border-collapse text-sm">
+            <thead>
+              <tr class="border-b border-dark-gray text-muted-foreground text-xs uppercase tracking-wide">
+                <th class="px-4 py-3 text-left font-medium">Province</th>
+                <th class="px-4 py-3 text-left font-medium">2026 cap</th>
+                <th class="px-4 py-3 text-left font-medium">New-build exemption</th>
+                <th class="px-4 py-3 text-left font-medium">Tribunal</th>
+              </tr>
+            </thead>
+            <tbody>
+              {
+                summaryRules.map((row) => (
+                  <tr class="border-b border-dark-gray last:border-0">
+                    <td class="px-4 py-3 font-medium">{row.province}</td>
+                    <td class="px-4 py-3">{row.cap}</td>
+                    <td class="px-4 py-3 text-muted-foreground">
+                      {row.exemption}
+                    </td>
+                    <td class="px-4 py-3 text-muted-foreground">
+                      {row.tribunal}
+                    </td>
+                  </tr>
+                ))
+              }
+            </tbody>
+          </table>
+        </div>
+        <p class="mt-4 text-sm text-muted-foreground">
+          See the <a href="/developers/provincial" class="text-star">
+            provincial rules page
+          </a>{" "}
+          for rule text and the{" "}
+          <a href="/developers/municipal" class="text-star">
+            municipal stacking page
+          </a>{" "}
+          for city-level incentives.
+        </p>
+      </div>
+    </section>
+
+    {/* CTA */}
+    <section class="border-b border-dark-gray bg-jet">
+      <div class="container border-l border-r border-dark-gray px-6 py-20 lg:px-12 lg:py-28">
+        <div class="mx-auto max-w-3xl text-center">
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-5xl">
+            Model the province into the pro forma.
+          </h2>
+          <p class="mx-auto mt-5 max-w-2xl text-muted-foreground">
+            Rent-growth assumption and opex class drive DCR, which
+            usually binds loan size before LTV does. Work the
+            numbers in the loan sizer or compare structures
+            across provinces.
+          </p>
+          <div class="mt-8 flex flex-wrap justify-center gap-3">
+            <a href="/calculators/loan-sizer">
+              <Button size="lg">Open the loan sizer</Button>
+            </a>
+            <a href="/calculators/compare">
+              <Button variant="outline" size="lg">
+                Compare scenarios
+              </Button>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</DefaultLayout>

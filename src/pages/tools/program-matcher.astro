@@ -1,0 +1,12 @@
+---
+import ProgramMatcher from "@/components/tools/program-matcher";
+import DefaultLayout from "@/layouts/DefaultLayout.astro";
+
+const title = "CMHC Program Suitability Matcher | CMHC Multi-Family";
+const description =
+  "Rate eight priorities (leverage, rate, speed, forgivable capital, amortization, recourse, commitments, affordability focus) to see a ranked fit score across MLI Standard, MLI Select, ACLP, AHF and CHDP.";
+---
+
+<DefaultLayout title={title} description={description}>
+  <ProgramMatcher client:load />
+</DefaultLayout>

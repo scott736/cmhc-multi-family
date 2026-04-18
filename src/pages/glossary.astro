@@ -1,0 +1,12 @@
+---
+import GlossaryBrowser from "@/components/tools/glossary-browser";
+import DefaultLayout from "@/layouts/DefaultLayout.astro";
+
+const title = "CMHC Multi-Family Glossary — Terms, Acronyms, and Definitions";
+const description =
+  "Searchable glossary of CMHC multi-unit terms. MLI Select, MLI Standard, ACLP, AHF, CHDP, MULTI-GO, CoI, EGI, NOI, DCR, LTV, LTC, MFI, NECB, NBC, CSA B651, RHFAC, Phase I ESA, QS, surety bonds, rental achievement, holdbacks and more.";
+---
+
+<DefaultLayout title={title} description={description}>
+  <GlossaryBrowser client:load />
+</DefaultLayout>

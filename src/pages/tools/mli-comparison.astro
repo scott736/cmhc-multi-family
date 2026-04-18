@@ -1,0 +1,256 @@
+---
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import {
+  MIN_DCR_STANDARD,
+  MLI_SELECT_DISCOUNTS,
+  PROGRAMS,
+} from "@/data/cmhc";
+import DefaultLayout from "@/layouts/DefaultLayout.astro";
+
+const title = "MLI Standard vs MLI Select — Feature-by-Feature | CMHC Multi-Family";
+const description =
+  "Detailed side-by-side comparison of MLI Standard vs MLI Select — max LTV, amortization, minimum DCR, premium base and discount, amortization surcharge, affordability/energy/accessibility commitments, recourse, eligible borrowers, and typical underwriting time.";
+
+const standard = PROGRAMS.find((p) => p.slug === "mli-standard");
+const select = PROGRAMS.find((p) => p.slug === "mli-select");
+
+const rows: Array<{ label: string; standard: string; select: string }> = [
+  {
+    label: "Max LTV — Purchase (existing)",
+    standard: "85%",
+    select: "85% (tier 1) / 95% (tiers 2–3)",
+  },
+  {
+    label: "Max LTV — Refinance",
+    standard: "85%",
+    select: `${MLI_SELECT_DISCOUNTS.tier1.maxLtvExisting}% / ${MLI_SELECT_DISCOUNTS.tier2.maxLtvExisting}% / ${MLI_SELECT_DISCOUNTS.tier3.maxLtvExisting}%`,
+  },
+  {
+    label: "Max LTV — New construction",
+    standard: "85%",
+    select: `${MLI_SELECT_DISCOUNTS.tier1.maxLtvNew}% flat across tiers (LTC-based)`,
+  },
+  {
+    label: "Max amortization",
+    standard: "40yr existing / 50yr new construction",
+    select: `${MLI_SELECT_DISCOUNTS.tier1.maxAmort}yr / ${MLI_SELECT_DISCOUNTS.tier2.maxAmort}yr / ${MLI_SELECT_DISCOUNTS.tier3.maxAmort}yr by tier`,
+  },
+  {
+    label: "Minimum DCR",
+    standard: MIN_DCR_STANDARD.map((r) => `${r.segment}: ${r.dcr.toFixed(2)}`).join(" · "),
+    select: `Flat ${MLI_SELECT_DISCOUNTS.tier1.dcr.toFixed(2)} across all tiers`,
+  },
+  {
+    label: "Premium base %",
+    standard: "2.60% – 5.35% (LTV-banded, purchase/refi)",
+    select: "Same base grid as Standard",
+  },
+  {
+    label: "Premium discount",
+    standard: "0%",
+    select: `10% (tier 1) / 20% (tier 2) / 30% (tier 3)`,
+  },
+  {
+    label: "Amortization surcharge",
+    standard: "+0.25% per 5yr beyond 25yr",
+    select: "+0.25% per 5yr beyond 25yr (since July 14 2025)",
+  },
+  {
+    label: "Affordability commitment",
+    standard: "Not required",
+    select:
+      "Optional — most common pathway to 50/70/100 points. 10–25% of units at 30% MFI (new) or 40–80% (existing).",
+  },
+  {
+    label: "Energy commitment",
+    standard: "Not required",
+    select: "Optional — up to 50 pts (NECB/NBC Tier 1 + %)",
+  },
+  {
+    label: "Accessibility commitment",
+    standard: "Not required",
+    select: "Optional — up to 30 pts (CSA B651:23 / RHFAC Gold)",
+  },
+  {
+    label: "Recourse",
+    standard: "Full recourse standard",
+    select: "Full (tiers 1–2); Limited at tier 3 (100+ pts)",
+  },
+  {
+    label: "Eligible borrowers",
+    standard: "For-profit + non-profit",
+    select: "For-profit + non-profit (co-op eligible)",
+  },
+  {
+    label: "Eligible property types",
+    standard: "Purpose-built rental, 5+ self-contained units",
+    select: "Purpose-built rental; most multi-family asset classes",
+  },
+  {
+    label: "Typical underwriting time",
+    standard: "4–8 weeks (CMHC) + 1–4 weeks (funding)",
+    select: "4–12 weeks (CMHC); tier 3 deals skew longer",
+  },
+  {
+    label: "Holdback policy",
+    standard: "July 3 2025: no construction holdback (MLI Market Rental)",
+    select: "Rental achievement holdback required (Nov 2024 policy)",
+  },
+];
+
+const when = [
+  {
+    choose: "When to choose MLI Standard",
+    bullets: [
+      "No appetite or ability to commit to affordability / energy / accessibility.",
+      "Speed matters more than maximum leverage — well-understood product closes fastest.",
+      "Small multi (5–6 units) where the 1.10–1.20 DCR floor already fits the deal.",
+      "Refinances of legacy market-rental assets at 60–70% LTV.",
+    ],
+  },
+  {
+    choose: "When to choose MLI Select",
+    bullets: [
+      "Higher leverage is the priority — up to 95% LTV at tier 2+.",
+      "Willing to covenant affordability for 10–20 years in exchange for the 30-point bonus.",
+      "New-construction developer pursuing 50-year amortization and premium discount economics.",
+      "Non-profit or co-op sponsor — limited recourse and net-worth flexibility at tier 3.",
+    ],
+  },
+];
+---
+
+<DefaultLayout title={title} description={description}>
+  <div class="bg-obsidian text-foreground">
+    {/* HERO */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <Badge variant="outline" className="mb-6 border-star/40 text-star">
+          MLI Standard vs MLI Select
+        </Badge>
+        <h1 class="text-4xl font-semibold tracking-tight lg:text-6xl">
+          The two insured-multi pathways, detailed.
+        </h1>
+        <p class="mt-6 max-w-3xl text-lg text-muted-foreground">
+          MLI Standard is the foundational insurance product with no
+          affordability, energy, or accessibility commitments. MLI Select
+          is the points-based product that unlocks higher LTV, longer
+          amortization, a 10–30% premium discount, and (at tier 3)
+          limited recourse in exchange for qualifying commitments.
+        </p>
+        <div class="mt-4 flex gap-4 text-sm text-muted-foreground">
+          <span>{standard?.tagline}</span>
+          <span>·</span>
+          <span>{select?.tagline}</span>
+        </div>
+      </div>
+    </section>
+
+    {/* MATRIX */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="overflow-x-auto rounded-lg border border-dark-gray bg-jet">
+          <table class="w-full min-w-[860px] text-sm">
+            <thead>
+              <tr class="border-b border-dark-gray">
+                <th class="px-4 py-4 text-left font-medium text-muted-foreground">
+                  Feature
+                </th>
+                <th class="px-4 py-4 text-left font-semibold">
+                  <a
+                    href="/programs/mli-standard"
+                    class="text-foreground hover:text-star"
+                  >
+                    MLI Standard
+                  </a>
+                </th>
+                <th class="px-4 py-4 text-left font-semibold">
+                  <a
+                    href="/programs/mli-select"
+                    class="text-foreground hover:text-star"
+                  >
+                    MLI Select
+                  </a>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {
+                rows.map((r) => (
+                  <tr class="border-b border-dark-gray/60 last:border-0 align-top">
+                    <td class="px-4 py-4 font-medium text-muted-foreground">
+                      {r.label}
+                    </td>
+                    <td class="px-4 py-4">{r.standard}</td>
+                    <td class="px-4 py-4 text-star">{r.select}</td>
+                  </tr>
+                ))
+              }
+            </tbody>
+          </table>
+        </div>
+        <p class="mt-4 text-xs text-muted-foreground">
+          Premium grid reflects the July 14, 2025 overhaul. LTV bands and
+          amortization surcharge apply to both programs. Minimum DCR for
+          Select is 1.10 regardless of tier.
+        </p>
+      </div>
+    </section>
+
+    {/* WHEN TO CHOOSE */}
+    <section class="border-b border-dark-gray bg-jet">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="grid gap-6 md:grid-cols-2">
+          {
+            when.map((block) => (
+              <Card className="bg-obsidian border-dark-gray p-6">
+                <div class="text-xs uppercase tracking-wide text-star">
+                  Decision
+                </div>
+                <div class="mt-1 text-lg font-semibold">{block.choose}</div>
+                <ul class="mt-4 space-y-3 text-sm">
+                  {
+                    block.bullets.map((b) => (
+                      <li class="flex items-start gap-3 text-muted-foreground">
+                        <span class="mt-1.5 block size-1.5 shrink-0 rounded-full bg-star" />
+                        <span>{b}</span>
+                      </li>
+                    ))
+                  }
+                </ul>
+              </Card>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    {/* CTA */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-20 lg:px-12 lg:py-28">
+        <div class="mx-auto max-w-3xl text-center">
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-5xl">
+            Model both structures against your deal.
+          </h2>
+          <p class="mx-auto mt-5 max-w-2xl text-muted-foreground">
+            The scenario comparison calculator sizes MLI Standard and
+            MLI Select on the same inputs — max loan, equity,
+            debt service, cash-on-cash and total insurance cost.
+          </p>
+          <div class="mt-8 flex flex-wrap justify-center gap-3">
+            <a href="/calculators/compare">
+              <Button size="lg">Scenario comparison</Button>
+            </a>
+            <a href="/calculators/point-scorer">
+              <Button variant="outline" size="lg">
+                MLI Select point scorer
+              </Button>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</DefaultLayout>

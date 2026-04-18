@@ -1,0 +1,12 @@
+---
+import PurchaseVsRefi from "@/components/calculators/purchase-vs-refi";
+import DefaultLayout from "@/layouts/DefaultLayout.astro";
+
+const title = "Purchase vs. Refinance Comparison — CMHC Multi-Family";
+const description =
+  "Side-by-side purchase versus refinance on the same CMHC-insured asset: max loan, premium, premium credit (refi), equity in, cash out, DCR and cash-on-cash.";
+---
+
+<DefaultLayout title={title} description={description}>
+  <PurchaseVsRefi client:load />
+</DefaultLayout>

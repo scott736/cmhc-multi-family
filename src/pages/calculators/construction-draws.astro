@@ -1,0 +1,12 @@
+---
+import ConstructionDraws from "@/components/calculators/construction-draws";
+import DefaultLayout from "@/layouts/DefaultLayout.astro";
+
+const title = "Construction Draw & Interest Reserve Calculator | CMHC Multi-Family";
+const description =
+  "Month-by-month construction draw schedule, outstanding balance, capitalized interest and takeout sizing. Reflects the July 3, 2025 removal of MLI Market Rental rental-achievement holdbacks.";
+---
+
+<DefaultLayout title={title} description={description}>
+  <ConstructionDraws client:load />
+</DefaultLayout>

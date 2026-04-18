@@ -1,0 +1,198 @@
+---
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import { LAST_UPDATED } from "@/data/cmhc";
+import DefaultLayout from "@/layouts/DefaultLayout.astro";
+
+const title = "Loan Lifecycle — CMHC Multi-Unit Post-Funding Events";
+const description =
+  "The CMHC multi-unit loan lifecycle after funding: renewal at maturity, assumption on sale, prepayment mechanics, and porting to a replacement property. How each event interacts with CMHC insurance.";
+
+const lifecycleTopics = [
+  {
+    slug: "renewal",
+    name: "Renewal at maturity",
+    tagline: "Same insurer, new term",
+    short:
+      "What gets re-underwritten at maturity, typical offer timelines, and how the September 2025 CoI tightening changed renewal dynamics.",
+  },
+  {
+    slug: "assumption",
+    name: "Assumption on sale",
+    tagline: "Transfer to a new borrower",
+    short:
+      "How a buyer takes over the existing mortgage and CMHC insurance without triggering prepayment — covenant underwrite, fees, and timing.",
+  },
+  {
+    slug: "prepayment",
+    name: "Prepayment mechanics",
+    tagline: "IRD, yield maintenance, 3 months' interest",
+    short:
+      "Commercial multi-unit prepayment is not governed by the Bank Act. Yield maintenance vs IRD vs 3 months' interest, and which one usually wins.",
+  },
+  {
+    slug: "porting",
+    name: "Porting to a new property",
+    tagline: "Move the insurance, save the premium",
+    short:
+      "Carry CMHC insurance from a sold property to a replacement within 90 days — avoiding both prepayment penalty and new premium.",
+  },
+];
+---
+
+<DefaultLayout title={title} description={description}>
+  <div class="bg-obsidian text-foreground">
+    {/* HERO */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <Badge variant="outline" className="mb-6 border-star/40 text-star">
+          Lifecycle · Current to {LAST_UPDATED}
+        </Badge>
+        <h1 class="text-4xl font-semibold tracking-tight lg:text-6xl">
+          What happens after funding.
+        </h1>
+        <p class="mt-6 max-w-3xl text-lg text-muted-foreground">
+          A CMHC-insured multi-unit loan is a multi-decade instrument. The
+          loan flows through four lifecycle phases: origination (application
+          to Certificate of Insurance), ongoing (monthly servicing, annual
+          reporting, MLI Select affordability compliance), renewal (at each
+          term maturity), and eventual payoff — sold, ported, assumed, or
+          refinanced out.
+        </p>
+        <p class="mt-4 max-w-3xl text-lg text-muted-foreground">
+          Three of those four lifecycle events interact directly with the
+          CMHC insurance: renewal carries it forward, assumption transfers
+          it, porting moves it to a new property. Prepayment closes it out.
+          Each has its own mechanics, cost structure, and deal implications.
+        </p>
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a href="/calculators/renewal-analyzer">
+            <Button size="lg">Renewal analyzer</Button>
+          </a>
+          <a href="/calculators/premium-credit">
+            <Button variant="outline" size="lg">
+              Premium credit calculator
+            </Button>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    {/* LIFECYCLE CARDS */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="max-w-3xl">
+          <Badge variant="secondary" className="mb-4">Topics</Badge>
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+            Four lifecycle events.
+          </h2>
+          <p class="mt-4 text-muted-foreground">
+            Each page covers the mechanics, typical timing, fees and
+            restrictions, and the policy changes that matter for brokers
+            currently in the market.
+          </p>
+        </div>
+
+        <div class="mt-10 grid gap-4 md:grid-cols-2">
+          {
+            lifecycleTopics.map((t) => (
+              <a href={`/lifecycle/${t.slug}`} class="group">
+                <Card className="h-full bg-jet border-dark-gray p-6 transition-colors hover:border-star/50">
+                  <div class="text-xs uppercase tracking-wide text-muted-foreground">
+                    {t.tagline}
+                  </div>
+                  <div class="mt-1 text-xl font-semibold">{t.name}</div>
+                  <p class="mt-3 text-sm text-muted-foreground">{t.short}</p>
+                  <div class="mt-5 text-sm text-star">Read the {t.name} page →</div>
+                </Card>
+              </a>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    {/* ORIGINATION TO PAYOFF */}
+    <section class="border-b border-dark-gray bg-jet">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="max-w-3xl">
+          <Badge variant="secondary" className="mb-4">Four phases</Badge>
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+            Origination to payoff — the full arc.
+          </h2>
+          <p class="mt-4 text-muted-foreground">
+            Brokers typically focus on origination, but renewal is where
+            repeat business sits and where most CMHC client relationships
+            are won or lost.
+          </p>
+        </div>
+
+        <div class="mt-10 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+          <Card className="bg-obsidian border-dark-gray p-6">
+            <div class="text-xs uppercase tracking-wide text-star">Phase 1</div>
+            <div class="mt-1 text-lg font-semibold">Origination</div>
+            <p class="mt-3 text-sm text-muted-foreground">
+              Application through lender submission to MULTI-GO, CMHC
+              underwriting, Certificate of Insurance, funding. Typically
+              12–16 weeks for existing purchase; 6–12 months for
+              construction.
+            </p>
+          </Card>
+          <Card className="bg-obsidian border-dark-gray p-6">
+            <div class="text-xs uppercase tracking-wide text-star">Phase 2</div>
+            <div class="mt-1 text-lg font-semibold">Ongoing</div>
+            <p class="mt-3 text-sm text-muted-foreground">
+              Monthly principal and interest, annual rent roll updates,
+              periodic financial statements. MLI Select projects add
+              annual affordability compliance attestation.
+            </p>
+          </Card>
+          <Card className="bg-obsidian border-dark-gray p-6">
+            <div class="text-xs uppercase tracking-wide text-star">Phase 3</div>
+            <div class="mt-1 text-lg font-semibold">Renewal</div>
+            <p class="mt-3 text-sm text-muted-foreground">
+              Term matures (typically 5 or 10 years in). Lender issues
+              offer 60–90 days before. Re-underwriting on NOI and DCR;
+              no new premium if loan amount unchanged.
+            </p>
+          </Card>
+          <Card className="bg-obsidian border-dark-gray p-6">
+            <div class="text-xs uppercase tracking-wide text-star">Phase 4</div>
+            <div class="mt-1 text-lg font-semibold">Payoff</div>
+            <p class="mt-3 text-sm text-muted-foreground">
+              Sold (assumption or discharge), ported to replacement,
+              refinanced conventional, or fully amortized out. Each
+              path interacts with CMHC insurance differently.
+            </p>
+          </Card>
+        </div>
+      </div>
+    </section>
+
+    {/* CTA */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-20 lg:px-12 lg:py-28">
+        <div class="mx-auto max-w-3xl text-center">
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-5xl">
+            The renewal conversation starts 90 days out.
+          </h2>
+          <p class="mx-auto mt-5 max-w-2xl text-muted-foreground">
+            The renewal analyzer models rate movement, DCR at new rate,
+            and whether the file needs a simple renewal or a full
+            refinance. The premium credit calculator runs the numbers
+            for increases and ports.
+          </p>
+          <div class="mt-8 flex flex-wrap justify-center gap-3">
+            <a href="/calculators/renewal-analyzer">
+              <Button size="lg">Open renewal analyzer</Button>
+            </a>
+            <a href="/calculators/premium-credit">
+              <Button variant="outline" size="lg">Premium credit calculator</Button>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</DefaultLayout>

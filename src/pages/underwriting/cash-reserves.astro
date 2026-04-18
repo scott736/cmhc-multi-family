@@ -1,0 +1,334 @@
+---
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import DefaultLayout from "@/layouts/DefaultLayout.astro";
+
+const title = "Cash Reserve Requirements — CMHC Multi-Unit";
+const description =
+  "CMHC liquidity and reserves stack for borrowers. Closing liquidity 5–10% of loan amount, replacement reserves $250–500/unit or 2–4% EGI, operating reserves, interest reserves during construction, rental achievement holdbacks (MLI Select post-Nov 2024), and accepted funding sources.";
+
+const reserveCategories = [
+  {
+    category: "Borrower liquidity (closing)",
+    amount: "5–10% of loan amount",
+    timing: "Verified at closing",
+    detail:
+      "Liquid assets held in the name of the borrower / guarantor stack. On construction files the floor is typically 10%; on stabilized files 5–7%.",
+  },
+  {
+    category: "Replacement reserves",
+    amount: "$250–500/unit/yr OR 2–4% of EGI",
+    timing: "Annual funding or escrow",
+    detail:
+      "CMHC-dictated at submission. Funded annually out of operating income or held in a project-level reserve account.",
+  },
+  {
+    category: "Operating reserves",
+    amount: "1–3 months debt service + opex",
+    timing: "Maintained post-closing",
+    detail:
+      "Rolling reserve covering 1–3 months of combined debt service and operating expenses. Typically held in an operating account visible to the lender.",
+  },
+  {
+    category: "Interest reserves (construction)",
+    amount: "Full construction-phase interest",
+    timing: "Capitalized at closing",
+    detail:
+      "On construction files, an interest reserve is sized to cover the full interest cost during the construction period. Draws are administered against the reserve alongside hard/soft costs.",
+  },
+  {
+    category: "Rental achievement holdback (MLI Select)",
+    amount: "Project-specific, up to ~15% of loan",
+    timing: "Post-construction, released at stabilization",
+    detail:
+      "Formalized under the November 2024 MLI Select policy. Last-tranche advance is held back until the property demonstrates target occupancy at target rents. MLI Market Rental holdback was removed July 3, 2025.",
+  },
+  {
+    category: "Insurance deductible reserve",
+    amount: "Matches policy deductible",
+    timing: "Cash on hand or LOC",
+    detail:
+      "Sized to match the property insurance deductible — typically $25–100K depending on coverage limits. Allows prompt response to a casualty event without a lender deficiency.",
+  },
+];
+
+const fundingSources = [
+  {
+    source: "Cash and term deposits",
+    acceptance: "100%",
+    note: "The cleanest form of verified liquidity. Bank statements for the trailing 3–6 months typically required.",
+  },
+  {
+    source: "Marketable securities",
+    acceptance: "Discounted",
+    note: "Accepted at a discount (typically 70–80% of market value) to reflect volatility. Investment statements for 3–6 months required.",
+  },
+  {
+    source: "Lines of credit (unused)",
+    acceptance: "Sometimes",
+    note: "Case-by-case acceptance. Unused HELOC or commercial LOC committed to the project can count toward liquidity — but not toward net worth.",
+  },
+  {
+    source: "Registered accounts (RRSP, TFSA)",
+    acceptance: "Often accepted (sometimes discounted)",
+    note: "Some lenders discount for tax withdrawal cost; others accept at face value. Depends on accessibility.",
+  },
+  {
+    source: "Related-party loans",
+    acceptance: "Structurally specific",
+    note: "Subordination agreements typically required. Not always counted toward liquidity depending on terms.",
+  },
+];
+---
+
+<DefaultLayout title={title} description={description}>
+  <div class="bg-obsidian text-foreground">
+    {/* HERO */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <Badge variant="outline" className="mb-6 border-star/40 text-star">
+          Underwriting · Cash reserves
+        </Badge>
+        <h1 class="text-4xl font-semibold tracking-tight lg:text-6xl">
+          Cash reserve requirements — the full stack.
+        </h1>
+        <p class="mt-6 max-w-3xl text-lg text-muted-foreground">
+          CMHC multi-unit files carry multiple reserve
+          layers — borrower liquidity at closing, replacement
+          reserves for capital items, operating reserves post-
+          closing, and on construction files an interest
+          reserve plus (for MLI Select post-November 2024) a
+          rental achievement holdback. Each serves a different
+          purpose and each has its own funding mechanism.
+        </p>
+        <p class="mt-4 max-w-3xl text-lg text-muted-foreground">
+          The net effect is that borrowers need more cash in
+          the file than the equity contribution alone
+          suggests. A 5% equity deal at 95% LTC under MLI
+          Select Tier 3 still requires 10% of loan amount in
+          verified liquidity at closing — roughly doubling
+          the cash requirement over the headline equity.
+        </p>
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a href="/underwriting/documentation">
+            <Button size="lg">Documentation page</Button>
+          </a>
+          <a href="/calculators/loan-sizer">
+            <Button variant="outline" size="lg">Loan sizer</Button>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    {/* RESERVES TABLE */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="max-w-3xl">
+          <Badge variant="secondary" className="mb-4">Reserve categories</Badge>
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+            Six reserve layers, different purposes.
+          </h2>
+          <p class="mt-4 text-muted-foreground">
+            Not every file carries all six. Stabilized
+            existing-property refinance files carry liquidity +
+            replacement + operating reserves. Construction files
+            add interest reserve and, for MLI Select,
+            potentially a rental achievement holdback.
+          </p>
+        </div>
+
+        <div class="mt-10 overflow-x-auto rounded-lg border border-dark-gray bg-jet">
+          <table class="w-full border-collapse text-sm">
+            <thead>
+              <tr class="border-b border-dark-gray text-muted-foreground text-xs uppercase tracking-wide">
+                <th class="px-4 py-3 text-left font-medium">Reserve</th>
+                <th class="px-4 py-3 text-left font-medium">Amount</th>
+                <th class="px-4 py-3 text-left font-medium">Timing</th>
+                <th class="px-4 py-3 text-left font-medium">Detail</th>
+              </tr>
+            </thead>
+            <tbody>
+              {
+                reserveCategories.map((row) => (
+                  <tr class="border-b border-dark-gray last:border-0">
+                    <td class="px-4 py-3 font-medium">{row.category}</td>
+                    <td class="px-4 py-3">{row.amount}</td>
+                    <td class="px-4 py-3 text-muted-foreground">{row.timing}</td>
+                    <td class="px-4 py-3 text-muted-foreground">{row.detail}</td>
+                  </tr>
+                ))
+              }
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    {/* LIQUIDITY */}
+    <section class="border-b border-dark-gray bg-jet">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="grid gap-10 lg:grid-cols-[1fr_1.2fr]">
+          <div>
+            <Badge variant="secondary" className="mb-4">Borrower liquidity</Badge>
+            <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+              Closing liquidity, separate from equity.
+            </h2>
+            <p class="mt-4 text-muted-foreground">
+              CMHC wants to see liquid assets on the borrower /
+              guarantor balance sheet at closing — typically
+              5–7% of the loan on stabilized files and 10% on
+              construction. This is distinct from the equity
+              required to close: if the borrower is contributing
+              5% equity to a 95% LTC Select deal, an additional
+              10% of loan amount in verified liquid assets is
+              still expected.
+            </p>
+            <p class="mt-4 text-muted-foreground">
+              Liquidity is tested against the combined guarantor
+              stack. A weaker principal covenant can be shored
+              up by adding guarantors with cash — a common
+              structure on family-office and partnership files.
+            </p>
+          </div>
+          <Card className="bg-obsidian border-dark-gray p-6">
+            <div class="text-xs uppercase tracking-wide text-muted-foreground">
+              Documentation
+            </div>
+            <ul class="mt-4 space-y-3 text-sm">
+              <li class="border-b border-dark-gray/50 pb-2">
+                <span class="text-star">•</span> Bank statements — 3–6
+                months trailing, all material accounts.
+              </li>
+              <li class="border-b border-dark-gray/50 pb-2">
+                <span class="text-star">•</span> Investment statements —
+                brokerage and registered-account positions.
+              </li>
+              <li class="border-b border-dark-gray/50 pb-2">
+                <span class="text-star">•</span> LOC agreements — committed
+                facility documentation if counted toward liquidity.
+              </li>
+              <li>
+                <span class="text-star">•</span> Source of funds — origin
+                documentation for large recent deposits.
+              </li>
+            </ul>
+          </Card>
+        </div>
+      </div>
+    </section>
+
+    {/* HOLDBACK EVOLUTION */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="max-w-3xl">
+          <Badge variant="secondary" className="mb-4">Construction holdbacks</Badge>
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+            Rental achievement and holdback policy.
+          </h2>
+          <p class="mt-4 text-muted-foreground">
+            Construction holdbacks have moved twice in the last
+            18 months. The November 2024 change formalized
+            rental achievement holdbacks on MLI Select; the
+            July 3, 2025 change removed the holdback for MLI
+            Market Rental construction.
+          </p>
+        </div>
+
+        <div class="mt-10 grid gap-6 lg:grid-cols-2">
+          <Card className="bg-jet border-dark-gray p-6">
+            <div class="text-xs uppercase tracking-wide text-star">
+              MLI Select · Nov 2024
+            </div>
+            <div class="mt-1 text-lg font-semibold">Rental achievement holdback</div>
+            <p class="mt-3 text-sm text-muted-foreground">
+              Last-tranche advance held back until the property
+              demonstrates target occupancy at target rents —
+              typically 2–3 months at stabilized occupancy. Sized
+              to the gap between construction advance and
+              stabilized takeout loan.
+            </p>
+          </Card>
+          <Card className="bg-jet border-dark-gray p-6">
+            <div class="text-xs uppercase tracking-wide text-star">
+              MLI Market Rental · Jul 3 2025
+            </div>
+            <div class="mt-1 text-lg font-semibold">Holdback removed</div>
+            <p class="mt-3 text-sm text-muted-foreground">
+              MLI Market Rental construction files now advance
+              to the full 85% LTC without a stabilization
+              holdback. This was a targeted incentive to
+              support non-affordable purpose-built rental
+              supply.
+            </p>
+          </Card>
+        </div>
+      </div>
+    </section>
+
+    {/* FUNDING SOURCES */}
+    <section class="border-b border-dark-gray bg-jet">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="max-w-3xl">
+          <Badge variant="secondary" className="mb-4">Funding sources</Badge>
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+            What counts as liquidity.
+          </h2>
+          <p class="mt-4 text-muted-foreground">
+            Not all liquid assets count equally. CMHC and the
+            approved lender apply different haircuts to
+            different asset classes.
+          </p>
+        </div>
+
+        <div class="mt-10 overflow-x-auto rounded-lg border border-dark-gray bg-obsidian">
+          <table class="w-full border-collapse text-sm">
+            <thead>
+              <tr class="border-b border-dark-gray text-muted-foreground text-xs uppercase tracking-wide">
+                <th class="px-4 py-3 text-left font-medium">Asset</th>
+                <th class="px-4 py-3 text-left font-medium">Acceptance</th>
+                <th class="px-4 py-3 text-left font-medium">Notes</th>
+              </tr>
+            </thead>
+            <tbody>
+              {
+                fundingSources.map((row) => (
+                  <tr class="border-b border-dark-gray last:border-0">
+                    <td class="px-4 py-3 font-medium">{row.source}</td>
+                    <td class="px-4 py-3">{row.acceptance}</td>
+                    <td class="px-4 py-3 text-muted-foreground">{row.note}</td>
+                  </tr>
+                ))
+              }
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    {/* CTA */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-20 lg:px-12 lg:py-28">
+        <div class="mx-auto max-w-3xl text-center">
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-5xl">
+            Account for reserves in the file.
+          </h2>
+          <p class="mx-auto mt-5 max-w-2xl text-muted-foreground">
+            Reserves sit alongside documentation as one of the
+            two categories that most commonly stall files at
+            the Underwriting Centre. Knowing the stack in
+            advance saves weeks of back-and-forth.
+          </p>
+          <div class="mt-8 flex flex-wrap justify-center gap-3">
+            <a href="/underwriting/documentation">
+              <Button size="lg">Documentation page</Button>
+            </a>
+            <a href="/calculators/loan-sizer">
+              <Button variant="outline" size="lg">Loan sizer</Button>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</DefaultLayout>

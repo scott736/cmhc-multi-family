@@ -1,0 +1,414 @@
+---
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import DefaultLayout from "@/layouts/DefaultLayout.astro";
+
+const title = "Ontario — CMHC Multi-Unit Financing Considerations";
+const description =
+  "Ontario-specific context for CMHC multi-unit financing. The Nov 15 2018 rent-control exemption for new builds, Bill 60 LTB reforms, Toronto's $97K/unit RHSP package, HST rebates, and the New Multi-Residential Tax Subclass.";
+
+const rentRules = [
+  {
+    item: "Guideline cap (controlled units)",
+    value: "2.1% for 2026 (statutory ceiling 2.5%)",
+  },
+  {
+    item: "New-construction exemption",
+    value:
+      "Buildings first occupied on or after Nov 15, 2018 — permanent, attaches to the unit (survives turnover)",
+  },
+  {
+    item: "Vacancy decontrol",
+    value: "Any rent permitted between tenancies, even in controlled units",
+  },
+  {
+    item: "Above-guideline increases (AGIs)",
+    value:
+      "Available for eligible capital expenditures, security, utilities; LTB-approved",
+  },
+  {
+    item: "Tribunal",
+    value: "Landlord and Tenant Board (LTB)",
+  },
+  {
+    item: "Governing statute",
+    value: "Residential Tenancies Act, 2006",
+  },
+];
+
+const torontoIncentives = [
+  {
+    item: "Development charges (DCs)",
+    value: "Full exemption for affordable units (40-year commitment)",
+  },
+  {
+    item: "Community benefit charges (CBCs)",
+    value: "Full exemption for affordable units",
+  },
+  {
+    item: "Parkland dedication",
+    value: "Full exemption for affordable units",
+  },
+  {
+    item: "Building permit fees",
+    value: "Full exemption for affordable units",
+  },
+  {
+    item: "New Multi-Residential Tax Subclass",
+    value:
+      "15% reduction in property tax rate for 35 years on new purpose-built rental",
+  },
+  {
+    item: "Estimated total value",
+    value: "~$97,264 per affordable unit over the commitment period",
+  },
+];
+---
+
+<DefaultLayout title={title} description={description}>
+  <div class="bg-obsidian text-foreground">
+    {/* HERO */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <Badge variant="outline" className="mb-6 border-star/40 text-star">
+          Provinces · Ontario
+        </Badge>
+        <h1 class="text-4xl font-semibold tracking-tight lg:text-6xl">
+          Ontario — new-build exemption changes the math.
+        </h1>
+        <p class="mt-6 max-w-3xl text-lg text-muted-foreground">
+          Ontario operates under the Residential Tenancies Act
+          (RTA), which caps rent increases on controlled units at
+          the annual guideline — 2.1% for 2026, with a statutory
+          ceiling of 2.5%. But the critical rule for CMHC-financed
+          new construction is the permanent exemption for
+          buildings first occupied on or after November 15, 2018.
+          Those units are outside rent control forever.
+        </p>
+        <p class="mt-4 max-w-3xl text-lg text-muted-foreground">
+          Combined with vacancy decontrol, Toronto's Rental Housing
+          Supply Program (roughly $97K/unit in DC/CBC/parkland
+          exemptions and the 35-year 15% property tax subclass),
+          and Bill 60's Nov 2025 LTB reforms, Ontario is the most
+          economically favourable province for purpose-built
+          rental new construction in Canada.
+        </p>
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a href="/programs/mli-select">
+            <Button size="lg">MLI Select</Button>
+          </a>
+          <a href="/developers/municipal">
+            <Button variant="outline" size="lg">Toronto stacking</Button>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    {/* RENT CONTROL FRAMEWORK */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="max-w-3xl">
+          <Badge variant="secondary" className="mb-4">Rent control</Badge>
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+            Residential Tenancies Act framework.
+          </h2>
+          <p class="mt-4 text-muted-foreground">
+            The RTA governs all residential tenancies in Ontario
+            unless explicitly exempt. Rent control applies to
+            "controlled" units; the guideline is published each
+            August for the following calendar year.
+          </p>
+        </div>
+
+        <div class="mt-10 overflow-x-auto rounded-lg border border-dark-gray bg-jet">
+          <table class="w-full border-collapse text-sm">
+            <thead>
+              <tr class="border-b border-dark-gray text-muted-foreground text-xs uppercase tracking-wide">
+                <th class="px-4 py-3 text-left font-medium">Dimension</th>
+                <th class="px-4 py-3 text-left font-medium">Ontario rule</th>
+              </tr>
+            </thead>
+            <tbody>
+              {
+                rentRules.map((row) => (
+                  <tr class="border-b border-dark-gray last:border-0">
+                    <td class="px-4 py-3 font-medium">{row.item}</td>
+                    <td class="px-4 py-3 text-muted-foreground">
+                      {row.value}
+                    </td>
+                  </tr>
+                ))
+              }
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    {/* 2018 EXEMPTION CALLOUT */}
+    <section class="border-b border-dark-gray bg-jet">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="grid gap-10 lg:grid-cols-[1.2fr_1fr]">
+          <div>
+            <Badge variant="outline" className="mb-4 border-star/40 text-star">
+              Critical rule for developers
+            </Badge>
+            <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+              The November 15, 2018 exemption.
+            </h2>
+            <p class="mt-4 text-muted-foreground">
+              Buildings, additions, or units first occupied for
+              residential purposes on or after November 15, 2018
+              are exempt from rent control under section 6.1 of
+              the RTA. This is one of the largest competitive
+              advantages in Canadian purpose-built rental
+              development.
+            </p>
+            <p class="mt-4 text-muted-foreground">
+              The exemption attaches to the unit, not the tenancy
+              — it survives tenant turnover, sale of the building,
+              and mortgage refinancing. A unit first occupied on
+              Dec 1, 2018 is still exempt in 2046. Standard
+              notice-of-rent-increase rules still apply (90 days,
+              once per 12 months) but the amount is not capped.
+            </p>
+            <p class="mt-4 text-muted-foreground">
+              For MLI Select underwriting, this means a Toronto
+              new-build pro forma can defend market-rate rent
+              growth (typically 3–4% historical CPI-plus) rather
+              than being capped at the guideline. The
+              affordability commitment still applies to the MLI
+              Select committed units — but unrestricted market
+              units escape the cap entirely.
+            </p>
+          </div>
+          <Card className="bg-obsidian border-dark-gray p-8">
+            <div class="text-xs uppercase tracking-wide text-muted-foreground">
+              Pro forma impact
+            </div>
+            <div class="mt-4 space-y-3 text-sm">
+              <div class="border-b border-dark-gray pb-3">
+                <div class="text-star font-medium">Controlled unit</div>
+                <div class="text-muted-foreground">
+                  Max 2.1% growth in 2026; AGI required for capex
+                  recovery
+                </div>
+              </div>
+              <div class="border-b border-dark-gray pb-3">
+                <div class="text-star font-medium">Post-2018 new build</div>
+                <div class="text-muted-foreground">
+                  Market-rate growth; CMHC underwrites against
+                  historical CMA rent data
+                </div>
+              </div>
+              <div>
+                <div class="text-star font-medium">MLI Select committed unit</div>
+                <div class="text-muted-foreground">
+                  Capped at 30% of median renter income — tighter
+                  than RTA guideline
+                </div>
+              </div>
+            </div>
+          </Card>
+        </div>
+      </div>
+    </section>
+
+    {/* BILL 60 + LTB */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="max-w-3xl">
+          <Badge variant="secondary" className="mb-4">Bill 60 (Nov 2025)</Badge>
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+            LTB reform is improving arrears economics.
+          </h2>
+          <p class="mt-4 text-muted-foreground">
+            The Landlord and Tenant Board adjudicates all RTA
+            disputes in Ontario. Historically, backlogs of 8–12
+            months for non-payment applications materially
+            affected bad-debt drag on multi-unit properties. Bill
+            60 (received Royal Assent November 2025) is the
+            largest landlord-side reform in a decade.
+          </p>
+        </div>
+
+        <div class="mt-10 grid gap-4 md:grid-cols-2">
+          <Card className="bg-jet border-dark-gray p-6">
+            <div class="text-lg font-semibold">Shortened arrears timelines</div>
+            <p class="mt-3 text-sm text-muted-foreground">
+              The notice-to-terminate for non-payment (N4) and
+              subsequent application-to-hearing cycle have been
+              accelerated, with administrative deadlines now
+              enforced at the LTB scheduling level.
+            </p>
+          </Card>
+          <Card className="bg-jet border-dark-gray p-6">
+            <div class="text-lg font-semibold">Fast-track LTB processes</div>
+            <p class="mt-3 text-sm text-muted-foreground">
+              Bill 60 introduces expedited hearing streams for
+              straightforward non-payment cases, reducing median
+              time-to-order for landlords with clean
+              documentation.
+            </p>
+          </Card>
+          <Card className="bg-jet border-dark-gray p-6">
+            <div class="text-lg font-semibold">Digital filing</div>
+            <p class="mt-3 text-sm text-muted-foreground">
+              The LTB's Tribunals Ontario Portal is now the
+              default channel; paper filing remains available but
+              defaults to the slower stream.
+            </p>
+          </Card>
+          <Card className="bg-jet border-dark-gray p-6">
+            <div class="text-lg font-semibold">Underwriting implication</div>
+            <p class="mt-3 text-sm text-muted-foreground">
+              Bad-debt assumptions on Ontario pro formas can be
+              tightened versus pre-2025 practice — though CMHC
+              underwriting still applies a floor. The credit is
+              real but will show up gradually as case data
+              accumulates.
+            </p>
+          </Card>
+        </div>
+      </div>
+    </section>
+
+    {/* TORONTO RHSP */}
+    <section class="border-b border-dark-gray bg-jet">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="max-w-3xl">
+          <Badge variant="secondary" className="mb-4">Toronto stacking</Badge>
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+            Toronto Rental Housing Supply Program — ~$97K/unit.
+          </h2>
+          <p class="mt-4 text-muted-foreground">
+            Toronto's RHSP is the largest municipal incentive
+            package in Canada. Projects committing affordable
+            units for 40 years receive full exemption from DCs,
+            CBCs, parkland dedication, and building permit fees —
+            plus the 35-year 15% property tax reduction via the
+            New Multi-Residential Tax Subclass.
+          </p>
+        </div>
+
+        <div class="mt-10 overflow-x-auto rounded-lg border border-dark-gray bg-obsidian">
+          <table class="w-full border-collapse text-sm">
+            <thead>
+              <tr class="border-b border-dark-gray text-muted-foreground text-xs uppercase tracking-wide">
+                <th class="px-4 py-3 text-left font-medium">Component</th>
+                <th class="px-4 py-3 text-left font-medium">Treatment</th>
+              </tr>
+            </thead>
+            <tbody>
+              {
+                torontoIncentives.map((row) => (
+                  <tr class="border-b border-dark-gray last:border-0">
+                    <td class="px-4 py-3 font-medium">{row.item}</td>
+                    <td class="px-4 py-3 text-muted-foreground">
+                      {row.value}
+                    </td>
+                  </tr>
+                ))
+              }
+            </tbody>
+          </table>
+        </div>
+        <p class="mt-4 text-sm text-muted-foreground">
+          Ottawa operates a parallel Affordable Housing CIP with
+          Tax Increment Equivalent Grants of $6,000–$8,000 per
+          affordable unit annually for 20 years. See the{" "}
+          <a href="/developers/municipal" class="text-star">
+            municipal stacking page
+          </a>{" "}
+          for stacking detail.
+        </p>
+      </div>
+    </section>
+
+    {/* OTHER FACTORS */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="max-w-3xl">
+          <Badge variant="secondary" className="mb-4">Other factors</Badge>
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+            Tax, accessibility, and stacking.
+          </h2>
+        </div>
+
+        <div class="mt-10 grid gap-4 md:grid-cols-2">
+          <Card className="bg-jet border-dark-gray p-6">
+            <div class="text-lg font-semibold">HST on new construction</div>
+            <p class="mt-3 text-sm text-muted-foreground">
+              13% HST applies to new multi-residential
+              construction. The federal New Residential Rental
+              Property Rebate (NRRP) refunds up to 36% of the
+              federal portion, phased out for properties above
+              thresholds. Ontario portion follows parallel
+              mechanics. Rebates materially affect capital stack
+              sizing.
+            </p>
+          </Card>
+          <Card className="bg-jet border-dark-gray p-6">
+            <div class="text-lg font-semibold">PST on CMHC premium</div>
+            <p class="mt-3 text-sm text-muted-foreground">
+              Ontario charges 8% PST on the CMHC premium. Unlike
+              the premium itself, PST is paid upfront at closing
+              and is not capitalizable into the loan. For a $10M
+              loan at ~5% premium, PST is roughly $40K out of
+              pocket.
+            </p>
+          </Card>
+          <Card className="bg-jet border-dark-gray p-6">
+            <div class="text-lg font-semibold">AODA</div>
+            <p class="mt-3 text-sm text-muted-foreground">
+              The Accessibility for Ontarians with Disabilities
+              Act sets provincial accessibility standards
+              separate from CMHC MLI Select accessibility
+              scoring. Compliance is required regardless of CMHC
+              program; MLI Select scoring adds a separate
+              CSA B651:23 / RHFAC overlay.
+            </p>
+          </Card>
+          <Card className="bg-jet border-dark-gray p-6">
+            <div class="text-lg font-semibold">Provincial program stacking</div>
+            <p class="mt-3 text-sm text-muted-foreground">
+              Investment in Affordable Housing (IAH) and Canada-
+              Ontario Community Housing Initiative (COCHI) funds
+              can layer onto CMHC AHF/CHDP for non-profit and
+              co-op projects. Stacking rules require the
+              affordability commitment to be the deeper of the
+              two programs.
+            </p>
+          </Card>
+        </div>
+      </div>
+    </section>
+
+    {/* CTA */}
+    <section class="border-b border-dark-gray bg-jet">
+      <div class="container border-l border-r border-dark-gray px-6 py-20 lg:px-12 lg:py-28">
+        <div class="mx-auto max-w-3xl text-center">
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-5xl">
+            Structure the Ontario deal.
+          </h2>
+          <p class="mx-auto mt-5 max-w-2xl text-muted-foreground">
+            Pair post-2018 rent-control exemption, Toronto RHSP,
+            and MLI Select Tier 3 into a single pro forma, then
+            compare against the conventional baseline.
+          </p>
+          <div class="mt-8 flex flex-wrap justify-center gap-3">
+            <a href="/calculators/compare">
+              <Button size="lg">Compare scenarios</Button>
+            </a>
+            <a href="/developers/provincial">
+              <Button variant="outline" size="lg">
+                Rent-control detail
+              </Button>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</DefaultLayout>

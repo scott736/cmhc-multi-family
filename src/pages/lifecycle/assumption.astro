@@ -1,0 +1,360 @@
+---
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import DefaultLayout from "@/layouts/DefaultLayout.astro";
+
+const title = "Assumption of CMHC-Insured Mortgage — Transfer on Sale";
+const description =
+  "How assumption transfers a CMHC-insured multi-unit mortgage to a new borrower on sale — avoiding prepayment penalty. Covenant underwrite, fees, MLI Select covenant transfer, and when CMHC refuses an assumption.";
+
+const staysTheSame = [
+  "Outstanding loan balance",
+  "Contract interest rate",
+  "Original amortization and remaining term",
+  "DCR as underwritten at the original commitment",
+  "MLI Select affordability covenant (runs with the property)",
+  "CMHC insurance — continues uninterrupted",
+];
+
+const changesOnAssumption = [
+  "Borrower entity of record on title and mortgage",
+  "Covenantors and personal guarantors",
+  "Borrower-side insurance binders (property, liability)",
+  "Servicing contact; property management details",
+];
+
+const assumptionScenarios = [
+  {
+    name: "Sale between related entities",
+    detail:
+      "Transfer between corporations under common control, estate restructuring, or internal partnership rebalancing. Typically cleanest — covenant already known to lender.",
+  },
+  {
+    name: "Third-party sale at market",
+    detail:
+      "Buyer from an arm's-length transaction. Covenant underwrite is a full credit review — buyer net worth and liquidity tested against the original thresholds.",
+  },
+  {
+    name: "Institutional-to-institutional",
+    detail:
+      "REIT to private equity, pension fund to developer, etc. Often negotiated alongside a consent-to-assign clause in the original commitment.",
+  },
+  {
+    name: "Estate transfer",
+    detail:
+      "Death of an owner-operator. Mortgage assumed by heirs or estate, subject to CMHC covenant review of the new covenantor.",
+  },
+];
+
+const refusalReasons = [
+  {
+    reason: "Buyer fails covenant underwrite",
+    detail:
+      "Net worth below ~25% of outstanding loan, insufficient liquidity, credit issues, or operating history too thin for the deal size.",
+  },
+  {
+    reason: "Material change in asset condition",
+    detail:
+      "Property has degraded materially since original underwriting — deferred maintenance, systems failure, environmental issue surfaced.",
+  },
+  {
+    reason: "Material change in rental profile",
+    detail:
+      "NOI has dropped such that current DCR would fail the original threshold. Lender/CMHC may require paydown as a condition of consent.",
+  },
+  {
+    reason: "MLI Select covenant violation",
+    detail:
+      "Buyer unwilling or unable to maintain affordability, energy, or accessibility commitments attached to the property.",
+  },
+];
+---
+
+<DefaultLayout title={title} description={description}>
+  <div class="bg-obsidian text-foreground">
+    {/* HERO */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <Badge variant="outline" className="mb-6 border-star/40 text-star">
+          Lifecycle · Assumption
+        </Badge>
+        <h1 class="text-4xl font-semibold tracking-tight lg:text-6xl">
+          Assumption — transfer the mortgage, skip the penalty.
+        </h1>
+        <p class="mt-6 max-w-3xl text-lg text-muted-foreground">
+          When a CMHC-insured multi-unit property sells, the buyer can
+          assume the existing mortgage and CMHC insurance rather than
+          forcing the seller to prepay. The loan balance, rate, amortization,
+          and term continue unchanged; only the borrower entity and
+          covenantors change. This avoids yield maintenance or IRD penalty
+          on the seller's side and avoids a new CMHC premium on the
+          buyer's side.
+        </p>
+        <p class="mt-4 max-w-3xl text-lg text-muted-foreground">
+          The buyer must be credit-approved by both the lender and CMHC,
+          with covenant strength comparable to the seller. For below-market
+          fixed-rate loans in a higher-rate environment, an assumable CMHC
+          mortgage is a material value driver on the sale price.
+        </p>
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a href="/lifecycle/prepayment">
+            <Button size="lg">Compare with prepayment</Button>
+          </a>
+          <a href="/lifecycle">
+            <Button variant="outline" size="lg">Back to lifecycle</Button>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    {/* WHAT STAYS / WHAT CHANGES */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="max-w-3xl">
+          <Badge variant="secondary" className="mb-4">Mechanics</Badge>
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+            What survives the transfer.
+          </h2>
+          <p class="mt-4 text-muted-foreground">
+            Assumption is, by design, a continuation. The loan and
+            insurance persist; only the parties change.
+          </p>
+        </div>
+
+        <div class="mt-10 grid gap-6 lg:grid-cols-2">
+          <Card className="bg-jet border-dark-gray p-6">
+            <div class="text-xs uppercase tracking-wide text-star">
+              Stays the same
+            </div>
+            <ul class="mt-5 space-y-3 text-sm">
+              {
+                staysTheSame.map((item) => (
+                  <li class="flex gap-3">
+                    <span class="text-star">·</span>
+                    <span>{item}</span>
+                  </li>
+                ))
+              }
+            </ul>
+          </Card>
+
+          <Card className="bg-jet border-dark-gray p-6">
+            <div class="text-xs uppercase tracking-wide text-star">
+              Changes on assumption
+            </div>
+            <ul class="mt-5 space-y-3 text-sm">
+              {
+                changesOnAssumption.map((item) => (
+                  <li class="flex gap-3">
+                    <span class="text-star">·</span>
+                    <span>{item}</span>
+                  </li>
+                ))
+              }
+            </ul>
+          </Card>
+        </div>
+      </div>
+    </section>
+
+    {/* SCENARIOS */}
+    <section class="border-b border-dark-gray bg-jet">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="max-w-3xl">
+          <Badge variant="secondary" className="mb-4">Scenarios</Badge>
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+            When assumption shows up.
+          </h2>
+          <p class="mt-4 text-muted-foreground">
+            Four typical transaction types use assumption. In a
+            high-rate environment, third-party market sales
+            increasingly structure around assumable CMHC debt as a
+            deal sweetener.
+          </p>
+        </div>
+
+        <div class="mt-10 grid gap-4 md:grid-cols-2">
+          {
+            assumptionScenarios.map((row) => (
+              <Card className="bg-obsidian border-dark-gray p-6">
+                <div class="text-xs uppercase tracking-wide text-star">
+                  {row.name}
+                </div>
+                <p class="mt-3 text-sm text-muted-foreground">{row.detail}</p>
+              </Card>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    {/* FEES AND TIMING */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="grid gap-10 lg:grid-cols-2">
+          <div>
+            <Badge variant="secondary" className="mb-4">Fees and timing</Badge>
+            <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+              Typical costs and duration.
+            </h2>
+            <p class="mt-4 text-muted-foreground">
+              Assumption fees are far lower than prepayment penalties —
+              often by one or two orders of magnitude on larger deals.
+              The timeline is dictated by covenant underwriting, not by
+              CMHC insurance mechanics.
+            </p>
+          </div>
+          <Card className="bg-jet border-dark-gray p-6">
+            <div class="text-xs uppercase tracking-wide text-muted-foreground">
+              Cost and timing stack
+            </div>
+            <div class="mt-5 space-y-3 text-sm">
+              <div class="flex justify-between gap-4 border-b border-dark-gray pb-2">
+                <span class="text-muted-foreground">Lender assumption fee</span>
+                <span class="font-medium">$2,000 – $5,000</span>
+              </div>
+              <div class="flex justify-between gap-4 border-b border-dark-gray pb-2">
+                <span class="text-muted-foreground">CMHC administrative fee</span>
+                <span class="font-medium">May apply</span>
+              </div>
+              <div class="flex justify-between gap-4 border-b border-dark-gray pb-2">
+                <span class="text-muted-foreground">Legal (both sides)</span>
+                <span class="font-medium">Varies — deal-size linked</span>
+              </div>
+              <div class="flex justify-between gap-4 border-b border-dark-gray pb-2">
+                <span class="text-muted-foreground">Covenant underwrite</span>
+                <span class="font-medium">3–5 weeks</span>
+              </div>
+              <div class="flex justify-between gap-4 pt-1">
+                <span class="text-muted-foreground">End-to-end</span>
+                <span class="font-medium">30–60 days typical</span>
+              </div>
+            </div>
+          </Card>
+        </div>
+      </div>
+    </section>
+
+    {/* MLI SELECT COVENANT */}
+    <section class="border-b border-dark-gray bg-jet">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="grid gap-10 lg:grid-cols-[1fr_1fr]">
+          <div>
+            <Badge variant="outline" className="mb-4 border-star/40 text-star">
+              MLI Select — critical
+            </Badge>
+            <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+              The affordability covenant transfers with the property.
+            </h2>
+            <p class="mt-4 text-muted-foreground">
+              MLI Select affordability, energy, and accessibility
+              commitments are tied to the asset — not the original
+              borrower. When the property sells and the mortgage is
+              assumed, the buyer steps into the covenant.
+            </p>
+            <p class="mt-4 text-muted-foreground">
+              A buyer not prepared to operate with 10–25% of units at
+              30% of median renter household income (under a 10 or
+              20-year lock-in) cannot assume an MLI Select loan. CMHC
+              will refuse consent. The covenant continues for the
+              original term regardless of ownership changes.
+            </p>
+          </div>
+          <Card className="bg-obsidian border-dark-gray p-6">
+            <div class="text-xs uppercase tracking-wide text-star">
+              Covenant continuity
+            </div>
+            <dl class="mt-5 space-y-4 text-sm">
+              <div>
+                <dt class="font-medium">Affordability lock-in</dt>
+                <dd class="mt-1 text-muted-foreground">
+                  Continues for balance of 10 or 20-year commitment.
+                </dd>
+              </div>
+              <div>
+                <dt class="font-medium">Rent increase restrictions</dt>
+                <dd class="mt-1 text-muted-foreground">
+                  Applicable provincial rent control or lowest provincial
+                  CPI — same rules for buyer as seller.
+                </dd>
+              </div>
+              <div>
+                <dt class="font-medium">Annual attestation</dt>
+                <dd class="mt-1 text-muted-foreground">
+                  Buyer assumes the reporting obligation from the first
+                  year of ownership.
+                </dd>
+              </div>
+              <div>
+                <dt class="font-medium">Premium consequences on breach</dt>
+                <dd class="mt-1 text-muted-foreground">
+                  Covenant breach can trigger premium adjustment or
+                  insurance termination — full original MLI Standard
+                  premium can become due.
+                </dd>
+              </div>
+            </dl>
+          </Card>
+        </div>
+      </div>
+    </section>
+
+    {/* REFUSAL REASONS */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="max-w-3xl">
+          <Badge variant="secondary" className="mb-4">When assumption is refused</Badge>
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+            CMHC and lender consent is not automatic.
+          </h2>
+          <p class="mt-4 text-muted-foreground">
+            Assumption requires consent from both the lender and CMHC.
+            Most refusals track to one of four patterns.
+          </p>
+        </div>
+
+        <div class="mt-10 grid gap-4 md:grid-cols-2">
+          {
+            refusalReasons.map((row) => (
+              <Card className="bg-jet border-dark-gray p-6">
+                <div class="text-xs uppercase tracking-wide text-star">
+                  {row.reason}
+                </div>
+                <p class="mt-3 text-sm text-muted-foreground">{row.detail}</p>
+              </Card>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    {/* CTA */}
+    <section class="border-b border-dark-gray bg-jet">
+      <div class="container border-l border-r border-dark-gray px-6 py-20 lg:px-12 lg:py-28">
+        <div class="mx-auto max-w-3xl text-center">
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-5xl">
+            Check the renewal and prepayment math first.
+          </h2>
+          <p class="mx-auto mt-5 max-w-2xl text-muted-foreground">
+            Assumption makes sense when the in-place rate is below
+            market and the buyer can clear covenant. Where the rate
+            is above market, prepayment or renewal into a new term
+            may be the better path.
+          </p>
+          <div class="mt-8 flex flex-wrap justify-center gap-3">
+            <a href="/lifecycle/renewal">
+              <Button size="lg">Renewal page</Button>
+            </a>
+            <a href="/lifecycle/prepayment">
+              <Button variant="outline" size="lg">Prepayment mechanics</Button>
+            </a>
+            <a href="/programs/mli-select">
+              <Button variant="outline" size="lg">MLI Select covenant detail</Button>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</DefaultLayout>

@@ -1,0 +1,12 @@
+---
+import NoiCapRate from "@/components/calculators/noi-cap-rate";
+import DefaultLayout from "@/layouts/DefaultLayout.astro";
+
+const title = "NOI & Cap Rate Calculator — CMHC Multi-Family";
+const description =
+  "Three-mode calculator: build stabilized NOI from line-item opex, back out cap rate from a known value, or imply value from a target cap rate with ±75 bps sensitivity.";
+---
+
+<DefaultLayout title={title} description={description}>
+  <NoiCapRate client:load />
+</DefaultLayout>

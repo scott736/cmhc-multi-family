@@ -1,0 +1,400 @@
+---
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import DefaultLayout from "@/layouts/DefaultLayout.astro";
+
+const title = "Full Application Timeline — CMHC Multi-Unit, Week by Week";
+const description =
+  "The full CMHC multi-unit application timeline week by week: pre-application, lender engagement, due diligence, MULTI-GO submission, CMHC underwriting, Certificate of Insurance, legal and closing. Plus the construction draw variant and acceleration factors.";
+
+const phases = [
+  {
+    phase: "Pre-application",
+    window: "Weeks -8 to 0",
+    color: "text-star",
+    items: [
+      "Property selection, LOI, or contract",
+      "Preliminary underwrite — NOI, DCR sketch, LTV target",
+      "Lender shortlist (2–4 approved lenders)",
+      "Deal sheet / term sheet prep",
+      "Appraiser and Phase I ESA consultant selected",
+    ],
+  },
+  {
+    phase: "Lender engagement",
+    window: "Weeks 1–2",
+    color: "text-star",
+    items: [
+      "LOI sent to shortlisted lenders",
+      "Term sheets received and compared",
+      "Lender selected; conditional commitment issued",
+      "Commitment fee paid; engagement letters signed",
+    ],
+  },
+  {
+    phase: "Due diligence",
+    window: "Weeks 2–6",
+    color: "text-star",
+    items: [
+      "Appraisal ordered — 2–4 weeks turnaround; mandatory post-Nov 15, 2024",
+      "Phase I ESA ordered — CSA Z768-01 compliant",
+      "Rental comps, market study, 3-year operating statements compiled",
+      "Borrower covenantor documents assembled — net worth, financials, KYC",
+      "QS report (construction files only)",
+      "Geotechnical and structural (new construction)",
+    ],
+  },
+  {
+    phase: "MULTI-GO submission",
+    window: "Weeks 5–6",
+    color: "text-star",
+    items: [
+      "Approved lender uploads the full package to CMHC's MULTI-GO channel",
+      "Application fee paid (per unit, capitalizable)",
+      "Site inspection fee paid ($150–200/door first 100, cap $55K)",
+      "CMHC assigns the file to an Underwriting Centre underwriter",
+    ],
+  },
+  {
+    phase: "CMHC underwriting",
+    window: "Weeks 6–10",
+    color: "text-star",
+    items: [
+      "Initial review — DCR, LTV, covenant, property eligibility",
+      "Clarification requests from CMHC underwriter",
+      "Conditional approval issued",
+      "Conditions list provided to lender and borrower",
+    ],
+  },
+  {
+    phase: "Conditional to final",
+    window: "Weeks 10–12",
+    color: "text-star",
+    items: [
+      "Borrower satisfies conditions — outstanding docs, covenant confirmations",
+      "Lender confirms funding readiness",
+      "CMHC issues Certificate of Insurance to the approved lender",
+      "CoI triggers lender-side funding obligation",
+    ],
+  },
+  {
+    phase: "Legal and closing",
+    window: "Weeks 12–14",
+    color: "text-star",
+    items: [
+      "Lender's and borrower's counsel engaged",
+      "Title review, mortgage preparation, and registration",
+      "Final conditions funded (appraisal compliance, survey, HST/GST)",
+      "Funds advanced — existing purchase and stabilized refi",
+    ],
+  },
+  {
+    phase: "Post-funding",
+    window: "Ongoing",
+    color: "text-star",
+    items: [
+      "Monthly P&I payments",
+      "Annual rent roll updates",
+      "Annual financial statements (via servicer)",
+      "MLI Select: annual affordability compliance attestation",
+      "Year 5–10: renewal conversation opens",
+    ],
+  },
+];
+
+const constructionVariant = [
+  {
+    item: "Conditional approval to first advance",
+    detail:
+      "Typically 8–12 weeks post-conditional. Includes construction loan agreement, draw schedule, first-advance appraisal certification.",
+  },
+  {
+    item: "Monthly draws",
+    detail:
+      "CMHC reviews first and last draws directly. Intermediate draws handled by approved lender with an independent cost consultant/inspector.",
+  },
+  {
+    item: "Construction period",
+    detail:
+      "12–30 months typical depending on project scale. Interest-only or partial-interest during construction.",
+  },
+  {
+    item: "Take-out / conversion",
+    detail:
+      "Loan converts to term on completion and stabilization. Rental Achievement Holdback release (MLI Select) at EGI/occupancy targets.",
+  },
+];
+
+const acceleratorFactors = [
+  "Simple ownership structure (sole corporation, experienced covenantor)",
+  "Clean property — no environmental REC, no structural issues, no zoning ambiguity",
+  "Experienced CMHC borrower with active approved-lender relationship",
+  "Complete documentation at submission — no gaps requiring clarification",
+  "Monoline lender with dedicated multi-unit team (4–8 week underwriting typical)",
+];
+
+const delayFactors = [
+  "Complex ownership — LP/JV/trust chains requiring extended beneficial ownership review",
+  "Environmental issues — Phase II triggers, remediation plans, contamination assessments",
+  "Appraisal disputes — value, cap rate, or rental comparables challenged by CMHC",
+  "MLI Select scoring — energy modelling iterations, accessibility certification rework",
+  "First-time borrower — covenant build-out and experience documentation",
+  "Big 6 bank channel — 8–14 week underwriting driven by internal credit cycles",
+  "CMHC direct programs (ACLP/AHF/CHDP) — 6–12 months to commitment",
+];
+---
+
+<DefaultLayout title={title} description={description}>
+  <div class="bg-obsidian text-foreground">
+    {/* HERO */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <Badge variant="outline" className="mb-6 border-star/40 text-star">
+          Timeline
+        </Badge>
+        <h1 class="text-4xl font-semibold tracking-tight lg:text-6xl">
+          Application timeline — week by week.
+        </h1>
+        <p class="mt-6 max-w-3xl text-lg text-muted-foreground">
+          A typical CMHC multi-unit file on an existing stabilized
+          rental asset runs 12–14 weeks from lender engagement to
+          funding. New construction files extend another 8–12 weeks
+          to first advance, plus the construction period itself, plus
+          lease-up stabilization. Direct-lending programs (ACLP, AHF,
+          CHDP) run on a 6–12 month timeline.
+        </p>
+        <p class="mt-4 max-w-3xl text-lg text-muted-foreground">
+          The headline timeline assumes a well-organized file, a
+          monoline lender with a dedicated multi-unit team, and no
+          structural or environmental surprises. Each phase below
+          has its own dependencies and failure modes; identifying
+          them early is how 14-week files avoid becoming 24-week
+          files.
+        </p>
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a href="/programs/application-process">
+            <Button size="lg">Application process detail</Button>
+          </a>
+          <a href="/tools/timeline-tracker">
+            <Button variant="outline" size="lg">Timeline tracker</Button>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    {/* GANTT-STYLE PHASES */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="max-w-3xl">
+          <Badge variant="secondary" className="mb-4">Eight phases</Badge>
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+            From property selection to post-funding servicing.
+          </h2>
+          <p class="mt-4 text-muted-foreground">
+            Each card shows the typical timing window and the discrete
+            tasks that need to close before moving to the next phase.
+          </p>
+        </div>
+
+        <div class="mt-10 space-y-4">
+          {
+            phases.map((p, i) => (
+              <Card className="bg-jet border-dark-gray p-6">
+                <div class="grid gap-6 lg:grid-cols-[200px_120px_1fr]">
+                  <div>
+                    <div class="text-xs uppercase tracking-wide text-muted-foreground">
+                      Phase {i + 1}
+                    </div>
+                    <div class="mt-1 text-lg font-semibold">{p.phase}</div>
+                  </div>
+                  <div>
+                    <div class="text-xs uppercase tracking-wide text-muted-foreground">
+                      Window
+                    </div>
+                    <div class={`mt-1 font-medium ${p.color}`}>{p.window}</div>
+                  </div>
+                  <div>
+                    <div class="text-xs uppercase tracking-wide text-muted-foreground">
+                      Tasks
+                    </div>
+                    <ul class="mt-2 space-y-2 text-sm">
+                      {
+                        p.items.map((it) => (
+                          <li class="flex gap-3">
+                            <span class="text-star">·</span>
+                            <span class="text-muted-foreground">{it}</span>
+                          </li>
+                        ))
+                      }
+                    </ul>
+                  </div>
+                </div>
+              </Card>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    {/* CONSTRUCTION VARIANT */}
+    <section class="border-b border-dark-gray bg-jet">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="max-w-3xl">
+          <Badge variant="secondary" className="mb-4">Construction variant</Badge>
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+            Add the draw schedule.
+          </h2>
+          <p class="mt-4 text-muted-foreground">
+            New construction files layer a monthly draw schedule on top
+            of the base timeline. First and last draws reviewed by CMHC
+            directly; intermediate draws handled by the approved lender
+            with an independent cost consultant.
+          </p>
+        </div>
+
+        <div class="mt-10 grid gap-4 md:grid-cols-2">
+          {
+            constructionVariant.map((row) => (
+              <Card className="bg-obsidian border-dark-gray p-6">
+                <div class="text-xs uppercase tracking-wide text-star">
+                  {row.item}
+                </div>
+                <p class="mt-3 text-sm text-muted-foreground">{row.detail}</p>
+              </Card>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    {/* ACCELERATORS AND DELAYS */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="max-w-3xl">
+          <Badge variant="secondary" className="mb-4">Acceleration and delay</Badge>
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+            What speeds files up and slows them down.
+          </h2>
+          <p class="mt-4 text-muted-foreground">
+            Published CMHC service standards represent a happy-path
+            timeline. Actual file movement depends on file quality,
+            lender channel, and the complexity of the sponsor profile.
+          </p>
+        </div>
+
+        <div class="mt-10 grid gap-6 lg:grid-cols-2">
+          <Card className="bg-jet border-dark-gray p-6">
+            <div class="text-xs uppercase tracking-wide text-star">
+              Accelerators
+            </div>
+            <ul class="mt-5 space-y-3 text-sm">
+              {
+                acceleratorFactors.map((item) => (
+                  <li class="flex gap-3">
+                    <span class="text-star">·</span>
+                    <span>{item}</span>
+                  </li>
+                ))
+              }
+            </ul>
+          </Card>
+
+          <Card className="bg-jet border-dark-gray p-6">
+            <div class="text-xs uppercase tracking-wide text-star">
+              Delay factors
+            </div>
+            <ul class="mt-5 space-y-3 text-sm">
+              {
+                delayFactors.map((item) => (
+                  <li class="flex gap-3">
+                    <span class="text-star">·</span>
+                    <span>{item}</span>
+                  </li>
+                ))
+              }
+            </ul>
+          </Card>
+        </div>
+      </div>
+    </section>
+
+    {/* FREQUENT BUILDER */}
+    <section class="border-b border-dark-gray bg-jet">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="grid gap-10 lg:grid-cols-[1fr_1fr]">
+          <div>
+            <Badge variant="outline" className="mb-4 border-star/40 text-star">
+              July 2024 — Frequent Builder
+            </Badge>
+            <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+              Accelerated ACLP for repeat sponsors.
+            </h2>
+            <p class="mt-4 text-muted-foreground">
+              CMHC launched the Frequent Builder framework in July 2024
+              to compress the ACLP commitment timeline for developers
+              with a demonstrated CMHC track record. Qualifying
+              sponsors move through a streamlined review — some
+              documentation reuse, faster commitment, and prioritized
+              underwriting attention.
+            </p>
+            <p class="mt-4 text-muted-foreground">
+              Frequent Builder does not apply to MLI Standard or MLI
+              Select — those files run the lender-led MULTI-GO
+              timeline. It is specifically an ACLP direct-lending
+              accelerator.
+            </p>
+          </div>
+          <Card className="bg-obsidian border-dark-gray p-6">
+            <div class="text-xs uppercase tracking-wide text-star">
+              Applies to
+            </div>
+            <dl class="mt-5 space-y-4 text-sm">
+              <div class="flex justify-between gap-4 border-b border-dark-gray pb-2">
+                <dt class="text-muted-foreground">ACLP direct lending</dt>
+                <dd class="font-medium">Yes — accelerated</dd>
+              </div>
+              <div class="flex justify-between gap-4 border-b border-dark-gray pb-2">
+                <dt class="text-muted-foreground">AHF / CHDP</dt>
+                <dd class="font-medium">No — separate frameworks</dd>
+              </div>
+              <div class="flex justify-between gap-4 border-b border-dark-gray pb-2">
+                <dt class="text-muted-foreground">MLI Standard / Select</dt>
+                <dd class="font-medium">No — lender-led</dd>
+              </div>
+              <div class="flex justify-between gap-4 pt-1">
+                <dt class="text-muted-foreground">Eligibility</dt>
+                <dd class="font-medium">Repeat ACLP sponsors</dd>
+              </div>
+            </dl>
+          </Card>
+        </div>
+      </div>
+    </section>
+
+    {/* CTA */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-20 lg:px-12 lg:py-28">
+        <div class="mx-auto max-w-3xl text-center">
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-5xl">
+            Drop the timeline into your deal.
+          </h2>
+          <p class="mx-auto mt-5 max-w-2xl text-muted-foreground">
+            The application process page covers operational detail
+            — MULTI-GO submission channel, COI workflow, and the
+            documentation package. The timeline tracker tool
+            personalizes the schedule against your own target close.
+          </p>
+          <div class="mt-8 flex flex-wrap justify-center gap-3">
+            <a href="/programs/application-process">
+              <Button size="lg">Application process</Button>
+            </a>
+            <a href="/tools/timeline-tracker">
+              <Button variant="outline" size="lg">Timeline tracker</Button>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</DefaultLayout>

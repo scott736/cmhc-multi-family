@@ -1,0 +1,153 @@
+---
+import AchievementTimeline from "@/components/tools/achievement-timeline";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import DefaultLayout from "@/layouts/DefaultLayout.astro";
+
+const title = "Rental Achievement & Holdback Tracker | CMHC Multi-Family";
+const description =
+  "How CMHC rental achievement works, the July 3 2025 MLI Market Rental holdback removal, MLI Select rental achievement requirements, and an interactive lease-up / holdback-release timeline.";
+---
+
+<DefaultLayout title={title} description={description}>
+  <div class="bg-obsidian text-foreground">
+    {/* HERO */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <Badge variant="outline" className="mb-6 border-star/40 text-star">
+          Rental achievement · Holdbacks
+        </Badge>
+        <h1 class="text-4xl font-semibold tracking-tight lg:text-6xl">
+          Rental achievement, simplified.
+        </h1>
+        <p class="mt-6 max-w-3xl text-lg text-muted-foreground">
+          Rental achievement is the lender test that a new-construction
+          building has actually leased up to projected rents before
+          funding is released (or holdback is liberated). Two CMHC
+          policies in 2024–2025 changed the shape of this test: July 3
+          2025 removed the holdback for MLI Market Rental construction,
+          and November 2024 tightened rental achievement requirements
+          for MLI Select.
+        </p>
+      </div>
+    </section>
+
+    {/* CONCEPTS */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-12 lg:px-12 lg:py-16">
+        <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          <Card className="bg-jet border-dark-gray p-6">
+            <div class="text-xs uppercase tracking-wide text-star">Concept</div>
+            <div class="mt-1 text-lg font-semibold">Rental achievement</div>
+            <p class="mt-3 text-sm text-muted-foreground">
+              A property has "achieved rent" when it has maintained a
+              specified occupancy at the rents underwritten by CMHC for a
+              minimum consecutive period. Typical tests: 90%+ occupancy
+              sustained for 3 months, at or near the stabilized NOI used
+              in the DCR calculation.
+            </p>
+          </Card>
+          <Card className="bg-jet border-dark-gray p-6">
+            <div class="text-xs uppercase tracking-wide text-star">Concept</div>
+            <div class="mt-1 text-lg font-semibold">Holdback</div>
+            <p class="mt-3 text-sm text-muted-foreground">
+              A portion of the insured loan (historically 5–15%) withheld
+              by the lender at construction advance. Released when rental
+              achievement is demonstrated. Holdbacks bridge the gap
+              between construction completion and stabilized NOI
+              underwriting.
+            </p>
+          </Card>
+          <Card className="bg-jet border-dark-gray p-6">
+            <div class="text-xs uppercase tracking-wide text-star">Impact</div>
+            <div class="mt-1 text-lg font-semibold">Takeout timing</div>
+            <p class="mt-3 text-sm text-muted-foreground">
+              Until rental achievement is demonstrated, the borrower
+              carries the holdback as a cash shortfall or bridge debt
+              placeholder. Slow absorption can stretch stabilization
+              6–18 months past construction completion in soft markets.
+            </p>
+          </Card>
+        </div>
+      </div>
+    </section>
+
+    {/* KEY POLICIES */}
+    <section class="border-b border-dark-gray bg-jet">
+      <div class="container border-l border-r border-dark-gray px-6 py-12 lg:px-12 lg:py-16">
+        <div class="grid gap-8 lg:grid-cols-2">
+          <Card className="bg-obsidian border-dark-gray p-6">
+            <Badge variant="outline" className="mb-3 border-star/40 text-star">
+              July 3, 2025
+            </Badge>
+            <div class="text-lg font-semibold">
+              MLI Market Rental — holdback removed
+            </div>
+            <p class="mt-3 text-sm text-muted-foreground">
+              For MLI Market Rental construction (standard insured
+              product without points commitments), the rental achievement
+              holdback has been removed. Lenders now advance to 85%
+              without holdback — a material improvement to developer
+              equity efficiency at stabilization.
+            </p>
+            <p class="mt-3 text-sm text-muted-foreground">
+              Practically: the construction-to-term cash timing is
+              compressed, and the cost-of-carry on undrawn equity is
+              eliminated. Most MLI Standard construction now lines up
+              with this policy.
+            </p>
+          </Card>
+          <Card className="bg-obsidian border-dark-gray p-6">
+            <Badge variant="outline" className="mb-3 border-star/40 text-star">
+              November 2024
+            </Badge>
+            <div class="text-lg font-semibold">
+              MLI Select — rental achievement required
+            </div>
+            <p class="mt-3 text-sm text-muted-foreground">
+              MLI Select construction now requires rental achievement
+              before full funding is released. The 90%+ sustained-
+              occupancy test aligns funding with the underwritten
+              stabilized NOI — reducing credit risk to CMHC but
+              preserving construction advance timing for the borrower.
+            </p>
+            <p class="mt-3 text-sm text-muted-foreground">
+              Plan for lease-up velocity carefully: tier 3 (100 pts)
+              projects often carry affordability commitments that slow
+              absorption because rent caps reduce the addressable-tenant
+              pool.
+            </p>
+          </Card>
+        </div>
+      </div>
+    </section>
+
+    {/* INTERACTIVE TIMELINE */}
+    <AchievementTimeline client:load />
+
+    {/* CTA */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-20 lg:px-12 lg:py-28">
+        <div class="mx-auto max-w-3xl text-center">
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-5xl">
+            Plan the takeout timing around lease-up.
+          </h2>
+          <p class="mx-auto mt-5 max-w-2xl text-muted-foreground">
+            Use the application timeline tracker alongside this tool
+            to align CMHC underwriting with construction and lease-up
+            projections.
+          </p>
+          <div class="mt-8 flex flex-wrap justify-center gap-3">
+            <a href="/tools/timeline-tracker">
+              <Button size="lg">Application timeline</Button>
+            </a>
+            <a href="/calculators/cash-flow">
+              <Button variant="outline" size="lg">Cash flow projection</Button>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</DefaultLayout>

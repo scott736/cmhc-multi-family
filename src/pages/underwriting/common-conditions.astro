@@ -1,0 +1,379 @@
+---
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import DefaultLayout from "@/layouts/DefaultLayout.astro";
+
+const title = "Common Underwriting Conditions — CMHC Multi-Unit";
+const description =
+  "The conditional-approval checklist CMHC typically issues. Market analysis, financial conditions, property conditions, legal (title + covenant language), rent rolls within 30 days, insurance binder, guarantee structures, tenancy issues, construction-specific (QS, permits, bonding). Typical resolution 1–2 weeks simple, 4–6 complex.";
+
+const conditionCategories = [
+  {
+    category: "Market analysis",
+    items: [
+      "Updated rental comparables (6 months from a recent appraisal often needs refresh)",
+      "Absorption analysis for new construction in saturated sub-markets",
+      "Comparable-sales verification where income-approach values are aggressive",
+      "RMS update if published edition changed mid-file",
+    ],
+    resolution: "1 week",
+  },
+  {
+    category: "Financial conditions",
+    items: [
+      "Updated interim statements (if trailing statements are >60 days stale)",
+      "Source of funds documentation for equity contribution",
+      "Evidence of borrower liquidity (bank statements current to 30 days)",
+      "Guarantor net worth updates",
+      "Debt schedule for all related entities",
+    ],
+    resolution: "1–2 weeks",
+  },
+  {
+    category: "Property conditions",
+    items: [
+      "Phase II ESA if Phase I flagged RECs",
+      "Structural review on older buildings",
+      "Roof, HVAC, envelope inspection reports",
+      "Environmental remediation plan if contamination identified",
+      "Building condition assessment (BCA) for value-add acquisitions",
+    ],
+    resolution: "2–6 weeks (depending on scope)",
+  },
+  {
+    category: "Legal",
+    items: [
+      "Title commitment with current encumbrances",
+      "Legal opinions on borrower / guarantor capacity",
+      "Restrictive covenant language for MLI Select affordability commitment",
+      "Subordination agreements for any second financing",
+      "Partnership / joint-venture structure documentation",
+    ],
+    resolution: "1–3 weeks",
+  },
+  {
+    category: "Rent roll & tenancy",
+    items: [
+      "Rent roll updated within 30 days of funding",
+      "Resolution of any problematic tenancies (arrears, LTB matters)",
+      "Lease extracts for material commercial tenants",
+      "Vacancy rationale if inspection revealed vacant units",
+      "Rent-control compliance confirmation where applicable",
+    ],
+    resolution: "1–2 weeks",
+  },
+  {
+    category: "Insurance",
+    items: [
+      "Property insurance binder with lender as loss payee",
+      "Liability insurance with CMHC / lender named",
+      "Builders-risk binder (construction files)",
+      "Rent-loss insurance equal to 12 months rent",
+      "Environmental liability coverage where contamination identified",
+    ],
+    resolution: "1 week",
+  },
+  {
+    category: "Guarantee structure",
+    items: [
+      "Personal guarantees for closely-held borrowers",
+      "Guarantor independent legal advice (ILA) certificates",
+      "Spousal consents where applicable",
+      "Corporate guarantees from affiliated entities",
+      "Recourse carveouts documented for MLI Select Tier 3 / limited recourse",
+    ],
+    resolution: "1–2 weeks",
+  },
+  {
+    category: "Construction-specific",
+    items: [
+      "Updated QS report (costs current to within 60 days of commitment)",
+      "Building permits in hand (or conditional permit commitment)",
+      "Surety bonding confirmation (MLI Select construction, post-Nov 2024)",
+      "General contractor contract executed",
+      "Construction schedule and draw schedule reconciled",
+    ],
+    resolution: "2–4 weeks",
+  },
+];
+
+const resolutionBands = [
+  {
+    band: "Simple files",
+    timing: "1–2 weeks",
+    detail:
+      "Stabilized existing, clean title, current insurance in force, no environmental concerns. Typically a 2–4 item condition list.",
+  },
+  {
+    band: "Standard files",
+    timing: "2–4 weeks",
+    detail:
+      "Purchase files with typical condition set — updated rent roll, title work, insurance binder, source-of-funds documentation.",
+  },
+  {
+    band: "Complex files",
+    timing: "4–6 weeks",
+    detail:
+      "Construction, environmental remediation, partnership structure documentation, or problematic tenancies requiring resolution.",
+  },
+];
+---
+
+<DefaultLayout title={title} description={description}>
+  <div class="bg-obsidian text-foreground">
+    {/* HERO */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <Badge variant="outline" className="mb-6 border-star/40 text-star">
+          Underwriting · Common conditions
+        </Badge>
+        <h1 class="text-4xl font-semibold tracking-tight lg:text-6xl">
+          The conditional approval checklist.
+        </h1>
+        <p class="mt-6 max-w-3xl text-lg text-muted-foreground">
+          Every CMHC commitment lands with a list of conditions
+          that must be satisfied before funding. The specific
+          items vary file-by-file but they cluster into eight
+          categories — market analysis, financial, property,
+          legal, rent roll, insurance, guarantee, and
+          (construction-only) construction-specific. Working
+          through the checklist is where most of the post-
+          approval week-count gets burned.
+        </p>
+        <p class="mt-4 max-w-3xl text-lg text-muted-foreground">
+          The list below is organized by category, with typical
+          individual items and approximate resolution timing.
+          Simple files clear in 1–2 weeks post-commitment;
+          complex files (construction, remediation, partnership
+          restructuring) routinely take 4–6 weeks. Knowing the
+          full list in advance lets sponsors pre-stage most of
+          the documentation.
+        </p>
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a href="/underwriting/documentation">
+            <Button size="lg">Full documentation page</Button>
+          </a>
+          <a href="/programs/application-process">
+            <Button variant="outline" size="lg">Application process</Button>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    {/* CONDITION CATEGORIES */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="max-w-3xl">
+          <Badge variant="secondary" className="mb-4">Category checklist</Badge>
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+            Typical conditions by category.
+          </h2>
+          <p class="mt-4 text-muted-foreground">
+            Not every file carries every item. The market
+            analysis and rent-roll categories apply to virtually
+            every file; construction-specific items apply only to
+            construction; environmental / structural depend on
+            subject-property findings.
+          </p>
+        </div>
+
+        <div class="mt-10 grid gap-6 md:grid-cols-2">
+          {
+            conditionCategories.map((cat) => (
+              <Card className="bg-jet border-dark-gray p-6">
+                <div class="flex items-center justify-between">
+                  <div class="text-xs uppercase tracking-wide text-star">
+                    {cat.category}
+                  </div>
+                  <div class="text-xs text-muted-foreground">
+                    ~{cat.resolution}
+                  </div>
+                </div>
+                <ul class="mt-4 space-y-2 text-sm">
+                  {
+                    cat.items.map((item) => (
+                      <li class="border-b border-dark-gray/50 pb-2 last:border-0 last:pb-0 text-muted-foreground">
+                        <span class="text-star">•</span> {item}
+                      </li>
+                    ))
+                  }
+                </ul>
+              </Card>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    {/* RENT ROLL SPECIFICS */}
+    <section class="border-b border-dark-gray bg-jet">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="grid gap-10 lg:grid-cols-[1fr_1.2fr]">
+          <div>
+            <Badge variant="secondary" className="mb-4">Rent roll freshness</Badge>
+            <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+              The 30-day rent roll rule.
+            </h2>
+            <p class="mt-4 text-muted-foreground">
+              CMHC requires a rent roll dated within 30 days of
+              funding. For files with slow-moving closing
+              windows (construction takeouts, complex
+              remediations), this often means the borrower
+              submits a fresh rent roll at the end of the
+              condition period, which gets cross-checked against
+              the rent roll used at approval.
+            </p>
+            <p class="mt-4 text-muted-foreground">
+              Material changes — new vacancies, below-approval
+              rents, new problematic tenancies — can trigger
+              further conditions or in extreme cases a
+              re-sizing of the loan. Keeping rent rolls clean
+              through the condition period is one of the most
+              overlooked file-management items.
+            </p>
+          </div>
+          <Card className="bg-obsidian border-dark-gray p-6">
+            <div class="text-xs uppercase tracking-wide text-muted-foreground">
+              Rent roll issues that trigger re-sizing
+            </div>
+            <ul class="mt-4 space-y-3 text-sm">
+              <li class="border-b border-dark-gray/50 pb-2">
+                <span class="text-star">•</span> Vacancy rate material
+                above approval assumption.
+              </li>
+              <li class="border-b border-dark-gray/50 pb-2">
+                <span class="text-star">•</span> In-place rents materially
+                below approval-stage rent roll.
+              </li>
+              <li class="border-b border-dark-gray/50 pb-2">
+                <span class="text-star">•</span> New arrears or LTB
+                filings since approval.
+              </li>
+              <li class="border-b border-dark-gray/50 pb-2">
+                <span class="text-star">•</span> Lease terminations
+                pending for identified above-market units.
+              </li>
+              <li>
+                <span class="text-star">•</span> Concessions (free months,
+                parking waivers) not captured at approval.
+              </li>
+            </ul>
+          </Card>
+        </div>
+      </div>
+    </section>
+
+    {/* RESOLUTION TIMING */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="max-w-3xl">
+          <Badge variant="secondary" className="mb-4">Resolution</Badge>
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+            How long conditions take to clear.
+          </h2>
+          <p class="mt-4 text-muted-foreground">
+            Typical resolution bands. Simple files (clean
+            existing-property refinance) clear in 1–2 weeks;
+            complex files (construction with environmental
+            work) take 4–6 weeks or more.
+          </p>
+        </div>
+
+        <div class="mt-10 grid gap-6 md:grid-cols-3">
+          {
+            resolutionBands.map((row) => (
+              <Card className="bg-jet border-dark-gray p-6">
+                <div class="text-xs uppercase tracking-wide text-star">
+                  {row.timing}
+                </div>
+                <div class="mt-1 text-lg font-semibold">{row.band}</div>
+                <p class="mt-3 text-sm text-muted-foreground">{row.detail}</p>
+              </Card>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    {/* PRE-STAGING */}
+    <section class="border-b border-dark-gray bg-jet">
+      <div class="container border-l border-r border-dark-gray px-6 py-16 lg:px-12 lg:py-24">
+        <div class="grid gap-10 lg:grid-cols-2">
+          <div>
+            <Badge variant="outline" className="mb-4 border-star/40 text-star">
+              Pre-staging
+            </Badge>
+            <h2 class="text-3xl font-semibold tracking-tight lg:text-4xl">
+              What to have ready before commitment.
+            </h2>
+            <p class="mt-4 text-muted-foreground">
+              Most of the condition list is predictable. Sponsors
+              and brokers who pre-stage the documentation during
+              the underwriting phase (not post-commitment) can
+              compress 4-6 week condition periods to 1-2 weeks —
+              particularly useful where funding is time-sensitive
+              against a closing date or a construction milestone.
+            </p>
+          </div>
+          <Card className="bg-obsidian border-dark-gray p-6">
+            <div class="text-xs uppercase tracking-wide text-muted-foreground">
+              Pre-commitment staging checklist
+            </div>
+            <ul class="mt-4 space-y-3 text-sm">
+              <li class="border-b border-dark-gray/50 pb-2">
+                <span class="text-star">•</span> Title search + order
+                title commitment early.
+              </li>
+              <li class="border-b border-dark-gray/50 pb-2">
+                <span class="text-star">•</span> Insurance broker
+                engaged, indicative binder.
+              </li>
+              <li class="border-b border-dark-gray/50 pb-2">
+                <span class="text-star">•</span> Phase I ESA commissioned
+                at underwriting, not as a condition.
+              </li>
+              <li class="border-b border-dark-gray/50 pb-2">
+                <span class="text-star">•</span> Guarantor ILA scheduled
+                with counsel.
+              </li>
+              <li class="border-b border-dark-gray/50 pb-2">
+                <span class="text-star">•</span> Source-of-funds
+                documentation assembled.
+              </li>
+              <li>
+                <span class="text-star">•</span> QS / cost consultant
+                engaged (construction files).
+              </li>
+            </ul>
+          </Card>
+        </div>
+      </div>
+    </section>
+
+    {/* CTA */}
+    <section class="border-b border-dark-gray">
+      <div class="container border-l border-r border-dark-gray px-6 py-20 lg:px-12 lg:py-28">
+        <div class="mx-auto max-w-3xl text-center">
+          <h2 class="text-3xl font-semibold tracking-tight lg:text-5xl">
+            Cut weeks out of the condition period.
+          </h2>
+          <p class="mx-auto mt-5 max-w-2xl text-muted-foreground">
+            The documentation page lists the full file package
+            by program and transaction type. The application
+            process walks through timing at each lender-type
+            — pre-staging compresses both.
+          </p>
+          <div class="mt-8 flex flex-wrap justify-center gap-3">
+            <a href="/underwriting/documentation">
+              <Button size="lg">Documentation page</Button>
+            </a>
+            <a href="/programs/application-process">
+              <Button variant="outline" size="lg">Application process</Button>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</DefaultLayout>

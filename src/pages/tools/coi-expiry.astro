@@ -1,0 +1,12 @@
+---
+import CoIExpiry from "@/components/tools/coi-expiry";
+import DefaultLayout from "@/layouts/DefaultLayout.astro";
+
+const title = "CoI & Rate-Lock Expiry Tracker | CMHC Multi-Family";
+const description =
+  "Track CMHC Certificate of Insurance and rate-lock expiry windows with a live countdown. Includes September 3, 2025 CoI transfer restrictions and renewal options.";
+---
+
+<DefaultLayout title={title} description={description}>
+  <CoIExpiry client:load />
+</DefaultLayout>
